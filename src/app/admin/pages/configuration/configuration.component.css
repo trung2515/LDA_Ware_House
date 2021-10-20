@@ -1,0 +1,11 @@
+.menu__name{
+  height: 50px;
+  color:#fff;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  background: var(--mainColor);
+  line-height: 50px;
+  padding-left:6px;
+}

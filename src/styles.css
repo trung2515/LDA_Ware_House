@@ -1,1 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+:root{
+  --menuWidth:200px;
+  --mainColor:#4A80FF;
+  --padding:20px;
+  --heightFooter:0px;
+  --heightHeader:64px;
+  --contentHeight:calc(100vh - var(--heightHeader));
+}
+.mainCol{
+  width: 86%;
+  margin:auto;
+}
+.mainColWithValue{
+  width: var(--percent);
+  margin:auto;
+}
+@media only all and (max-width: 1200px){
+  .mainCol{
+    width:100%;
+  }
+  .mainColWithValue{
+    width:100%;
+  }
+}
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
+}
+.title{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;  
+  color: #074EA3;
+  padding-top: 26px;
+  margin-bottom: 26px;
+}
+.btnGreen{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  height: 40px;
+  color: #FFFFFF;
+  background: #04BE6E;
+  border-radius: 5px;
+}
+.btnCancel{
+  border:1px solid #C4C4C4;
+  height: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  line-height: 40px;
+  min-width: 80px;
+}
+.wrap{
+
+  /* padding-top: var(--paddingLR); */
+  padding-top: 40px;
+
+  padding-left: var(--paddingLR);
+  padding-right: var(--paddingLR);
+
+}
+.invalid {
+  /* border-color: #f33a58!important; */
+  border-color: red!important;
+
+}
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
+}
+
+/* customer Scrollbars */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

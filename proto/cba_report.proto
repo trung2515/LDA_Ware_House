@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+option csharp_namespace = "SmartCBA";
+
+package cba_report;
+
+// The greeting service definition.
+service Report {
+  // Sends a greeting
+  rpc GetReportCountPerson (ReportPersonRequest) returns (ReportPersonReply);
+  rpc GetListStore(MasterRequest) returns (StoreReply);
+  rpc GetReportCountInOutByStore(MasterRequest) returns (ReportCountInOutReply);
+  rpc GetReportGenderByStore(MasterRequest) returns (ReportCountGenderReply);
+  rpc GetReportTotalVisitor(MasterRequest) returns (ReportStoreByMonthReply);
+  rpc GetReportTotalCustomer(MasterRequest) returns (ReportStoreByMonthReply);
+  rpc GetReportSummary(MasterRequest) returns (ReportSummaryReply);
+  rpc GetReportVisitDuration(MasterRequest) returns (ReportStoreByDateReply);
+  
+}
+
+service Camera {
+  rpc GetListCamera(CameraRequest) returns (CameraReply);
+}
+
+message CameraRequest {
+}
+
+message CameraReply {
+  Response response = 1;
+  repeated CameraInfo data = 2;
+}
+
+message CameraInfo {
+  string name = 1;
+  string rtspLink = 2;
+  string description = 3;
+}
+
+enum ResponseState {
+  SUCCESS = 0;
+  FAIL = 1;
+}
+
+message Response {
+  ResponseState state = 1;
+  string message = 2;
+}
+
+message ReportPersonRequest { 
+  string fromTime = 1;
+  string toTime = 2;
+}
+
+message ReportPersonReply {
+  Response response = 1;
+  repeated PersonItem data = 2;
+}
+
+message PersonItem {
+  string fromTime = 1;
+  string toTime = 2;
+  int32 count = 3;
+  string type = 4;
+}
+message MasterRequest{
+  string fromDate = 1;
+  string toDate = 2;
+  int32 idStore = 3;
+  int32 idGroup = 4;
+  string dateCheck = 5;
+
+}
+message StoreInfo
+{
+  int32 idStore = 1;
+  string Name  = 2;
+  string Address = 3;
+  int32 idGroup = 4;
+}
+message StoreReply
+{
+  Response response = 1;
+  repeated StoreInfo data = 2;
+}
+
+message ReportCountInOutInfo
+{
+  string reportDate  = 1;
+  string timeRange = 2;
+  string type = 3;
+  string fromTime  = 4;
+  string toTime = 5;
+  int32 count = 6;
+}
+message ReportCountInOutReply
+{
+  Response response = 1;
+  repeated ReportCountInOutInfo data = 2;
+}
+message ReportCountGenderInfo
+{
+  string reportDate  = 1;
+  string type = 2;
+  int32 count = 3;
+}
+message ReportCountGenderReply
+{
+  Response response = 1;
+  repeated ReportCountGenderInfo data = 2;
+}
+
+message ReportStoreByMonthInfo
+{
+  int32 idStore = 1;
+  string name  = 2;
+  string month = 3;
+  int32 count = 4;
+}
+message ReportStoreByMonthReply
+{
+  Response response = 1;
+  repeated ReportStoreByMonthInfo data = 2;
+}
+message ReportSummaryInfo
+{
+  int32 currentTotalVisitor = 1; 
+  int32 currentTotalCustomer = 2;
+  int32 previousTotalVisitor = 3;
+  int32 previousTotalCustomer = 4;
+  double currentVisitDuration = 5;
+  double previousVisitDuration = 6;
+}
+message ReportSummaryReply
+{
+  Response response = 1;
+  ReportSummaryInfo data = 2;
+}
+
+message ReportStoreByDateInfo
+{
+  int32 idStore = 1;
+  string name  = 2;
+  string date = 3;
+  int32 count = 4;
+}
+message ReportStoreByDateReply
+{
+  Response response = 1;
+  repeated ReportStoreByDateInfo data = 2;
+}
