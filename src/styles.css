@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root{
-  --menuWidth:200px;
+  --menuWidth:280px;
   --mainColor:#4A80FF;
   --padding:20px;
   --heightFooter:0px;
@@ -38,6 +38,20 @@
   color: #074EA3;
   padding-top: 26px;
   margin-bottom: 26px;
+}
+.configuration__content__title{
+
+  background: #EAEAEA;
+  height: 50px;
+  color:#000;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+
+  line-height: 50px;
+  padding-left:10px;
+
 }
 .btnGreen{
   font-family: Roboto;

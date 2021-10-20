@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<div style='height:var(--heightHeader)'></div>
+<div class="mainCol" style='min-height: var(--contentHeight);'>
+  <div class='title'>Cấu hình</div>
+  <div class="d-flex">
+    <div class="menu" style='width:var(--menuWidth)'>
+      <ul class='menu__wrap'>
+        <li class="menu__item">
+          Danh mục sản phẩm
+        </li>
+        <li class="menu__item">
+          Loại bao
+        </li>
+        <li class="menu__item">
+          Mã bao
+        </li>
+      </ul>
+    </div>
+
+    <div class="content" style='width:calc(100% - var(--menuWidth));margin-left: var(--padding);'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
