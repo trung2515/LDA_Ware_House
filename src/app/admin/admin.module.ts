@@ -22,7 +22,6 @@ import { DeviceCategoryComponent } from './components/device-category/device-cat
 import { BillComponent } from './components/bill/bill.component';
 import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
-import { MenuConfigurationComponent } from './components/menu-configuration/menu-configuration.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
 
 
@@ -48,7 +47,6 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
     BillComponent,
     JobComponent,
     ReasonComponent,
-    MenuConfigurationComponent,
     ConfigurationLayoutComponent
   ],
   imports: [

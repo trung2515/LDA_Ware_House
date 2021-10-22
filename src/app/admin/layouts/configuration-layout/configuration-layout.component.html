@@ -5,15 +5,10 @@
   <div class="d-flex">
     <div class="menu" style='width:var(--menuWidth)'>
       <ul class='menu__wrap'>
-        <li class="menu__item">
-          Danh mục sản phẩm
+        <li *ngFor="let item of routing" class="menu__item" routerLink="{{'/admin'+item.link}}"   routerLinkActive="active">
+          {{item.name}}
         </li>
-        <li class="menu__item">
-          Loại bao
-        </li>
-        <li class="menu__item">
-          Mã bao
-        </li>
+        
       </ul>
     </div>
 

@@ -1,0 +1,20 @@
+syntax = "proto3";
+import "model.proto";
+option csharp_namespace = "Mineral_Inventory";
+
+package client;
+
+
+service Administrator {
+    rpc GetListCodePacket(MasterRequest) returns (CodePacketResponse);
+    rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
+    rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
+    rpc GetListPartner(MasterRequest) returns (PartnerResponse);
+    rpc GetListProduct(MasterRequest) returns (ProductResponse);
+    rpc GetListReason(MasterRequest) returns (ReasonResponse);
+    rpc GetListTypeBill(MasterRequest) returns (TypeBillResponse);
+    rpc GetListTypePacket(MasterRequest) returns (TypePacketResponse);
+    rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);
+    rpc GetListWareHouse(MasterRequest) returns (WareHouseResponse);
+
+}

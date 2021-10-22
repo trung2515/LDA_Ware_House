@@ -29,7 +29,6 @@ const routes: Routes = [
     component:AdminLayoutComponent,
     children:[
       { path:'dashboard',               component:DashboardComponent  },
-      { path:'configuration',           component:ConfigurationComponent     },
       { path:'consumption-report',      component:ConsumptionReportComponent   },
       { path:'transportation-report',   component:TransportationReportComponent    },
       { path:'warehouse-manager',       component:WarehouseManagerComponent     },
