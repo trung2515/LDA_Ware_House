@@ -10,7 +10,7 @@ export class TestComponent implements OnInit {
   constructor(private adminService:AdminService) { }
 
   ngOnInit(): void {
-    this.adminService.getListProduct().subscribe((data:any) => {
+    this.adminService.getTypeProducts().subscribe((data:any) => {
       console.log('listProduct ',data)
     })
   }

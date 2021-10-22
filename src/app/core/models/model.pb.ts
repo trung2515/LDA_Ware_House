@@ -3,7 +3,11 @@
 //
 // THIS IS A GENERATED FILE
 // DO NOT MODIFY IT! YOUR CHANGES WILL BE LOST
-import { GrpcMessage, RecursivePartial } from '@ngx-grpc/common';
+import {
+  GrpcMessage,
+  RecursivePartial,
+  ToProtobufJSONOptions
+} from '@ngx-grpc/common';
 import { BinaryReader, BinaryWriter, ByteSource } from 'google-protobuf';
 export enum ResponseState {
   SUCCESS = 0,
@@ -13,6 +17,8 @@ export enum ResponseState {
  * Message implementation for client.MasterRequest
  */
 export class MasterRequest implements GrpcMessage {
+  static id = 'client.MasterRequest';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -67,7 +73,7 @@ export class MasterRequest implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of MasterRequest to deeply clone from
    */
-  constructor(_value?: RecursivePartial<MasterRequest>) {
+  constructor(_value?: RecursivePartial<MasterRequest.AsObject>) {
     _value = _value || {};
     MasterRequest.refineValues(this);
   }
@@ -90,11 +96,22 @@ export class MasterRequest implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): MasterRequest.AsProtobufJSON {
+    return {};
   }
 }
 export module MasterRequest {
@@ -102,12 +119,19 @@ export module MasterRequest {
    * Standard JavaScript object representation for MasterRequest
    */
   export interface AsObject {}
+
+  /**
+   * Protobuf JSON representation for MasterRequest
+   */
+  export interface AsProtobufJSON {}
 }
 
 /**
  * Message implementation for client.Response
  */
 export class Response implements GrpcMessage {
+  static id = 'client.Response';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -175,7 +199,7 @@ export class Response implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of Response to deeply clone from
    */
-  constructor(_value?: RecursivePartial<Response>) {
+  constructor(_value?: RecursivePartial<Response.AsObject>) {
     _value = _value || {};
     this.state = _value.state;
     this.message = _value.message;
@@ -215,11 +239,28 @@ export class Response implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): Response.AsProtobufJSON {
+    return {
+      state:
+        ResponseState[
+          this.state === null || this.state === undefined ? 0 : this.state
+        ],
+      message: this.message
+    };
   }
 }
 export module Response {
@@ -230,12 +271,22 @@ export module Response {
     state?: ResponseState;
     message?: string;
   }
+
+  /**
+   * Protobuf JSON representation for Response
+   */
+  export interface AsProtobufJSON {
+    state?: string;
+    message?: string;
+  }
 }
 
 /**
  * Message implementation for client.CodePacketInfo
  */
 export class CodePacketInfo implements GrpcMessage {
+  static id = 'client.CodePacketInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -365,7 +416,7 @@ export class CodePacketInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of CodePacketInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<CodePacketInfo>) {
+  constructor(_value?: RecursivePartial<CodePacketInfo.AsObject>) {
     _value = _value || {};
     this.codePacket = _value.codePacket;
     this.unit = _value.unit;
@@ -461,11 +512,32 @@ export class CodePacketInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): CodePacketInfo.AsProtobufJSON {
+    return {
+      codePacket: this.codePacket,
+      unit: this.unit,
+      nameProductPacket: this.nameProductPacket,
+      idTypePacket: this.idTypePacket,
+      description: this.description,
+      isDeteted: this.isDeteted,
+      id: this.id,
+      weight: this.weight,
+      nameTypePacket: this.nameTypePacket
+    };
   }
 }
 export module CodePacketInfo {
@@ -483,12 +555,29 @@ export module CodePacketInfo {
     weight?: number;
     nameTypePacket?: string;
   }
+
+  /**
+   * Protobuf JSON representation for CodePacketInfo
+   */
+  export interface AsProtobufJSON {
+    codePacket?: string;
+    unit?: string;
+    nameProductPacket?: string;
+    idTypePacket?: number;
+    description?: string;
+    isDeteted?: boolean;
+    id?: number;
+    weight?: number;
+    nameTypePacket?: string;
+  }
 }
 
 /**
  * Message implementation for client.CodePacketResponse
  */
 export class CodePacketResponse implements GrpcMessage {
+  static id = 'client.CodePacketResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -579,7 +668,7 @@ export class CodePacketResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of CodePacketResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<CodePacketResponse>) {
+  constructor(_value?: RecursivePartial<CodePacketResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new CodePacketInfo(m));
@@ -619,11 +708,25 @@ export class CodePacketResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): CodePacketResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module CodePacketResponse {
@@ -634,12 +737,22 @@ export module CodePacketResponse {
     response?: Response.AsObject;
     data?: CodePacketInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for CodePacketResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: CodePacketInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.EquipmentInfo
  */
 export class EquipmentInfo implements GrpcMessage {
+  static id = 'client.EquipmentInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -737,7 +850,7 @@ export class EquipmentInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of EquipmentInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<EquipmentInfo>) {
+  constructor(_value?: RecursivePartial<EquipmentInfo.AsObject>) {
     _value = _value || {};
     this.idEquipment = _value.idEquipment;
     this.nameEquipment = _value.nameEquipment;
@@ -801,11 +914,28 @@ export class EquipmentInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): EquipmentInfo.AsProtobufJSON {
+    return {
+      idEquipment: this.idEquipment,
+      nameEquipment: this.nameEquipment,
+      type: this.type,
+      typeName: this.typeName,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module EquipmentInfo {
@@ -819,12 +949,25 @@ export module EquipmentInfo {
     typeName?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for EquipmentInfo
+   */
+  export interface AsProtobufJSON {
+    idEquipment?: number;
+    nameEquipment?: string;
+    type?: number;
+    typeName?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.EquipmentResponse
  */
 export class EquipmentResponse implements GrpcMessage {
+  static id = 'client.EquipmentResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -915,7 +1058,7 @@ export class EquipmentResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of EquipmentResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<EquipmentResponse>) {
+  constructor(_value?: RecursivePartial<EquipmentResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new EquipmentInfo(m));
@@ -955,11 +1098,25 @@ export class EquipmentResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): EquipmentResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module EquipmentResponse {
@@ -970,12 +1127,22 @@ export module EquipmentResponse {
     response?: Response.AsObject;
     data?: EquipmentInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for EquipmentResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: EquipmentInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.PackingUnitInfo
  */
 export class PackingUnitInfo implements GrpcMessage {
+  static id = 'client.PackingUnitInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1057,7 +1224,7 @@ export class PackingUnitInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of PackingUnitInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<PackingUnitInfo>) {
+  constructor(_value?: RecursivePartial<PackingUnitInfo.AsObject>) {
     _value = _value || {};
     this.idPackingUnit = _value.idPackingUnit;
     this.namePackingUnit = _value.namePackingUnit;
@@ -1105,11 +1272,26 @@ export class PackingUnitInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): PackingUnitInfo.AsProtobufJSON {
+    return {
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module PackingUnitInfo {
@@ -1121,12 +1303,23 @@ export module PackingUnitInfo {
     namePackingUnit?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for PackingUnitInfo
+   */
+  export interface AsProtobufJSON {
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.PackingUnitResponse
  */
 export class PackingUnitResponse implements GrpcMessage {
+  static id = 'client.PackingUnitResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1217,7 +1410,7 @@ export class PackingUnitResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of PackingUnitResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<PackingUnitResponse>) {
+  constructor(_value?: RecursivePartial<PackingUnitResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new PackingUnitInfo(m));
@@ -1257,11 +1450,25 @@ export class PackingUnitResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): PackingUnitResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module PackingUnitResponse {
@@ -1272,12 +1479,22 @@ export module PackingUnitResponse {
     response?: Response.AsObject;
     data?: PackingUnitInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for PackingUnitResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: PackingUnitInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.PartnerInfo
  */
 export class PartnerInfo implements GrpcMessage {
+  static id = 'client.PartnerInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1372,7 +1589,7 @@ export class PartnerInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of PartnerInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<PartnerInfo>) {
+  constructor(_value?: RecursivePartial<PartnerInfo.AsObject>) {
     _value = _value || {};
     this.idPartner = _value.idPartner;
     this.namePartner = _value.namePartner;
@@ -1436,11 +1653,28 @@ export class PartnerInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): PartnerInfo.AsProtobufJSON {
+    return {
+      idPartner: this.idPartner,
+      namePartner: this.namePartner,
+      typePartner: this.typePartner,
+      isDeleted: this.isDeleted,
+      typePartnerName: this.typePartnerName
+    };
   }
 }
 export module PartnerInfo {
@@ -1454,12 +1688,25 @@ export module PartnerInfo {
     isDeleted?: boolean;
     typePartnerName?: string;
   }
+
+  /**
+   * Protobuf JSON representation for PartnerInfo
+   */
+  export interface AsProtobufJSON {
+    idPartner?: string;
+    namePartner?: string;
+    typePartner?: number;
+    isDeleted?: boolean;
+    typePartnerName?: string;
+  }
 }
 
 /**
  * Message implementation for client.PartnerResponse
  */
 export class PartnerResponse implements GrpcMessage {
+  static id = 'client.PartnerResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1550,7 +1797,7 @@ export class PartnerResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of PartnerResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<PartnerResponse>) {
+  constructor(_value?: RecursivePartial<PartnerResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new PartnerInfo(m));
@@ -1590,11 +1837,25 @@ export class PartnerResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): PartnerResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module PartnerResponse {
@@ -1605,12 +1866,22 @@ export module PartnerResponse {
     response?: Response.AsObject;
     data?: PartnerInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for PartnerResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: PartnerInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.ProductInfo
  */
 export class ProductInfo implements GrpcMessage {
+  static id = 'client.ProductInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1689,7 +1960,7 @@ export class ProductInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of ProductInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<ProductInfo>) {
+  constructor(_value?: RecursivePartial<ProductInfo.AsObject>) {
     _value = _value || {};
     this.idProduct = _value.idProduct;
     this.nameProduct = _value.nameProduct;
@@ -1737,11 +2008,26 @@ export class ProductInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ProductInfo.AsProtobufJSON {
+    return {
+      idProduct: this.idProduct,
+      nameProduct: this.nameProduct,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module ProductInfo {
@@ -1753,12 +2039,23 @@ export module ProductInfo {
     nameProduct?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for ProductInfo
+   */
+  export interface AsProtobufJSON {
+    idProduct?: string;
+    nameProduct?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.ProductResponse
  */
 export class ProductResponse implements GrpcMessage {
+  static id = 'client.ProductResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1849,7 +2146,7 @@ export class ProductResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of ProductResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<ProductResponse>) {
+  constructor(_value?: RecursivePartial<ProductResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new ProductInfo(m));
@@ -1889,11 +2186,25 @@ export class ProductResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ProductResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module ProductResponse {
@@ -1904,12 +2215,22 @@ export module ProductResponse {
     response?: Response.AsObject;
     data?: ProductInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for ProductResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: ProductInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.ReasonInfo
  */
 export class ReasonInfo implements GrpcMessage {
+  static id = 'client.ReasonInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -1985,7 +2306,7 @@ export class ReasonInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of ReasonInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<ReasonInfo>) {
+  constructor(_value?: RecursivePartial<ReasonInfo.AsObject>) {
     _value = _value || {};
     this.idReason = _value.idReason;
     this.nameReason = _value.nameReason;
@@ -2033,11 +2354,26 @@ export class ReasonInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ReasonInfo.AsProtobufJSON {
+    return {
+      idReason: this.idReason,
+      nameReason: this.nameReason,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module ReasonInfo {
@@ -2049,12 +2385,23 @@ export module ReasonInfo {
     nameReason?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for ReasonInfo
+   */
+  export interface AsProtobufJSON {
+    idReason?: string;
+    nameReason?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.ReasonResponse
  */
 export class ReasonResponse implements GrpcMessage {
+  static id = 'client.ReasonResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2145,7 +2492,7 @@ export class ReasonResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of ReasonResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<ReasonResponse>) {
+  constructor(_value?: RecursivePartial<ReasonResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new ReasonInfo(m));
@@ -2185,11 +2532,25 @@ export class ReasonResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ReasonResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module ReasonResponse {
@@ -2200,12 +2561,22 @@ export module ReasonResponse {
     response?: Response.AsObject;
     data?: ReasonInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for ReasonResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: ReasonInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.TypeBillInfo
  */
 export class TypeBillInfo implements GrpcMessage {
+  static id = 'client.TypeBillInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2284,7 +2655,7 @@ export class TypeBillInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypeBillInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypeBillInfo>) {
+  constructor(_value?: RecursivePartial<TypeBillInfo.AsObject>) {
     _value = _value || {};
     this.idTypeBill = _value.idTypeBill;
     this.nameTypeBill = _value.nameTypeBill;
@@ -2332,11 +2703,26 @@ export class TypeBillInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypeBillInfo.AsProtobufJSON {
+    return {
+      idTypeBill: this.idTypeBill,
+      nameTypeBill: this.nameTypeBill,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module TypeBillInfo {
@@ -2348,12 +2734,23 @@ export module TypeBillInfo {
     nameTypeBill?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for TypeBillInfo
+   */
+  export interface AsProtobufJSON {
+    idTypeBill?: string;
+    nameTypeBill?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.TypeBillResponse
  */
 export class TypeBillResponse implements GrpcMessage {
+  static id = 'client.TypeBillResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2444,7 +2841,7 @@ export class TypeBillResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypeBillResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypeBillResponse>) {
+  constructor(_value?: RecursivePartial<TypeBillResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new TypeBillInfo(m));
@@ -2484,11 +2881,25 @@ export class TypeBillResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypeBillResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module TypeBillResponse {
@@ -2499,12 +2910,22 @@ export module TypeBillResponse {
     response?: Response.AsObject;
     data?: TypeBillInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for TypeBillResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: TypeBillInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.TypePacketInfo
  */
 export class TypePacketInfo implements GrpcMessage {
+  static id = 'client.TypePacketInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2586,7 +3007,7 @@ export class TypePacketInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypePacketInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypePacketInfo>) {
+  constructor(_value?: RecursivePartial<TypePacketInfo.AsObject>) {
     _value = _value || {};
     this.idTypePacket = _value.idTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
@@ -2634,11 +3055,26 @@ export class TypePacketInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypePacketInfo.AsProtobufJSON {
+    return {
+      idTypePacket: this.idTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module TypePacketInfo {
@@ -2650,12 +3086,23 @@ export module TypePacketInfo {
     nameTypePacket?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for TypePacketInfo
+   */
+  export interface AsProtobufJSON {
+    idTypePacket?: number;
+    nameTypePacket?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.TypePacketResponse
  */
 export class TypePacketResponse implements GrpcMessage {
+  static id = 'client.TypePacketResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2746,7 +3193,7 @@ export class TypePacketResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypePacketResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypePacketResponse>) {
+  constructor(_value?: RecursivePartial<TypePacketResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new TypePacketInfo(m));
@@ -2786,11 +3233,25 @@ export class TypePacketResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypePacketResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module TypePacketResponse {
@@ -2801,12 +3262,22 @@ export module TypePacketResponse {
     response?: Response.AsObject;
     data?: TypePacketInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for TypePacketResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: TypePacketInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.TypeProductInfo
  */
 export class TypeProductInfo implements GrpcMessage {
+  static id = 'client.TypeProductInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -2888,7 +3359,7 @@ export class TypeProductInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypeProductInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypeProductInfo>) {
+  constructor(_value?: RecursivePartial<TypeProductInfo.AsObject>) {
     _value = _value || {};
     this.idTypeProduct = _value.idTypeProduct;
     this.nameTypeProduct = _value.nameTypeProduct;
@@ -2936,11 +3407,26 @@ export class TypeProductInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypeProductInfo.AsProtobufJSON {
+    return {
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module TypeProductInfo {
@@ -2952,12 +3438,23 @@ export module TypeProductInfo {
     nameTypeProduct?: string;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for TypeProductInfo
+   */
+  export interface AsProtobufJSON {
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.TypeProductResponse
  */
 export class TypeProductResponse implements GrpcMessage {
+  static id = 'client.TypeProductResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -3048,7 +3545,7 @@ export class TypeProductResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of TypeProductResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<TypeProductResponse>) {
+  constructor(_value?: RecursivePartial<TypeProductResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new TypeProductInfo(m));
@@ -3088,11 +3585,25 @@ export class TypeProductResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TypeProductResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module TypeProductResponse {
@@ -3103,12 +3614,22 @@ export module TypeProductResponse {
     response?: Response.AsObject;
     data?: TypeProductInfo.AsObject[];
   }
+
+  /**
+   * Protobuf JSON representation for TypeProductResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: TypeProductInfo.AsProtobufJSON[] | null;
+  }
 }
 
 /**
  * Message implementation for client.WareHouseInfo
  */
 export class WareHouseInfo implements GrpcMessage {
+  static id = 'client.WareHouseInfo';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -3198,7 +3719,7 @@ export class WareHouseInfo implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of WareHouseInfo to deeply clone from
    */
-  constructor(_value?: RecursivePartial<WareHouseInfo>) {
+  constructor(_value?: RecursivePartial<WareHouseInfo.AsObject>) {
     _value = _value || {};
     this.idWarehouse = _value.idWarehouse;
     this.nameWareHouse = _value.nameWareHouse;
@@ -3254,11 +3775,27 @@ export class WareHouseInfo implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): WareHouseInfo.AsProtobufJSON {
+    return {
+      idWarehouse: this.idWarehouse,
+      nameWareHouse: this.nameWareHouse,
+      capacity: this.capacity,
+      isDeleted: this.isDeleted
+    };
   }
 }
 export module WareHouseInfo {
@@ -3271,12 +3808,24 @@ export module WareHouseInfo {
     capacity?: number;
     isDeleted?: boolean;
   }
+
+  /**
+   * Protobuf JSON representation for WareHouseInfo
+   */
+  export interface AsProtobufJSON {
+    idWarehouse?: string;
+    nameWareHouse?: string;
+    capacity?: number;
+    isDeleted?: boolean;
+  }
 }
 
 /**
  * Message implementation for client.WareHouseResponse
  */
 export class WareHouseResponse implements GrpcMessage {
+  static id = 'client.WareHouseResponse';
+
   /**
    * Deserialize binary data to message
    * @param instance message instance
@@ -3367,7 +3916,7 @@ export class WareHouseResponse implements GrpcMessage {
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
    * @param _value initial values object or instance of WareHouseResponse to deeply clone from
    */
-  constructor(_value?: RecursivePartial<WareHouseResponse>) {
+  constructor(_value?: RecursivePartial<WareHouseResponse.AsObject>) {
     _value = _value || {};
     this.response = _value.response ? new Response(_value.response) : undefined;
     this.data = (_value.data || []).map(m => new WareHouseInfo(m));
@@ -3407,11 +3956,25 @@ export class WareHouseResponse implements GrpcMessage {
   }
 
   /**
-   * JSON serializer
-   * Only intended to be used by `JSON.stringify` function. If you want to cast message to standard JavaScript object, use `toObject()` instead
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
    */
   toJSON() {
     return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): WareHouseResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
   }
 }
 export module WareHouseResponse {
@@ -3421,5 +3984,13 @@ export module WareHouseResponse {
   export interface AsObject {
     response?: Response.AsObject;
     data?: WareHouseInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for WareHouseResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: WareHouseInfo.AsProtobufJSON[] | null;
   }
 }

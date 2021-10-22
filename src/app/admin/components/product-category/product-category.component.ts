@@ -13,7 +13,7 @@ export class ProductCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListProduct()
-    this.getListTypeProduct()
+    // this.getListTypeProduct()
     console.log(this.adminService)
 
   }
@@ -24,7 +24,7 @@ export class ProductCategoryComponent implements OnInit {
     })
   }
   getListTypeProduct(){
-    this.adminService.getListTypeProduct().subscribe((data:any) => {
+    this.adminService.getTypeProducts().subscribe((data:any) => {
       this.listTypeProduct=data
       console.log('listTypeProduct ',data)
     })

@@ -14,7 +14,8 @@ import { AdminModule } from './admin/admin.module';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    AdminModule
+    AdminModule,
+    // GrpcCoreModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

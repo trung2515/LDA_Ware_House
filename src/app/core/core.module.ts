@@ -1,20 +1,22 @@
 import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core';
 import {
-  GrpcConsoleLoggerInterceptor,
+  GrpcCoreModule,
   GRPC_CLIENT_FACTORY,
-  GRPC_CONSOLE_LOGGER_ENABLED,
   GRPC_INTERCEPTORS
 } from '@ngx-grpc/core'
-import { GrpcWebClientFactory } from '@ngx-grpc/grpc-web-client'
-import { GRPC_WORKER } from '@ngx-grpc/worker-client'
+import { GrpcWebClientFactory, GrpcWebClientModule } from '@ngx-grpc/grpc-web-client'
 import { environment } from 'src/environments/environment'
-
 import {
   GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
  } from './models/admin.pbconf';
  import { AdminService } from './services/admin.service';
-@NgModule({
-  imports: [ ],
+@NgModule({ 
+  imports: [   
+    GrpcCoreModule.forRoot(),
+    GrpcWebClientModule.forRoot({
+      settings: { host: 'https://office.stvg.vn:59066' },
+    }),
+  ],
   providers:[
     AdminService,
     { provide: GRPC_CLIENT_FACTORY, useClass: GrpcWebClientFactory },
@@ -24,24 +26,10 @@ import {
         host: 'https://office.stvg.vn:59066',
       }
     },
-
-    {
-      provide: GRPC_INTERCEPTORS,
-      useClass: GrpcConsoleLoggerInterceptor,
-      multi: true,
-    },
-    {
-      provide: GRPC_WORKER,
-      useFactory: () => new Worker('./grpc.worker', { type: 'module' }),
-    },
-    {
-      provide: GRPC_CONSOLE_LOGGER_ENABLED,
-      useFactory: () =>
-        localStorage.getItem('GRPC_CONSOLE_LOGGER_ENABLED') === 'true' ||
-        !environment.production,
-    }
   ],
-  declarations: [],
+  declarations: [
+   
+  ],
 
 })
 export class CoreModule {

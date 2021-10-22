@@ -55,7 +55,6 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
     DevExtremeModule,
     DxPopupModule,
     DxSelectBoxModule
-
   ]
 })
 export class AdminModule { }

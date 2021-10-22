@@ -15,9 +15,7 @@ import{
   TypeProductResponse,
   WareHouseResponse,
 }from '../models/model.pb'
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AdminService {
   constructor(private administratorClient:AdministratorClient ) { }
   getListProduct( ){
@@ -32,15 +30,9 @@ export class AdminService {
       })
     )
   }
-  getListTypeProduct( ){
+  getTypeProducts(){
     console.log('getListTypeProduct')
     let req:MasterRequest=new MasterRequest();
-    return this.administratorClient.getListTypeProduct(req).pipe(
-      map((reply: TypeProductResponse) => {
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      })
-    )
+    return this.administratorClient.getListTypeProduct(req);
   }
 }
