@@ -243,6 +243,720 @@ export class AdministratorClient {
         requestClass: client000.MasterRequest,
         responseClass: client000.WareHouseResponse
       });
+    },
+    /**
+     * Unary RPC for /client.Administrator/GetListWork
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.WorkResponse>>
+     */
+    getListWork: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.WorkResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/GetListWork',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.WorkResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertCodePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertCodePacket: (
+      requestData: client000.CodePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertCodePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.CodePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateCodePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateCodePacket: (
+      requestData: client000.CodePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateCodePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.CodePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteCodePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteCodePacket: (
+      requestData: client000.CodePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteCodePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.CodePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertEquipment
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertEquipment: (
+      requestData: client000.EquipmentInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertEquipment',
+        requestData,
+        requestMetadata,
+        requestClass: client000.EquipmentInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateEquipment
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateEquipment: (
+      requestData: client000.EquipmentInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateEquipment',
+        requestData,
+        requestMetadata,
+        requestClass: client000.EquipmentInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteEquipment
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteEquipment: (
+      requestData: client000.EquipmentInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteEquipment',
+        requestData,
+        requestMetadata,
+        requestClass: client000.EquipmentInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertPackingUnit
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertPackingUnit: (
+      requestData: client000.PackingUnitInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertPackingUnit',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PackingUnitInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdatePackingUnit
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updatePackingUnit: (
+      requestData: client000.PackingUnitInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdatePackingUnit',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PackingUnitInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeletePackingUnit
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deletePackingUnit: (
+      requestData: client000.PackingUnitInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeletePackingUnit',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PackingUnitInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertPartner
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertPartner: (
+      requestData: client000.PartnerInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertPartner',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PartnerInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdatePartner
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updatePartner: (
+      requestData: client000.PartnerInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdatePartner',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PartnerInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeletePartner
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deletePartner: (
+      requestData: client000.PartnerInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeletePartner',
+        requestData,
+        requestMetadata,
+        requestClass: client000.PartnerInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertProduct: (
+      requestData: client000.ProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateProduct: (
+      requestData: client000.ProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteProduct: (
+      requestData: client000.ProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertReason
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertReason: (
+      requestData: client000.ReasonInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertReason',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ReasonInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateReason
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateReason: (
+      requestData: client000.ReasonInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateReason',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ReasonInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteReason
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteReason: (
+      requestData: client000.ReasonInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteReason',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ReasonInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertTypeBill
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertTypeBill: (
+      requestData: client000.TypeBillInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertTypeBill',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeBillInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateTypeBill
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateTypeBill: (
+      requestData: client000.TypeBillInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateTypeBill',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeBillInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteTypeBill
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteTypeBill: (
+      requestData: client000.TypeBillInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteTypeBill',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeBillInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertTypePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertTypePacket: (
+      requestData: client000.TypePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertTypePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateTypePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateTypePacket: (
+      requestData: client000.TypePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateTypePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteTypePacket
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteTypePacket: (
+      requestData: client000.TypePacketInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteTypePacket',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypePacketInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertTypeProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertTypeProduct: (
+      requestData: client000.TypeProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertTypeProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateTypeProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateTypeProduct: (
+      requestData: client000.TypeProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateTypeProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteTypeProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteTypeProduct: (
+      requestData: client000.TypeProductInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteTypeProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TypeProductInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertWareHouse
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertWareHouse: (
+      requestData: client000.WareHouseInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertWareHouse',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WareHouseInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateWareHouse
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateWareHouse: (
+      requestData: client000.WareHouseInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateWareHouse',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WareHouseInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteWareHouse
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteWareHouse: (
+      requestData: client000.WareHouseInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteWareHouse',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WareHouseInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertWork
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertWork: (
+      requestData: client000.WorkInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertWork',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WorkInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateWork
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateWork: (
+      requestData: client000.WorkInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateWork',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WorkInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/DeleteWork
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteWork: (
+      requestData: client000.WorkInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/DeleteWork',
+        requestData,
+        requestMetadata,
+        requestClass: client000.WorkInfo,
+        responseClass: client000.Response
+      });
     }
   };
 
@@ -411,6 +1125,550 @@ export class AdministratorClient {
   ): Observable<client000.WareHouseResponse> {
     return this.$raw
       .getListWareHouse(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/GetListWork
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.WorkResponse>
+   */
+  getListWork(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.WorkResponse> {
+    return this.$raw
+      .getListWork(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertCodePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertCodePacket(
+    requestData: client000.CodePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertCodePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateCodePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateCodePacket(
+    requestData: client000.CodePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateCodePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteCodePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteCodePacket(
+    requestData: client000.CodePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteCodePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertEquipment
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertEquipment(
+    requestData: client000.EquipmentInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertEquipment(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateEquipment
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateEquipment(
+    requestData: client000.EquipmentInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateEquipment(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteEquipment
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteEquipment(
+    requestData: client000.EquipmentInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteEquipment(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertPackingUnit
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertPackingUnit(
+    requestData: client000.PackingUnitInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertPackingUnit(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdatePackingUnit
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updatePackingUnit(
+    requestData: client000.PackingUnitInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updatePackingUnit(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeletePackingUnit
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deletePackingUnit(
+    requestData: client000.PackingUnitInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deletePackingUnit(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertPartner
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertPartner(
+    requestData: client000.PartnerInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertPartner(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdatePartner
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updatePartner(
+    requestData: client000.PartnerInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updatePartner(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeletePartner
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deletePartner(
+    requestData: client000.PartnerInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deletePartner(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertProduct(
+    requestData: client000.ProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateProduct(
+    requestData: client000.ProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteProduct(
+    requestData: client000.ProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertReason
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertReason(
+    requestData: client000.ReasonInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertReason(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateReason
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateReason(
+    requestData: client000.ReasonInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateReason(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteReason
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteReason(
+    requestData: client000.ReasonInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteReason(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertTypeBill
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertTypeBill(
+    requestData: client000.TypeBillInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertTypeBill(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateTypeBill
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateTypeBill(
+    requestData: client000.TypeBillInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateTypeBill(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteTypeBill
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteTypeBill(
+    requestData: client000.TypeBillInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteTypeBill(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertTypePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertTypePacket(
+    requestData: client000.TypePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertTypePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateTypePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateTypePacket(
+    requestData: client000.TypePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateTypePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteTypePacket
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteTypePacket(
+    requestData: client000.TypePacketInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteTypePacket(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertTypeProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertTypeProduct(
+    requestData: client000.TypeProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertTypeProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateTypeProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateTypeProduct(
+    requestData: client000.TypeProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateTypeProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteTypeProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteTypeProduct(
+    requestData: client000.TypeProductInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteTypeProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertWareHouse
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertWareHouse(
+    requestData: client000.WareHouseInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertWareHouse(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateWareHouse
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateWareHouse(
+    requestData: client000.WareHouseInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateWareHouse(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteWareHouse
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteWareHouse(
+    requestData: client000.WareHouseInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteWareHouse(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertWork
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertWork(
+    requestData: client000.WorkInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertWork(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateWork
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateWork(
+    requestData: client000.WorkInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateWork(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/DeleteWork
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteWork(
+    requestData: client000.WorkInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteWork(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }

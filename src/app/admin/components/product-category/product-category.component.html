@@ -14,40 +14,61 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let item of data'>
-          <td>{{item.stt}}</td>
-          <td>{{item.ma}}</td>
-          <td>{{item.ten}}</td>
+        <tr *ngFor='let item of listProduct'>
+          <td>{{item.index+1}}</td>
+          <td>{{item.codeProduct}}</td>
+          <td>{{item.nameProduct}}</td>
           <td style='width: 150px;text-align: center;'>
-            <img src="/assets/svg/edit.svg" alt="" class='mr-3' attr.data-order="{{item.stt}}" (click)='clickEdit($event)'>
-            <img src="/assets/svg/delete.svg" alt=""  attr.data-order="{{item.stt}}" (click)='clickEdit($event)'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditProduct($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteProduct($event)'>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<!-- Delete Product -->
 <dx-popup
-  [(visible)]="isPopupVisibleDelete"
+  [(visible)]="isPopupDeleteProduct"
   [closeOnOutsideClick]="true"
   [showTitle]="true"
-  title="{{objDelete.title}}"
-  [height]='180'
-  [width]="350"
+  title="{{objDeleteProduct.title}}"
+  [height]='220'
+  [width]="380"
   [resizeEnabled]="true"
 >
-  <div >
-    <div class="wrapPopupAdd">
-      <div></div>
-      <form  (ngSubmit)="onSubmitDelete($event)" autocomplete="off">
-        <div class='formErrMess'>{{objDelete.formErrMess}}</div>
-        <div class='formSuccMess'>{{objDelete.formSuccMess}}</div>
-        <div class='d-flex justify-content-around mt-4' style=''>
-          <div  class="btn btn-light btnHuy " (click)='togglePopupVisibleDelete()' style='width:80px;border: 1px solid #6B6B6B;'>Hủy</div>
-          <button type="submit" [disabled]="!objDelete.isValid" class="btn  btnAddNurse mr-3" style='width:80px;margin-right: 0px!important;'> Xóa</button>
-        </div>
-      </form>
-    </div>
+  <div class="" style="width:94%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteProduct.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteProduct($event)" autocomplete="off">
+      <div class='formErrMess text-danger mt-2'>{{objDeleteProduct.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteProduct.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteProduct()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
+<!-- Edit Product -->
+<dx-popup
+  [(visible)]="isPopupEditProduct"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEdit.title}}"
+  [height]='500'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:94%;margin:auto">
+    <form  (ngSubmit)="onSubmitEdit($event)" autocomplete="off">
+      
+      <div class='formErrMess text-danger mt-2'>{{objEdit.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEdit.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupEdit()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
   </div>
 </dx-popup>
 

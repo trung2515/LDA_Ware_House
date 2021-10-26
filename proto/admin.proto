@@ -16,5 +16,55 @@ service Administrator {
     rpc GetListTypePacket(MasterRequest) returns (TypePacketResponse);
     rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);
     rpc GetListWareHouse(MasterRequest) returns (WareHouseResponse);
+    rpc GetListWork(MasterRequest) returns (WorkResponse);
+
+
+    rpc InsertCodePacket(CodePacketInfo) returns (Response);
+    rpc UpdateCodePacket(CodePacketInfo) returns (Response);
+    rpc DeleteCodePacket(CodePacketInfo) returns (Response);
+
+    rpc InsertEquipment(EquipmentInfo) returns (Response);
+    rpc UpdateEquipment(EquipmentInfo) returns (Response);
+    rpc DeleteEquipment(EquipmentInfo) returns (Response);
+
+    rpc InsertPackingUnit(PackingUnitInfo) returns (Response);
+    rpc UpdatePackingUnit(PackingUnitInfo) returns (Response);
+    rpc DeletePackingUnit(PackingUnitInfo) returns (Response);
+
+    rpc InsertPartner(PartnerInfo) returns (Response);
+    rpc UpdatePartner(PartnerInfo) returns (Response);
+    rpc DeletePartner(PartnerInfo) returns (Response);
+
+    rpc InsertProduct(ProductInfo) returns (Response);
+    rpc UpdateProduct(ProductInfo) returns (Response);
+    rpc DeleteProduct(ProductInfo) returns (Response);
+
+    rpc InsertReason(ReasonInfo) returns (Response);
+    rpc UpdateReason(ReasonInfo) returns (Response);
+    rpc DeleteReason(ReasonInfo) returns (Response);
+
+    rpc InsertTypeBill(TypeBillInfo) returns (Response);
+    rpc UpdateTypeBill(TypeBillInfo) returns (Response);
+    rpc DeleteTypeBill(TypeBillInfo) returns (Response);
+
+    rpc InsertTypePacket(TypePacketInfo) returns (Response);
+    rpc UpdateTypePacket(TypePacketInfo) returns (Response);
+    rpc DeleteTypePacket(TypePacketInfo) returns (Response);
+
+    rpc InsertTypeProduct(TypeProductInfo) returns (Response);
+    rpc UpdateTypeProduct(TypeProductInfo) returns (Response);
+    rpc DeleteTypeProduct(TypeProductInfo) returns (Response);
+
+    rpc InsertWareHouse(WareHouseInfo) returns (Response);
+    rpc UpdateWareHouse(WareHouseInfo) returns (Response);
+    rpc DeleteWareHouse(WareHouseInfo) returns (Response);
+
+    rpc InsertWork(WorkInfo) returns (Response);
+    rpc UpdateWork(WorkInfo) returns (Response);
+    rpc DeleteWork(WorkInfo) returns (Response);
+
+
+
+
 
 }

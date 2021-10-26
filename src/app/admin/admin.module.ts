@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import {DevExtremeModule, DxPopupModule,DxSelectBoxModule  } from 'devextreme-angular';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -52,6 +53,8 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
   imports: [
     CommonModule,
     AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     DevExtremeModule,
     DxPopupModule,
     DxSelectBoxModule

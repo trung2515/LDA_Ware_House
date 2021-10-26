@@ -53,29 +53,25 @@
   padding-left:10px;
 
 }
-.btnGreen{
+.icon-update-table:hover{
+  position: relative;
+  top:-2px;
+}
+.title-from-delete{
+  font-size: 16px;
+  font-weight: 500;
+}
+.btn-blue{
   font-family: Roboto;
   font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
-  text-align: center;
-  height: 40px;
-  color: #FFFFFF;
-  background: #04BE6E;
-  border-radius: 5px;
+  background: #4A80FF;
+  min-width: 80px;
 }
-.btnCancel{
+.btn-cancel{
   border:1px solid #C4C4C4;
-  height: 40px;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 13px;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  line-height: 40px;
   min-width: 80px;
 }
 .wrap{

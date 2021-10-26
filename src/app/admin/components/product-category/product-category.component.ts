@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
+import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
@@ -13,53 +14,113 @@ export class ProductCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListProduct()
-    // this.getListTypeProduct()
-    console.log(this.adminService)
-
   }
+  timeShowMess:any=3000
+  listProduct:any=[]
+  itemProductClicked:any={}
   getListProduct(){
     this.adminService.getListProduct().subscribe((data:any) => {
       this.listProduct=data
-      console.log('listProduct ',data)
+      console.log('listProduct ',this.listProduct)  
+      this.listProduct.forEach((item:any,index:any)=>{
+        item.index=index
+      })
     })
   }
-  getListTypeProduct(){
-    this.adminService.getTypeProducts().subscribe((data:any) => {
-      this.listTypeProduct=data
-      console.log('listTypeProduct ',data)
-    })
-  }
-  listProduct:any=[]
-  listTypeProduct:any=[]
-  data:any=[
-    {stt:0,ma:"abc",ten:'long'},
-    {stt:1,ma:"abc",ten:'long1'},
-    {stt:2,ma:"abc",ten:'long2'},
-    {stt:3,ma:"abc",ten:'long3'}
-  ]
-  clickEdit(e:any){
-    console.log(e)
-    let order=parseInt(e.target.dataset.order)
-    console.log(order)
-  }
-  clickDelete(e:any){
-    console.log(e)
-    let order=parseInt(e.target.dataset.order)
-    console.log(order)
-  }
-  // delete
-  isPopupVisibleDelete:any=false
-  objDelete:any={
-    title:'Xác nhận?',
-    mess:'Bạn muốn xóa ',
+
+
+  // delete product ---------------------------------------
+  isPopupDeleteProduct:any=false
+  objDeleteProduct:any={
+    title:'Xác nhận',
+    mess:'Xóa ',
     formErrMess:'',
     formSuccMess:''
   }
-
-  togglePopupVisibleDelete(){
-    this.isPopupVisibleDelete=!this.isPopupVisibleDelete
+  clickDeleteProduct(e:any){
+    let order=parseInt(e.target.dataset.order)
+    console.log(order)
+    this.itemProductClicked=this.listProduct[order]
+    this.objDeleteProduct.mess=`Xóa sản phẩm ${this.itemProductClicked.nameProduct}?`
+    this.togglePopupDeleteProduct()
   }
-  onSubmitDelete(e:any){
+  togglePopupDeleteProduct(){
+    this.isPopupDeleteProduct=!this.isPopupDeleteProduct
+  }
+  onSubmitDeleteProduct(e:any){
+    let id=this.itemProductClicked.idProduct
+    this.adminService.deleteProduct(id).subscribe((data:any) => {
+      console.log(data)
+      if(data.state==ResponseState.SUCCESS){
+        this.itemProductClicked=null
+        this.objDeleteProduct.formSuccMess=data.message
+        this.objDeleteProduct.formErrMess=""
+        this.getListProduct()
+        setTimeout(()=>{
+          this.objDeleteProduct={
+            title:'Xác nhận',
+            mess:'Xóa ',
+            formErrMess:'',
+            formSuccMess:''
+          }
+          if(this.objDeleteProduct) this.togglePopupDeleteProduct()
+        },this.timeShowMess)
+      }else{
+        this.objDeleteProduct.formSuccMess=""
+        this.objDeleteProduct.formErrMess=data.message
+      }
+    })
+
+  }
+
+
+  // edit product---------------------------------
+  isPopupEditProduct:any=false
+  objEditProduct:any={
+    title:'Xác nhận',
+    mess:'Xóa ',
+    formErrMess:'',
+    formSuccMess:'',
+    input:[
+      {msp:{value:'',isValid:false}},
+      {tsp:{value:'',isValid:false}},
+    ],
+    isValid:false
+  }
+  clickEditProduct(e:any){
+    let order=parseInt(e.target.dataset.order)
+    console.log(order)
+    this.itemProductClicked=this.listProduct[order]
+    this.objEditProduct.title=`Chỉnh sửa sản phẩm ${this.itemProductClicked.nameProduct}`
+    this.togglePopupEditProduct()
+  }
+  togglePopupEditProduct(){
+    this.isPopupEditProduct=!this.isPopupEditProduct
+  }
+  onSubmitEditProduct(e:any){
+    let id=this.itemProductClicked.idProduct
+    let nameProduct,idProduct,codeProduct
+    this.adminService.updateProduct(idProduct,codeProduct,nameProduct).subscribe((data:any) => {
+      console.log(data)
+      if(data.state==ResponseState.SUCCESS){
+        this.itemProductClicked=null
+        this.objEditProduct.formSuccMess=data.message
+        this.objEditProduct.formErrMess=""
+        this.getListProduct()
+        setTimeout(()=>{
+          this.objEditProduct={
+            title:'Xác nhận',
+            mess:'Xóa ',
+            formErrMess:'',
+            formSuccMess:''
+          }
+          if(this.objEditProduct) this.togglePopupEditProduct()
+        },this.timeShowMess)
+      }else{
+        this.objEditProduct.formSuccMess=""
+        this.objEditProduct.formErrMess=data.message
+      }
+    })
 
   }
   

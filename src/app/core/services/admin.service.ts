@@ -14,12 +14,13 @@ import{
   TypePacketResponse,
   TypeProductResponse,
   WareHouseResponse,
+  ProductInfo,
+  Response
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
   constructor(private administratorClient:AdministratorClient ) { }
   getListProduct( ){
-    console.log('getListProduct')
     let req:MasterRequest=new MasterRequest();    
     return this.administratorClient.getListProduct(req).pipe(
       map((reply: ProductResponse) => {
@@ -30,8 +31,29 @@ export class AdminService {
       })
     )
   }
+  deleteProduct( idProduct:any){
+    let req:ProductInfo=new ProductInfo();    
+    req.idProduct=idProduct
+    return this.administratorClient.deleteProduct(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updateProduct( idProduct:any,codeProduct:any,nameProduct:any){
+    let req:ProductInfo=new ProductInfo();    
+    req.idProduct=idProduct
+    req.codeProduct=codeProduct
+    req.nameProduct=nameProduct
+    return this.administratorClient.updateProduct(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
   getTypeProducts(){
-    console.log('getListTypeProduct')
     let req:MasterRequest=new MasterRequest();
     return this.administratorClient.getListTypeProduct(req);
   }

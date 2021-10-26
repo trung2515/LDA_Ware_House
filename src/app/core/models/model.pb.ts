@@ -351,7 +351,7 @@ export class CodePacketInfo implements GrpcMessage {
           _instance.id = _reader.readInt32();
           break;
         case 8:
-          _instance.weight = _reader.readDouble();
+          _instance.weight = _reader.readFloat();
           break;
         case 9:
           _instance.nameTypePacket = _reader.readString();
@@ -395,7 +395,7 @@ export class CodePacketInfo implements GrpcMessage {
       _writer.writeInt32(7, _instance.id);
     }
     if (_instance.weight) {
-      _writer.writeDouble(8, _instance.weight);
+      _writer.writeFloat(8, _instance.weight);
     }
     if (_instance.nameTypePacket) {
       _writer.writeString(9, _instance.nameTypePacket);
@@ -1510,11 +1510,12 @@ export class PartnerInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: PartnerInfo) {
-    _instance.idPartner = _instance.idPartner || '';
+    _instance.idPartner = _instance.idPartner || 0;
     _instance.namePartner = _instance.namePartner || '';
     _instance.typePartner = _instance.typePartner || 0;
     _instance.isDeleted = _instance.isDeleted || false;
     _instance.typePartnerName = _instance.typePartnerName || '';
+    _instance.codePartner = _instance.codePartner || '';
   }
 
   /**
@@ -1531,7 +1532,7 @@ export class PartnerInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idPartner = _reader.readString();
+          _instance.idPartner = _reader.readInt32();
           break;
         case 2:
           _instance.namePartner = _reader.readString();
@@ -1544,6 +1545,9 @@ export class PartnerInfo implements GrpcMessage {
           break;
         case 5:
           _instance.typePartnerName = _reader.readString();
+          break;
+        case 6:
+          _instance.codePartner = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -1563,7 +1567,7 @@ export class PartnerInfo implements GrpcMessage {
     _writer: BinaryWriter
   ) {
     if (_instance.idPartner) {
-      _writer.writeString(1, _instance.idPartner);
+      _writer.writeInt32(1, _instance.idPartner);
     }
     if (_instance.namePartner) {
       _writer.writeString(2, _instance.namePartner);
@@ -1577,13 +1581,17 @@ export class PartnerInfo implements GrpcMessage {
     if (_instance.typePartnerName) {
       _writer.writeString(5, _instance.typePartnerName);
     }
+    if (_instance.codePartner) {
+      _writer.writeString(6, _instance.codePartner);
+    }
   }
 
-  private _idPartner?: string;
+  private _idPartner?: number;
   private _namePartner?: string;
   private _typePartner?: number;
   private _isDeleted?: boolean;
   private _typePartnerName?: string;
+  private _codePartner?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -1596,12 +1604,13 @@ export class PartnerInfo implements GrpcMessage {
     this.typePartner = _value.typePartner;
     this.isDeleted = _value.isDeleted;
     this.typePartnerName = _value.typePartnerName;
+    this.codePartner = _value.codePartner;
     PartnerInfo.refineValues(this);
   }
-  get idPartner(): string | undefined {
+  get idPartner(): number | undefined {
     return this._idPartner;
   }
-  set idPartner(value: string | undefined) {
+  set idPartner(value: number | undefined) {
     this._idPartner = value;
   }
   get namePartner(): string | undefined {
@@ -1628,6 +1637,12 @@ export class PartnerInfo implements GrpcMessage {
   set typePartnerName(value: string | undefined) {
     this._typePartnerName = value;
   }
+  get codePartner(): string | undefined {
+    return this._codePartner;
+  }
+  set codePartner(value: string | undefined) {
+    this._codePartner = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -1648,7 +1663,8 @@ export class PartnerInfo implements GrpcMessage {
       namePartner: this.namePartner,
       typePartner: this.typePartner,
       isDeleted: this.isDeleted,
-      typePartnerName: this.typePartnerName
+      typePartnerName: this.typePartnerName,
+      codePartner: this.codePartner
     };
   }
 
@@ -1673,7 +1689,8 @@ export class PartnerInfo implements GrpcMessage {
       namePartner: this.namePartner,
       typePartner: this.typePartner,
       isDeleted: this.isDeleted,
-      typePartnerName: this.typePartnerName
+      typePartnerName: this.typePartnerName,
+      codePartner: this.codePartner
     };
   }
 }
@@ -1682,22 +1699,24 @@ export module PartnerInfo {
    * Standard JavaScript object representation for PartnerInfo
    */
   export interface AsObject {
-    idPartner?: string;
+    idPartner?: number;
     namePartner?: string;
     typePartner?: number;
     isDeleted?: boolean;
     typePartnerName?: string;
+    codePartner?: string;
   }
 
   /**
    * Protobuf JSON representation for PartnerInfo
    */
   export interface AsProtobufJSON {
-    idPartner?: string;
+    idPartner?: number;
     namePartner?: string;
     typePartner?: number;
     isDeleted?: boolean;
     typePartnerName?: string;
+    codePartner?: string;
   }
 }
 
@@ -1897,7 +1916,8 @@ export class ProductInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: ProductInfo) {
-    _instance.idProduct = _instance.idProduct || '';
+    _instance.idProduct = _instance.idProduct || 0;
+    _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.isDeleted = _instance.isDeleted || false;
   }
@@ -1916,12 +1936,15 @@ export class ProductInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idProduct = _reader.readString();
+          _instance.idProduct = _reader.readInt32();
           break;
         case 2:
-          _instance.nameProduct = _reader.readString();
+          _instance.codeProduct = _reader.readString();
           break;
         case 3:
+          _instance.nameProduct = _reader.readString();
+          break;
+        case 4:
           _instance.isDeleted = _reader.readBool();
           break;
         default:
@@ -1942,17 +1965,21 @@ export class ProductInfo implements GrpcMessage {
     _writer: BinaryWriter
   ) {
     if (_instance.idProduct) {
-      _writer.writeString(1, _instance.idProduct);
+      _writer.writeInt32(1, _instance.idProduct);
+    }
+    if (_instance.codeProduct) {
+      _writer.writeString(2, _instance.codeProduct);
     }
     if (_instance.nameProduct) {
-      _writer.writeString(2, _instance.nameProduct);
+      _writer.writeString(3, _instance.nameProduct);
     }
     if (_instance.isDeleted) {
-      _writer.writeBool(3, _instance.isDeleted);
+      _writer.writeBool(4, _instance.isDeleted);
     }
   }
 
-  private _idProduct?: string;
+  private _idProduct?: number;
+  private _codeProduct?: string;
   private _nameProduct?: string;
   private _isDeleted?: boolean;
 
@@ -1963,15 +1990,22 @@ export class ProductInfo implements GrpcMessage {
   constructor(_value?: RecursivePartial<ProductInfo.AsObject>) {
     _value = _value || {};
     this.idProduct = _value.idProduct;
+    this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.isDeleted = _value.isDeleted;
     ProductInfo.refineValues(this);
   }
-  get idProduct(): string | undefined {
+  get idProduct(): number | undefined {
     return this._idProduct;
   }
-  set idProduct(value: string | undefined) {
+  set idProduct(value: number | undefined) {
     this._idProduct = value;
+  }
+  get codeProduct(): string | undefined {
+    return this._codeProduct;
+  }
+  set codeProduct(value: string | undefined) {
+    this._codeProduct = value;
   }
   get nameProduct(): string | undefined {
     return this._nameProduct;
@@ -2002,6 +2036,7 @@ export class ProductInfo implements GrpcMessage {
   toObject(): ProductInfo.AsObject {
     return {
       idProduct: this.idProduct,
+      codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       isDeleted: this.isDeleted
     };
@@ -2025,6 +2060,7 @@ export class ProductInfo implements GrpcMessage {
   ): ProductInfo.AsProtobufJSON {
     return {
       idProduct: this.idProduct,
+      codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       isDeleted: this.isDeleted
     };
@@ -2035,7 +2071,8 @@ export module ProductInfo {
    * Standard JavaScript object representation for ProductInfo
    */
   export interface AsObject {
-    idProduct?: string;
+    idProduct?: number;
+    codeProduct?: string;
     nameProduct?: string;
     isDeleted?: boolean;
   }
@@ -2044,7 +2081,8 @@ export module ProductInfo {
    * Protobuf JSON representation for ProductInfo
    */
   export interface AsProtobufJSON {
-    idProduct?: string;
+    idProduct?: number;
+    codeProduct?: string;
     nameProduct?: string;
     isDeleted?: boolean;
   }
@@ -2246,9 +2284,10 @@ export class ReasonInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: ReasonInfo) {
-    _instance.idReason = _instance.idReason || '';
+    _instance.idReason = _instance.idReason || 0;
     _instance.nameReason = _instance.nameReason || '';
     _instance.isDeleted = _instance.isDeleted || false;
+    _instance.codeReason = _instance.codeReason || '';
   }
 
   /**
@@ -2265,13 +2304,16 @@ export class ReasonInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idReason = _reader.readString();
+          _instance.idReason = _reader.readInt32();
           break;
         case 2:
           _instance.nameReason = _reader.readString();
           break;
         case 3:
           _instance.isDeleted = _reader.readBool();
+          break;
+        case 4:
+          _instance.codeReason = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -2288,7 +2330,7 @@ export class ReasonInfo implements GrpcMessage {
    */
   static serializeBinaryToWriter(_instance: ReasonInfo, _writer: BinaryWriter) {
     if (_instance.idReason) {
-      _writer.writeString(1, _instance.idReason);
+      _writer.writeInt32(1, _instance.idReason);
     }
     if (_instance.nameReason) {
       _writer.writeString(2, _instance.nameReason);
@@ -2296,11 +2338,15 @@ export class ReasonInfo implements GrpcMessage {
     if (_instance.isDeleted) {
       _writer.writeBool(3, _instance.isDeleted);
     }
+    if (_instance.codeReason) {
+      _writer.writeString(4, _instance.codeReason);
+    }
   }
 
-  private _idReason?: string;
+  private _idReason?: number;
   private _nameReason?: string;
   private _isDeleted?: boolean;
+  private _codeReason?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -2311,12 +2357,13 @@ export class ReasonInfo implements GrpcMessage {
     this.idReason = _value.idReason;
     this.nameReason = _value.nameReason;
     this.isDeleted = _value.isDeleted;
+    this.codeReason = _value.codeReason;
     ReasonInfo.refineValues(this);
   }
-  get idReason(): string | undefined {
+  get idReason(): number | undefined {
     return this._idReason;
   }
-  set idReason(value: string | undefined) {
+  set idReason(value: number | undefined) {
     this._idReason = value;
   }
   get nameReason(): string | undefined {
@@ -2330,6 +2377,12 @@ export class ReasonInfo implements GrpcMessage {
   }
   set isDeleted(value: boolean | undefined) {
     this._isDeleted = value;
+  }
+  get codeReason(): string | undefined {
+    return this._codeReason;
+  }
+  set codeReason(value: string | undefined) {
+    this._codeReason = value;
   }
 
   /**
@@ -2349,7 +2402,8 @@ export class ReasonInfo implements GrpcMessage {
     return {
       idReason: this.idReason,
       nameReason: this.nameReason,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeReason: this.codeReason
     };
   }
 
@@ -2372,7 +2426,8 @@ export class ReasonInfo implements GrpcMessage {
     return {
       idReason: this.idReason,
       nameReason: this.nameReason,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeReason: this.codeReason
     };
   }
 }
@@ -2381,18 +2436,20 @@ export module ReasonInfo {
    * Standard JavaScript object representation for ReasonInfo
    */
   export interface AsObject {
-    idReason?: string;
+    idReason?: number;
     nameReason?: string;
     isDeleted?: boolean;
+    codeReason?: string;
   }
 
   /**
    * Protobuf JSON representation for ReasonInfo
    */
   export interface AsProtobufJSON {
-    idReason?: string;
+    idReason?: number;
     nameReason?: string;
     isDeleted?: boolean;
+    codeReason?: string;
   }
 }
 
@@ -2592,9 +2649,10 @@ export class TypeBillInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: TypeBillInfo) {
-    _instance.idTypeBill = _instance.idTypeBill || '';
+    _instance.idTypeBill = _instance.idTypeBill || 0;
     _instance.nameTypeBill = _instance.nameTypeBill || '';
     _instance.isDeleted = _instance.isDeleted || false;
+    _instance.codeTypeBill = _instance.codeTypeBill || '';
   }
 
   /**
@@ -2611,13 +2669,16 @@ export class TypeBillInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idTypeBill = _reader.readString();
+          _instance.idTypeBill = _reader.readInt32();
           break;
         case 2:
           _instance.nameTypeBill = _reader.readString();
           break;
         case 3:
           _instance.isDeleted = _reader.readBool();
+          break;
+        case 4:
+          _instance.codeTypeBill = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -2637,7 +2698,7 @@ export class TypeBillInfo implements GrpcMessage {
     _writer: BinaryWriter
   ) {
     if (_instance.idTypeBill) {
-      _writer.writeString(1, _instance.idTypeBill);
+      _writer.writeInt32(1, _instance.idTypeBill);
     }
     if (_instance.nameTypeBill) {
       _writer.writeString(2, _instance.nameTypeBill);
@@ -2645,11 +2706,15 @@ export class TypeBillInfo implements GrpcMessage {
     if (_instance.isDeleted) {
       _writer.writeBool(3, _instance.isDeleted);
     }
+    if (_instance.codeTypeBill) {
+      _writer.writeString(4, _instance.codeTypeBill);
+    }
   }
 
-  private _idTypeBill?: string;
+  private _idTypeBill?: number;
   private _nameTypeBill?: string;
   private _isDeleted?: boolean;
+  private _codeTypeBill?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -2660,12 +2725,13 @@ export class TypeBillInfo implements GrpcMessage {
     this.idTypeBill = _value.idTypeBill;
     this.nameTypeBill = _value.nameTypeBill;
     this.isDeleted = _value.isDeleted;
+    this.codeTypeBill = _value.codeTypeBill;
     TypeBillInfo.refineValues(this);
   }
-  get idTypeBill(): string | undefined {
+  get idTypeBill(): number | undefined {
     return this._idTypeBill;
   }
-  set idTypeBill(value: string | undefined) {
+  set idTypeBill(value: number | undefined) {
     this._idTypeBill = value;
   }
   get nameTypeBill(): string | undefined {
@@ -2679,6 +2745,12 @@ export class TypeBillInfo implements GrpcMessage {
   }
   set isDeleted(value: boolean | undefined) {
     this._isDeleted = value;
+  }
+  get codeTypeBill(): string | undefined {
+    return this._codeTypeBill;
+  }
+  set codeTypeBill(value: string | undefined) {
+    this._codeTypeBill = value;
   }
 
   /**
@@ -2698,7 +2770,8 @@ export class TypeBillInfo implements GrpcMessage {
     return {
       idTypeBill: this.idTypeBill,
       nameTypeBill: this.nameTypeBill,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeTypeBill: this.codeTypeBill
     };
   }
 
@@ -2721,7 +2794,8 @@ export class TypeBillInfo implements GrpcMessage {
     return {
       idTypeBill: this.idTypeBill,
       nameTypeBill: this.nameTypeBill,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeTypeBill: this.codeTypeBill
     };
   }
 }
@@ -2730,18 +2804,20 @@ export module TypeBillInfo {
    * Standard JavaScript object representation for TypeBillInfo
    */
   export interface AsObject {
-    idTypeBill?: string;
+    idTypeBill?: number;
     nameTypeBill?: string;
     isDeleted?: boolean;
+    codeTypeBill?: string;
   }
 
   /**
    * Protobuf JSON representation for TypeBillInfo
    */
   export interface AsProtobufJSON {
-    idTypeBill?: string;
+    idTypeBill?: number;
     nameTypeBill?: string;
     isDeleted?: boolean;
+    codeTypeBill?: string;
   }
 }
 
@@ -3648,10 +3724,11 @@ export class WareHouseInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: WareHouseInfo) {
-    _instance.idWarehouse = _instance.idWarehouse || '';
+    _instance.idWareHouse = _instance.idWareHouse || 0;
     _instance.nameWareHouse = _instance.nameWareHouse || '';
     _instance.capacity = _instance.capacity || 0;
     _instance.isDeleted = _instance.isDeleted || false;
+    _instance.codeWareHouse = _instance.codeWareHouse || '';
   }
 
   /**
@@ -3668,16 +3745,19 @@ export class WareHouseInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idWarehouse = _reader.readString();
+          _instance.idWareHouse = _reader.readInt32();
           break;
         case 2:
           _instance.nameWareHouse = _reader.readString();
           break;
         case 3:
-          _instance.capacity = _reader.readDouble();
+          _instance.capacity = _reader.readFloat();
           break;
         case 4:
           _instance.isDeleted = _reader.readBool();
+          break;
+        case 5:
+          _instance.codeWareHouse = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -3696,24 +3776,28 @@ export class WareHouseInfo implements GrpcMessage {
     _instance: WareHouseInfo,
     _writer: BinaryWriter
   ) {
-    if (_instance.idWarehouse) {
-      _writer.writeString(1, _instance.idWarehouse);
+    if (_instance.idWareHouse) {
+      _writer.writeInt32(1, _instance.idWareHouse);
     }
     if (_instance.nameWareHouse) {
       _writer.writeString(2, _instance.nameWareHouse);
     }
     if (_instance.capacity) {
-      _writer.writeDouble(3, _instance.capacity);
+      _writer.writeFloat(3, _instance.capacity);
     }
     if (_instance.isDeleted) {
       _writer.writeBool(4, _instance.isDeleted);
     }
+    if (_instance.codeWareHouse) {
+      _writer.writeString(5, _instance.codeWareHouse);
+    }
   }
 
-  private _idWarehouse?: string;
+  private _idWareHouse?: number;
   private _nameWareHouse?: string;
   private _capacity?: number;
   private _isDeleted?: boolean;
+  private _codeWareHouse?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -3721,17 +3805,18 @@ export class WareHouseInfo implements GrpcMessage {
    */
   constructor(_value?: RecursivePartial<WareHouseInfo.AsObject>) {
     _value = _value || {};
-    this.idWarehouse = _value.idWarehouse;
+    this.idWareHouse = _value.idWareHouse;
     this.nameWareHouse = _value.nameWareHouse;
     this.capacity = _value.capacity;
     this.isDeleted = _value.isDeleted;
+    this.codeWareHouse = _value.codeWareHouse;
     WareHouseInfo.refineValues(this);
   }
-  get idWarehouse(): string | undefined {
-    return this._idWarehouse;
+  get idWareHouse(): number | undefined {
+    return this._idWareHouse;
   }
-  set idWarehouse(value: string | undefined) {
-    this._idWarehouse = value;
+  set idWareHouse(value: number | undefined) {
+    this._idWareHouse = value;
   }
   get nameWareHouse(): string | undefined {
     return this._nameWareHouse;
@@ -3751,6 +3836,12 @@ export class WareHouseInfo implements GrpcMessage {
   set isDeleted(value: boolean | undefined) {
     this._isDeleted = value;
   }
+  get codeWareHouse(): string | undefined {
+    return this._codeWareHouse;
+  }
+  set codeWareHouse(value: string | undefined) {
+    this._codeWareHouse = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -3767,10 +3858,11 @@ export class WareHouseInfo implements GrpcMessage {
    */
   toObject(): WareHouseInfo.AsObject {
     return {
-      idWarehouse: this.idWarehouse,
+      idWareHouse: this.idWareHouse,
       nameWareHouse: this.nameWareHouse,
       capacity: this.capacity,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeWareHouse: this.codeWareHouse
     };
   }
 
@@ -3791,10 +3883,11 @@ export class WareHouseInfo implements GrpcMessage {
     options?: ToProtobufJSONOptions
   ): WareHouseInfo.AsProtobufJSON {
     return {
-      idWarehouse: this.idWarehouse,
+      idWareHouse: this.idWareHouse,
       nameWareHouse: this.nameWareHouse,
       capacity: this.capacity,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      codeWareHouse: this.codeWareHouse
     };
   }
 }
@@ -3803,20 +3896,22 @@ export module WareHouseInfo {
    * Standard JavaScript object representation for WareHouseInfo
    */
   export interface AsObject {
-    idWarehouse?: string;
+    idWareHouse?: number;
     nameWareHouse?: string;
     capacity?: number;
     isDeleted?: boolean;
+    codeWareHouse?: string;
   }
 
   /**
    * Protobuf JSON representation for WareHouseInfo
    */
   export interface AsProtobufJSON {
-    idWarehouse?: string;
+    idWareHouse?: number;
     nameWareHouse?: string;
     capacity?: number;
     isDeleted?: boolean;
+    codeWareHouse?: string;
   }
 }
 
@@ -3992,5 +4087,367 @@ export module WareHouseResponse {
   export interface AsProtobufJSON {
     response?: Response.AsProtobufJSON | null;
     data?: WareHouseInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.WorkInfo
+ */
+export class WorkInfo implements GrpcMessage {
+  static id = 'client.WorkInfo';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new WorkInfo();
+    WorkInfo.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: WorkInfo) {
+    _instance.idWork = _instance.idWork || 0;
+    _instance.nameWork = _instance.nameWork || '';
+    _instance.isDeleted = _instance.isDeleted || false;
+    _instance.codeWork = _instance.codeWork || '';
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: WorkInfo,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.idWork = _reader.readInt32();
+          break;
+        case 2:
+          _instance.nameWork = _reader.readString();
+          break;
+        case 3:
+          _instance.isDeleted = _reader.readBool();
+          break;
+        case 4:
+          _instance.codeWork = _reader.readString();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    WorkInfo.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(_instance: WorkInfo, _writer: BinaryWriter) {
+    if (_instance.idWork) {
+      _writer.writeInt32(1, _instance.idWork);
+    }
+    if (_instance.nameWork) {
+      _writer.writeString(2, _instance.nameWork);
+    }
+    if (_instance.isDeleted) {
+      _writer.writeBool(3, _instance.isDeleted);
+    }
+    if (_instance.codeWork) {
+      _writer.writeString(4, _instance.codeWork);
+    }
+  }
+
+  private _idWork?: number;
+  private _nameWork?: string;
+  private _isDeleted?: boolean;
+  private _codeWork?: string;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of WorkInfo to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<WorkInfo.AsObject>) {
+    _value = _value || {};
+    this.idWork = _value.idWork;
+    this.nameWork = _value.nameWork;
+    this.isDeleted = _value.isDeleted;
+    this.codeWork = _value.codeWork;
+    WorkInfo.refineValues(this);
+  }
+  get idWork(): number | undefined {
+    return this._idWork;
+  }
+  set idWork(value: number | undefined) {
+    this._idWork = value;
+  }
+  get nameWork(): string | undefined {
+    return this._nameWork;
+  }
+  set nameWork(value: string | undefined) {
+    this._nameWork = value;
+  }
+  get isDeleted(): boolean | undefined {
+    return this._isDeleted;
+  }
+  set isDeleted(value: boolean | undefined) {
+    this._isDeleted = value;
+  }
+  get codeWork(): string | undefined {
+    return this._codeWork;
+  }
+  set codeWork(value: string | undefined) {
+    this._codeWork = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    WorkInfo.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): WorkInfo.AsObject {
+    return {
+      idWork: this.idWork,
+      nameWork: this.nameWork,
+      isDeleted: this.isDeleted,
+      codeWork: this.codeWork
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): WorkInfo.AsProtobufJSON {
+    return {
+      idWork: this.idWork,
+      nameWork: this.nameWork,
+      isDeleted: this.isDeleted,
+      codeWork: this.codeWork
+    };
+  }
+}
+export module WorkInfo {
+  /**
+   * Standard JavaScript object representation for WorkInfo
+   */
+  export interface AsObject {
+    idWork?: number;
+    nameWork?: string;
+    isDeleted?: boolean;
+    codeWork?: string;
+  }
+
+  /**
+   * Protobuf JSON representation for WorkInfo
+   */
+  export interface AsProtobufJSON {
+    idWork?: number;
+    nameWork?: string;
+    isDeleted?: boolean;
+    codeWork?: string;
+  }
+}
+
+/**
+ * Message implementation for client.WorkResponse
+ */
+export class WorkResponse implements GrpcMessage {
+  static id = 'client.WorkResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new WorkResponse();
+    WorkResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: WorkResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: WorkResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new WorkInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            WorkInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    WorkResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: WorkResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        WorkInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: WorkInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of WorkResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<WorkResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new WorkInfo(m));
+    WorkResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): WorkInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: WorkInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    WorkResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): WorkResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): WorkResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module WorkResponse {
+  /**
+   * Standard JavaScript object representation for WorkResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: WorkInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for WorkResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: WorkInfo.AsProtobufJSON[] | null;
   }
 }

@@ -26,7 +26,7 @@ message CodePacketInfo
     string description = 5;
     bool isDeteted = 6;
     int32 id = 7;
-    double weight = 8;
+    float weight = 8;
     string nameTypePacket = 9;
 
     
@@ -63,11 +63,12 @@ message PackingUnitResponse
 }
 message PartnerInfo
 {
-    string idPartner = 1;
+    int32 idPartner = 1;
     string namePartner = 2;
     int32 typePartner = 3;
     bool isDeleted = 4;
     string typePartnerName = 5;
+    string codePartner = 6;
 }
 
 message PartnerResponse
@@ -77,9 +78,10 @@ message PartnerResponse
 }
 message ProductInfo
 {
-    string idProduct = 1;
-    string nameProduct = 2;
-    bool isDeleted = 3;
+    int32 idProduct = 1;
+    string codeProduct = 2;
+    string nameProduct = 3;
+    bool isDeleted = 4;
 }message ProductResponse
 {
     Response response = 1;
@@ -88,9 +90,10 @@ message ProductInfo
 
 message ReasonInfo
 {
-    string idReason = 1;
+    int32 idReason = 1;
     string nameReason = 2;
     bool isDeleted = 3;
+    string codeReason = 4;
 }
 message ReasonResponse
 {
@@ -99,9 +102,10 @@ message ReasonResponse
 }
 message TypeBillInfo
 {
-    string idTypeBill = 1;
+    int32 idTypeBill = 1;
     string nameTypeBill = 2;
     bool isDeleted = 3;
+    string codeTypeBill = 4;
 }
 message TypeBillResponse
 {
@@ -133,13 +137,27 @@ message TypeProductResponse
 }
 message WareHouseInfo 
 {
-    string idWarehouse = 1;
+    int32 idWareHouse = 1;
+  
     string nameWareHouse = 2;
-    double capacity = 3;
+    float capacity = 3;
     bool isDeleted = 4;
+    string codeWareHouse = 5;
 }
 message WareHouseResponse
 {
     Response response = 1;
     repeated WareHouseInfo  data = 2;
+}
+message WorkInfo
+{
+    int32 idWork = 1;
+    string nameWork = 2;
+    bool isDeleted = 3;
+    string codeWork = 4;
+}
+message WorkResponse
+{
+    Response response = 1;
+    repeated WorkInfo data = 2;
 }
