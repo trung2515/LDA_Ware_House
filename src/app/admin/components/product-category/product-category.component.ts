@@ -15,6 +15,17 @@ export class ProductCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.getListProduct()
   }
+  
+  blur(e:any,obj:any){
+    _.blur(e,obj)
+    console.log(obj.input)
+  }
+  click(e:any){
+    _.click(e)
+  }
+  input(e:any,obj:any){
+    _.input(e,obj)
+  }
   timeShowMess:any=3000
   listProduct:any=[]
   itemProductClicked:any={}
@@ -127,14 +138,14 @@ export class ProductCategoryComponent implements OnInit {
   // add product---------------------------------
   isPopupAddProduct:any=false
   objAddProduct:any={
-    title:'Xác nhận',
+    title:'Thêm sản phẩm',
     mess:'Xóa ',
     formErrMess:'',
     formSuccMess:'',
-    input:[
-      {msp:{value:'',isValid:false}},
-      {tsp:{value:'',isValid:false}},
-    ],
+    input:{
+      msp:{value:'',isValid:false},
+      tsp:{value:'',isValid:false},
+    },
     isValid:false
   }
   clickAddProduct(e:any){

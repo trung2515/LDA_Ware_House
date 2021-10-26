@@ -1,3 +1,4 @@
+import { NavbarComponent } from './../admin/components/navbar/navbar.component';
 //-------------- date
 export function YMDtoDMY(date: any) {//  yyyy-mm-dd -> dd-mm-yyyy
   let t=date.split('-')
@@ -264,3 +265,69 @@ export function test(...a:any) {
   console.log(111111111)
   return 1
 }
+
+function validate(e:any,obj:any,isBlur:any){
+  console.log(e)
+  let t=e.target
+  let name=t.name
+  if(isBlur) t.value=t.value.trim()
+  let value=t.value
+  let parentElement=getParent(t,'.wrap-input')
+  let inputMess=parentElement.querySelector('.input-message')
+  let rules:any=t.attributes.rules
+  console.log(rules)
+  if(rules){//rules='..|..'
+    console.log(rules.value)//..|..
+    rules=rules.value.split('|')
+    let d=0;
+    for(let rule of rules){
+      let ruleInfo
+      let isRuleHasValue=rule.includes(':');
+      if(isRuleHasValue){
+        ruleInfo=rule.split(':');
+        rule=ruleInfo[0]
+      }
+      let ruleFunc=validatorRules[rule]
+      if(isRuleHasValue){
+        ruleFunc=ruleFunc(ruleInfo[1])
+      }
+      let mess=ruleFunc(value)
+      if(mess!=undefined){
+        if(isBlur){
+          if(!parentElement.classList.contains('invalid')) parentElement.classList.add('invalid')
+          inputMess.innerHTML=mess
+        }
+        d--
+        break
+      } ;
+      d++
+    }
+    obj.input[name].value=value
+    if(d==rules.length){
+      obj.input[name].isValid=true
+      if(parentElement.classList.contains('invalid')) parentElement.classList.remove('invalid')
+      inputMess.innerHTML=''
+    }else{
+      obj.input[name].isValid=false
+    }
+    setValid(obj)
+  }
+} 
+function setValid(obj:any){
+  let x= Object.values(obj.input).every((item:any)=>item.isValid==true)
+  obj.isValid=x
+
+}
+export function blur(e:any,obj:any){
+  validate(e,obj,true)
+}
+export function input(e:any,obj:any){
+  validate(e,obj,false)
+}
+export function click(e:any){
+  let parentElement=getParent(e.target,'.wrap-input')
+  let inputMess=parentElement.querySelector('.input-message')
+  if(parentElement.classList.contains('invalid')) parentElement.classList.remove('invalid')
+  inputMess.innerHTML=''
+}
+
