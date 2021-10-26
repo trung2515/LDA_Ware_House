@@ -121,6 +121,56 @@ export class ProductCategoryComponent implements OnInit {
         this.objEditProduct.formErrMess=data.message
       }
     })
+  }
+
+
+  // add product---------------------------------
+  isPopupAddProduct:any=false
+  objAddProduct:any={
+    title:'Xác nhận',
+    mess:'Xóa ',
+    formErrMess:'',
+    formSuccMess:'',
+    input:[
+      {msp:{value:'',isValid:false}},
+      {tsp:{value:'',isValid:false}},
+    ],
+    isValid:false
+  }
+  clickAddProduct(e:any){
+    let order=parseInt(e.target.dataset.order)
+    console.log(order)
+    this.itemProductClicked=this.listProduct[order]
+    this.objAddProduct.title=`Chỉnh sửa sản phẩm ${this.itemProductClicked.nameProduct}`
+    this.togglePopupAddProduct()
+  }
+  togglePopupAddProduct(){
+    this.isPopupAddProduct=!this.isPopupAddProduct
+  }
+  onSubmitAddProduct(e:any){
+    let id=this.itemProductClicked.idProduct
+    let nameProduct,idProduct,codeProduct
+    this.adminService.updateProduct(idProduct,codeProduct,nameProduct).subscribe((data:any) => {
+      console.log(data)
+      if(data.state==ResponseState.SUCCESS){
+        this.itemProductClicked=null
+        this.objAddProduct.formSuccMess=data.message
+        this.objAddProduct.formErrMess=""
+        this.getListProduct()
+        setTimeout(()=>{
+          this.objAddProduct={
+            title:'Xác nhận',
+            mess:'Xóa ',
+            formErrMess:'',
+            formSuccMess:''
+          }
+          if(this.objAddProduct) this.togglePopupAddProduct()
+        },this.timeShowMess)
+      }else{
+        this.objAddProduct.formSuccMess=""
+        this.objAddProduct.formErrMess=data.message
+      }
+    })
 
   }
   
