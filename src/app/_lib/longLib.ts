@@ -192,7 +192,7 @@ export function validator(formSelector:any,obj:any={}){
     for(let rule of rules){
       errorMessage= rule(e.target.value)
       if(errorMessage) break;
-      console.log(errorMessage)
+      //console.log(errorMessage)
     }
     // Neu co loi thi hien thi message ra UI
     if(errorMessage){
@@ -202,7 +202,7 @@ export function validator(formSelector:any,obj:any={}){
         let formMessage=formGroup.querySelector('.form-message')
         if(formMessage){
             formMessage.innerText=errorMessage
-            console.log(errorMessage)
+            //console.log(errorMessage)
         }
       }   
     }else{
@@ -222,8 +222,8 @@ export function validator(formSelector:any,obj:any={}){
     }
     let name=e.target.name
     let value=e.target.value
-    console.log(name)
-    console.log(e)
+    //console.log(name)
+    //console.log(e)
     //obj.input[name]={value,isValid:true}
     //obj.checkValid()
     // if(obj.isValid){
@@ -267,7 +267,7 @@ export function test(...a:any) {
 }
 
 function validate(e:any,obj:any,isBlur:any){
-  console.log(e)
+  //console.log(e)
   let t=e.target
   let name=t.name
   if(isBlur) t.value=t.value.trim()
@@ -275,9 +275,9 @@ function validate(e:any,obj:any,isBlur:any){
   let parentElement=getParent(t,'.wrap-input')
   let inputMess=parentElement.querySelector('.input-message')
   let rules:any=t.attributes.rules
-  console.log(rules)
+  //console.log(rules)
   if(rules){//rules='..|..'
-    console.log(rules.value)//..|..
+    //console.log(rules.value)//..|..
     rules=rules.value.split('|')
     let d=0;
     for(let rule of rules){

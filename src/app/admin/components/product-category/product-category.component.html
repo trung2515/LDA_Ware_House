@@ -18,12 +18,41 @@
       </thead>
       <tbody>
         <tr *ngFor='let item of listProduct'>
-          <td>{{item.index+1}}</td>
+          <td style='width: 80px;'>{{item.index+1}}</td>
           <td>{{item.codeProduct}}</td>
           <td>{{item.nameProduct}}</td>
           <td style='width: 150px;text-align: center;'>
             <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditProduct($event)'>
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteProduct($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;margin-top: var(--padding);'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Loại sản phẩm
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddTypeProduct()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Loại sản phẩm</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listTypeProduct'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.nameTypeProduct}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditTypeProduct($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteTypeProduct($event)'>
           </td>
         </tr>
       </tbody>
@@ -40,9 +69,9 @@
   [width]="380"
   [resizeEnabled]="true"
 >
-  <div class="" style="width:94%;margin:auto">
+  <div class="" style="width:90%;margin:auto">
     <div class='title-from-delete'>{{objDeleteProduct.mess}}</div>
-    <form  (ngSubmit)="onSubmitDeleteProduct($event)" autocomplete="off">
+    <form  (ngSubmit)="onSubmitDeleteProduct($event)" autocomplete="off" *ngIf='isPopupDeleteProduct'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteProduct.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteProduct.formSuccMess}}</div>
       <div class='d-flex justify-content-around mt-4' style=''>
@@ -52,7 +81,6 @@
     </form>
   </div>
 </dx-popup>
-
 <!-- Add Product -->
 <dx-popup
   [(visible)]="isPopupAddProduct"
@@ -68,14 +96,14 @@
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FAP-msp" class="form-label">Mã sản phẩm</label>
-          <input id="FAP-msp" name="msp"  rules='required'  type="text" placeholder="VD: LongPro" class="form-control" (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
+          <input id="FAP-msp" name="msp"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
         </div>
         <span class="input-message"></span>
       </div>
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FAP-tsp" class="form-label">Tên sản phẩm</label>
-          <input id="FAP-tsp" name="tsp"  rules='required'  type="text" placeholder="VD: LongPro" class="form-control" (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
+          <input id="FAP-tsp" name="tsp"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
         </div>
         <span class="input-message"></span>
       </div>
@@ -85,11 +113,127 @@
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddProduct()' >Hủy</div>
         <button type="submit" [disabled]='!objAddProduct.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
       </div>
-
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit Product -->
+<dx-popup
+  [(visible)]="isPopupEditProduct"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditProduct.title}}"
+  [height]='330'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditProduct($event)" autocomplete="off" *ngIf='isPopupEditProduct' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAP-msp" class="form-label">Mã sản phẩm</label>
+          <input id="FAP-msp" name="msp"  rules='required' [value]='objEditProduct.input.msp.value' type="text"  class="form-control" (blur)='blur($event,objEditProduct)' (click)='click($event)' (input)='input($event,objEditProduct)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAP-tsp" class="form-label">Tên sản phẩm</label>
+          <input id="FAP-tsp" name="tsp"  rules='required' [value]='objEditProduct.input.tsp.value' type="text"  class="form-control" (blur)='blur($event,objEditProduct)' (click)='click($event)' (input)='input($event,objEditProduct)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditProduct.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditProduct.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditProduct()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditProduct.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
 		</form>
   </div>
 </dx-popup>
 
+
+
+
+
+<!-- Add TypeProduct -->
+<dx-popup
+  [(visible)]="isPopupAddTypeProduct"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddTypeProduct.title}}"
+  [height]='280'
+  [width]="550"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddTypeProduct($event)" autocomplete="off" *ngIf='isPopupAddTypeProduct' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
+          <input id="FATP-tlsp" name="tlsp"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypeProduct)' (click)='click($event)' (input)='input($event,objAddTypeProduct)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddTypeProduct.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddTypeProduct.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeProduct()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit TypeProduct -->
+<dx-popup
+  [(visible)]="isPopupEditTypeProduct"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditTypeProduct.title}}"
+  [height]='280'
+  [width]="550"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditTypeProduct($event)" autocomplete="off" *ngIf='isPopupEditTypeProduct' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
+          <input id="FATP-tlsp" name="tlsp"  rules='required' [value]='objEditTypeProduct.input.tlsp.value' type="text"  class="form-control" (blur)='blur($event,objEditTypeProduct)' (click)='click($event)' (input)='input($event,objEditTypeProduct)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditTypeProduct.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditTypeProduct.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditTypeProduct()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditTypeProduct.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete TypeProduct -->
+<dx-popup
+  [(visible)]="isPopupDeleteTypeProduct"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteTypeProduct.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteTypeProduct.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteTypeProduct($event)" autocomplete="off" *ngIf='isPopupDeleteTypeProduct'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteTypeProduct.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteTypeProduct.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeProduct()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
 
 
 
