@@ -54,6 +54,12 @@
   padding-right:10px;
 
 }
+.configuration__content__title div{
+  font-weight: 500;
+  font-size: 16px;
+  color:#000;
+  font-family: Roboto;
+}
 .icon-update-table:hover{
   position: relative;
   top:-2px;

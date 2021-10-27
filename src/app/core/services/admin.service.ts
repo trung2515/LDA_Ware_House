@@ -23,7 +23,8 @@ import{
   Response,
   TypeBillInfo,
   WorkInfo,
-  WorkResponse
+  WorkResponse,
+  ReasonInfo,
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -429,6 +430,51 @@ export class AdminService {
     let req:WorkInfo=new WorkInfo();    
     req.idWork=idWork
     return this.administratorClient.deleteWork(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
+
+
+  getListReason( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListReason(req).pipe(
+      map((reply: ReasonResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertReason(codeReason:any,nameReason:any){
+    let req:ReasonInfo=new ReasonInfo();   
+    req.codeReason=codeReason
+    req.nameReason=nameReason
+    return this.administratorClient.insertReason(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+  updateReason( idReason:any,codeReason:any,nameReason:any){
+    let req:ReasonInfo=new ReasonInfo();    
+    req.idReason=idReason
+    req.codeReason=codeReason
+    req.nameReason=nameReason
+    return this.administratorClient.updateReason(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteReason( idReason:any){
+    let req:ReasonInfo=new ReasonInfo();    
+    req.idReason=idReason
+    return this.administratorClient.deleteReason(req).pipe(
       map((reply: Response) => {
         return reply;
       })

@@ -1,1 +1,122 @@
-<p>reason works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Nguyên nhân 
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddReason()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Nguyên nhân</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listReason'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.nameReason}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditReason($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteReason($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Add Reason -->
+<dx-popup
+  [(visible)]="isPopupAddReason"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddReason.title}}"
+  [height]='280'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddReason($event)" autocomplete="off" *ngIf='isPopupAddReason' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAR-mnn" class="form-label">Mã nguyên nhân</label>
+          <input id="FAR-mnn" name="mnn"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddReason)' (click)='click($event)' (input)='input($event,objAddReason)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAR-tnn" class="form-label">Tên nguyên nhân</label>
+          <input id="FAR-tnn" name="tnn"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddReason)' (click)='click($event)' (input)='input($event,objAddReason)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddReason.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddReason.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddReason()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddReason.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit Reason -->
+<dx-popup
+  [(visible)]="isPopupEditReason"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditReason.title}}"
+  [height]='280'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditReason($event)" autocomplete="off" *ngIf='isPopupEditReason' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FER-mnn" class="form-label">Mã nguyên nhân</label>
+          <input id="FER-mnn" name="mnn"  rules='required'  type="text"  class="form-control" [value]='objEditReason.input.mnn.value' (blur)='blur($event,objEditReason)' (click)='click($event)' (input)='input($event,objEditReason)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FER-tnn" class="form-label">Tên nguyên nhân</label>
+          <input id="FER-tnn" name="tnn"  rules='required'  type="text"  class="form-control" [value]='objEditReason.input.tnn.value' (blur)='blur($event,objEditReason)' (click)='click($event)' (input)='input($event,objEditReason)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditReason.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditReason.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditReason()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditReason.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete Reason -->
+<dx-popup
+  [(visible)]="isPopupDeleteReason"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteReason.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteReason.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteReason($event)" autocomplete="off" *ngIf='isPopupDeleteReason'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteReason.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteReason.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteReason()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
