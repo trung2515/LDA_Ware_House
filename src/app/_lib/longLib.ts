@@ -56,7 +56,7 @@ let validatorRules:any={
   },
   digitAll:function(value:any){
     let regex=/^\d*$/g
-    return regex.test(value)?undefined:'Nhập sai định dạng';
+    return regex.test(value)?undefined:'Vui lòng nhập sô';
   },
   digits:function(limit:any){
       return function(value:any){
@@ -320,6 +320,7 @@ function setValid(obj:any){
 }
 export function blur(e:any,obj:any){
   validate(e,obj,true)
+  console.log(obj.input)
 }
 export function input(e:any,obj:any){
   validate(e,obj,false)

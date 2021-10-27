@@ -1,1 +1,137 @@
-<p>warehouse-category works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Danh mục kho
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddWareHouse()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Kho</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listWareHouse'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.nameWareHouse}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditWareHouse($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteWareHouse($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Add WareHouse -->
+<dx-popup
+  [(visible)]="isPopupAddWareHouse"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddWareHouse.title}}"
+  [height]='380'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddWareHouse($event)" autocomplete="off" *ngIf='isPopupAddWareHouse' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAW-mk" class="form-label">Mã kho</label>
+          <input id="FAW-mk" name="mk"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAW-tk" class="form-label">Tên kho</label>
+          <input id="FAW-tk" name="tk"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAW-sc" class="form-label">Sức chứa</label>
+          <input id="FAW-sc" name="sc"  rules='required|digitAll'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddWareHouse.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddWareHouse.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddWareHouse()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddWareHouse.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit WareHouse -->
+<dx-popup
+  [(visible)]="isPopupEditWareHouse"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditWareHouse.title}}"
+  [height]='380'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditWareHouse($event)" autocomplete="off" *ngIf='isPopupEditWareHouse' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEW-mk" class="form-label">Mã kho</label>
+          <input id="FEW-mk" name="mk"  rules='required'  type="text"  class="form-control" [value]='objEditWareHouse.input.mk.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEW-tk" class="form-label">Tên kho</label>
+          <input id="FEW-tk" name="tk"  rules='required'  type="text"  class="form-control" [value]='objEditWareHouse.input.tk.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEW-sc" class="form-label">Sức chứa</label>
+          <input id="FEW-sc" name="sc"  rules='required|digitAll'  type="text"  class="form-control" [value]='objEditWareHouse.input.sc.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditWareHouse.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditWareHouse.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditWareHouse()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditWareHouse.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete WareHouse -->
+<dx-popup
+  [(visible)]="isPopupDeleteWareHouse"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteWareHouse.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteWareHouse.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteWareHouse($event)" autocomplete="off" *ngIf='isPopupDeleteWareHouse'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteWareHouse.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteWareHouse.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteWareHouse()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
+

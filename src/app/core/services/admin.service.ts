@@ -11,12 +11,13 @@ import{
   ProductResponse,
   ReasonResponse,
   TypeBillResponse,
+  WareHouseResponse,
   TypePacketResponse,
   TypeProductInfo,
   TypePacketInfo,
   TypeProductResponse,
-  WareHouseResponse,
   ProductInfo,
+  WareHouseInfo,
   Response
 }from '../models/model.pb'
 @Injectable()
@@ -70,6 +71,7 @@ export class AdminService {
 
 
 
+
   getListTypeProduct( ){
     let req:MasterRequest=new MasterRequest();    
     return this.administratorClient.getListTypeProduct(req).pipe(
@@ -111,6 +113,8 @@ export class AdminService {
   }
 
 
+
+
   getListTypePacket( ){
     let req:MasterRequest=new MasterRequest();    
     return this.administratorClient.getListTypePacket(req).pipe(
@@ -150,6 +154,55 @@ export class AdminService {
       })
     )
   }
+  
+
+
+
+  getListWareHouse( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListWareHouse(req).pipe(
+      map((reply: WareHouseResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertWareHouse(codeWareHouse:any,nameWareHouse:any,capacity:any){
+    let req:WareHouseInfo=new WareHouseInfo();    
+    req.codeWareHouse=codeWareHouse
+    req.nameWareHouse=nameWareHouse
+    req.capacity=capacity
+    return this.administratorClient.insertWareHouse(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updateWareHouse( idWareHouse:any,codeWareHouse:any,nameWareHouse:any,capacity:any){
+    let req:WareHouseInfo=new WareHouseInfo();    
+    req.idWareHouse=idWareHouse
+    req.codeWareHouse=codeWareHouse
+    req.nameWareHouse=nameWareHouse
+    req.capacity=capacity
+    console.log(req)
+    return this.administratorClient.updateWareHouse(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteWareHouse( idWareHouse:any){
+    let req:WareHouseInfo=new WareHouseInfo();    
+    req.idWareHouse=idWareHouse
+    return this.administratorClient.deleteWareHouse(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
 
 
 }
