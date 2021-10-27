@@ -15,6 +15,7 @@ import{
   TypePacketResponse,
   TypeProductInfo,
   TypePacketInfo,
+  PackingUnitInfo,
   TypeProductResponse,
   ProductInfo,
   WareHouseInfo,
@@ -197,6 +198,98 @@ export class AdminService {
     let req:WareHouseInfo=new WareHouseInfo();    
     req.idWareHouse=idWareHouse
     return this.administratorClient.deleteWareHouse(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
+
+
+
+  getListPartner( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListPartner(req).pipe(
+      map((reply: PartnerResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  // insertWareHouse(codeWareHouse:any,nameWareHouse:any,capacity:any){
+  //   let req:WareHouseInfo=new WareHouseInfo();    
+  //   req.codeWareHouse=codeWareHouse
+  //   req.nameWareHouse=nameWareHouse
+  //   req.capacity=capacity
+  //   return this.administratorClient.insertWareHouse(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply;
+  //     })
+  //   )
+  // }
+  // updateWareHouse( idWareHouse:any,codeWareHouse:any,nameWareHouse:any,capacity:any){
+  //   let req:WareHouseInfo=new WareHouseInfo();    
+  //   req.idWareHouse=idWareHouse
+  //   req.codeWareHouse=codeWareHouse
+  //   req.nameWareHouse=nameWareHouse
+  //   req.capacity=capacity
+  //   console.log(req)
+  //   return this.administratorClient.updateWareHouse(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply;
+  //     })
+  //   )
+  // }
+  // deleteWareHouse( idWareHouse:any){
+  //   let req:WareHouseInfo=new WareHouseInfo();    
+  //   req.idWareHouse=idWareHouse
+  //   return this.administratorClient.deleteWareHouse(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply;
+  //     })
+  //   )
+  // }
+
+
+
+
+  getListPackingUnit( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListPackingUnit(req).pipe(
+      map((reply: PackingUnitResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertPackingUnit(namePackingUnit:any){
+    let req:PackingUnitInfo=new PackingUnitInfo();    
+    req.namePackingUnit=namePackingUnit
+    return this.administratorClient.insertPackingUnit(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updatePackingUnit( idPackingUnit:any,namePackingUnit:any){
+    let req:PackingUnitInfo=new PackingUnitInfo();    
+    req.idPackingUnit=idPackingUnit
+    req.namePackingUnit=namePackingUnit
+    return this.administratorClient.updatePackingUnit(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deletePackingUnit( idPackingUnit:any){
+    let req:PackingUnitInfo=new PackingUnitInfo();    
+    req.idPackingUnit=idPackingUnit
+    return this.administratorClient.deletePackingUnit(req).pipe(
       map((reply: Response) => {
         return reply;
       })

@@ -1,1 +1,34 @@
-<p>partner works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Danh mục kho
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddPartner()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã khách hàng</th>
+          <th>Tên khách hàng</th>
+          <th>Phân loại</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listPartner'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.codePartner}}</td>
+          <td>{{item.namePartner}}</td>
+          <td>{{item.typePartnerName}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditPartner($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeletePartner($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -16,7 +16,7 @@ export class ConfigurationLayoutComponent implements OnInit {
     {link:'/configuration/type-bag',name:'Loại bao'},
     {link:'/configuration/id-bag',name:'Mã bao'},
     {link:'/configuration/warehouse-category',name:'Danh mục kho'},
-    {link:'/configuration/partner',name:'Khách hàng/Nhà cung cấp'},
+    {link:'/configuration/partner',name:'Khách hàng/Đơn vị đóng bao'},
     {link:'/configuration/packet-unit',name:'Đơn vị đóng'},
     {link:'/configuration/device-category',name:'Danh mục thiết bị'},
     {link:'/configuration/bill',name:'Các loại phiếu'},
