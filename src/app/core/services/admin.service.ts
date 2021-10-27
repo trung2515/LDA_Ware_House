@@ -13,6 +13,7 @@ import{
   TypeBillResponse,
   TypePacketResponse,
   TypeProductInfo,
+  TypePacketInfo,
   TypeProductResponse,
   WareHouseResponse,
   ProductInfo,
@@ -79,7 +80,7 @@ export class AdminService {
         } else return []
       })
     )
-  }//InsertTypeProduct
+  }
   insertTypeProduct(nameTypeProduct:any){
     let req:TypeProductInfo=new TypeProductInfo();    
     req.nameTypeProduct=nameTypeProduct
@@ -108,4 +109,47 @@ export class AdminService {
       })
     )
   }
+
+
+  getListTypePacket( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListTypePacket(req).pipe(
+      map((reply: TypePacketResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertTypePacket(nameTypePacket:any){
+    let req:TypePacketInfo=new TypePacketInfo();    
+    req.nameTypePacket=nameTypePacket
+    return this.administratorClient.insertTypePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updateTypePacket(idTypeProdcut:any,nameTypePacket:any ){
+    let req:TypePacketInfo=new TypePacketInfo();   
+    req.idTypePacket=idTypeProdcut 
+    req.nameTypePacket=nameTypePacket
+    return this.administratorClient.updateTypePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteTypePacket( idTypePacket:any){
+    let req:TypePacketInfo=new TypePacketInfo();    
+    req.idTypePacket=idTypePacket
+    return this.administratorClient.deleteTypePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
 }

@@ -1,1 +1,109 @@
-<p>type-bag works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;margin-top: var(--padding);'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Loại bao
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddTypePacket()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Loại bao</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listTypePacket'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.nameTypePacket}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditTypePacket($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteTypePacket($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+</div>
+
+<!-- Add TypePacket -->
+<dx-popup
+  [(visible)]="isPopupAddTypePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddTypePacket.title}}"
+  [height]='280'
+  [width]="550"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddTypePacket($event)" autocomplete="off" *ngIf='isPopupAddTypePacket' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-tlb" class="form-label">Tên loại bao</label>
+          <input id="FATP-tlb" name="tlb"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypePacket)' (click)='click($event)' (input)='input($event,objAddTypePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddTypePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddTypePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypePacket()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddTypePacket.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit TypePacket -->
+<dx-popup
+  [(visible)]="isPopupEditTypePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditTypePacket.title}}"
+  [height]='280'
+  [width]="550"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditTypePacket($event)" autocomplete="off" *ngIf='isPopupEditTypePacket' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-tlb" class="form-label">Tên loại bao</label>
+          <input id="FATP-tlb" name="tlb"  rules='required' [value]='objEditTypePacket.input.tlb.value' type="text"  class="form-control" (blur)='blur($event,objEditTypePacket)' (click)='click($event)' (input)='input($event,objEditTypePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditTypePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditTypePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditTypePacket()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditTypePacket.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete TypePacket -->
+<dx-popup
+  [(visible)]="isPopupDeleteTypePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteTypePacket.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteTypePacket.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteTypePacket($event)" autocomplete="off" *ngIf='isPopupDeleteTypePacket'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteTypePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteTypePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypePacket()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
