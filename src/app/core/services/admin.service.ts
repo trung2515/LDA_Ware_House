@@ -19,7 +19,9 @@ import{
   TypeProductResponse,
   ProductInfo,
   WareHouseInfo,
-  Response
+  EquipmentInfo,
+  Response,
+  TypeBillInfo
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -295,6 +297,97 @@ export class AdminService {
       })
     )
   }
+
+
+
+
+  getListEquipment( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListEquipment(req).pipe(
+      map((reply: EquipmentResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertEquipment(nameEquipment:any){
+    let req:EquipmentInfo=new EquipmentInfo();    
+    req.nameEquipment=nameEquipment
+    return this.administratorClient.insertEquipment(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updateEquipment( idEquipment:any,nameEquipment:any){
+    let req:EquipmentInfo=new EquipmentInfo();    
+    req.idEquipment=idEquipment
+    req.nameEquipment=nameEquipment
+    return this.administratorClient.updateEquipment(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteEquipment( idEquipment:any){
+    let req:EquipmentInfo=new EquipmentInfo();    
+    req.idEquipment=idEquipment
+    return this.administratorClient.deleteEquipment(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
+
+
+
+  getListTypeBill( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListTypeBill(req).pipe(
+      map((reply: TypeBillResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertTypeBill(codeTypeBill:any,nameTypeBill:any){
+    let req:TypeBillInfo=new TypeBillInfo();   
+    req.codeTypeBill=codeTypeBill
+    req.nameTypeBill=nameTypeBill
+    return this.administratorClient.insertTypeBill(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+  updateTypeBill( idTypeBill:any,codeTypeBill:any,nameTypeBill:any){
+    let req:TypeBillInfo=new TypeBillInfo();    
+    req.idTypeBill=idTypeBill
+    req.codeTypeBill=codeTypeBill
+    req.nameTypeBill=nameTypeBill
+    return this.administratorClient.updateTypeBill(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteTypeBill( idTypeBill:any){
+    let req:TypeBillInfo=new TypeBillInfo();    
+    req.idTypeBill=idTypeBill
+    return this.administratorClient.deleteTypeBill(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
 
 
 

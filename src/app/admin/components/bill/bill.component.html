@@ -1,1 +1,124 @@
-<p>bill works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Các loại phiếu
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddTypeBill()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã phiếu</th>
+          <th>Tên phiếu</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listTypeBill'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.codeTypeBill}}</td>
+          <td>{{item.nameTypeBill}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditTypeBill($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteTypeBill($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Add TypeBill -->
+<dx-popup
+  [(visible)]="isPopupAddTypeBill"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddTypeBill.title}}"
+  [height]='320'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddTypeBill($event)" autocomplete="off" *ngIf='isPopupAddTypeBill' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-mp" class="form-label">Mã phiếu</label>
+          <input id="FATB-mp" name="mp"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypeBill)' (click)='click($event)' (input)='input($event,objAddTypeBill)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-tp" class="form-label">Tên phiếu</label>
+          <input id="FATB-tp" name="tp"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypeBill)' (click)='click($event)' (input)='input($event,objAddTypeBill)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddTypeBill.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddTypeBill.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeBill()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddTypeBill.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit TypeBill -->
+<dx-popup
+  [(visible)]="isPopupEditTypeBill"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditTypeBill.title}}"
+  [height]='280'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditTypeBill($event)" autocomplete="off" *ngIf='isPopupEditTypeBill' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-mp" class="form-label">Mã phiếu</label>
+          <input id="FETB-mp" name="mp"  rules='required'  type="text"  class="form-control" [value]='objEditTypeBill.input.mp.value' (blur)='blur($event,objEditTypeBill)' (click)='click($event)' (input)='input($event,objEditTypeBill)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-tp" class="form-label">Tên phiếu</label>
+          <input id="FETB-tp" name="tp"  rules='required'  type="text"  class="form-control" [value]='objEditTypeBill.input.tp.value' (blur)='blur($event,objEditTypeBill)' (click)='click($event)' (input)='input($event,objEditTypeBill)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditTypeBill.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditTypeBill.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditTypeBill()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditTypeBill.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete TypeBill -->
+<dx-popup
+  [(visible)]="isPopupDeleteTypeBill"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteTypeBill.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteTypeBill.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteTypeBill($event)" autocomplete="off" *ngIf='isPopupDeleteTypeBill'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteTypeBill.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteTypeBill.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeBill()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
