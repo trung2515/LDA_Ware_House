@@ -21,7 +21,9 @@ import{
   WareHouseInfo,
   EquipmentInfo,
   Response,
-  TypeBillInfo
+  TypeBillInfo,
+  WorkInfo,
+  WorkResponse
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -381,6 +383,52 @@ export class AdminService {
     let req:TypeBillInfo=new TypeBillInfo();    
     req.idTypeBill=idTypeBill
     return this.administratorClient.deleteTypeBill(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
+
+
+
+  getListWork( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListWork(req).pipe(
+      map((reply: WorkResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertWork(codeWork:any,nameWork:any){
+    let req:WorkInfo=new WorkInfo();   
+    req.codeWork=codeWork
+    req.nameWork=nameWork
+    return this.administratorClient.insertWork(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+  updateWork( idWork:any,codeWork:any,nameWork:any){
+    let req:WorkInfo=new WorkInfo();    
+    req.idWork=idWork
+    req.codeWork=codeWork
+    req.nameWork=nameWork
+    return this.administratorClient.updateWork(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteWork( idWork:any){
+    let req:WorkInfo=new WorkInfo();    
+    req.idWork=idWork
+    return this.administratorClient.deleteWork(req).pipe(
       map((reply: Response) => {
         return reply;
       })

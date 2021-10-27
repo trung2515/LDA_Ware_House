@@ -4,4 +4,5 @@
 // đanh mục thiết bị(lap data, chưa test)
 
 
-// Code sạch đẹp(PAcking unit)
+// Code sạch đẹp(PAcking unit 1 trường---bill 2 trường)
+// 
