@@ -313,7 +313,7 @@ function validate(e:any,obj:any,isBlur:any){
     setValid(obj)
   }
 } 
-function setValid(obj:any){
+export function setValid(obj:any){
   let x= Object.values(obj.input).every((item:any)=>item.isValid==true)
   obj.isValid=x
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { identity } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { AdministratorClient } from '../models/admin.pbsc';
 import{
@@ -24,6 +25,7 @@ import{
   TypeBillInfo,
   WorkInfo,
   WorkResponse,
+  CodePacketInfo,
   ReasonInfo,
 }from '../models/model.pb'
 @Injectable()
@@ -160,6 +162,65 @@ export class AdminService {
       })
     )
   }
+
+
+
+  getListCodePacket( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListCodePacket(req).pipe(
+      map((reply: CodePacketResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertCodePacket(codePacket:any,nameProductPacket:any,unit:any,idTypePacket:any,description:any){
+    let req:CodePacketInfo=new CodePacketInfo();      
+    req.codePacket=codePacket
+    req.nameProductPacket=nameProductPacket
+    req.unit=unit
+    req.idTypePacket=idTypePacket
+    req.description=description
+    return this.administratorClient.insertCodePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updateCodePacket(id:any,codePacket:any,nameProductPacket:any,unit:any,idTypePacket:any,description:any ){
+    let req:CodePacketInfo=new CodePacketInfo();   
+    req.id=id
+    req.codePacket=codePacket
+    req.nameProductPacket=nameProductPacket
+    req.unit=unit
+    req.idTypePacket=idTypePacket
+    req.description=description
+    return this.administratorClient.updateCodePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deleteCodePacket( id:any){
+    let req:CodePacketInfo=new CodePacketInfo();    
+    req.id=id
+    return this.administratorClient.deleteCodePacket(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+
+
+
+
+
+
+
+
+  
   
 
 

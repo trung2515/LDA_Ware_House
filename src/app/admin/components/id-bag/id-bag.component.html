@@ -1,1 +1,195 @@
-<p>id-bag works!</p>
+<div class="configuration">
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      Mã bao 
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddCodePacket()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã VT</th>
+          <th>Tên vât tư, hàng hóa</th>
+          <th>ĐVT</th>
+          <th>Loại bao</th>
+          <th>Mô tả</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listCodePacket'>
+          <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.codePacket}}</td>
+          <td>{{item.nameProductPacket}}</td>
+          <td>{{item.unit}}</td>
+          <td>{{item.nameTypePacket}}</td>
+          <td>{{item.description}}</td>
+          <td style='width: 150px;text-align: center;'>
+            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditCodePacket($event)'>
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteCodePacket($event)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Add CodePacket -->
+<dx-popup
+  [(visible)]="isPopupAddCodePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddCodePacket.title}}"
+  [height]='500'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddCodePacket($event)" autocomplete="off" *ngIf='isPopupAddCodePacket' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-mvt" class="form-label">Mã VT</label>
+          <input id="FATB-mvt" name="mvt"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddCodePacket)' (click)='click($event)' (input)='input($event,objAddCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-tvt" class="form-label">Tên VT, hàng hóa</label>
+          <input id="FATB-tvt" name="tvt"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddCodePacket)' (click)='click($event)' (input)='input($event,objAddCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-dvt" class="form-label">ĐVT</label>
+          <input id="FATB-dvt" name="dvt"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddCodePacket)' (click)='click($event)' (input)='input($event,objAddCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-lb" class="form-label">Loại bao</label>
+          <dx-select-box
+            [dataSource]='listTypePacket'
+            valueExpr="idTypePacket"
+            displayExpr="nameTypePacket"
+            placeholder="Chọn loại bao..."
+            [dropDownOptions]={maxHeight:200}
+            [searchEnabled]="true"
+            (onValueChanged)="onValueChangeTypePacket($event,objAddCodePacket)"
+            style='width:300px'
+          >
+          </dx-select-box>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-mt" class="form-label">Mô tả</label>
+          <input id="FATB-mt" name="mt"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddCodePacket)' (click)='click($event)' (input)='input($event,objAddCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+
+      <div class='formErrMess text-danger mt-2'>{{objAddCodePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddCodePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddCodePacket()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddCodePacket.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit CodePacket -->
+<dx-popup
+  [(visible)]="isPopupEditCodePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditCodePacket.title}}"
+  [height]='500'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditCodePacket($event)" autocomplete="off" *ngIf='isPopupEditCodePacket' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-mvt" class="form-label">Mã VT</label>
+          <input id="FETB-mvt" name="mvt"  rules='required'  type="text"  class="form-control" [value]='objEditCodePacket.input.mvt.value' (blur)='blur($event,objEditCodePacket)' (click)='click($event)' (input)='input($event,objEditCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-tvt" class="form-label">Tên VT, hàng hóa</label>
+          <input id="FETB-tvt" name="tvt"  rules='required'  type="text"  class="form-control" [value]='objEditCodePacket.input.tvt.value' (blur)='blur($event,objEditCodePacket)' (click)='click($event)' (input)='input($event,objEditCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-dvt" class="form-label">ĐVT</label>
+          <input id="FETB-dvt" name="dvt"  rules='required'  type="text"  class="form-control" [value]='objEditCodePacket.input.dvt.value' (blur)='blur($event,objEditCodePacket)' (click)='click($event)' (input)='input($event,objEditCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATB-lb" class="form-label">Loại bao</label>
+          <dx-select-box
+            [dataSource]='listTypePacket'
+            valueExpr="idTypePacket"
+            displayExpr="nameTypePacket"
+            placeholder="Chọn loại bao..."
+            [dropDownOptions]={maxHeight:200}
+            [searchEnabled]="true"
+            [value]='listTypePacket[indexTypePacketInObjEdit].idTypePacket'
+            (onValueChanged)="onValueChangeTypePacket($event,objEditCodePacket)"
+            style='width:300px'
+          >
+          </dx-select-box>
+        </div>
+        <span class="input-message"></span>
+      </div>
+
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FETB-mt" class="form-label">ĐVT</label>
+          <input id="FETB-mt" name="mt"  rules='required'  type="text"  class="form-control" [value]='objEditCodePacket.input.mt.value' (blur)='blur($event,objEditCodePacket)' (click)='click($event)' (input)='input($event,objEditCodePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditCodePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditCodePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditCodePacket()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditCodePacket.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete CodePacket -->
+<dx-popup
+  [(visible)]="isPopupDeleteCodePacket"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeleteCodePacket.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeleteCodePacket.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeleteCodePacket($event)" autocomplete="off" *ngIf='isPopupDeleteCodePacket'>
+      <div class='formErrMess text-danger mt-2'>{{objDeleteCodePacket.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeleteCodePacket.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteCodePacket()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>
