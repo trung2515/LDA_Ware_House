@@ -30,6 +30,9 @@ export class JobComponent implements OnInit {
     this.adminService.getListWork().subscribe((data:any) => {
       this.listWork=data
       console.log('listWork ',this.listWork)  
+      this.listWork.sort((a:any,b:any)=>{
+        return a.nameWork.toLowerCase().localeCompare(b.nameWork.toLowerCase())
+      })
       this.listWork.forEach((item:any,index:any)=>{
         item.index=index
       })

@@ -38,6 +38,9 @@ export class ProductCategoryComponent implements OnInit {
     this.adminService.getListProduct().subscribe((data:any) => {
       this.listProduct=data
       console.log('listProduct ',this.listProduct)  
+      this.listProduct.sort((a:any,b:any)=>{
+        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
+      })
       this.listProduct.forEach((item:any,index:any)=>{
         item.index=index
       })
@@ -201,6 +204,9 @@ export class ProductCategoryComponent implements OnInit {
   getListTypeProduct(){
     this.adminService.getListTypeProduct().subscribe((data:any) => {
       this.listTypeProduct=data
+      this.listTypeProduct.sort((a:any,b:any)=>{
+        return a.nameTypeProduct.toLowerCase().localeCompare(b.nameTypeProduct.toLowerCase())
+      })
       console.log('listTypeProduct ',this.listTypeProduct)  
       this.listTypeProduct.forEach((item:any,index:any)=>{
         item.index=index

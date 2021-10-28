@@ -31,6 +31,9 @@ export class TypeBagComponent implements OnInit {
   getListTypePacket(){
     this.adminService.getListTypePacket().subscribe((data:any) => {
       this.listTypePacket=data
+      this.listTypePacket.sort((a:any,b:any)=>{
+        return a.nameTypePacket.toLowerCase().localeCompare(b.nameTypePacket.toLowerCase())
+      })
       console.log('listTypePacket ',this.listTypePacket)  
       this.listTypePacket.forEach((item:any,index:any)=>{
         item.index=index

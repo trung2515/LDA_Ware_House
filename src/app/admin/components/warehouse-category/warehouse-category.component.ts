@@ -30,6 +30,9 @@ export class WarehouseCategoryComponent implements OnInit {
   getListWareHouse(){
     this.adminService.getListWareHouse().subscribe((data:any) => {
       this.listWareHouse=data
+      this.listWareHouse.sort((a:any,b:any)=>{
+        return a.nameWareHouse.toLowerCase().localeCompare(b.nameWareHouse.toLowerCase())
+      })
       console.log('listWareHouse ',this.listWareHouse)  
       this.listWareHouse.forEach((item:any,index:any)=>{
         item.index=index

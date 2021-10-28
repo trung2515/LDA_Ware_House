@@ -29,6 +29,7 @@ import{
   ReasonInfo,
   MasterDataResponse,
   PartnerInfo,
+
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -389,19 +390,33 @@ export class AdminService {
       })
     )
   }
-  insertEquipment(nameEquipment:any){
+  getListTypeEquipment( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListTypeEquipment(req).pipe(
+      map((reply: MasterDataResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertEquipment(nameEquipment:any,type:any){
     let req:EquipmentInfo=new EquipmentInfo();    
     req.nameEquipment=nameEquipment
+    req.type=type
+    console.log(req)
     return this.administratorClient.insertEquipment(req).pipe(
       map((reply: Response) => {
         return reply;
       })
     )
   }
-  updateEquipment( idEquipment:any,nameEquipment:any){
+  updateEquipment( idEquipment:any,nameEquipment:any,type:any){
     let req:EquipmentInfo=new EquipmentInfo();    
     req.idEquipment=idEquipment
     req.nameEquipment=nameEquipment
+    req.type=type
     return this.administratorClient.updateEquipment(req).pipe(
       map((reply: Response) => {
         return reply;

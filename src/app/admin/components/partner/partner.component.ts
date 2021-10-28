@@ -34,6 +34,9 @@ export class PartnerComponent implements OnInit {
     this.adminService.getListPartner().subscribe((data:any) => {
       this.listPartner=data
       console.log('listPartner ',this.listPartner)  
+      this.listPartner.sort((a:any,b:any)=>{
+        return a.namePartner.toLowerCase().localeCompare(b.namePartner.toLowerCase())
+      })
       this.listPartner.forEach((item:any,index:any)=>{
         item.index=index
       })
@@ -43,8 +46,8 @@ export class PartnerComponent implements OnInit {
     this.adminService.getListTypePartner().subscribe((data:any) => {
       this.listTypePartner=data
       console.log('listTypePartner ',this.listTypePartner)  
-      this.listTypePartner.forEach((item:any,index:any)=>{
-        item.index=index
+      this.listTypePartner.sort((a:any,b:any)=>{
+        return a.objectName.toLowerCase().localeCompare(b.objectName.toLowerCase())
       })
     })
   }

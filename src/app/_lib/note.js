@@ -1,6 +1,6 @@
 // Danh mục sp (sửa sp bị ngược)                 - done
 // Ma bao chưa làm                               - done
-// kh/đơn vị đống bao mới có giao diện
+// kh/đơn vị đống bao mới có giao diện           - done
 // đanh mục thiết bị(lap data, chưa test)
 
 

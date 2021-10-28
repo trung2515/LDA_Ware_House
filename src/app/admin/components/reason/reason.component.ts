@@ -28,6 +28,9 @@ export class ReasonComponent implements OnInit {
   getListReason(){
     this.adminService.getListReason().subscribe((data:any) => {
       this.listReason=data
+      this.listReason.sort((a:any,b:any)=>{
+        return a.nameReason.toLowerCase().localeCompare(b.nameReason.toLowerCase())
+      })
       console.log('listReason ',this.listReason)  
       this.listReason.forEach((item:any,index:any)=>{
         item.index=index

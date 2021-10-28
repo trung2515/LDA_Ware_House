@@ -33,6 +33,9 @@ export class IdBagComponent implements OnInit {
   getListCodePacket(){
     this.adminService.getListCodePacket().subscribe((data:any) => {
       this.listCodePacket=data
+      this.listCodePacket.sort((a:any,b:any)=>{
+        return a.nameProductPacket.toLowerCase().localeCompare(b.nameProductPacket.toLowerCase())
+      })
       console.log('listCodePacket ',this.listCodePacket)  
       this.listCodePacket.forEach((item:any,index:any)=>{
         item.index=index
@@ -42,6 +45,9 @@ export class IdBagComponent implements OnInit {
   getListTypePacket(){
     this.adminService.getListTypePacket().subscribe((data:any) => {
       this.listTypePacket=data
+      this.listTypePacket.sort((a:any,b:any)=>{
+        return a.nameTypePacket.toLowerCase().localeCompare(b.nameTypePacket.toLowerCase())
+      })
       console.log('listTypePacket ',this.listTypePacket)  
       this.listTypePacket.forEach((item:any,index:any)=>{
         item.index=index

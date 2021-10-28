@@ -30,6 +30,9 @@ export class PacketUnitComponent implements OnInit {
   getListPackingUnit(){
     this.adminService.getListPackingUnit().subscribe((data:any) => {
       this.listPackingUnit=data
+      this.listPackingUnit.sort((a:any,b:any)=>{
+        return a.namePackingUnit.toLowerCase().localeCompare(b.namePackingUnit.toLowerCase())
+      })
       console.log('listPackingUnit ',this.listPackingUnit)  
       this.listPackingUnit.forEach((item:any,index:any)=>{
         item.index=index
