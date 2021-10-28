@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "model.proto";
-option csharp_namespace = "Mineral_Inventory";
+option csharp_namespace = "MineralInventory";
 
 package client;
 
@@ -17,6 +17,8 @@ service Administrator {
     rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);
     rpc GetListWareHouse(MasterRequest) returns (WareHouseResponse);
     rpc GetListWork(MasterRequest) returns (WorkResponse);
+    rpc GetListTypeEquipment(MasterRequest) returns (MasterDataResponse);
+    rpc GetListTypePartner(MasterRequest) returns (MasterDataResponse);
 
 
     rpc InsertCodePacket(CodePacketInfo) returns (Response);
@@ -63,8 +65,14 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
+}
+service WareHouse {
+    rpc GetListShift(MasterRequest) returns (ShiftResponse);
+    rpc InsertShift(ShiftInfo) returns (Response);
+    rpc DeleteShift(ShiftInfo) returns (Response);
 
-
-
-
+    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);
+    rpc InsertShiftDetail(ShiftDetailInfo) returns (Response);
+    rpc UpdateShiftDetail(ShiftDetailInfo) returns (Response);
+    rpc DeleteShiftDetail(ShiftDetailInfo) returns (Response);
 }

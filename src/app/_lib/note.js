@@ -1,5 +1,5 @@
-// Danh mục sp (sửa sp bị ngược)
-// Ma bao chưa làm
+// Danh mục sp (sửa sp bị ngược)                 - done
+// Ma bao chưa làm                               - done
 // kh/đơn vị đống bao mới có giao diện
 // đanh mục thiết bị(lap data, chưa test)
 

@@ -32,3 +32,130 @@
     </table>
   </div>
 </div>
+<!-- Add Partner -->
+<dx-popup
+  [(visible)]="isPopupAddPartner"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objAddPartner.title}}"
+  [height]='380'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitAddPartner($event)" autocomplete="off" *ngIf='isPopupAddPartner' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAP-mkh" class="form-label">Mã khách hàng</label>
+          <input id="FAP-mkh" name="mkh"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddPartner)' (click)='click($event)' (input)='input($event,objAddPartner)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAP-tkh" class="form-label">Tên khách hàng</label>
+          <input id="FAP-tkh" name="tkh"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddPartner)' (click)='click($event)' (input)='input($event,objAddPartner)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAP-pl" class="form-label">Phân loại</label>
+          <dx-select-box
+            [dataSource]='listTypePartner'
+            valueExpr="objectId"
+            displayExpr="objectName"
+            placeholder="Chọn loại khách hàng..."
+            [dropDownOptions]={maxHeight:200}
+            [searchEnabled]="true"
+            (onValueChanged)="onValueChangeTypePartner($event,objAddPartner)"
+            style='width:300px'
+          >
+          </dx-select-box>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objAddPartner.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objAddPartner.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddPartner()' >Hủy</div>
+        <button type="submit" [disabled]='!objAddPartner.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Edit Partner -->
+<dx-popup
+  [(visible)]="isPopupEditPartner"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objEditPartner.title}}"
+  [height]='380'
+  [width]="500"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <form (ngSubmit)="onSubmitEditPartner($event)" autocomplete="off" *ngIf='isPopupEditPartner' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEP-mkh" class="form-label">Mã khách hàng</label>
+          <input id="FEP-mkh" name="mkh"  rules='required'  type="text"  class="form-control" [value]='objEditPartner.input.mkh.value' (blur)='blur($event,objEditPartner)' (click)='click($event)' (input)='input($event,objEditPartner)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEP-tkh" class="form-label">Tên khách hàng</label>
+          <input id="FEP-tkh" name="tkh"  rules='required'  type="text"  class="form-control" [value]='objEditPartner.input.tkh.value' (blur)='blur($event,objEditPartner)' (click)='click($event)' (input)='input($event,objEditPartner)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEP-pl" class="form-label">Phân loại</label>
+          <dx-select-box
+            [dataSource]='listTypePartner'
+            valueExpr="objectId"
+            displayExpr="objectName"
+            placeholder="Chọn loại khách hàng..."
+            [dropDownOptions]={maxHeight:200}
+            [searchEnabled]="true"
+            [value]='listTypePartner[indexTypePartnerInObjEdit].objectId'
+            (onValueChanged)="onValueChangeTypePartner($event,objEditPartner)"
+            style='width:300px'
+          >
+          </dx-select-box>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class='formErrMess text-danger mt-2'>{{objEditPartner.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objEditPartner.formSuccMess}}</div>
+      <div class='d-flex justify-content-end mt-4' style=''>
+        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditPartner()' >Hủy</div>
+        <button type="submit" [disabled]='!objEditPartner.isValid' class="btn btn-primary btn-blue" > Sửa</button>
+      </div>
+		</form>
+  </div>
+</dx-popup>
+<!-- Delete Partner -->
+<dx-popup
+  [(visible)]="isPopupDeletePartner"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+  title="{{objDeletePartner.title}}"
+  [height]='220'
+  [width]="380"
+  [resizeEnabled]="true"
+>
+  <div class="" style="width:90%;margin:auto">
+    <div class='title-from-delete'>{{objDeletePartner.mess}}</div>
+    <form  (ngSubmit)="onSubmitDeletePartner($event)" autocomplete="off" *ngIf='isPopupDeletePartner'>
+      <div class='formErrMess text-danger mt-2'>{{objDeletePartner.formErrMess}}</div>
+      <div class='formSuccMess text-success mt-2'>{{objDeletePartner.formSuccMess}}</div>
+      <div class='d-flex justify-content-around mt-4' style=''>
+        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeletePartner()' >Hủy</div>
+        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+      </div>
+    </form>
+  </div>
+</dx-popup>

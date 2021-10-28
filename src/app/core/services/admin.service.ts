@@ -27,6 +27,8 @@ import{
   WorkResponse,
   CodePacketInfo,
   ReasonInfo,
+  MasterDataResponse,
+  PartnerInfo,
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -285,39 +287,50 @@ export class AdminService {
       })
     )
   }
-  // insertWareHouse(codeWareHouse:any,nameWareHouse:any,capacity:any){
-  //   let req:WareHouseInfo=new WareHouseInfo();    
-  //   req.codeWareHouse=codeWareHouse
-  //   req.nameWareHouse=nameWareHouse
-  //   req.capacity=capacity
-  //   return this.administratorClient.insertWareHouse(req).pipe(
-  //     map((reply: Response) => {
-  //       return reply;
-  //     })
-  //   )
-  // }
-  // updateWareHouse( idWareHouse:any,codeWareHouse:any,nameWareHouse:any,capacity:any){
-  //   let req:WareHouseInfo=new WareHouseInfo();    
-  //   req.idWareHouse=idWareHouse
-  //   req.codeWareHouse=codeWareHouse
-  //   req.nameWareHouse=nameWareHouse
-  //   req.capacity=capacity
-  //   console.log(req)
-  //   return this.administratorClient.updateWareHouse(req).pipe(
-  //     map((reply: Response) => {
-  //       return reply;
-  //     })
-  //   )
-  // }
-  // deleteWareHouse( idWareHouse:any){
-  //   let req:WareHouseInfo=new WareHouseInfo();    
-  //   req.idWareHouse=idWareHouse
-  //   return this.administratorClient.deleteWareHouse(req).pipe(
-  //     map((reply: Response) => {
-  //       return reply;
-  //     })
-  //   )
-  // }
+  getListTypePartner( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.administratorClient.getListTypePartner(req).pipe(
+      map((reply: MasterDataResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+  insertPartner(codePartner:any,namePartner:any,typePartner:any){
+    let req:PartnerInfo=new PartnerInfo();    
+    req.codePartner=codePartner
+    req.namePartner=namePartner
+    req.typePartner=typePartner
+    return this.administratorClient.insertPartner(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  updatePartner( idPartner:any,codePartner:any,namePartner:any,typePartner:any){
+    let req:PartnerInfo=new PartnerInfo();    
+    req.idPartner=idPartner
+    req.codePartner=codePartner
+    req.namePartner=namePartner
+    req.typePartner=typePartner
+    console.log(req)
+    return this.administratorClient.updatePartner(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
+  deletePartner( idPartner:any){
+    let req:PartnerInfo=new PartnerInfo();    
+    req.idPartner=idPartner
+    return this.administratorClient.deletePartner(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    )
+  }
 
 
 
