@@ -5306,6 +5306,230 @@ export module ShiftInfo {
 }
 
 /**
+ * Message implementation for client.InsertShiftRequest
+ */
+export class InsertShiftRequest implements GrpcMessage {
+  static id = 'client.InsertShiftRequest';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new InsertShiftRequest();
+    InsertShiftRequest.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: InsertShiftRequest) {
+    _instance.idShift = _instance.idShift || 0;
+    _instance.date = _instance.date || '';
+    _instance.nameShift = _instance.nameShift || '';
+    _instance.createPerson = _instance.createPerson || '';
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: InsertShiftRequest,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.idShift = _reader.readInt32();
+          break;
+        case 2:
+          _instance.date = _reader.readString();
+          break;
+        case 3:
+          _instance.nameShift = _reader.readString();
+          break;
+        case 4:
+          _instance.createPerson = _reader.readString();
+          break;
+        case 5:
+          const messageInitializer5 = new ShiftDetailInfo();
+          _reader.readMessage(
+            messageInitializer5,
+            ShiftDetailInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer5);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    InsertShiftRequest.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: InsertShiftRequest,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.idShift) {
+      _writer.writeInt32(1, _instance.idShift);
+    }
+    if (_instance.date) {
+      _writer.writeString(2, _instance.date);
+    }
+    if (_instance.nameShift) {
+      _writer.writeString(3, _instance.nameShift);
+    }
+    if (_instance.createPerson) {
+      _writer.writeString(4, _instance.createPerson);
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        5,
+        _instance.data as any,
+        ShiftDetailInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _idShift?: number;
+  private _date?: string;
+  private _nameShift?: string;
+  private _createPerson?: string;
+  private _data?: ShiftDetailInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of InsertShiftRequest to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<InsertShiftRequest.AsObject>) {
+    _value = _value || {};
+    this.idShift = _value.idShift;
+    this.date = _value.date;
+    this.nameShift = _value.nameShift;
+    this.createPerson = _value.createPerson;
+    this.data = (_value.data || []).map(m => new ShiftDetailInfo(m));
+    InsertShiftRequest.refineValues(this);
+  }
+  get idShift(): number | undefined {
+    return this._idShift;
+  }
+  set idShift(value: number | undefined) {
+    this._idShift = value;
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
+  }
+  get nameShift(): string | undefined {
+    return this._nameShift;
+  }
+  set nameShift(value: string | undefined) {
+    this._nameShift = value;
+  }
+  get createPerson(): string | undefined {
+    return this._createPerson;
+  }
+  set createPerson(value: string | undefined) {
+    this._createPerson = value;
+  }
+  get data(): ShiftDetailInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: ShiftDetailInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    InsertShiftRequest.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): InsertShiftRequest.AsObject {
+    return {
+      idShift: this.idShift,
+      date: this.date,
+      nameShift: this.nameShift,
+      createPerson: this.createPerson,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): InsertShiftRequest.AsProtobufJSON {
+    return {
+      idShift: this.idShift,
+      date: this.date,
+      nameShift: this.nameShift,
+      createPerson: this.createPerson,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module InsertShiftRequest {
+  /**
+   * Standard JavaScript object representation for InsertShiftRequest
+   */
+  export interface AsObject {
+    idShift?: number;
+    date?: string;
+    nameShift?: string;
+    createPerson?: string;
+    data?: ShiftDetailInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for InsertShiftRequest
+   */
+  export interface AsProtobufJSON {
+    idShift?: number;
+    date?: string;
+    nameShift?: string;
+    createPerson?: string;
+    data?: ShiftDetailInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
  * Message implementation for client.ShiftResponse
  */
 export class ShiftResponse implements GrpcMessage {
@@ -5635,6 +5859,333 @@ export module MasterDataInfo {
   export interface AsProtobufJSON {
     objectId?: number;
     objectName?: string;
+  }
+}
+
+/**
+ * Message implementation for client.ParcelInfo
+ */
+export class ParcelInfo implements GrpcMessage {
+  static id = 'client.ParcelInfo';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new ParcelInfo();
+    ParcelInfo.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: ParcelInfo) {
+    _instance.idParcel = _instance.idParcel || 0;
+    _instance.nameParcel = _instance.nameParcel || '';
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: ParcelInfo,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.idParcel = _reader.readInt32();
+          break;
+        case 2:
+          _instance.nameParcel = _reader.readString();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    ParcelInfo.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(_instance: ParcelInfo, _writer: BinaryWriter) {
+    if (_instance.idParcel) {
+      _writer.writeInt32(1, _instance.idParcel);
+    }
+    if (_instance.nameParcel) {
+      _writer.writeString(2, _instance.nameParcel);
+    }
+  }
+
+  private _idParcel?: number;
+  private _nameParcel?: string;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of ParcelInfo to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<ParcelInfo.AsObject>) {
+    _value = _value || {};
+    this.idParcel = _value.idParcel;
+    this.nameParcel = _value.nameParcel;
+    ParcelInfo.refineValues(this);
+  }
+  get idParcel(): number | undefined {
+    return this._idParcel;
+  }
+  set idParcel(value: number | undefined) {
+    this._idParcel = value;
+  }
+  get nameParcel(): string | undefined {
+    return this._nameParcel;
+  }
+  set nameParcel(value: string | undefined) {
+    this._nameParcel = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    ParcelInfo.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): ParcelInfo.AsObject {
+    return {
+      idParcel: this.idParcel,
+      nameParcel: this.nameParcel
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ParcelInfo.AsProtobufJSON {
+    return {
+      idParcel: this.idParcel,
+      nameParcel: this.nameParcel
+    };
+  }
+}
+export module ParcelInfo {
+  /**
+   * Standard JavaScript object representation for ParcelInfo
+   */
+  export interface AsObject {
+    idParcel?: number;
+    nameParcel?: string;
+  }
+
+  /**
+   * Protobuf JSON representation for ParcelInfo
+   */
+  export interface AsProtobufJSON {
+    idParcel?: number;
+    nameParcel?: string;
+  }
+}
+
+/**
+ * Message implementation for client.ParcelResponse
+ */
+export class ParcelResponse implements GrpcMessage {
+  static id = 'client.ParcelResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new ParcelResponse();
+    ParcelResponse.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: ParcelResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: ParcelResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new ParcelInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            ParcelInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    ParcelResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: ParcelResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        ParcelInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: ParcelInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of ParcelResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<ParcelResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new ParcelInfo(m));
+    ParcelResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): ParcelInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: ParcelInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    ParcelResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): ParcelResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ParcelResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module ParcelResponse {
+  /**
+   * Standard JavaScript object representation for ParcelResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: ParcelInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for ParcelResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: ParcelInfo.AsProtobufJSON[] | null;
   }
 }
 

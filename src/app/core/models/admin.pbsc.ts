@@ -1805,6 +1805,48 @@ export class WareHouseClient {
       });
     },
     /**
+     * Unary RPC for /client.WareHouse/NewInsertShift
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    newInsertShift: (
+      requestData: client000.InsertShiftRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/NewInsertShift',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertShiftRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/NewUpdateShift
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    newUpdateShift: (
+      requestData: client000.InsertShiftRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/NewUpdateShift',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertShiftRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
      * Unary RPC for /client.WareHouse/DeleteShift
      *
      * @param requestMessage Request message
@@ -1908,6 +1950,48 @@ export class WareHouseClient {
         requestClass: client000.ShiftDetailInfo,
         responseClass: client000.Response
       });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/GetListParcel
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.ParcelResponse>>
+     */
+    getListParcel: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.ParcelResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/GetListParcel',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.ParcelResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/test
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.ParcelResponse>>
+     */
+    test: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.ParcelResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/test',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.ParcelResponse
+      });
     }
   };
 
@@ -1948,6 +2032,38 @@ export class WareHouseClient {
   ): Observable<client000.Response> {
     return this.$raw
       .insertShift(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/NewInsertShift
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  newInsertShift(
+    requestData: client000.InsertShiftRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .newInsertShift(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/NewUpdateShift
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  newUpdateShift(
+    requestData: client000.InsertShiftRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .newUpdateShift(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 
@@ -2028,6 +2144,38 @@ export class WareHouseClient {
   ): Observable<client000.Response> {
     return this.$raw
       .deleteShiftDetail(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/GetListParcel
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.ParcelResponse>
+   */
+  getListParcel(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.ParcelResponse> {
+    return this.$raw
+      .getListParcel(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/test
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.ParcelResponse>
+   */
+  test(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.ParcelResponse> {
+    return this.$raw
+      .test(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }

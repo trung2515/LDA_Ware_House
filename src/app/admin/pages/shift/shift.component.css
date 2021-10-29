@@ -1,0 +1,17 @@
+.title__detail{
+  width:300px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+}
+.title__detail__content{
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: 16px;
+  align-items: center;
+  
+  color: #000000;
+}
+.title__detail__label{
+  width: 118px  ;
+  display: inline-block;
+}

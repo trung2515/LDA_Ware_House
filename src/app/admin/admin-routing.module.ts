@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -8,7 +9,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TransportationReportComponent } from './pages/transportation-report/transportation-report.component';
 import { WarehouseManagerComponent } from './pages/warehouse-manager/warehouse-manager.component';
 import { WarehouseReportComponent } from './pages/warehouse-report/warehouse-report.component';
-
+import { ShiftComponent } from './pages/shift/shift.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
 import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import { TypeBagComponent } from './components/type-bag/type-bag.component';
@@ -50,6 +51,13 @@ const routes: Routes = [
       { path:'bill',                    component:BillComponent  },
       { path:'job',                     component:JobComponent  },
       { path:'reason',                  component:ReasonComponent  },
+    ]
+  },
+  {
+    path: 'warehouse-manager',
+    component:AdminLayoutComponent,
+    children:[
+      { path:'shift',        component:ShiftComponent  },
     ]
   },
 
