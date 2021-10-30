@@ -30,9 +30,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/devextreme/dist/css/dx.common.css",
-              "node_modules/devextreme/dist/css/dx.light.css",
-              "src/styles.css"
+              "./node_modules/devextreme/dist/css/dx.common.css",
+              "./node_modules/devextreme/dist/css/dx.light.css"
             ],
             "scripts": []
           },
@@ -42,7 +41,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",

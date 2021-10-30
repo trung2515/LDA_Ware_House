@@ -33,7 +33,7 @@ const routes: Routes = [
       { path:'transportation-report',   component:TransportationReportComponent    },
       { path:'warehouse-manager',       component:WarehouseManagerComponent     },
       { path:'warehouse-report',        component:WarehouseReportComponent      },
-      { path:'test',                    component:TestComponent  },
+      // { path:'test',                    component:TestComponent  },
     ]
   },
   {

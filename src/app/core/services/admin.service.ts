@@ -34,9 +34,6 @@ import{
 @Injectable()
 export class AdminService {
   constructor(private administratorClient:AdministratorClient ) { }
-
-
-
   getListProduct( ){
     let req:MasterRequest=new MasterRequest();    
     return this.administratorClient.getListProduct(req).pipe(
