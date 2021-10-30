@@ -22,7 +22,7 @@ export class ShiftComponent implements OnInit {
     this.getListTypePacket()
     this.getListParcel()
     this.getListWareHouse()
-    setInterval(()=>console.log(this.listShiftDetail),5000)
+    //setInterval(()=>console.log(this.listShiftDetail),5000)
 
   }
   // -----------------------------------------------------Shift---------------------------------------
@@ -31,7 +31,7 @@ export class ShiftComponent implements OnInit {
   getListShift(){
     this.adminService.getListShift().subscribe((data:any) => {
       this.listShift=data
-      console.log(data)
+      //console.log(data)
       this.listShift.forEach((item:any,index:any)=>{
         item.date2=_.YMDtoDMY(item.date)
         item.order=index
@@ -48,12 +48,12 @@ export class ShiftComponent implements OnInit {
     if(!value) return
     let date=_.DATEtoYMD(value)
     this.objAddShift.date=date
-    console.log(date)
+    //console.log(date)
     this.findShiftInDate(date)
   }
   onValueChangeShiftInDateForAdd(e:any){
     let value=e.value
-    console.log(value)
+    //console.log(value)
     this.objAddShift.nameShift=value
     this.shiftClicked=this.objShiftInDateForAdd[value]
     if(this.objShiftInDateForAdd[value]){// ca đã tạo
@@ -67,7 +67,7 @@ export class ShiftComponent implements OnInit {
     this.listShift.forEach((item:any)=>{
       if(item.date==date) this.objShiftInDateForAdd[item.nameShift]=item
     })
-    console.log('objShiftInDateForAdd',this.objShiftInDateForAdd)
+    //.log('objShiftInDateForAdd',this.objShiftInDateForAdd)
   }
   listFakeShift:any=['CA 1','CA 2']
 
@@ -96,12 +96,12 @@ export class ShiftComponent implements OnInit {
   onSubmitAddShift(e:any){
     let {date,idAdmin,nameShift}=this.objAddShift
     let arr=this.listShiftDetail
-    console.log('arr',arr)
-    console.log(date,idAdmin)
+    //console.log('arr',arr)
+    //console.log(date,idAdmin)
     if(!this.shiftClicked){
-      console.log("them mơi ca")
+      //console.log("them mơi ca")
       this.adminService.newInsertShift(date,nameShift,idAdmin,arr).subscribe((data:any) => {
-        console.log(data)
+        //console.log(data)
         if(data.state==ResponseState.SUCCESS){
           this.objAddShift.formSuccMess=data.message
           this.objAddShift.formErrMess=""
@@ -126,10 +126,10 @@ export class ShiftComponent implements OnInit {
 
     }
     else{
-      console.log("sua ca")
+      //console.log("sua ca")
       let idShift=this.shiftClicked.idShift
       this.adminService.newUpdateShift(idShift,arr).subscribe((data:any) => {
-        console.log(data)
+        //console.log(data)
         if(data.state==ResponseState.SUCCESS){
           this.objAddShift.formSuccMess=data.message
           this.objAddShift.formErrMess=""
@@ -163,9 +163,9 @@ export class ShiftComponent implements OnInit {
   }
   clickDelete(e:any){
     let order=parseInt(e.target.dataset.order)
-    console.log(order)
+    //console.log(order)
     this.itemShiftClicked=this.listShift[order]
-    console.log(this.itemShiftClicked)
+    //console.log(this.itemShiftClicked)
     this.objDeleteShift.mess=`Xóa ca ${this.itemShiftClicked.nameShift}?`
     this.togglePopupDeleteShift()
   }
@@ -175,7 +175,7 @@ export class ShiftComponent implements OnInit {
   onSubmitDeleteShift(e:any){
     let id=this.itemShiftClicked.idShift
     this.adminService.deleteShift(id).subscribe((data:any) => {
-      console.log(data)
+     // console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.itemShiftClicked=null
         this.objDeleteShift.formSuccMess=data.message
@@ -207,7 +207,7 @@ export class ShiftComponent implements OnInit {
   getListShiftDetail(idShift:any){
     this.adminService.getListShiftDetail(idShift).subscribe((data:any) => {
       this.listShiftDetail=data
-      console.log("listShiftDetail",data)
+      //console.log("listShiftDetail",data)
       this.listShiftDetail.forEach((item:any,index:any)=>{
         //item.date2=_.YMDtoDMY(item.date)
         item.order=index
@@ -230,15 +230,15 @@ export class ShiftComponent implements OnInit {
     this.listShiftInDay=[]
     
     let order=parseInt(e.target.dataset.order)
-    console.log(order)
+    //console.log(order)
     this.itemShiftClicked=this.listShift[order]
-    console.log(this.itemShiftClicked)
+    //console.log(this.itemShiftClicked)
 
     this.getListShiftDetail(this.itemShiftClicked.idShift)
     this.listShift.forEach((item:any)=>{
       if(item.date==this.itemShiftClicked.date) this.listShiftInDay.push(item)
     })
-    console.log(this.listShiftInDay)
+    //console.log(this.listShiftInDay)
     this.togglePopupDetailShift()
   }
   togglePopupDetailShift(){
@@ -246,11 +246,11 @@ export class ShiftComponent implements OnInit {
   }
   onValueChangeShiftInDateForDetail(e:any){
     let value=e.value
-    console.log('selectbox',value)
+    //console.log('selectbox',value)
     this.listShiftInDay.forEach((item:any)=>{
       if(item.nameShift==value){
         this.itemShiftClicked=item
-        console.log(this.itemShiftClicked)
+        //console.log(this.itemShiftClicked)
         this.getListShiftDetail(this.itemShiftClicked.idShift)
       }
     })
@@ -258,7 +258,7 @@ export class ShiftComponent implements OnInit {
   onSubmitDetailShift(e:any){
     let arr=this.listShiftDetail
     let idShift=this.itemShiftClicked.idShift
-    console.log('arr',arr)
+    //console.log('arr',arr)
 
     this.adminService.newUpdateShift(idShift,arr).subscribe((data:any) => {
       console.log(data)
@@ -268,7 +268,7 @@ export class ShiftComponent implements OnInit {
           this.getListShift()
           setTimeout(()=>{
             this.objDetailShift={
-              title:'Thêm mới ca làm việc',
+              title:'Chi tiết ca làm việc',
               mess:'',
               formErrMess:'',
               formSuccMess:'',
@@ -298,7 +298,7 @@ export class ShiftComponent implements OnInit {
   getListTypeBill(){
     this.adminService.getListTypeBill().subscribe((data:any) => {
       this.listTypeBill=data
-      console.log("listTypeBill",data)
+      //console.log("listTypeBill",data)
     })
   }
   
@@ -307,7 +307,7 @@ export class ShiftComponent implements OnInit {
   getListProduct(){
     this.adminService.getListProduct().subscribe((data:any) => {
       this.listProduct=data
-      console.log("listProduct",data)
+      //console.log("listProduct",data)
     })
   }
   
@@ -317,7 +317,7 @@ export class ShiftComponent implements OnInit {
   getListTypeProduct(){
     this.adminService.getListTypeProduct().subscribe((data:any) => {
       this.listTypeProduct=data
-      console.log("listTypeProduct",data)
+      //console.log("listTypeProduct",data)
     })
   }
   
@@ -326,7 +326,7 @@ export class ShiftComponent implements OnInit {
   getListTypePacket(){
     this.adminService.getListTypePacket().subscribe((data:any) => {
       this.listTypePacket=data
-      console.log("listTypePacket",data)
+      //console.log("listTypePacket",data)
     })
   }
   
@@ -337,7 +337,7 @@ export class ShiftComponent implements OnInit {
   getListParcel(){
     this.adminService.getListParcel().subscribe((data:any) => {
       this.listParcel=data
-      console.log("listParcel",data)
+      //console.log("listParcel",data)
     })
   }
   
@@ -347,7 +347,7 @@ export class ShiftComponent implements OnInit {
   getListWareHouse(){
     this.adminService.getListWareHouse().subscribe((data:any) => {
       this.listWareHouse=data
-      console.log("listWareHouse",data)
+      //console.log("listWareHouse",data)
     })
   }
   
