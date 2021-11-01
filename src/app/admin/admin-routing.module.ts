@@ -26,30 +26,30 @@ BillComponent
 const routes: Routes = [
   {
     path: '',
-    component:AdminLayoutComponent,
-    children:[
-      { path:'dashboard',               component:DashboardComponent  },
-      { path:'consumption-report',      component:ConsumptionReportComponent   },
-      { path:'transportation-report',   component:TransportationReportComponent    },
-      { path:'warehouse-manager',       component:WarehouseManagerComponent     },
-      { path:'warehouse-report',        component:WarehouseReportComponent      },
-      // { path:'test',                    component:TestComponent  },
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'consumption-report', component: ConsumptionReportComponent },
+      { path: 'transportation-report', component: TransportationReportComponent },
+      { path: 'warehouse-manager', component: WarehouseManagerComponent },
+      { path: 'warehouse-report', component: WarehouseReportComponent },
     ]
   },
   {
     path: 'configuration',
-    component:ConfigurationLayoutComponent,
-    children:[
-      { path:'product-category',        component:ProductCategoryComponent  },
-      { path:'type-bag',                component:TypeBagComponent     },
-      { path:'id-bag',                  component:IdBagComponent   },
-      { path:'warehouse-category',      component:WarehouseCategoryComponent    },
-      { path:'partner',                 component:PartnerComponent     },
-      { path:'packet-unit',             component:PacketUnitComponent      },
-      { path:'device-category',         component:DeviceCategoryComponent  },
-      { path:'bill',                    component:BillComponent  },
-      { path:'job',                     component:JobComponent  },
-      { path:'reason',                  component:ReasonComponent  },
+    component: ConfigurationLayoutComponent,
+    children: [
+      { path: 'product-category', component: ProductCategoryComponent },
+      { path: 'type-bag', component: TypeBagComponent },
+      { path: 'id-bag', component: IdBagComponent },
+      { path: 'warehouse-category', component: WarehouseCategoryComponent },
+      { path: 'partner', component: PartnerComponent },
+      { path: 'packet-unit', component: PacketUnitComponent },
+      { path: 'device-category', component: DeviceCategoryComponent },
+      { path: 'bill', component: BillComponent },
+      { path: 'job', component: JobComponent },
+      { path: 'reason', component: ReasonComponent },
+      { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
     ]
   },
 
