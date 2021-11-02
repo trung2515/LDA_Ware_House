@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { identity } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { AdministratorClient } from '../models/admin.pbsc';
+import { AdministratorClient,WareHouseClient } from '../models/admin.pbsc';
 import{
   MasterRequest,
   ResponseState,
@@ -29,11 +29,23 @@ import{
   ReasonInfo,
   MasterDataResponse,
   PartnerInfo,
-
+  ShiftResponse,
+  ShiftDetailResponse,
+  ParcelResponse,
+  InsertShiftRequest,
+  ShiftDetailInfo,
+  ShiftInfo,
 }from '../models/model.pb'
 @Injectable()
 export class AdminService {
-  constructor(private administratorClient:AdministratorClient ) { }
+  constructor(
+    private administratorClient:AdministratorClient ,
+    private warehouseClient:WareHouseClient ,
+
+  ) { }
+
+
+
   getListProduct( ){
     let req:MasterRequest=new MasterRequest();    
     return this.administratorClient.getListProduct(req).pipe(
@@ -568,6 +580,162 @@ export class AdminService {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  getListShift( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.warehouseClient.getListShift(req).pipe(
+      map((reply: ShiftResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+
+  newInsertShift(date:any,nameShift:any,createPerson:any,arrOption:any){
+    let req:InsertShiftRequest=new InsertShiftRequest();   
+    req.date=date
+    req.nameShift=nameShift
+    req.createPerson=createPerson
+    req.data=[]
+    
+    arrOption.forEach((item:any)=>{
+      let s:ShiftDetailInfo=new ShiftDetailInfo()
+      s.idParcel=item.idParcel
+      s.idProduct=item.idProduct
+      s.idTypeBill=item.idTypeBill
+      s.idTypePacket=item.idTypePacket
+      s.idTypeProduct=item.idTypeProduct
+      s.idWareHouse=item.idWareHouse
+      s.optionName=item.optionName
+      if(item.__KEY__) s.idShift=0
+      req.data?.push(s)
+    })
+    console.log(req.data)
+    return this.warehouseClient.newInsertShift(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+
+  newUpdateShift(idShift:any,arrOption:any){
+    let req:InsertShiftRequest=new InsertShiftRequest();   
+    req.idShift=idShift
+    req.data=[]
+    
+    arrOption.forEach((item:any)=>{
+      let s:ShiftDetailInfo=new ShiftDetailInfo()
+      s.idParcel=item.idParcel
+      s.idProduct=item.idProduct
+      s.idTypeBill=item.idTypeBill
+      s.idTypePacket=item.idTypePacket
+      s.idTypeProduct=item.idTypeProduct
+      s.idWareHouse=item.idWareHouse
+      s.optionName=item.optionName
+      if(item.__KEY__) s.idShift=0
+      req.data?.push(s)
+    })
+    console.log(req.data)
+    return this.warehouseClient.newUpdateShift(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+
+  deleteShift(idShift:any){
+    let req:ShiftInfo=new ShiftInfo();   
+    req.idShift=idShift
+    return this.warehouseClient.deleteShift(req).pipe(
+      map((reply: Response) => {
+        return reply
+      })
+    )
+  }
+  // updateTypeBill( idTypeBill:any,codeTypeBill:any,nameTypeBill:any){
+  //   let req:TypeBillInfo=new TypeBillInfo();    
+  //   req.idTypeBill=idTypeBill
+  //   req.codeTypeBill=codeTypeBill
+  //   req.nameTypeBill=nameTypeBill
+  //   return this.administratorClient.updateTypeBill(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply;
+  //     })
+  //   )
+  // }
+  // deleteTypeBill( idTypeBill:any){
+  //   let req:TypeBillInfo=new TypeBillInfo();    
+  //   req.idTypeBill=idTypeBill
+  //   return this.administratorClient.deleteTypeBill(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply;
+  //     })
+  //   )
+  // }
+
+  getListShiftDetail( idShift:any){
+    let req:MasterRequest=new MasterRequest();    
+    req.idShift=idShift
+    return this.warehouseClient.getListShiftDetail(req).pipe(
+      map((reply: ShiftDetailResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
+
+
+
+
+
+  getListParcel( ){
+    let req:MasterRequest=new MasterRequest();    
+    return this.warehouseClient.getListParcel(req).pipe(
+      map((reply: ParcelResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      })
+    )
+  }
 
 
 

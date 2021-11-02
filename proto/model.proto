@@ -8,9 +8,10 @@ message MasterRequest
     int32 idShiftDetail = 2;
 }
 enum ResponseState {
-  SUCCESS = 0;
-  FAIL = 1;
+    SUCCESS = 0;
+    FAIL = 1;
 }
+
 message Response
 {
     ResponseState state = 1;
@@ -19,7 +20,6 @@ message Response
 
 message CodePacketInfo
 {
-
     string codePacket = 1;
     string unit = 2;
     string nameProductPacket = 3;
@@ -29,9 +29,8 @@ message CodePacketInfo
     int32 id = 7;
     float weight = 8;
     string nameTypePacket = 9;
-
-    
 }
+
 message CodePacketResponse
 {
     Response response = 1;
@@ -196,6 +195,14 @@ message ShiftInfo
     string createPerson = 4;
     string nameCratePerson = 5;
 }
+message InsertShiftRequest
+{
+    int32 idShift = 1;
+    string date = 2;
+    string nameShift = 3;
+    string createPerson = 4;
+    repeated ShiftDetailInfo data = 5;
+}
 message ShiftResponse
 {
     Response response = 1;
@@ -207,6 +214,18 @@ message MasterDataInfo
   string objectName = 2;
 
 }
+message ParcelInfo
+{
+    int32 idParcel = 1;
+    string nameParcel = 2;
+}
+
+message ParcelResponse
+{
+    Response response = 1;
+    repeated ParcelInfo data = 2;
+}
+
 message MasterDataResponse
 {
   Response response = 1;

@@ -13,8 +13,11 @@
           <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/transportation-report'" [routerLinkActive]="'active'" >Báo cáo vận chuyển</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/admin/warehouse-manager'"   [routerLinkActive]="'active'" >Quản lí kho</a>
+      <li class="nav-item dropdown">
+        <div class="nav-link dropdown-toggle" data-toggle="dropdown" >Quản lí kho</div>
+        <div class="dropdown-menu dropdown-menu-right" style='padding-right: 8px; padding-left: 8px'>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/warehouse-manager/shift'" [routerLinkActive]="'active'" >Ca làm việc</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="'/admin/xx'"   [routerLinkActive]="'active'" >Vận chuyển</a>

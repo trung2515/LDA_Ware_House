@@ -24,6 +24,7 @@ import { BillComponent } from './components/bill/bill.component';
 import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
+import { ShiftComponent } from './pages/shift/shift.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
     BillComponent,
     JobComponent,
     ReasonComponent,
-    ConfigurationLayoutComponent
+    ConfigurationLayoutComponent,
+    ShiftComponent
   ],
   imports: [
     CommonModule,
