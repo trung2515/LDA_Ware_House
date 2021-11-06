@@ -4,8 +4,8 @@ option csharp_namespace = "MineralInventory";
 
 package client;
 
-
 service Administrator {
+
     rpc GetListCodePacket(MasterRequest) returns (CodePacketResponse);
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
@@ -19,7 +19,8 @@ service Administrator {
     rpc GetListWork(MasterRequest) returns (WorkResponse);
     rpc GetListTypeEquipment(MasterRequest) returns (MasterDataResponse);
     rpc GetListTypePartner(MasterRequest) returns (MasterDataResponse);
-
+    rpc GetListUsers(MasterRequest) returns (UserResponse);
+    rpc GetListDevices(MasterRequest) returns (DeviceResponse);
 
     rpc InsertCodePacket(CodePacketInfo) returns (Response);
     rpc UpdateCodePacket(CodePacketInfo) returns (Response);
@@ -65,19 +66,38 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
+    rpc InsertUser(UserInfo) returns (Response);
+    rpc UpdateUser(UserInfo) returns (Response);
+    rpc DeleteUser(UserInfo) returns (Response);
+    rpc Login(UserInfo) returns (UserReply);
+    rpc ChangePassword(UserInfo) returns (Response);
+
+    rpc InsertDevice(DeviceInfo) returns (Response);
+    rpc UpdateDevice(DeviceInfo) returns (Response);
+    rpc DeleteDevice(DeviceInfo) returns (Response);
 }
 service WareHouse {
     rpc GetListShift(MasterRequest) returns (ShiftResponse);
-    rpc InsertShift(ShiftInfo) returns (Response);
-    rpc NewInsertShift(InsertShiftRequest) returns (Response);
-    rpc NewUpdateShift(InsertShiftRequest) returns (Response);//xoa-sua
-    rpc DeleteShift(ShiftInfo) returns (Response);// xoa ca -idShirt
-
     rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);
-    rpc InsertShiftDetail(ShiftDetailInfo) returns (Response);
-    rpc UpdateShiftDetail(ShiftDetailInfo) returns (Response);
-    rpc DeleteShiftDetail(ShiftDetailInfo) returns (Response);
-
     rpc GetListParcel(MasterRequest) returns (ParcelResponse);
+    rpc GetListParcelDetail(MasterRequest) returns (ParcelDetailResponse);
+    rpc GetListParcelDetailByCode(MasterRequest) returns (ParcelDetailResponse);
+
+
+    rpc NewInsertShift(InsertShiftRequest) returns (Response);
+    rpc NewUpdateShift(InsertShiftRequest) returns (Response);
+    rpc DeleteShift(ShiftInfo) returns (Response);
+
+    // rpc InsertShift(ShiftInfo) returns (Response);
+    //
+    // rpc InsertShiftDetail(ShiftDetailInfo) returns (Response);
+    // rpc UpdateShiftDetail(ShiftDetailInfo) returns (Response);
+    // rpc DeleteShiftDetail(ShiftDetailInfo) returns (Response);
+
+   
+
+    rpc InsertParcel(InsertParcelRequest) returns (Response);
+    rpc UpdateParcel(InsertParcelRequest) returns (Response);
+   
     rpc test(MasterRequest) returns (ParcelResponse);
 }

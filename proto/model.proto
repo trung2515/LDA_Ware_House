@@ -6,12 +6,12 @@ message MasterRequest
 {
     int32 idShift = 1;
     int32 idShiftDetail = 2;
+    string codeParcel = 3;
 }
 enum ResponseState {
-    SUCCESS = 0;
-    FAIL = 1;
+  SUCCESS = 0;
+  FAIL = 1;
 }
-
 message Response
 {
     ResponseState state = 1;
@@ -20,6 +20,7 @@ message Response
 
 message CodePacketInfo
 {
+
     string codePacket = 1;
     string unit = 2;
     string nameProductPacket = 3;
@@ -29,8 +30,9 @@ message CodePacketInfo
     int32 id = 7;
     float weight = 8;
     string nameTypePacket = 9;
-}
 
+    
+}
 message CodePacketResponse
 {
     Response response = 1;
@@ -115,7 +117,7 @@ message TypeBillResponse
 message TypePacketInfo
 {
     int32 idTypePacket = 1;
-    //double weigth =2 ;
+    string codeTypePacket =2 ;
     string nameTypePacket = 3;
     bool isDeleted = 4;
 }
@@ -166,20 +168,21 @@ message ShiftDetailInfo
 {
     int32 idShiftDetail = 1;
     string optionName = 2;
-    int32 idTypeBill = 3;
+    string codeTypeBill = 3;
     string nameTypeBill = 4;
-    int32 idProduct = 5;
+    string codeProduct = 5;
     string nameProduct = 6;
     int32 idTypeProduct = 7;
     string nameTypeProduct = 8;
-    int32 idTypePacket = 9;
+    string codeTypePacket = 9;
     string nameTypePacket = 10;
-    int32 idParcel = 11;
+    string codeParcel = 11;
     string nameParcel = 12;
-    int32 idWareHouse = 13;
+    string codeWareHouse = 13;
     string nameWareHouse = 14;
     int32 idShift = 15;
     string nameShift = 16;
+    int32 line = 17;
 }
 message ShiftDetailResponse
 {
@@ -218,6 +221,7 @@ message ParcelInfo
 {
     int32 idParcel = 1;
     string nameParcel = 2;
+    string codeParcel = 3;
 }
 
 message ParcelResponse
@@ -232,5 +236,66 @@ message MasterDataResponse
   repeated MasterDataInfo data= 2;
 }
 
+message UserResponse {
+  Response response = 1;
+  repeated UserInfo users = 2;
+}
 
+message UserInfo {
+  int32 userid = 1;
+  string username = 2;
+  string password = 3;
+  int32 roleid = 4;
+  string rolename = 5;
+  string createddate = 6;
+  string name  = 7;
+  string newPassword = 8;
+  string codeStaff = 9;
+}
 
+message DeviceResponse {
+  Response response = 1;
+  repeated DeviceInfo data = 2;
+}
+
+message DeviceInfo {
+  string name = 1;
+  string mac = 2;
+  string function = 3;
+  int32 line = 4;
+  int32 id = 5;
+}
+
+message UserReply
+{
+    Response response = 1;
+    string token = 2;
+    UserInfo user =  3;
+}
+message ParcelDetailInfo
+{
+    int32 idParcelDetail =1 ;
+    string codeProduct = 2;
+    string nameProduct = 3;
+    int32 idTypeProduct = 4;
+    string nameTypeProduct = 5;
+    string codeTypePacket = 6;
+    string nameTypePacket = 7;
+    int32 idStatus = 8;
+    string nameStatus = 9;
+    int64 quantity = 10;
+    string codeParcel = 11;
+    int32 idParcel = 12;
+    
+}
+message ParcelDetailResponse
+{
+    Response response = 1;
+    repeated ParcelDetailInfo data = 2;
+}
+message InsertParcelRequest
+{
+    string codeParcel = 1;
+    string name  = 2;
+    repeated ParcelDetailInfo data  = 3;
+}

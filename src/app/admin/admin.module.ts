@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import {DevExtremeModule, DxPopupModule,DxSelectBoxModule  } from 'devextreme-angular';
+import { DevExtremeModule, DxPopupModule, DxSelectBoxModule } from 'devextreme-angular';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -25,6 +25,8 @@ import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
 import { ShiftComponent } from './pages/shift/shift.component';
+import { ParcelComponent } from './pages/parcel/parcel.component';
+import { PercelService } from './pages/parcel/parcel.service';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { ShiftComponent } from './pages/shift/shift.component';
     JobComponent,
     ReasonComponent,
     ConfigurationLayoutComponent,
-    ShiftComponent
+    ShiftComponent,
+    ParcelComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +63,9 @@ import { ShiftComponent } from './pages/shift/shift.component';
     DevExtremeModule,
     DxPopupModule,
     DxSelectBoxModule
+  ],
+  providers: [
+    PercelService
   ]
 })
 export class AdminModule { }

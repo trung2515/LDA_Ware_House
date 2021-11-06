@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { identity } from 'rxjs';
+import { identity, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { AdministratorClient,WareHouseClient } from '../models/admin.pbsc';
 import{
@@ -579,41 +579,6 @@ export class AdminService {
     )
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   getListShift( ){
     let req:MasterRequest=new MasterRequest();    
     return this.warehouseClient.getListShift(req).pipe(
@@ -626,31 +591,35 @@ export class AdminService {
     )
   }
 
-  newInsertShift(date:any,nameShift:any,createPerson:any,arrOption:any){
+  newInsertShift(date:any,nameShift:any,createPerson:any,arrOption:any): Observable<any>{
     let req:InsertShiftRequest=new InsertShiftRequest();   
     req.date=date
     req.nameShift=nameShift
     req.createPerson=createPerson
     req.data=[]
     
-    arrOption.forEach((item:any)=>{
-      let s:ShiftDetailInfo=new ShiftDetailInfo()
-      s.idParcel=item.idParcel
-      s.idProduct=item.idProduct
-      s.idTypeBill=item.idTypeBill
-      s.idTypePacket=item.idTypePacket
-      s.idTypeProduct=item.idTypeProduct
-      s.idWareHouse=item.idWareHouse
-      s.optionName=item.optionName
-      if(item.__KEY__) s.idShift=0
-      req.data?.push(s)
-    })
+    req.data = arrOption.map((item:any) => new ShiftDetailInfo(item))
+    //{
+      // let s:ShiftDetailInfo=new ShiftDetailInfo()
+      // s.codeParcel=item.
+      // s.idProduct=item.idProduct
+      // s.idTypeBill=item.idTypeBill
+      // s.idTypeProduct=item.idTypePacket
+      // s.idTypeProduct=item.idTypeProduct
+      // s.idWareHouse=item.idWareHouse
+      // s.optionName=item.optionName
+      // if(item.__KEY__) s.idShift=0
+      // req.data?.push(s)
+      
+    //}
+    // )
     console.log(req.data)
-    return this.warehouseClient.newInsertShift(req).pipe(
-      map((reply: Response) => {
-        return reply
-      })
-    )
+    return of(req.data)
+    //  this.warehouseClient.newInsertShift(req).pipe(
+    //   map((reply: Response) => {
+    //     return reply
+    //   })
+    // )
   }
 
   newUpdateShift(idShift:any,arrOption:any){
@@ -658,24 +627,26 @@ export class AdminService {
     req.idShift=idShift
     req.data=[]
     
-    arrOption.forEach((item:any)=>{
-      let s:ShiftDetailInfo=new ShiftDetailInfo()
-      s.idParcel=item.idParcel
-      s.idProduct=item.idProduct
-      s.idTypeBill=item.idTypeBill
-      s.idTypePacket=item.idTypePacket
-      s.idTypeProduct=item.idTypeProduct
-      s.idWareHouse=item.idWareHouse
-      s.optionName=item.optionName
-      if(item.__KEY__) s.idShift=0
-      req.data?.push(s)
-    })
+    // arrOption.forEach((item:any)=>{
+    //   let s:ShiftDetailInfo=new ShiftDetailInfo()
+    //   s.idParcel=item.idParcel
+    //   s.idProduct=item.idProduct
+    //   s.idTypeBill=item.idTypeBill
+    //   s.idTypePacket=item.idTypePacket
+    //   s.idTypeProduct=item.idTypeProduct
+    //   s.idWareHouse=item.idWareHouse
+    //   s.optionName=item.optionName
+    //   if(item.__KEY__) s.idShift=0
+    //   req.data?.push(s)
+    // })
+    req.data = arrOption.map((item:any) => new ShiftDetailInfo(item))
     console.log(req.data)
-    return this.warehouseClient.newUpdateShift(req).pipe(
-      map((reply: Response) => {
-        return reply
-      })
-    )
+    return of(req.data)
+    //  this.warehouseClient.newUpdateShift(req).pipe(
+    //   map((reply: Response) => {
+    //     return reply
+    //   })
+    // )
   }
 
   deleteShift(idShift:any){
@@ -725,7 +696,7 @@ export class AdminService {
 
 
 
-  getListParcel( ){
+  getListParcel(){
     let req:MasterRequest=new MasterRequest();    
     return this.warehouseClient.getListParcel(req).pipe(
       map((reply: ParcelResponse) => {
@@ -736,6 +707,7 @@ export class AdminService {
       })
     )
   }
+  
 
 
 

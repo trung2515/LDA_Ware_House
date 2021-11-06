@@ -11,8 +11,6 @@
     <dxi-column dataField="date" caption="Thời gian" dataType="date"></dxi-column>
     <dxi-column dataField="nameCratePerson" caption="Người lập phiếu" [allowHeaderFiltering]="false"></dxi-column>
     <dxi-column caption="Thao tác" [width]="150" [allowHeaderFiltering]="false"></dxi-column>
-
-
     <tbody class="employee dx-row" [ngClass]="{'dx-row-alt': item.rowIndex % 2}"
       *dxTemplate="let item of 'rowTemplateName'">
       <tr class="main-row">
@@ -43,7 +41,7 @@
 
 
 <!-- Detail Shift -->
-<dx-popup [(visible)]="isPopupDetailShift" [closeOnOutsideClick]="true" [showTitle]="true" fullScreen="true"
+<dx-popup [(visible)]="isPopupDetailShift" [closeOnOutsideClick]="true" [showTitle]="true" [fullScreen]="true"
   title="{{objDetailShift.title}}" [height]='600' [width]="1100" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto" *ngIf=isPopupDetailShift>
     <div class="d-flex">
@@ -209,9 +207,9 @@ title="{{objAddShift.title}}" fullScreen="true"
     <form (ngSubmit)="onSubmitDeleteShift($event)" autocomplete="off" *ngIf='isPopupDeleteShift'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteShift.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteShift.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4'>
         <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteShift()'>Hủy</div>
-        <button type="submit" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
+        <button type="submit" class="btn btn-primary btn-blue mr-3"> Xóa</button>
       </div>
     </form>
   </div>
