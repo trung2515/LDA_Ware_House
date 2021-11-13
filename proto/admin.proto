@@ -4,6 +4,10 @@ option csharp_namespace = "MineralInventory";
 
 package client;
 
+service Account {
+    rpc SignIn (UserInfo) returns (UserReply);
+}
+
 service Administrator {
 
     rpc GetListCodePacket(MasterRequest) returns (CodePacketResponse);

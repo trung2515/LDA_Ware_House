@@ -22,6 +22,7 @@ import { BillComponent } from './components/bill/bill.component';
 import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ParcelComponent } from './pages/parcel/parcel.component';
+import { LoginComponent } from './login/login.component';
 ReasonComponent
 JobComponent
 BillComponent
@@ -62,7 +63,7 @@ const routes: Routes = [
       { path: 'parcel', component: ParcelComponent },
     ]
   },
-
+  { path: '**', pathMatch: 'full', redirectTo: 'configuration'}
 ];
 
 @NgModule({

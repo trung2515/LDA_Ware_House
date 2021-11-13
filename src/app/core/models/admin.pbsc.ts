@@ -21,9 +21,70 @@ import { Observable } from 'rxjs';
 import * as thisProto from './admin.pb';
 import * as client000 from './model.pb';
 import {
+  GRPC_ACCOUNT_CLIENT_SETTINGS,
   GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
   GRPC_WARE_HOUSE_CLIENT_SETTINGS
 } from './admin.pbconf';
+/**
+ * Service client implementation for client.Account
+ */
+@Injectable({ providedIn: 'any' })
+export class AccountClient {
+  private client: GrpcClient<any>;
+
+  /**
+   * Raw RPC implementation for each service client method.
+   * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
+   * Attention: these methods do not throw errors when non-zero status codes are received.
+   */
+  $raw = {
+    /**
+     * Unary RPC for /client.Account/SignIn
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.UserReply>>
+     */
+    signIn: (
+      requestData: client000.UserInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.UserReply>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Account/SignIn',
+        requestData,
+        requestMetadata,
+        requestClass: client000.UserInfo,
+        responseClass: client000.UserReply
+      });
+    }
+  };
+
+  constructor(
+    @Optional() @Inject(GRPC_ACCOUNT_CLIENT_SETTINGS) settings: any,
+    @Inject(GRPC_CLIENT_FACTORY) clientFactory: GrpcClientFactory<any>,
+    private handler: GrpcHandler
+  ) {
+    this.client = clientFactory.createClient('client.Account', settings);
+  }
+
+  /**
+   * Unary RPC for /client.Account/SignIn
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.UserReply>
+   */
+  signIn(
+    requestData: client000.UserInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.UserReply> {
+    return this.$raw
+      .signIn(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+}
 /**
  * Service client implementation for client.Administrator
  */

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  host: 'http://192.168.1.243:8001'
+  host: 'http://192.168.1.243:8001',
+  // host: 'https://office.stvg.vn:59064',
 };
 
 /*
