@@ -1,104 +1,26 @@
-<h2>Lô hàng</h2>
-
-
-<dx-data-grid
-  id="gridContainer"
-  [dataSource]="parcelList"
-  [remoteOperations]="false"
-  [allowColumnReordering]="true"
-  [rowAlternationEnabled]="true"
-  [showBorders]="true"
->
-  <dxo-paging [pageSize]="10"></dxo-paging>
-  <dxo-pager
-    [showPageSizeSelector]="true"
-    [allowedPageSizes]="[10, 25, 50, 100]"
-  ></dxo-pager>
-  <dxo-search-panel
-    [visible]="true"
-    [highlightCaseSensitive]="true"
-  ></dxo-search-panel>
-  <dxo-group-panel [visible]="true"></dxo-group-panel>
-  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-  <dxi-column dataField="parcel_code" [groupIndex]="0"></dxi-column>
-  <dxi-column
-    caption="parcel_name"
-    dataField="parcel_name"
-    format="percent"
-    alignment="right"
-    [allowGrouping]="false"
-    cssClass="bullet"
-  ></dxi-column>
-  <dxi-column dataField="parcel_code" cellTemplate="cellAction"></dxi-column>
-  <div *dxTemplate="let d of 'cellAction'">
-    <div class="chart-cell">
-        <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-text"
-              (click)="showModal(d.value)"></button>
-    </div>
-  </div>
-</dx-data-grid>
-
-<dx-popup [(visible)]="isVisiblePopup" [closeOnOutsideClick]="true" [showTitle]="true" [fullScreen]="true"
-  [title]="popupTitle" [height]='600' [width]="1100" [resizeEnabled]="true">
-  <div class="" style="width:90%;margin:auto" *ngIf=isVisiblePopup>
-    <div class="d-flex">
-      <div class='title__detail mr-4'>
-        <span class='title__detail__label'>Mã lô hàng:</span>
-        <span class='title__detail__content'>{{parcelModel.parcel_code}}</span>
+<div class="row pt-3">
+  <div class="col-12">
+    <h2>Lô hàng</h2>
+    <dx-data-grid id="gridContainer" [dataSource]="parcelList" [rowAlternationEnabled]="true" [showBorders]="true">
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+      <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+      <dxi-column dataField="parcel_code" caption="Mã Lô Hàng"></dxi-column>
+      <dxi-column dataField="created_by" caption="Tạo bởi"></dxi-column>
+      <dxi-column cellTemplate="cellAction"></dxi-column>
+      <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+      <div *dxTemplate="let parcel of 'detail'">
+        <div class="master-detail-caption pb-3">Chi tiết lô hàng {{parcel.data.parcel_code}}</div>
+        <detail-parcel-grid [key]="parcel.data.parcel_code"></detail-parcel-grid>
       </div>
-      <div class='title__detail'>
-        <span class='title__detail__label'>Người lập phiếu:</span>
-        <span class='title__detail__content'>{{parcelModel.created_by}}</span>
+      <div *dxTemplate="let d of 'cellAction'">
+        <a type="button" (click)="showModal(d.data.parcel_code)">
+          <span><i class="fa fa-edit" style="color: #4C6EF5; font-size: 16px;"></i></span>
+        </a>
+        <a type="button" (click)="showModal(d.data.parcel_code)">
+          <span><i class="fa fa-delete" style="color: #4C6EF5; font-size: 16px;"></i></span>
+        </a>
       </div>
-    </div>
-    <div class='mt-4'>
-      <dx-data-grid [dataSource]="parcelDetail" [allowColumnReordering]="true" [columnAutoWidth]="true"
-        [showBorders]="true" [allowColumnResizing]="true">
-        <dxi-column dataField="optionName" caption="Option" [width]='90'>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="product_code" caption="Loại phiếu">
-          <dxo-lookup [dataSource]="listTypeBill" displayExpr="nameTypeBill" valueExpr="idTypeBill">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="product_code" caption="Sản phẩm">
-          <dxo-lookup [dataSource]="listProduct" displayExpr="nameProduct" valueExpr="idProduct">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypeProduct" caption="Loại sản phẩm" [width]='120'>
-          <dxo-lookup [dataSource]="listTypeProduct" displayExpr="nameTypeProduct" valueExpr="idTypeProduct">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypePacket" caption="Loại bao">
-          <dxo-lookup [dataSource]="listTypePacket" displayExpr="nameTypePacket" valueExpr="idTypePacket">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idParcel" caption="Lô">
-          <dxo-lookup [dataSource]="listParcel" displayExpr="nameParcel" valueExpr="idParcel">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idWareHouse" caption="Kho">
-          <dxo-lookup [dataSource]="listWareHouse" displayExpr="nameWareHouse" valueExpr="idWareHouse">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
-          <dxo-popup [height]="'auto'" title="Thêm mới" showTitle=true></dxo-popup>
-        </dxo-editing>
-        <dxo-selection mode="popup">
-        </dxo-selection>
-      </dx-data-grid>
-    </div>
-    <div class="d-flex justify-content-end mt-5">
-      <button class='btn btn-light btn-cancel mr-4' style='border-radius: 0;'
-        (click)='togglePopupDetailShift()'>Đóng</button>
-      <button class='btn btn-primary' style='border-radius: 0;' (click)='onSubmitDetailParcel($event)'>Lưu thay đổi</button>
-    </div>
+    </dx-data-grid>
   </div>
-
-</dx-popup>
+</div>

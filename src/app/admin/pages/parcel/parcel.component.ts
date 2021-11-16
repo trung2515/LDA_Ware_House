@@ -22,25 +22,28 @@ export class ParcelComponent implements OnInit {
 
   ngOnInit(): void {
     this.parcelService.getListPercel().subscribe(data => this.parcelList = data!, err => console.log(err))
-    this.getListTypeBill()
-    this.getListProduct()
-    this.getListParcel()
-    this.getListTypeProduct()
-    this.getListTypePacket()
-    this.getListParcel()
-    this.getListWareHouse()
+    // this.getListTypeBill()
+    // this.getListProduct()
+    // this.getListParcel()
+    // this.getListTypeProduct()
+    // this.getListTypePacket()
+    // this.getListParcel()
+    // this.getListWareHouse()
   }
 
   showModal(code_parcel: string) {
     this.isVisiblePopup = true
     this.parcelModel = this.parcelList.filter(p => p.parcel_code == code_parcel)[0]
-    this.parcelService.getListParcelDetail(code_parcel).subscribe(data => this.parcelDetail = data!, err => console.log(err))
+    // this.parcelService.getListParcelDetail(code_parcel).subscribe(data => this.parcelDetail = data!, err => console.log(err))
   }
 
   onSubmitDetailParcel(event: any) {
     console.log(event)
   }
 
+  togglePopupDetailShift(){
+    this.isVisiblePopup = false
+  }
 
   // onSaving(e: any) {
   //   console.log(e);
@@ -76,60 +79,4 @@ export class ParcelComponent implements OnInit {
   //   }
   // }
 
-  listTypeBill: any = []
-  getListTypeBill() {
-    this.adminService.getListTypeBill().subscribe((data: any) => {
-      this.listTypeBill = data
-      //console.log("listTypeBill",data)
-    })
-  }
-
-
-  listProduct: any = []
-  getListProduct() {
-    this.adminService.getListProduct().subscribe((data: any) => {
-      this.listProduct = data
-      //console.log("listProduct",data)
-    })
-  }
-
-
-
-  listTypeProduct: any = []
-  getListTypeProduct() {
-    this.adminService.getListTypeProduct().subscribe((data: any) => {
-      this.listTypeProduct = data
-      //console.log("listTypeProduct",data)
-    })
-  }
-
-
-  listTypePacket: any = []
-  getListTypePacket() {
-    this.adminService.getListTypePacket().subscribe((data: any) => {
-      this.listTypePacket = data
-      //console.log("listTypePacket",data)
-    })
-  }
-
-
-
-
-  listParcel: any = []
-  getListParcel() {
-    this.adminService.getListParcel().subscribe((data: any) => {
-      this.listParcel = data
-      //console.log("listParcel",data)
-    })
-  }
-
-
-
-  listWareHouse: any = []
-  getListWareHouse() {
-    this.adminService.getListWareHouse().subscribe((data: any) => {
-      this.listWareHouse = data
-      //console.log("listWareHouse",data)
-    })
-  }
 }

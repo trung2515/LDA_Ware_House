@@ -1,0 +1,39 @@
+.breadcrumb {
+  background: none;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  a,
+  span {
+    color: darkgrey;
+  }
+  a:hover,
+  span:hover {
+    color: dimgrey;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  li:first-child span:hover {
+    cursor:default;
+    color: darkgrey;
+  }
+  li {
+    list-style: none;
+    float: left;
+    // margin: 5px;
+  }
+  li:last-child {
+    margin-right: 20px;
+  }
+  li::after {
+    content: ' /';
+    color: darkgrey;
+  }
+  li:last-child::after {
+    content: "";
+  }
+  
+}
+.router-link-active {
+  color: "#4A80FF";
+}
