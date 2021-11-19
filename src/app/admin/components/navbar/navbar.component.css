@@ -19,6 +19,7 @@
 .childMenu:hover {
   background-color: #d2dfff;
   border-radius: 0 !important;
+  color: #4A80FF;
 }
 
 .nav-link {

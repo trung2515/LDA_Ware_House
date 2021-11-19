@@ -6,6 +6,10 @@ package client;
 
 service Account {
     rpc SignIn (UserInfo) returns (UserReply);
+    rpc ChangePassword(UserInfo) returns (Response);
+    rpc InsertUser(UserInfo) returns (Response);
+    rpc UpdateUser(UserInfo) returns (Response);
+    rpc DeleteUser(UserInfo) returns (Response);
 }
 
 service Administrator {
@@ -70,11 +74,9 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
-    rpc InsertUser(UserInfo) returns (Response);
-    rpc UpdateUser(UserInfo) returns (Response);
-    rpc DeleteUser(UserInfo) returns (Response);
-    rpc Login(UserInfo) returns (UserReply);
-    rpc ChangePassword(UserInfo) returns (Response);
+    
+    //rpc Login(UserInfo) returns (UserReply);
+    
 
     rpc InsertDevice(DeviceInfo) returns (Response);
     rpc UpdateDevice(DeviceInfo) returns (Response);
@@ -92,16 +94,22 @@ service WareHouse {
     rpc NewUpdateShift(InsertShiftRequest) returns (Response);
     rpc DeleteShift(ShiftInfo) returns (Response);
 
-    // rpc InsertShift(ShiftInfo) returns (Response);
-    //
-    // rpc InsertShiftDetail(ShiftDetailInfo) returns (Response);
-    // rpc UpdateShiftDetail(ShiftDetailInfo) returns (Response);
-    // rpc DeleteShiftDetail(ShiftDetailInfo) returns (Response);
+    
 
    
 
     rpc InsertParcel(InsertParcelRequest) returns (Response);
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
+
+    rpc InsertTask(InsertTaskRequest) returns (Response);
+    rpc UpdateTask(InsertTaskRequest) returns (Response);
    
-    rpc test(MasterRequest) returns (ParcelResponse);
+}
+service Card
+{
+    rpc InsertCard(InsertCardRequest) returns (Response);
+    rpc UpdateCard(InsertCardRequest) returns (Response); 
+    rpc GetListCard(MasterRequest) returns (CardResponse);
+    rpc getListCardDetailByCode(MasterRequest) returns (CardDetailResponse);
+    rpc SetChangeableCard(CardInfo) returns (Response);
 }

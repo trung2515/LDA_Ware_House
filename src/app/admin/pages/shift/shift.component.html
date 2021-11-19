@@ -10,10 +10,8 @@
 </div>
 <dx-data-grid id="dataGrid" keyExpr="idShift" [dataSource]="listShift" [columnAutoWidth]="true" [showBorders]="true"
   [allowColumnResizing]="true">
-  <dxo-sorting mode="single">
-  </dxo-sorting>
-  <dxi-column dataField="date" caption="Ngày" dataType="date" cellTemplate="dateCell">
-  </dxi-column>
+  <dxo-sorting mode="single"></dxo-sorting>
+  <dxi-column dataField="date" caption="Ngày" dataType="date" cellTemplate="dateCell"></dxi-column>
   <dxi-column dataField="nameShift" caption="Ca" [width]="100" [allowHeaderFiltering]="false"></dxi-column>
   <dxi-column dataField="nameCratePerson" caption="Người lập phiếu"></dxi-column>
   <dxi-column dataField="idShift" caption="Thao tác" [width]="150" [allowHeaderFiltering]="false"
@@ -35,10 +33,6 @@
   <dxo-pager [visible]="true">
   </dxo-pager>
 </dx-data-grid>
-
-
-
-
 <!-- Detail Shift -->
 <dx-popup [(visible)]="isPopupDetailShift" [closeOnOutsideClick]="true" [showTitle]="true" [fullScreen]="true"
   title="{{objDetailShift.title}}" [height]='600' [width]="1100" [resizeEnabled]="true">
@@ -115,10 +109,7 @@
         đổi</button>
     </div>
   </div>
-
 </dx-popup>
-
-
 
 <!-- Add Shift -->
 <dx-popup [(visible)]="isPopupAddShift" [closeOnOutsideClick]="true" [showTitle]="true" title="{{objAddShift.title}}"
@@ -169,20 +160,16 @@
           </dxo-lookup>
           <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
         </dxi-column>
-
         <dxi-column dataField="idWareHouse" caption="Kho">
           <dxo-lookup [dataSource]="listWareHouse" displayExpr="nameWareHouse" valueExpr="idWareHouse">
           </dxo-lookup>
           <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
         </dxi-column>
-
         <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
           <dxo-popup [height]="'auto'" title="Thêm mới option" showTitle=true></dxo-popup>
         </dxo-editing>
-
         <dxo-selection mode="single">
         </dxo-selection>
-
       </dx-data-grid>
     </div>
 

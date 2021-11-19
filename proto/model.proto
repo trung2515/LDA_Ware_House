@@ -7,6 +7,9 @@ message MasterRequest
     int32 idShift = 1;
     int32 idShiftDetail = 2;
     string codeParcel = 3;
+    string formDate = 4;
+    string toDate = 5;
+    string codeCard = 6;
 }
 enum ResponseState {
   SUCCESS = 0;
@@ -119,7 +122,8 @@ message TypePacketInfo
     int32 idTypePacket = 1;
     string codeTypePacket =2 ;
     string nameTypePacket = 3;
-    bool isDeleted = 4;
+    int32 weight = 4;
+    bool isDeleted = 5;
 }
 message TypePacketResponse
 {
@@ -222,6 +226,8 @@ message ParcelInfo
     int32 idParcel = 1;
     string nameParcel = 2;
     string codeParcel = 3;
+    string createdPerson = 4;
+    string nameCreatedOPerson = 5;
 }
 
 message ParcelResponse
@@ -297,5 +303,97 @@ message InsertParcelRequest
 {
     string codeParcel = 1;
     string name  = 2;
-    repeated ParcelDetailInfo data  = 3;
+    string createdPerson = 3;
+    repeated ParcelDetailInfo data  = 4;
+}
+
+message CardInfo
+{
+    int64 IdCard = 1;
+    string codeTypeBill = 2;
+    string createdPerson = 3;
+    string createdDate = 4;
+    string codeCard = 5;
+    int32 idShift = 6;
+    bool isChangable = 7;
+    string namePerson = 8;
+    string nameTypeBill = 9;
+    string nameShift = 10;
+    string vehicleNumber = 11;
+    string romooc = 12;
+    string codeOrder = 13;
+    
+}
+
+message CardResponse
+{
+    Response response = 1;
+    repeated CardInfo data = 2;
+    
+}
+
+message CardDetailInfo
+{
+    int32 idCardDetail = 1;
+    string codeProduct = 2;
+    string nameProduct = 3;
+    int32 idTypeProduct = 4;
+    string nameTypeProduct = 5;
+    string codeTypePacket = 6;
+    string nameTypePacket = 7;
+    string codeParcel = 8;
+    string nameParcel = 9;
+    string codeWareHouse = 10;
+    string nameWareHouse = 11;
+    string codeCard = 12;
+    int64 quantity = 13;
+    string codeReason = 14;
+    string nameReason = 15;
+    int64 weight = 16;
+    int32 idPackingUnit = 17;
+    string namePackingUnit  = 18;
+}
+
+message CardDetailResponse
+{
+    Response response = 1;
+    repeated CardDetailInfo data = 2;
+}
+
+
+message InsertCardRequest
+{
+    CardInfo card = 1;
+    repeated CardDetailInfo cardDetails = 2;
+}
+
+message TaskInfo
+{
+    int64 idTask = 1;
+    string  date = 2;
+    string nameShift = 3;
+    string createdPerson = 4;
+    string namePreated_person = 5;
+    string sender = 6;
+    string recipient = 7;
+}
+
+message TaskDetailInfo
+{
+    int32 idTaskDetail = 1;
+    string codeProduct = 2;
+    int32 idTypeProduct = 3;
+    string codeTypePacket = 4;
+    string codeWork= 5;
+    string codeWareHouseload = 6;
+    string codeWareHouseUnload = 7;
+    string codeEquipmentLoad = 8;
+    string codeEquipmentUnLoad = 9;
+    int32 quantity = 10;
+    int32 distance = 11;
+}
+message InsertTaskRequest
+{
+    TaskInfo task = 1;
+    repeated TaskDetailInfo taskDetails = 2;
 }

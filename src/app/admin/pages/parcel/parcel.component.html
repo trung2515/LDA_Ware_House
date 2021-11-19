@@ -1,6 +1,6 @@
-<div class="row pt-3">
+<div class="row pt-1">
   <div class="col-12">
-    <h2>Lô hàng</h2>
+    <h4 style="font-weight: 500;">Lô hàng</h4>
     <dx-data-grid id="gridContainer" [dataSource]="parcelList" [rowAlternationEnabled]="true" [showBorders]="true">
       <dxo-paging [pageSize]="10"></dxo-paging>
       <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
@@ -24,3 +24,12 @@
     </dx-data-grid>
   </div>
 </div>
+<dx-popup [height]="500" [showTitle]="true" [title]="popupTitle" [dragEnabled]="false" [closeOnOutsideClick]="true"
+  [showCloseButton]="false" container=".dx-viewport" [visible]="popupVisible">
+  <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="after" [options]="saveButtonOptions">
+  </dxi-toolbar-item>
+  <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="after" [options]="closeButtonOptions">
+  </dxi-toolbar-item>
+  <dxo-position at="center" my="center"></dxo-position>
+  <detail-parcel-grid [key]="codeParcelActive"></detail-parcel-grid>
+</dx-popup>

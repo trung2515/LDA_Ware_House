@@ -15,7 +15,7 @@ export class ConfigurationLayoutComponent implements OnInit {
   routing:any=[
     {link:'/configuration/product-category',name:'Danh mục sản phẩm'},
     {link:'/configuration/type-bag',name:'Loại bao'},
-    {link:'/configuration/id-bag',name:'Mã bao'},
+    // {link:'/configuration/id-bag',name:'Mã bao'},
     {link:'/configuration/warehouse-category',name:'Danh mục kho'},
     {link:'/configuration/partner',name:'Khách hàng/Đơn vị đóng bao'},
     {link:'/configuration/packet-unit',name:'Đơn vị đóng'},
