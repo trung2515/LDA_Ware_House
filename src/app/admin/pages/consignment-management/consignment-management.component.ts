@@ -102,7 +102,7 @@ export class ConsignmentManagementComponent implements OnInit {
     this.onClosePopupPr = this.onClosePopupPr.bind(this);
     this.onSaveReplace = this.onSaveReplace.bind(this);
 
-    this.onConfirm =  this.onConfirm.bind(this);
+    this.onConfirm = this.onConfirm.bind(this);
     this.onCloseConfirm = this.onCloseConfirm.bind(this)
 
     that.closePopupCreator = {
@@ -143,15 +143,20 @@ export class ConsignmentManagementComponent implements OnInit {
   }
 
   onConfirm() {
-
     const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
     this.consignments[currentIndexCon].products = [...this.currentProducts]
     this.confirmPopupVisible = false
-    // this.popupVisible = false
   }
 
   onClosePopupPr(e: any) {
-    this.popupVisible = false
+    const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
+
+    const checkReplace = this.tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
+    if (checkReplace) {
+      this.popupVisible = false
+    } else {
+      this.confirmPopupVisible = true
+    }
 
   }
   onSaveReplace = () => {
@@ -159,13 +164,12 @@ export class ConsignmentManagementComponent implements OnInit {
     const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
 
     const checkReplace = this.tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
-    if(checkReplace) {
+    if (checkReplace) {
       this.popupVisible = false
     } else {
       this.confirmPopupVisible = true
     }
   }
-
   onClickSave(e: any) {
     this.dataGrid.instance.saveEditData();
     this.currentProducts[(this.currentProducts.length - 1)].hasProduced = 0
@@ -174,10 +178,9 @@ export class ConsignmentManagementComponent implements OnInit {
   onClickCancel(e: any) {
     this.dataGrid.instance.cancelEditData();
   }
-
   onFilterChange(e: any) {
     if (e.target.value)
-    this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, '2021', Number(e.target.value))
+      this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, '2021', Number(e.target.value))
   }
   //handle dx-date-box change event
   onValueChanged(e: any) {
@@ -219,38 +222,33 @@ export class ConsignmentManagementComponent implements OnInit {
     return output
   }
   getConsignInThreeMonthRecently(consignments: any, yearSelect?: string, keyWords?: number) {
-
     if (keyWords) {
       return this.getConsignmentListByTImeLine(consignments, yearSelect, keyWords)
-
     }
-
     return this.getConsignmentListByTImeLine(consignments, yearSelect)
   }
-
-
-// check 2 arrays are same
-tryEqualsArr = function (arrayA:any[],arrayB:any[]) {
-  // if the other array is a falsy value, return
-  if (!arrayA)
+  // check 2 arrays are same
+  tryEqualsArr = function (arrayA: any[], arrayB: any[]) {
+    // if the other array is a falsy value, return
+    if (!arrayA)
       return false;
 
-  // compare lengths - can save a lot of time
-  if (arrayA.length != arrayB.length)
+    // compare lengths - can save a lot of time
+    if (arrayA.length != arrayB.length)
       return false;
 
-  for (var i = 0, l=arrayA.length; i < l; i++) {
+    for (var i = 0, l = arrayA.length; i < l; i++) {
       // Check if we have nested arrays
       if (arrayA[i] instanceof Array && arrayB[i] instanceof Array) {
-          // recurse into the nested arrays
-          if (!arrayA[i].equals(arrayB[i]))
-              return false;
-      }
-      else if (arrayA[i] != arrayB[i]) {
-          // Warning - two different object instances will never be equal: {x:20} != {x:20}
+        // recurse into the nested arrays
+        if (!arrayA[i].equals(arrayB[i]))
           return false;
       }
+      else if (arrayA[i] != arrayB[i]) {
+        // Warning - two different object instances will never be equal: {x:20} != {x:20}
+        return false;
+      }
+    }
+    return true;
   }
-  return true;
-}
 }
