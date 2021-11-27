@@ -25,7 +25,7 @@ import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
 import { ShiftComponent } from './pages/shift/shift.component';
-
+import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,8 @@ import { ShiftComponent } from './pages/shift/shift.component';
     JobComponent,
     ReasonComponent,
     ConfigurationLayoutComponent,
-    ShiftComponent
+    ShiftComponent,
+    ConsignmentManagementComponent
   ],
   imports: [
     CommonModule,

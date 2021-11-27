@@ -21,6 +21,7 @@ import { DeviceCategoryComponent } from './components/device-category/device-cat
 import { BillComponent } from './components/bill/bill.component';
 import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
+import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 ReasonComponent
 JobComponent
 BillComponent
@@ -58,6 +59,7 @@ const routes: Routes = [
     component:AdminLayoutComponent,
     children:[
       { path:'shift',        component:ShiftComponent  },
+      { path:'consignment',        component:ConsignmentManagementComponent  },
     ]
   },
 
