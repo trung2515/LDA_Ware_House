@@ -33,7 +33,9 @@ import { ParcelComponent } from './pages/parcel/parcel.component'
 import { PercelService } from './pages/parcel/parcel.service'
 import { CardComponent } from './pages/dashboard/component/card.component'
 import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component'
-import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
+import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
+import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
     ParcelComponent,
     CardComponent,
     DetailParcelGrid,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    MinuteManagerComponent,
   ],
   imports: [
     CommonModule,
