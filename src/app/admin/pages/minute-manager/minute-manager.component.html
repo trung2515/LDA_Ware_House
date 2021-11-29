@@ -1,0 +1,44 @@
+<div class="row">
+    <p>Lập biên bản</p>
+    <div class="col-6">
+       <div>
+           <p>Ca làm việc</p>
+           <hr>
+       </div>
+       <div class="row">
+           <div class="col-6">
+            <div>Ca:</div>
+            <dx-select-box
+              placeholder="Chọn ca"
+              displayExpr="name"
+              [(dataSource)]="listShift"
+            
+            ></dx-select-box>
+           </div>
+           <div class="col-6">
+            <div>Ngày:</div>
+                <div >
+                  <dx-date-box type="date"  placeholder="Chọn ngày"> </dx-date-box>
+                </div>
+           </div>
+
+           <div class="py-4">
+            <dx-data-grid
+            (onSelectionChanged)="selectionChanged($event)"
+            [columnAutoWidth]="true"
+            [dataSource]="dataTableMinute"
+            [showBorders]="true"
+          >
+          <dxi-column dataField="product" caption="Tên sản phẩm"></dxi-column>
+          <dxi-column dataField="type" caption="Loại sản Phẩm"></dxi-column>
+          <dxi-column dataField="lot" caption="Lô"></dxi-column>
+          <dxi-column dataField="seri" caption="Số seri bao"></dxi-column>
+          <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
+          <dxi-column dataField="user" caption="User"></dxi-column>
+          <dxo-selection mode="multiple"></dxo-selection>   
+          </dx-data-grid>
+          
+           </div>
+       </div>
+    </div>
+</div>

@@ -22,6 +22,7 @@ import { JobComponent } from './components/job/job.component'
 import { ReasonComponent } from './components/reason/reason.component'
 import { ParcelComponent } from './pages/parcel/parcel.component'
 import { LoginComponent } from './login/login.component'
+import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component';
 ReasonComponent
 JobComponent
 BillComponent
@@ -76,6 +77,13 @@ const routes: Routes = [
         },
         component: ParcelComponent,
       },
+      {
+        path: 'minutes',
+        data: {
+          breadcrumb: 'Biên bản',
+        },
+        component: MinuteManagerComponent,
+      },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
   },
@@ -111,6 +119,7 @@ const routes: Routes = [
     ],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
+
 ]
 
 @NgModule({

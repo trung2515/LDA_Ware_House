@@ -6,7 +6,7 @@
           aria-expanded="false" routerLinkActive="active">
           {{ menu.name }}
         </a>
-        <a *ngIf="menu.parentId == 0" style=" pointer-events: none;" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+        <a *ngIf="menu.parentId == -0" style=" pointer-events: none;" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [routerLink]="menu.link"
           routerLinkActive="active">
           {{ menu.name }}
