@@ -140,6 +140,7 @@ export class ConsignmentManagementComponent implements OnInit {
   // confirm popup
   onCloseConfirm() {
     this.confirmPopupVisible = false;
+    this.popupVisible =  false
   }
 
   onConfirm() {
