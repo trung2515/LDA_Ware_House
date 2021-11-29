@@ -3,6 +3,7 @@ import { FormsService } from '../../services/forms-service.service'
 import { ItemModel } from '../model'
 import jspdf from 'jspdf'
 import html2canvas from 'html2canvas'
+import { Form_Mineral_Item } from '../../models/mineral-model'
 @Component({
   selector: 'tool-page',
   templateUrl: './tool-page.component.html',
@@ -10,6 +11,7 @@ import html2canvas from 'html2canvas'
 })
 export class ToolPageComponent implements OnInit {
   cards: ItemModel[] = []
+  dataBinding: Form_Mineral_Item  = new  Form_Mineral_Item();
   ngOnInit(): void {
     this.cards = [
       {
@@ -38,7 +40,15 @@ export class ToolPageComponent implements OnInit {
         action: 'In',
       },
     ]
+
+    this.dataBinding.title = 'BIÊN BẢN GIAO NHẬN'
+    this.dataBinding.subtitle = 'SẢN PHẨM NHẬP KHO HÀNG CA'
+
+    this.dataBinding.department1 = '1. Đại diện bên giao: Phân xưởng  Nung Hydrat'
+    this.dataBinding.department2 = '2. Đại diện bên nhận: Phòng Kế Hoạch Tiêu Thụ'
   }
+
+
   isShowPopup: boolean = false
 
   employee: any

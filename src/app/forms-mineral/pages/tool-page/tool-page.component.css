@@ -84,6 +84,7 @@ table {
 table thead th {
   font-size: 25px !important;
   letter-spacing: -0.045em;
+  text-transform: capitalize;
 }
 
 tr th,
