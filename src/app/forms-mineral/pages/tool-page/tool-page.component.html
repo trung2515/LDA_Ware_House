@@ -1,0 +1,169 @@
+<div class="row d-flex p-2">
+    <item-form class="col-4 pb-3 px-1" *ngFor="let item of cards" [item]="item" (actionEvent)="actionClick($event)">
+    </item-form>
+</div>
+<dx-popup [(visible)]="isShowPopup" [showTitle]="true" title="Information" [dragEnabled]="false"
+    [closeOnOutsideClick]="true" [showCloseButton]="false" container=".dx-viewport">
+    <div *dxTemplate="let data of 'content'">
+        <dx-form id="form" [formData]="employee">
+            <dxi-item itemType="group" cssClass="first-group" [colCount]="4">
+                <dxi-item>
+                    <div class="form-avatar"></div>
+                </dxi-item>
+                <dxi-item itemType="group" [colSpan]="3">
+                    <dxi-item dataField="FirstName"></dxi-item>
+                    <dxi-item dataField="LastName"></dxi-item>
+                    <dxi-item dataField="BirthDate" editorType="dxDateBox" [editorOptions]="{ width: '100%' }">
+                    </dxi-item>
+                </dxi-item>
+            </dxi-item>
+            <dxi-item itemType="group" cssClass="second-group" [colCount]="2">
+                <dxi-item itemType="group">
+                    <dxi-item dataField="Address"></dxi-item>
+                    <dxi-item dataField="City"></dxi-item>
+                    <dxi-item dataField="Position" editorType="dxSelectBox"
+                        [editorOptions]="{ items: positions, value: '' }">
+                    </dxi-item>
+                </dxi-item>
+                <dxi-item itemType="group">
+                    <dxi-item dataField="State" editorType="dxSelectBox" [editorOptions]="{ items: states }"></dxi-item>
+                    <dxi-item dataField="ZipCode"></dxi-item>
+                    <dxi-item dataField="Mobile" [label]="{ text: 'Phone' }"
+                        [editorOptions]="{ mask: '+1 (000) 000-0000' }">
+                    </dxi-item>
+                </dxi-item>
+                <dxi-item dataField="Notes" [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 140 }">
+                </dxi-item>
+            </dxi-item>
+        </dx-form>
+    </div>
+</dx-popup>
+
+<h1>
+    {{title}}
+</h1>
+<div class="d-flex ">
+    <div class="d-flex preview justify-content-center">
+        <div class="cover">
+            <div id="contentToConvert" style="padding-top:75px; padding-left: 90px; padding-right: 90px;">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column align-items-center badge-left">
+                        <h5 class="company-name-title text-center pb-1">CÔNG TY TNHH MỘT THÀNH VIÊN
+                            NHÔM LÂM ĐỒNG - TKV</h5>
+                        <h5 class="dapartment-name-title text-center">PHÒNG KHTT</h5>
+                    </div>
+                    <div class="d-flex flex-column align-items-center badge-right">
+                        <h5 class="company-name-title text-center pb-1">
+                            CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+                        </h5>
+                        <h5 class="sub-title text-center">Độc lập - Tự do - Hạnh phúc</h5>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center pt-5 pb-2">
+                    <h4 class="form-name-title text-center"> BIÊN BẢN GIAO NHẬN
+                        SẢN PHẨM NHẬP KHO HÀNG CA </h4>
+                </div>
+                <div class="d-flex flex-column content">
+                    <h6>Hôm nay, ngày tháng năm , vào lúc giờ phút, tại kho Mở Rộng của Công
+                        ty TNHH MTV Nhôm Lâm Đồng - TKV, chúng tôi gồm có: </h6>
+                    <h6 class="text-bold">
+                        1. Đại diện bên giao: Phân xưởng Nung Hydrat
+                    </h6>
+                    <div class="d-flex justify-content-between">
+                        <h6> -Ông/(Bà): Nguyễn Đình Thảnh</h6>
+                        <h6>Chức vụ: Trưởng Ca</h6>
+                    </div>
+                    <h6 class="text-bold">
+                        2. Đại diện bên nhận: Phòng Kế Hoạch Tiêu Thụ
+                    </h6>
+                    <div class="d-flex justify-content-between">
+                        <h6> -Ông/(Bà): Trần Quốc Tuấn </h6>
+                        <h6>Chức vụ: Trưởng Ca</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6> -Ông/(Bà): Võ Thị Hồng</h6>
+                        <h6>Chức vụ: Thủ Kho</h6>
+                    </div>
+                    <h6 class="pb-3">
+                        &nbsp; &nbsp;&nbsp;Tiến hành giao nhận sản phẩm Alumin đóng bao loại 1 tấn hoàn thành ca 1, ngày
+                        20
+                        tháng 10 năm
+                        2021
+                        để nhập kho như sau:
+                    </h6>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">TT</th>
+                                <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Tên sản phẩm
+                                </th>
+                                <th class="text-center align-center text-bold" colspan="2" scope="colgroup">Số lượng
+                                </th>
+                                <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Số lô</th>
+                                <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Kho</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center align-center text-bold" scope="col">SLBao</th>
+                                <th class="text-center align-center text-bold" scope="col">K/luong</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">1</td>
+                                <td scope="row">Alumin</td>
+                                <td>50</td>
+                                <td>30</td>
+                                <td scope="row">3000</td>
+                                <td scope="row">Kho trung tâm</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">1</td>
+                                <td scope="row">Alumin 02</td>
+                                <td>50</td>
+                                <td>30</td>
+                                <td scope="row">3000</td>
+                                <td scope="row">Kho trung tâm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6 class="pt-3">
+                        &nbsp; &nbsp; &nbsp; Ông (bà) Thủ kho sản phẩm có trách nhiệm quản lý và bảo quản sản phẩm đã
+                        nhận theo
+                        quy định kể
+                        từ ca
+                        1, ngày 20 tháng 10 năm 2021
+                    </h6>
+                    <h6>
+                        Biên bản được lập thành 03 bản có giá trị pháp lý như nhau, Phân xưởng Nung Hydrat giữ 01 bản,
+                        Thủ
+                        kho giữ 01 bản, 01 bản chuyển Phòng KTTC để làm phiếu nhập kho. Tất cả thành phần đều nhất trí
+                        thông
+                        qua vào lúc 22 giờ …..... phút cùng ngày./.
+                    </h6>
+                </div>
+                <div class="d-flex sign-position justify-content-between pt-4">
+                    <div class="d-flex flex-column sign-region justify-content-between align-items-center">
+                        <h6 class="text-bold">ĐD BÊN GIAO</h6>
+                        <h6 class="text-bold">Nguyễn Đình Thảnh</h6>
+                    </div>
+                    <div class="d-flex flex-column sign-region justify-content-between align-items-center">
+                        <h6 class="text-bold">ĐD BÊN NHẬN</h6>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between sign-key">
+                                <h6>Thủ kho:</h6>
+                                <h6 class="text-bold">Võ Thị Hồng</h6>
+                            </div>
+                            <div class="d-flex justify-content-between sign-key pt-4">
+                                <h6>ĐD p.KHTT:</h6>
+                                <h6 class="text-bold">Trần Quốc Tuấn</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<button (click)="captureScreen()">In Test</button>

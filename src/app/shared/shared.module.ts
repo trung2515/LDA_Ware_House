@@ -15,10 +15,14 @@ import {
   DxChartModule,
   DxDataGridModule,
   DxDateBoxModule,
+  DxFormModule,
   DxPivotGridModule,
+  DxPopupModule,
   DxSelectBoxModule,
+  DxTextAreaModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
+
 
 @NgModule({
   declarations: [TextInputComponent, FooterComponent],
@@ -41,6 +45,12 @@ import { FooterComponent } from './component/footer/footer.component'
     DxDataGridModule,
     DxChartModule,
     DxSelectBoxModule,
+    DxSelectBoxModule,
+    DxTextAreaModule,
+    DxDateBoxModule,
+    DxFormModule,
+    DxPopupModule,
+    // SampleModule,
   ],
   exports: [
     ToastrModule,
@@ -58,10 +68,16 @@ import { FooterComponent } from './component/footer/footer.component'
     DxChartModule,
     DxSelectBoxModule,
     NgxLocalStorageModule,
-
+    DxSelectBoxModule,
+    DxTextAreaModule,
+    DxDateBoxModule,
+    DxFormModule,
+    DxPopupModule,
+    // SampleModule,
     //Component
+
     FooterComponent,
-    TextInputComponent,
+    TextInputComponent
   ],
 })
 export class SharedModule {}

@@ -40,7 +40,7 @@ export class MasterRequest implements GrpcMessage {
     _instance.idShift = _instance.idShift || 0;
     _instance.idShiftDetail = _instance.idShiftDetail || 0;
     _instance.codeParcel = _instance.codeParcel || '';
-    _instance.formDate = _instance.formDate || '';
+    _instance.fromDate = _instance.fromDate || '';
     _instance.toDate = _instance.toDate || '';
     _instance.codeCard = _instance.codeCard || '';
   }
@@ -68,7 +68,7 @@ export class MasterRequest implements GrpcMessage {
           _instance.codeParcel = _reader.readString();
           break;
         case 4:
-          _instance.formDate = _reader.readString();
+          _instance.fromDate = _reader.readString();
           break;
         case 5:
           _instance.toDate = _reader.readString();
@@ -102,8 +102,8 @@ export class MasterRequest implements GrpcMessage {
     if (_instance.codeParcel) {
       _writer.writeString(3, _instance.codeParcel);
     }
-    if (_instance.formDate) {
-      _writer.writeString(4, _instance.formDate);
+    if (_instance.fromDate) {
+      _writer.writeString(4, _instance.fromDate);
     }
     if (_instance.toDate) {
       _writer.writeString(5, _instance.toDate);
@@ -116,7 +116,7 @@ export class MasterRequest implements GrpcMessage {
   private _idShift?: number;
   private _idShiftDetail?: number;
   private _codeParcel?: string;
-  private _formDate?: string;
+  private _fromDate?: string;
   private _toDate?: string;
   private _codeCard?: string;
 
@@ -129,7 +129,7 @@ export class MasterRequest implements GrpcMessage {
     this.idShift = _value.idShift;
     this.idShiftDetail = _value.idShiftDetail;
     this.codeParcel = _value.codeParcel;
-    this.formDate = _value.formDate;
+    this.fromDate = _value.fromDate;
     this.toDate = _value.toDate;
     this.codeCard = _value.codeCard;
     MasterRequest.refineValues(this);
@@ -152,11 +152,11 @@ export class MasterRequest implements GrpcMessage {
   set codeParcel(value: string | undefined) {
     this._codeParcel = value;
   }
-  get formDate(): string | undefined {
-    return this._formDate;
+  get fromDate(): string | undefined {
+    return this._fromDate;
   }
-  set formDate(value: string | undefined) {
-    this._formDate = value;
+  set fromDate(value: string | undefined) {
+    this._fromDate = value;
   }
   get toDate(): string | undefined {
     return this._toDate;
@@ -189,7 +189,7 @@ export class MasterRequest implements GrpcMessage {
       idShift: this.idShift,
       idShiftDetail: this.idShiftDetail,
       codeParcel: this.codeParcel,
-      formDate: this.formDate,
+      fromDate: this.fromDate,
       toDate: this.toDate,
       codeCard: this.codeCard
     };
@@ -215,7 +215,7 @@ export class MasterRequest implements GrpcMessage {
       idShift: this.idShift,
       idShiftDetail: this.idShiftDetail,
       codeParcel: this.codeParcel,
-      formDate: this.formDate,
+      fromDate: this.fromDate,
       toDate: this.toDate,
       codeCard: this.codeCard
     };
@@ -229,7 +229,7 @@ export module MasterRequest {
     idShift?: number;
     idShiftDetail?: number;
     codeParcel?: string;
-    formDate?: string;
+    fromDate?: string;
     toDate?: string;
     codeCard?: string;
   }
@@ -241,7 +241,7 @@ export module MasterRequest {
     idShift?: number;
     idShiftDetail?: number;
     codeParcel?: string;
-    formDate?: string;
+    fromDate?: string;
     toDate?: string;
     codeCard?: string;
   }
@@ -4651,7 +4651,11 @@ export class ShiftDetailInfo implements GrpcMessage {
     _instance.nameWareHouse = _instance.nameWareHouse || '';
     _instance.idShift = _instance.idShift || 0;
     _instance.nameShift = _instance.nameShift || '';
-    _instance.line = _instance.line || 0;
+    _instance.idPackingUnit = _instance.idPackingUnit || 0;
+    _instance.namePackingUnit = _instance.namePackingUnit || '';
+    _instance.createPerson = _instance.createPerson || '';
+    _instance.nameCratePerson = _instance.nameCratePerson || '';
+    _instance.date = _instance.date || '';
   }
 
   /**
@@ -4716,7 +4720,19 @@ export class ShiftDetailInfo implements GrpcMessage {
           _instance.nameShift = _reader.readString();
           break;
         case 17:
-          _instance.line = _reader.readInt32();
+          _instance.idPackingUnit = _reader.readInt32();
+          break;
+        case 18:
+          _instance.namePackingUnit = _reader.readString();
+          break;
+        case 19:
+          _instance.createPerson = _reader.readString();
+          break;
+        case 20:
+          _instance.nameCratePerson = _reader.readString();
+          break;
+        case 21:
+          _instance.date = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -4783,8 +4799,20 @@ export class ShiftDetailInfo implements GrpcMessage {
     if (_instance.nameShift) {
       _writer.writeString(16, _instance.nameShift);
     }
-    if (_instance.line) {
-      _writer.writeInt32(17, _instance.line);
+    if (_instance.idPackingUnit) {
+      _writer.writeInt32(17, _instance.idPackingUnit);
+    }
+    if (_instance.namePackingUnit) {
+      _writer.writeString(18, _instance.namePackingUnit);
+    }
+    if (_instance.createPerson) {
+      _writer.writeString(19, _instance.createPerson);
+    }
+    if (_instance.nameCratePerson) {
+      _writer.writeString(20, _instance.nameCratePerson);
+    }
+    if (_instance.date) {
+      _writer.writeString(21, _instance.date);
     }
   }
 
@@ -4804,7 +4832,11 @@ export class ShiftDetailInfo implements GrpcMessage {
   private _nameWareHouse?: string;
   private _idShift?: number;
   private _nameShift?: string;
-  private _line?: number;
+  private _idPackingUnit?: number;
+  private _namePackingUnit?: string;
+  private _createPerson?: string;
+  private _nameCratePerson?: string;
+  private _date?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -4828,7 +4860,11 @@ export class ShiftDetailInfo implements GrpcMessage {
     this.nameWareHouse = _value.nameWareHouse;
     this.idShift = _value.idShift;
     this.nameShift = _value.nameShift;
-    this.line = _value.line;
+    this.idPackingUnit = _value.idPackingUnit;
+    this.namePackingUnit = _value.namePackingUnit;
+    this.createPerson = _value.createPerson;
+    this.nameCratePerson = _value.nameCratePerson;
+    this.date = _value.date;
     ShiftDetailInfo.refineValues(this);
   }
   get idShiftDetail(): number | undefined {
@@ -4927,11 +4963,35 @@ export class ShiftDetailInfo implements GrpcMessage {
   set nameShift(value: string | undefined) {
     this._nameShift = value;
   }
-  get line(): number | undefined {
-    return this._line;
+  get idPackingUnit(): number | undefined {
+    return this._idPackingUnit;
   }
-  set line(value: number | undefined) {
-    this._line = value;
+  set idPackingUnit(value: number | undefined) {
+    this._idPackingUnit = value;
+  }
+  get namePackingUnit(): string | undefined {
+    return this._namePackingUnit;
+  }
+  set namePackingUnit(value: string | undefined) {
+    this._namePackingUnit = value;
+  }
+  get createPerson(): string | undefined {
+    return this._createPerson;
+  }
+  set createPerson(value: string | undefined) {
+    this._createPerson = value;
+  }
+  get nameCratePerson(): string | undefined {
+    return this._nameCratePerson;
+  }
+  set nameCratePerson(value: string | undefined) {
+    this._nameCratePerson = value;
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
   }
 
   /**
@@ -4965,7 +5025,11 @@ export class ShiftDetailInfo implements GrpcMessage {
       nameWareHouse: this.nameWareHouse,
       idShift: this.idShift,
       nameShift: this.nameShift,
-      line: this.line
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      createPerson: this.createPerson,
+      nameCratePerson: this.nameCratePerson,
+      date: this.date
     };
   }
 
@@ -5002,7 +5066,11 @@ export class ShiftDetailInfo implements GrpcMessage {
       nameWareHouse: this.nameWareHouse,
       idShift: this.idShift,
       nameShift: this.nameShift,
-      line: this.line
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      createPerson: this.createPerson,
+      nameCratePerson: this.nameCratePerson,
+      date: this.date
     };
   }
 }
@@ -5027,7 +5095,11 @@ export module ShiftDetailInfo {
     nameWareHouse?: string;
     idShift?: number;
     nameShift?: string;
-    line?: number;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    createPerson?: string;
+    nameCratePerson?: string;
+    date?: string;
   }
 
   /**
@@ -5050,7 +5122,11 @@ export module ShiftDetailInfo {
     nameWareHouse?: string;
     idShift?: number;
     nameShift?: string;
-    line?: number;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    createPerson?: string;
+    nameCratePerson?: string;
+    date?: string;
   }
 }
 
@@ -6017,7 +6093,6 @@ export class ParcelInfo implements GrpcMessage {
    */
   static refineValues(_instance: ParcelInfo) {
     _instance.idParcel = _instance.idParcel || 0;
-    _instance.nameParcel = _instance.nameParcel || '';
     _instance.codeParcel = _instance.codeParcel || '';
     _instance.createdPerson = _instance.createdPerson || '';
     _instance.nameCreatedOPerson = _instance.nameCreatedOPerson || '';
@@ -6038,9 +6113,6 @@ export class ParcelInfo implements GrpcMessage {
       switch (_reader.getFieldNumber()) {
         case 1:
           _instance.idParcel = _reader.readInt32();
-          break;
-        case 2:
-          _instance.nameParcel = _reader.readString();
           break;
         case 3:
           _instance.codeParcel = _reader.readString();
@@ -6068,9 +6140,6 @@ export class ParcelInfo implements GrpcMessage {
     if (_instance.idParcel) {
       _writer.writeInt32(1, _instance.idParcel);
     }
-    if (_instance.nameParcel) {
-      _writer.writeString(2, _instance.nameParcel);
-    }
     if (_instance.codeParcel) {
       _writer.writeString(3, _instance.codeParcel);
     }
@@ -6083,7 +6152,6 @@ export class ParcelInfo implements GrpcMessage {
   }
 
   private _idParcel?: number;
-  private _nameParcel?: string;
   private _codeParcel?: string;
   private _createdPerson?: string;
   private _nameCreatedOPerson?: string;
@@ -6095,7 +6163,6 @@ export class ParcelInfo implements GrpcMessage {
   constructor(_value?: RecursivePartial<ParcelInfo.AsObject>) {
     _value = _value || {};
     this.idParcel = _value.idParcel;
-    this.nameParcel = _value.nameParcel;
     this.codeParcel = _value.codeParcel;
     this.createdPerson = _value.createdPerson;
     this.nameCreatedOPerson = _value.nameCreatedOPerson;
@@ -6106,12 +6173,6 @@ export class ParcelInfo implements GrpcMessage {
   }
   set idParcel(value: number | undefined) {
     this._idParcel = value;
-  }
-  get nameParcel(): string | undefined {
-    return this._nameParcel;
-  }
-  set nameParcel(value: string | undefined) {
-    this._nameParcel = value;
   }
   get codeParcel(): string | undefined {
     return this._codeParcel;
@@ -6148,7 +6209,6 @@ export class ParcelInfo implements GrpcMessage {
   toObject(): ParcelInfo.AsObject {
     return {
       idParcel: this.idParcel,
-      nameParcel: this.nameParcel,
       codeParcel: this.codeParcel,
       createdPerson: this.createdPerson,
       nameCreatedOPerson: this.nameCreatedOPerson
@@ -6173,7 +6233,6 @@ export class ParcelInfo implements GrpcMessage {
   ): ParcelInfo.AsProtobufJSON {
     return {
       idParcel: this.idParcel,
-      nameParcel: this.nameParcel,
       codeParcel: this.codeParcel,
       createdPerson: this.createdPerson,
       nameCreatedOPerson: this.nameCreatedOPerson
@@ -6186,7 +6245,6 @@ export module ParcelInfo {
    */
   export interface AsObject {
     idParcel?: number;
-    nameParcel?: string;
     codeParcel?: string;
     createdPerson?: string;
     nameCreatedOPerson?: string;
@@ -6197,7 +6255,6 @@ export module ParcelInfo {
    */
   export interface AsProtobufJSON {
     idParcel?: number;
-    nameParcel?: string;
     codeParcel?: string;
     createdPerson?: string;
     nameCreatedOPerson?: string;
@@ -7210,7 +7267,7 @@ export class DeviceInfo implements GrpcMessage {
     _instance.name = _instance.name || '';
     _instance.mac = _instance.mac || '';
     _instance.pbFunction = _instance.pbFunction || '';
-    _instance.line = _instance.line || 0;
+    _instance.idPackingUnit = _instance.idPackingUnit || 0;
     _instance.id = _instance.id || 0;
   }
 
@@ -7237,7 +7294,7 @@ export class DeviceInfo implements GrpcMessage {
           _instance.pbFunction = _reader.readString();
           break;
         case 4:
-          _instance.line = _reader.readInt32();
+          _instance.idPackingUnit = _reader.readInt32();
           break;
         case 5:
           _instance.id = _reader.readInt32();
@@ -7265,8 +7322,8 @@ export class DeviceInfo implements GrpcMessage {
     if (_instance.pbFunction) {
       _writer.writeString(3, _instance.pbFunction);
     }
-    if (_instance.line) {
-      _writer.writeInt32(4, _instance.line);
+    if (_instance.idPackingUnit) {
+      _writer.writeInt32(4, _instance.idPackingUnit);
     }
     if (_instance.id) {
       _writer.writeInt32(5, _instance.id);
@@ -7276,7 +7333,7 @@ export class DeviceInfo implements GrpcMessage {
   private _name?: string;
   private _mac?: string;
   private _pbFunction?: string;
-  private _line?: number;
+  private _idPackingUnit?: number;
   private _id?: number;
 
   /**
@@ -7288,7 +7345,7 @@ export class DeviceInfo implements GrpcMessage {
     this.name = _value.name;
     this.mac = _value.mac;
     this.pbFunction = _value.pbFunction;
-    this.line = _value.line;
+    this.idPackingUnit = _value.idPackingUnit;
     this.id = _value.id;
     DeviceInfo.refineValues(this);
   }
@@ -7310,11 +7367,11 @@ export class DeviceInfo implements GrpcMessage {
   set pbFunction(value: string | undefined) {
     this._pbFunction = value;
   }
-  get line(): number | undefined {
-    return this._line;
+  get idPackingUnit(): number | undefined {
+    return this._idPackingUnit;
   }
-  set line(value: number | undefined) {
-    this._line = value;
+  set idPackingUnit(value: number | undefined) {
+    this._idPackingUnit = value;
   }
   get id(): number | undefined {
     return this._id;
@@ -7341,7 +7398,7 @@ export class DeviceInfo implements GrpcMessage {
       name: this.name,
       mac: this.mac,
       pbFunction: this.pbFunction,
-      line: this.line,
+      idPackingUnit: this.idPackingUnit,
       id: this.id
     };
   }
@@ -7366,7 +7423,7 @@ export class DeviceInfo implements GrpcMessage {
       name: this.name,
       mac: this.mac,
       pbFunction: this.pbFunction,
-      line: this.line,
+      idPackingUnit: this.idPackingUnit,
       id: this.id
     };
   }
@@ -7379,7 +7436,7 @@ export module DeviceInfo {
     name?: string;
     mac?: string;
     pbFunction?: string;
-    line?: number;
+    idPackingUnit?: number;
     id?: number;
   }
 
@@ -7390,7 +7447,7 @@ export module DeviceInfo {
     name?: string;
     mac?: string;
     pbFunction?: string;
-    line?: number;
+    idPackingUnit?: number;
     id?: number;
   }
 }
@@ -7618,6 +7675,9 @@ export class ParcelDetailInfo implements GrpcMessage {
     _instance.quantity = _instance.quantity || '0';
     _instance.codeParcel = _instance.codeParcel || '';
     _instance.idParcel = _instance.idParcel || 0;
+    _instance.createdPerson = _instance.createdPerson || '';
+    _instance.nameCreatedOPerson = _instance.nameCreatedOPerson || '';
+    _instance.date = _instance.date || '';
   }
 
   /**
@@ -7668,6 +7728,15 @@ export class ParcelDetailInfo implements GrpcMessage {
           break;
         case 12:
           _instance.idParcel = _reader.readInt32();
+          break;
+        case 13:
+          _instance.createdPerson = _reader.readString();
+          break;
+        case 14:
+          _instance.nameCreatedOPerson = _reader.readString();
+          break;
+        case 15:
+          _instance.date = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -7722,6 +7791,15 @@ export class ParcelDetailInfo implements GrpcMessage {
     if (_instance.idParcel) {
       _writer.writeInt32(12, _instance.idParcel);
     }
+    if (_instance.createdPerson) {
+      _writer.writeString(13, _instance.createdPerson);
+    }
+    if (_instance.nameCreatedOPerson) {
+      _writer.writeString(14, _instance.nameCreatedOPerson);
+    }
+    if (_instance.date) {
+      _writer.writeString(15, _instance.date);
+    }
   }
 
   private _idParcelDetail?: number;
@@ -7736,6 +7814,9 @@ export class ParcelDetailInfo implements GrpcMessage {
   private _quantity?: string;
   private _codeParcel?: string;
   private _idParcel?: number;
+  private _createdPerson?: string;
+  private _nameCreatedOPerson?: string;
+  private _date?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -7755,6 +7836,9 @@ export class ParcelDetailInfo implements GrpcMessage {
     this.quantity = _value.quantity;
     this.codeParcel = _value.codeParcel;
     this.idParcel = _value.idParcel;
+    this.createdPerson = _value.createdPerson;
+    this.nameCreatedOPerson = _value.nameCreatedOPerson;
+    this.date = _value.date;
     ParcelDetailInfo.refineValues(this);
   }
   get idParcelDetail(): number | undefined {
@@ -7829,6 +7913,24 @@ export class ParcelDetailInfo implements GrpcMessage {
   set idParcel(value: number | undefined) {
     this._idParcel = value;
   }
+  get createdPerson(): string | undefined {
+    return this._createdPerson;
+  }
+  set createdPerson(value: string | undefined) {
+    this._createdPerson = value;
+  }
+  get nameCreatedOPerson(): string | undefined {
+    return this._nameCreatedOPerson;
+  }
+  set nameCreatedOPerson(value: string | undefined) {
+    this._nameCreatedOPerson = value;
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -7856,7 +7958,10 @@ export class ParcelDetailInfo implements GrpcMessage {
       nameStatus: this.nameStatus,
       quantity: this.quantity,
       codeParcel: this.codeParcel,
-      idParcel: this.idParcel
+      idParcel: this.idParcel,
+      createdPerson: this.createdPerson,
+      nameCreatedOPerson: this.nameCreatedOPerson,
+      date: this.date
     };
   }
 
@@ -7888,7 +7993,10 @@ export class ParcelDetailInfo implements GrpcMessage {
       nameStatus: this.nameStatus,
       quantity: this.quantity,
       codeParcel: this.codeParcel,
-      idParcel: this.idParcel
+      idParcel: this.idParcel,
+      createdPerson: this.createdPerson,
+      nameCreatedOPerson: this.nameCreatedOPerson,
+      date: this.date
     };
   }
 }
@@ -7909,6 +8017,9 @@ export module ParcelDetailInfo {
     quantity?: string;
     codeParcel?: string;
     idParcel?: number;
+    createdPerson?: string;
+    nameCreatedOPerson?: string;
+    date?: string;
   }
 
   /**
@@ -7927,6 +8038,9 @@ export module ParcelDetailInfo {
     quantity?: string;
     codeParcel?: string;
     idParcel?: number;
+    createdPerson?: string;
+    nameCreatedOPerson?: string;
+    date?: string;
   }
 }
 
@@ -8885,6 +8999,18 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.weight = _instance.weight || '0';
     _instance.idPackingUnit = _instance.idPackingUnit || 0;
     _instance.namePackingUnit = _instance.namePackingUnit || '';
+    _instance.idCard = _instance.idCard || '0';
+    _instance.codeTypeBill = _instance.codeTypeBill || '';
+    _instance.createdPerson = _instance.createdPerson || '';
+    _instance.createdDate = _instance.createdDate || '';
+    _instance.idShift = _instance.idShift || 0;
+    _instance.isChangable = _instance.isChangable || false;
+    _instance.namePerson = _instance.namePerson || '';
+    _instance.nameTypeBill = _instance.nameTypeBill || '';
+    _instance.nameShift = _instance.nameShift || '';
+    _instance.vehicleNumber = _instance.vehicleNumber || '';
+    _instance.romooc = _instance.romooc || '';
+    _instance.codeOrder = _instance.codeOrder || '';
   }
 
   /**
@@ -8953,6 +9079,42 @@ export class CardDetailInfo implements GrpcMessage {
           break;
         case 18:
           _instance.namePackingUnit = _reader.readString();
+          break;
+        case 19:
+          _instance.idCard = _reader.readInt64String();
+          break;
+        case 20:
+          _instance.codeTypeBill = _reader.readString();
+          break;
+        case 21:
+          _instance.createdPerson = _reader.readString();
+          break;
+        case 22:
+          _instance.createdDate = _reader.readString();
+          break;
+        case 23:
+          _instance.idShift = _reader.readInt32();
+          break;
+        case 24:
+          _instance.isChangable = _reader.readBool();
+          break;
+        case 25:
+          _instance.namePerson = _reader.readString();
+          break;
+        case 26:
+          _instance.nameTypeBill = _reader.readString();
+          break;
+        case 27:
+          _instance.nameShift = _reader.readString();
+          break;
+        case 28:
+          _instance.vehicleNumber = _reader.readString();
+          break;
+        case 29:
+          _instance.romooc = _reader.readString();
+          break;
+        case 30:
+          _instance.codeOrder = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -9025,6 +9187,42 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.namePackingUnit) {
       _writer.writeString(18, _instance.namePackingUnit);
     }
+    if (_instance.idCard) {
+      _writer.writeInt64String(19, _instance.idCard);
+    }
+    if (_instance.codeTypeBill) {
+      _writer.writeString(20, _instance.codeTypeBill);
+    }
+    if (_instance.createdPerson) {
+      _writer.writeString(21, _instance.createdPerson);
+    }
+    if (_instance.createdDate) {
+      _writer.writeString(22, _instance.createdDate);
+    }
+    if (_instance.idShift) {
+      _writer.writeInt32(23, _instance.idShift);
+    }
+    if (_instance.isChangable) {
+      _writer.writeBool(24, _instance.isChangable);
+    }
+    if (_instance.namePerson) {
+      _writer.writeString(25, _instance.namePerson);
+    }
+    if (_instance.nameTypeBill) {
+      _writer.writeString(26, _instance.nameTypeBill);
+    }
+    if (_instance.nameShift) {
+      _writer.writeString(27, _instance.nameShift);
+    }
+    if (_instance.vehicleNumber) {
+      _writer.writeString(28, _instance.vehicleNumber);
+    }
+    if (_instance.romooc) {
+      _writer.writeString(29, _instance.romooc);
+    }
+    if (_instance.codeOrder) {
+      _writer.writeString(30, _instance.codeOrder);
+    }
   }
 
   private _idCardDetail?: number;
@@ -9045,6 +9243,18 @@ export class CardDetailInfo implements GrpcMessage {
   private _weight?: string;
   private _idPackingUnit?: number;
   private _namePackingUnit?: string;
+  private _idCard?: string;
+  private _codeTypeBill?: string;
+  private _createdPerson?: string;
+  private _createdDate?: string;
+  private _idShift?: number;
+  private _isChangable?: boolean;
+  private _namePerson?: string;
+  private _nameTypeBill?: string;
+  private _nameShift?: string;
+  private _vehicleNumber?: string;
+  private _romooc?: string;
+  private _codeOrder?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9070,6 +9280,18 @@ export class CardDetailInfo implements GrpcMessage {
     this.weight = _value.weight;
     this.idPackingUnit = _value.idPackingUnit;
     this.namePackingUnit = _value.namePackingUnit;
+    this.idCard = _value.idCard;
+    this.codeTypeBill = _value.codeTypeBill;
+    this.createdPerson = _value.createdPerson;
+    this.createdDate = _value.createdDate;
+    this.idShift = _value.idShift;
+    this.isChangable = _value.isChangable;
+    this.namePerson = _value.namePerson;
+    this.nameTypeBill = _value.nameTypeBill;
+    this.nameShift = _value.nameShift;
+    this.vehicleNumber = _value.vehicleNumber;
+    this.romooc = _value.romooc;
+    this.codeOrder = _value.codeOrder;
     CardDetailInfo.refineValues(this);
   }
   get idCardDetail(): number | undefined {
@@ -9180,6 +9402,78 @@ export class CardDetailInfo implements GrpcMessage {
   set namePackingUnit(value: string | undefined) {
     this._namePackingUnit = value;
   }
+  get idCard(): string | undefined {
+    return this._idCard;
+  }
+  set idCard(value: string | undefined) {
+    this._idCard = value;
+  }
+  get codeTypeBill(): string | undefined {
+    return this._codeTypeBill;
+  }
+  set codeTypeBill(value: string | undefined) {
+    this._codeTypeBill = value;
+  }
+  get createdPerson(): string | undefined {
+    return this._createdPerson;
+  }
+  set createdPerson(value: string | undefined) {
+    this._createdPerson = value;
+  }
+  get createdDate(): string | undefined {
+    return this._createdDate;
+  }
+  set createdDate(value: string | undefined) {
+    this._createdDate = value;
+  }
+  get idShift(): number | undefined {
+    return this._idShift;
+  }
+  set idShift(value: number | undefined) {
+    this._idShift = value;
+  }
+  get isChangable(): boolean | undefined {
+    return this._isChangable;
+  }
+  set isChangable(value: boolean | undefined) {
+    this._isChangable = value;
+  }
+  get namePerson(): string | undefined {
+    return this._namePerson;
+  }
+  set namePerson(value: string | undefined) {
+    this._namePerson = value;
+  }
+  get nameTypeBill(): string | undefined {
+    return this._nameTypeBill;
+  }
+  set nameTypeBill(value: string | undefined) {
+    this._nameTypeBill = value;
+  }
+  get nameShift(): string | undefined {
+    return this._nameShift;
+  }
+  set nameShift(value: string | undefined) {
+    this._nameShift = value;
+  }
+  get vehicleNumber(): string | undefined {
+    return this._vehicleNumber;
+  }
+  set vehicleNumber(value: string | undefined) {
+    this._vehicleNumber = value;
+  }
+  get romooc(): string | undefined {
+    return this._romooc;
+  }
+  set romooc(value: string | undefined) {
+    this._romooc = value;
+  }
+  get codeOrder(): string | undefined {
+    return this._codeOrder;
+  }
+  set codeOrder(value: string | undefined) {
+    this._codeOrder = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -9213,7 +9507,19 @@ export class CardDetailInfo implements GrpcMessage {
       nameReason: this.nameReason,
       weight: this.weight,
       idPackingUnit: this.idPackingUnit,
-      namePackingUnit: this.namePackingUnit
+      namePackingUnit: this.namePackingUnit,
+      idCard: this.idCard,
+      codeTypeBill: this.codeTypeBill,
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      idShift: this.idShift,
+      isChangable: this.isChangable,
+      namePerson: this.namePerson,
+      nameTypeBill: this.nameTypeBill,
+      nameShift: this.nameShift,
+      vehicleNumber: this.vehicleNumber,
+      romooc: this.romooc,
+      codeOrder: this.codeOrder
     };
   }
 
@@ -9251,7 +9557,19 @@ export class CardDetailInfo implements GrpcMessage {
       nameReason: this.nameReason,
       weight: this.weight,
       idPackingUnit: this.idPackingUnit,
-      namePackingUnit: this.namePackingUnit
+      namePackingUnit: this.namePackingUnit,
+      idCard: this.idCard,
+      codeTypeBill: this.codeTypeBill,
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      idShift: this.idShift,
+      isChangable: this.isChangable,
+      namePerson: this.namePerson,
+      nameTypeBill: this.nameTypeBill,
+      nameShift: this.nameShift,
+      vehicleNumber: this.vehicleNumber,
+      romooc: this.romooc,
+      codeOrder: this.codeOrder
     };
   }
 }
@@ -9278,6 +9596,18 @@ export module CardDetailInfo {
     weight?: string;
     idPackingUnit?: number;
     namePackingUnit?: string;
+    idCard?: string;
+    codeTypeBill?: string;
+    createdPerson?: string;
+    createdDate?: string;
+    idShift?: number;
+    isChangable?: boolean;
+    namePerson?: string;
+    nameTypeBill?: string;
+    nameShift?: string;
+    vehicleNumber?: string;
+    romooc?: string;
+    codeOrder?: string;
   }
 
   /**
@@ -9302,6 +9632,18 @@ export module CardDetailInfo {
     weight?: string;
     idPackingUnit?: number;
     namePackingUnit?: string;
+    idCard?: string;
+    codeTypeBill?: string;
+    createdPerson?: string;
+    createdDate?: string;
+    idShift?: number;
+    isChangable?: boolean;
+    namePerson?: string;
+    nameTypeBill?: string;
+    nameShift?: string;
+    vehicleNumber?: string;
+    romooc?: string;
+    codeOrder?: string;
   }
 }
 
@@ -9680,13 +10022,11 @@ export class TaskInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: TaskInfo) {
-    _instance.idTask = _instance.idTask || '0';
+    _instance.idTask = _instance.idTask || 0;
     _instance.date = _instance.date || '';
     _instance.nameShift = _instance.nameShift || '';
     _instance.createdPerson = _instance.createdPerson || '';
     _instance.namePreatedPerson = _instance.namePreatedPerson || '';
-    _instance.sender = _instance.sender || '';
-    _instance.recipient = _instance.recipient || '';
   }
 
   /**
@@ -9703,7 +10043,7 @@ export class TaskInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idTask = _reader.readInt64String();
+          _instance.idTask = _reader.readInt32();
           break;
         case 2:
           _instance.date = _reader.readString();
@@ -9716,12 +10056,6 @@ export class TaskInfo implements GrpcMessage {
           break;
         case 5:
           _instance.namePreatedPerson = _reader.readString();
-          break;
-        case 6:
-          _instance.sender = _reader.readString();
-          break;
-        case 7:
-          _instance.recipient = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -9738,7 +10072,7 @@ export class TaskInfo implements GrpcMessage {
    */
   static serializeBinaryToWriter(_instance: TaskInfo, _writer: BinaryWriter) {
     if (_instance.idTask) {
-      _writer.writeInt64String(1, _instance.idTask);
+      _writer.writeInt32(1, _instance.idTask);
     }
     if (_instance.date) {
       _writer.writeString(2, _instance.date);
@@ -9752,21 +10086,13 @@ export class TaskInfo implements GrpcMessage {
     if (_instance.namePreatedPerson) {
       _writer.writeString(5, _instance.namePreatedPerson);
     }
-    if (_instance.sender) {
-      _writer.writeString(6, _instance.sender);
-    }
-    if (_instance.recipient) {
-      _writer.writeString(7, _instance.recipient);
-    }
   }
 
-  private _idTask?: string;
+  private _idTask?: number;
   private _date?: string;
   private _nameShift?: string;
   private _createdPerson?: string;
   private _namePreatedPerson?: string;
-  private _sender?: string;
-  private _recipient?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9779,14 +10105,12 @@ export class TaskInfo implements GrpcMessage {
     this.nameShift = _value.nameShift;
     this.createdPerson = _value.createdPerson;
     this.namePreatedPerson = _value.namePreatedPerson;
-    this.sender = _value.sender;
-    this.recipient = _value.recipient;
     TaskInfo.refineValues(this);
   }
-  get idTask(): string | undefined {
+  get idTask(): number | undefined {
     return this._idTask;
   }
-  set idTask(value: string | undefined) {
+  set idTask(value: number | undefined) {
     this._idTask = value;
   }
   get date(): string | undefined {
@@ -9813,18 +10137,6 @@ export class TaskInfo implements GrpcMessage {
   set namePreatedPerson(value: string | undefined) {
     this._namePreatedPerson = value;
   }
-  get sender(): string | undefined {
-    return this._sender;
-  }
-  set sender(value: string | undefined) {
-    this._sender = value;
-  }
-  get recipient(): string | undefined {
-    return this._recipient;
-  }
-  set recipient(value: string | undefined) {
-    this._recipient = value;
-  }
 
   /**
    * Serialize message to binary data
@@ -9845,9 +10157,7 @@ export class TaskInfo implements GrpcMessage {
       date: this.date,
       nameShift: this.nameShift,
       createdPerson: this.createdPerson,
-      namePreatedPerson: this.namePreatedPerson,
-      sender: this.sender,
-      recipient: this.recipient
+      namePreatedPerson: this.namePreatedPerson
     };
   }
 
@@ -9872,9 +10182,7 @@ export class TaskInfo implements GrpcMessage {
       date: this.date,
       nameShift: this.nameShift,
       createdPerson: this.createdPerson,
-      namePreatedPerson: this.namePreatedPerson,
-      sender: this.sender,
-      recipient: this.recipient
+      namePreatedPerson: this.namePreatedPerson
     };
   }
 }
@@ -9883,26 +10191,22 @@ export module TaskInfo {
    * Standard JavaScript object representation for TaskInfo
    */
   export interface AsObject {
-    idTask?: string;
+    idTask?: number;
     date?: string;
     nameShift?: string;
     createdPerson?: string;
     namePreatedPerson?: string;
-    sender?: string;
-    recipient?: string;
   }
 
   /**
    * Protobuf JSON representation for TaskInfo
    */
   export interface AsProtobufJSON {
-    idTask?: string;
+    idTask?: number;
     date?: string;
     nameShift?: string;
     createdPerson?: string;
     namePreatedPerson?: string;
-    sender?: string;
-    recipient?: string;
   }
 }
 
@@ -9937,10 +10241,23 @@ export class TaskDetailInfo implements GrpcMessage {
     _instance.codeWork = _instance.codeWork || '';
     _instance.codeWareHouseload = _instance.codeWareHouseload || '';
     _instance.codeWareHouseUnload = _instance.codeWareHouseUnload || '';
-    _instance.codeEquipmentLoad = _instance.codeEquipmentLoad || '';
-    _instance.codeEquipmentUnLoad = _instance.codeEquipmentUnLoad || '';
+    _instance.idEquipmentLoad = _instance.idEquipmentLoad || 0;
+    _instance.idEquipmentUnLoad = _instance.idEquipmentUnLoad || 0;
+    _instance.nameProduct = _instance.nameProduct || '';
+    _instance.nameTypePoduct = _instance.nameTypePoduct || '';
+    _instance.nameTypePacket = _instance.nameTypePacket || '';
+    _instance.nameWork = _instance.nameWork || '';
+    _instance.nameWareHouseLoad = _instance.nameWareHouseLoad || '';
+    _instance.nameWareHouseUnLoad = _instance.nameWareHouseUnLoad || '';
+    _instance.nameEquipmentLoad = _instance.nameEquipmentLoad || '';
+    _instance.nameEquipmentUnLoad = _instance.nameEquipmentUnLoad || '';
     _instance.quantity = _instance.quantity || 0;
     _instance.distance = _instance.distance || 0;
+    _instance.idTask = _instance.idTask || 0;
+    _instance.date = _instance.date || '';
+    _instance.nameShift = _instance.nameShift || '';
+    _instance.createdPerson = _instance.createdPerson || '';
+    _instance.namePreatedPerson = _instance.namePreatedPerson || '';
   }
 
   /**
@@ -9978,16 +10295,55 @@ export class TaskDetailInfo implements GrpcMessage {
           _instance.codeWareHouseUnload = _reader.readString();
           break;
         case 8:
-          _instance.codeEquipmentLoad = _reader.readString();
+          _instance.idEquipmentLoad = _reader.readInt32();
           break;
         case 9:
-          _instance.codeEquipmentUnLoad = _reader.readString();
+          _instance.idEquipmentUnLoad = _reader.readInt32();
           break;
         case 10:
-          _instance.quantity = _reader.readInt32();
+          _instance.nameProduct = _reader.readString();
           break;
         case 11:
+          _instance.nameTypePoduct = _reader.readString();
+          break;
+        case 12:
+          _instance.nameTypePacket = _reader.readString();
+          break;
+        case 13:
+          _instance.nameWork = _reader.readString();
+          break;
+        case 14:
+          _instance.nameWareHouseLoad = _reader.readString();
+          break;
+        case 15:
+          _instance.nameWareHouseUnLoad = _reader.readString();
+          break;
+        case 16:
+          _instance.nameEquipmentLoad = _reader.readString();
+          break;
+        case 17:
+          _instance.nameEquipmentUnLoad = _reader.readString();
+          break;
+        case 18:
+          _instance.quantity = _reader.readInt32();
+          break;
+        case 19:
           _instance.distance = _reader.readInt32();
+          break;
+        case 20:
+          _instance.idTask = _reader.readInt32();
+          break;
+        case 21:
+          _instance.date = _reader.readString();
+          break;
+        case 22:
+          _instance.nameShift = _reader.readString();
+          break;
+        case 23:
+          _instance.createdPerson = _reader.readString();
+          break;
+        case 24:
+          _instance.namePreatedPerson = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -10027,17 +10383,56 @@ export class TaskDetailInfo implements GrpcMessage {
     if (_instance.codeWareHouseUnload) {
       _writer.writeString(7, _instance.codeWareHouseUnload);
     }
-    if (_instance.codeEquipmentLoad) {
-      _writer.writeString(8, _instance.codeEquipmentLoad);
+    if (_instance.idEquipmentLoad) {
+      _writer.writeInt32(8, _instance.idEquipmentLoad);
     }
-    if (_instance.codeEquipmentUnLoad) {
-      _writer.writeString(9, _instance.codeEquipmentUnLoad);
+    if (_instance.idEquipmentUnLoad) {
+      _writer.writeInt32(9, _instance.idEquipmentUnLoad);
+    }
+    if (_instance.nameProduct) {
+      _writer.writeString(10, _instance.nameProduct);
+    }
+    if (_instance.nameTypePoduct) {
+      _writer.writeString(11, _instance.nameTypePoduct);
+    }
+    if (_instance.nameTypePacket) {
+      _writer.writeString(12, _instance.nameTypePacket);
+    }
+    if (_instance.nameWork) {
+      _writer.writeString(13, _instance.nameWork);
+    }
+    if (_instance.nameWareHouseLoad) {
+      _writer.writeString(14, _instance.nameWareHouseLoad);
+    }
+    if (_instance.nameWareHouseUnLoad) {
+      _writer.writeString(15, _instance.nameWareHouseUnLoad);
+    }
+    if (_instance.nameEquipmentLoad) {
+      _writer.writeString(16, _instance.nameEquipmentLoad);
+    }
+    if (_instance.nameEquipmentUnLoad) {
+      _writer.writeString(17, _instance.nameEquipmentUnLoad);
     }
     if (_instance.quantity) {
-      _writer.writeInt32(10, _instance.quantity);
+      _writer.writeInt32(18, _instance.quantity);
     }
     if (_instance.distance) {
-      _writer.writeInt32(11, _instance.distance);
+      _writer.writeInt32(19, _instance.distance);
+    }
+    if (_instance.idTask) {
+      _writer.writeInt32(20, _instance.idTask);
+    }
+    if (_instance.date) {
+      _writer.writeString(21, _instance.date);
+    }
+    if (_instance.nameShift) {
+      _writer.writeString(22, _instance.nameShift);
+    }
+    if (_instance.createdPerson) {
+      _writer.writeString(23, _instance.createdPerson);
+    }
+    if (_instance.namePreatedPerson) {
+      _writer.writeString(24, _instance.namePreatedPerson);
     }
   }
 
@@ -10048,10 +10443,23 @@ export class TaskDetailInfo implements GrpcMessage {
   private _codeWork?: string;
   private _codeWareHouseload?: string;
   private _codeWareHouseUnload?: string;
-  private _codeEquipmentLoad?: string;
-  private _codeEquipmentUnLoad?: string;
+  private _idEquipmentLoad?: number;
+  private _idEquipmentUnLoad?: number;
+  private _nameProduct?: string;
+  private _nameTypePoduct?: string;
+  private _nameTypePacket?: string;
+  private _nameWork?: string;
+  private _nameWareHouseLoad?: string;
+  private _nameWareHouseUnLoad?: string;
+  private _nameEquipmentLoad?: string;
+  private _nameEquipmentUnLoad?: string;
   private _quantity?: number;
   private _distance?: number;
+  private _idTask?: number;
+  private _date?: string;
+  private _nameShift?: string;
+  private _createdPerson?: string;
+  private _namePreatedPerson?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -10066,10 +10474,23 @@ export class TaskDetailInfo implements GrpcMessage {
     this.codeWork = _value.codeWork;
     this.codeWareHouseload = _value.codeWareHouseload;
     this.codeWareHouseUnload = _value.codeWareHouseUnload;
-    this.codeEquipmentLoad = _value.codeEquipmentLoad;
-    this.codeEquipmentUnLoad = _value.codeEquipmentUnLoad;
+    this.idEquipmentLoad = _value.idEquipmentLoad;
+    this.idEquipmentUnLoad = _value.idEquipmentUnLoad;
+    this.nameProduct = _value.nameProduct;
+    this.nameTypePoduct = _value.nameTypePoduct;
+    this.nameTypePacket = _value.nameTypePacket;
+    this.nameWork = _value.nameWork;
+    this.nameWareHouseLoad = _value.nameWareHouseLoad;
+    this.nameWareHouseUnLoad = _value.nameWareHouseUnLoad;
+    this.nameEquipmentLoad = _value.nameEquipmentLoad;
+    this.nameEquipmentUnLoad = _value.nameEquipmentUnLoad;
     this.quantity = _value.quantity;
     this.distance = _value.distance;
+    this.idTask = _value.idTask;
+    this.date = _value.date;
+    this.nameShift = _value.nameShift;
+    this.createdPerson = _value.createdPerson;
+    this.namePreatedPerson = _value.namePreatedPerson;
     TaskDetailInfo.refineValues(this);
   }
   get idTaskDetail(): number | undefined {
@@ -10114,17 +10535,65 @@ export class TaskDetailInfo implements GrpcMessage {
   set codeWareHouseUnload(value: string | undefined) {
     this._codeWareHouseUnload = value;
   }
-  get codeEquipmentLoad(): string | undefined {
-    return this._codeEquipmentLoad;
+  get idEquipmentLoad(): number | undefined {
+    return this._idEquipmentLoad;
   }
-  set codeEquipmentLoad(value: string | undefined) {
-    this._codeEquipmentLoad = value;
+  set idEquipmentLoad(value: number | undefined) {
+    this._idEquipmentLoad = value;
   }
-  get codeEquipmentUnLoad(): string | undefined {
-    return this._codeEquipmentUnLoad;
+  get idEquipmentUnLoad(): number | undefined {
+    return this._idEquipmentUnLoad;
   }
-  set codeEquipmentUnLoad(value: string | undefined) {
-    this._codeEquipmentUnLoad = value;
+  set idEquipmentUnLoad(value: number | undefined) {
+    this._idEquipmentUnLoad = value;
+  }
+  get nameProduct(): string | undefined {
+    return this._nameProduct;
+  }
+  set nameProduct(value: string | undefined) {
+    this._nameProduct = value;
+  }
+  get nameTypePoduct(): string | undefined {
+    return this._nameTypePoduct;
+  }
+  set nameTypePoduct(value: string | undefined) {
+    this._nameTypePoduct = value;
+  }
+  get nameTypePacket(): string | undefined {
+    return this._nameTypePacket;
+  }
+  set nameTypePacket(value: string | undefined) {
+    this._nameTypePacket = value;
+  }
+  get nameWork(): string | undefined {
+    return this._nameWork;
+  }
+  set nameWork(value: string | undefined) {
+    this._nameWork = value;
+  }
+  get nameWareHouseLoad(): string | undefined {
+    return this._nameWareHouseLoad;
+  }
+  set nameWareHouseLoad(value: string | undefined) {
+    this._nameWareHouseLoad = value;
+  }
+  get nameWareHouseUnLoad(): string | undefined {
+    return this._nameWareHouseUnLoad;
+  }
+  set nameWareHouseUnLoad(value: string | undefined) {
+    this._nameWareHouseUnLoad = value;
+  }
+  get nameEquipmentLoad(): string | undefined {
+    return this._nameEquipmentLoad;
+  }
+  set nameEquipmentLoad(value: string | undefined) {
+    this._nameEquipmentLoad = value;
+  }
+  get nameEquipmentUnLoad(): string | undefined {
+    return this._nameEquipmentUnLoad;
+  }
+  set nameEquipmentUnLoad(value: string | undefined) {
+    this._nameEquipmentUnLoad = value;
   }
   get quantity(): number | undefined {
     return this._quantity;
@@ -10137,6 +10606,36 @@ export class TaskDetailInfo implements GrpcMessage {
   }
   set distance(value: number | undefined) {
     this._distance = value;
+  }
+  get idTask(): number | undefined {
+    return this._idTask;
+  }
+  set idTask(value: number | undefined) {
+    this._idTask = value;
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
+  }
+  get nameShift(): string | undefined {
+    return this._nameShift;
+  }
+  set nameShift(value: string | undefined) {
+    this._nameShift = value;
+  }
+  get createdPerson(): string | undefined {
+    return this._createdPerson;
+  }
+  set createdPerson(value: string | undefined) {
+    this._createdPerson = value;
+  }
+  get namePreatedPerson(): string | undefined {
+    return this._namePreatedPerson;
+  }
+  set namePreatedPerson(value: string | undefined) {
+    this._namePreatedPerson = value;
   }
 
   /**
@@ -10161,10 +10660,23 @@ export class TaskDetailInfo implements GrpcMessage {
       codeWork: this.codeWork,
       codeWareHouseload: this.codeWareHouseload,
       codeWareHouseUnload: this.codeWareHouseUnload,
-      codeEquipmentLoad: this.codeEquipmentLoad,
-      codeEquipmentUnLoad: this.codeEquipmentUnLoad,
+      idEquipmentLoad: this.idEquipmentLoad,
+      idEquipmentUnLoad: this.idEquipmentUnLoad,
+      nameProduct: this.nameProduct,
+      nameTypePoduct: this.nameTypePoduct,
+      nameTypePacket: this.nameTypePacket,
+      nameWork: this.nameWork,
+      nameWareHouseLoad: this.nameWareHouseLoad,
+      nameWareHouseUnLoad: this.nameWareHouseUnLoad,
+      nameEquipmentLoad: this.nameEquipmentLoad,
+      nameEquipmentUnLoad: this.nameEquipmentUnLoad,
       quantity: this.quantity,
-      distance: this.distance
+      distance: this.distance,
+      idTask: this.idTask,
+      date: this.date,
+      nameShift: this.nameShift,
+      createdPerson: this.createdPerson,
+      namePreatedPerson: this.namePreatedPerson
     };
   }
 
@@ -10192,10 +10704,23 @@ export class TaskDetailInfo implements GrpcMessage {
       codeWork: this.codeWork,
       codeWareHouseload: this.codeWareHouseload,
       codeWareHouseUnload: this.codeWareHouseUnload,
-      codeEquipmentLoad: this.codeEquipmentLoad,
-      codeEquipmentUnLoad: this.codeEquipmentUnLoad,
+      idEquipmentLoad: this.idEquipmentLoad,
+      idEquipmentUnLoad: this.idEquipmentUnLoad,
+      nameProduct: this.nameProduct,
+      nameTypePoduct: this.nameTypePoduct,
+      nameTypePacket: this.nameTypePacket,
+      nameWork: this.nameWork,
+      nameWareHouseLoad: this.nameWareHouseLoad,
+      nameWareHouseUnLoad: this.nameWareHouseUnLoad,
+      nameEquipmentLoad: this.nameEquipmentLoad,
+      nameEquipmentUnLoad: this.nameEquipmentUnLoad,
       quantity: this.quantity,
-      distance: this.distance
+      distance: this.distance,
+      idTask: this.idTask,
+      date: this.date,
+      nameShift: this.nameShift,
+      createdPerson: this.createdPerson,
+      namePreatedPerson: this.namePreatedPerson
     };
   }
 }
@@ -10211,10 +10736,23 @@ export module TaskDetailInfo {
     codeWork?: string;
     codeWareHouseload?: string;
     codeWareHouseUnload?: string;
-    codeEquipmentLoad?: string;
-    codeEquipmentUnLoad?: string;
+    idEquipmentLoad?: number;
+    idEquipmentUnLoad?: number;
+    nameProduct?: string;
+    nameTypePoduct?: string;
+    nameTypePacket?: string;
+    nameWork?: string;
+    nameWareHouseLoad?: string;
+    nameWareHouseUnLoad?: string;
+    nameEquipmentLoad?: string;
+    nameEquipmentUnLoad?: string;
     quantity?: number;
     distance?: number;
+    idTask?: number;
+    date?: string;
+    nameShift?: string;
+    createdPerson?: string;
+    namePreatedPerson?: string;
   }
 
   /**
@@ -10228,10 +10766,23 @@ export module TaskDetailInfo {
     codeWork?: string;
     codeWareHouseload?: string;
     codeWareHouseUnload?: string;
-    codeEquipmentLoad?: string;
-    codeEquipmentUnLoad?: string;
+    idEquipmentLoad?: number;
+    idEquipmentUnLoad?: number;
+    nameProduct?: string;
+    nameTypePoduct?: string;
+    nameTypePacket?: string;
+    nameWork?: string;
+    nameWareHouseLoad?: string;
+    nameWareHouseUnLoad?: string;
+    nameEquipmentLoad?: string;
+    nameEquipmentUnLoad?: string;
     quantity?: number;
     distance?: number;
+    idTask?: number;
+    date?: string;
+    nameShift?: string;
+    createdPerson?: string;
+    namePreatedPerson?: string;
   }
 }
 
@@ -10411,5 +10962,2026 @@ export module InsertTaskRequest {
   export interface AsProtobufJSON {
     task?: TaskInfo.AsProtobufJSON | null;
     taskDetails?: TaskDetailInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.TaskResponse
+ */
+export class TaskResponse implements GrpcMessage {
+  static id = 'client.TaskResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new TaskResponse();
+    TaskResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: TaskResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: TaskResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new TaskInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            TaskInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    TaskResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: TaskResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        TaskInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: TaskInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of TaskResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<TaskResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new TaskInfo(m));
+    TaskResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): TaskInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: TaskInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    TaskResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): TaskResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TaskResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module TaskResponse {
+  /**
+   * Standard JavaScript object representation for TaskResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: TaskInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for TaskResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: TaskInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.TaskDetailResponse
+ */
+export class TaskDetailResponse implements GrpcMessage {
+  static id = 'client.TaskDetailResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new TaskDetailResponse();
+    TaskDetailResponse.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: TaskDetailResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: TaskDetailResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new TaskDetailInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            TaskDetailInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    TaskDetailResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: TaskDetailResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        TaskDetailInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: TaskDetailInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of TaskDetailResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<TaskDetailResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new TaskDetailInfo(m));
+    TaskDetailResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): TaskDetailInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: TaskDetailInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    TaskDetailResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): TaskDetailResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): TaskDetailResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module TaskDetailResponse {
+  /**
+   * Standard JavaScript object representation for TaskDetailResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: TaskDetailInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for TaskDetailResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: TaskDetailInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.RecordDetailInfo
+ */
+export class RecordDetailInfo implements GrpcMessage {
+  static id = 'client.RecordDetailInfo';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new RecordDetailInfo();
+    RecordDetailInfo.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: RecordDetailInfo) {
+    _instance.idRecordDetail = _instance.idRecordDetail || 0;
+    _instance.codeProduct = _instance.codeProduct || '';
+    _instance.nameProduct = _instance.nameProduct || '';
+    _instance.idTypeProduct = _instance.idTypeProduct || 0;
+    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.codeTypePacket = _instance.codeTypePacket || '';
+    _instance.nameTypePacket = _instance.nameTypePacket || '';
+    _instance.codeParcel = _instance.codeParcel || '';
+    _instance.nameParcel = _instance.nameParcel || '';
+    _instance.codeRecord = _instance.codeRecord || '';
+    _instance.quantity = _instance.quantity || '0';
+    _instance.idPackingUnit = _instance.idPackingUnit || 0;
+    _instance.namePackingUnit = _instance.namePackingUnit || '';
+    _instance.idRecord = _instance.idRecord || '0';
+    _instance.createdPerson = _instance.createdPerson || '';
+    _instance.createdDate = _instance.createdDate || '';
+    _instance.shift = _instance.shift || '';
+    _instance.isChangable = _instance.isChangable || false;
+    _instance.namePerson = _instance.namePerson || '';
+    _instance.codeWareHouse = _instance.codeWareHouse || '';
+    _instance.nameWareHouse = _instance.nameWareHouse || '';
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: RecordDetailInfo,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.idRecordDetail = _reader.readInt32();
+          break;
+        case 2:
+          _instance.codeProduct = _reader.readString();
+          break;
+        case 3:
+          _instance.nameProduct = _reader.readString();
+          break;
+        case 4:
+          _instance.idTypeProduct = _reader.readInt32();
+          break;
+        case 5:
+          _instance.nameTypeProduct = _reader.readString();
+          break;
+        case 6:
+          _instance.codeTypePacket = _reader.readString();
+          break;
+        case 7:
+          _instance.nameTypePacket = _reader.readString();
+          break;
+        case 8:
+          _instance.codeParcel = _reader.readString();
+          break;
+        case 9:
+          _instance.nameParcel = _reader.readString();
+          break;
+        case 10:
+          _instance.codeRecord = _reader.readString();
+          break;
+        case 11:
+          _instance.quantity = _reader.readInt64String();
+          break;
+        case 12:
+          _instance.idPackingUnit = _reader.readInt32();
+          break;
+        case 13:
+          _instance.namePackingUnit = _reader.readString();
+          break;
+        case 14:
+          _instance.idRecord = _reader.readInt64String();
+          break;
+        case 15:
+          _instance.createdPerson = _reader.readString();
+          break;
+        case 16:
+          _instance.createdDate = _reader.readString();
+          break;
+        case 17:
+          _instance.shift = _reader.readString();
+          break;
+        case 18:
+          _instance.isChangable = _reader.readBool();
+          break;
+        case 19:
+          _instance.namePerson = _reader.readString();
+          break;
+        case 20:
+          _instance.codeWareHouse = _reader.readString();
+          break;
+        case 21:
+          _instance.nameWareHouse = _reader.readString();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    RecordDetailInfo.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: RecordDetailInfo,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.idRecordDetail) {
+      _writer.writeInt32(1, _instance.idRecordDetail);
+    }
+    if (_instance.codeProduct) {
+      _writer.writeString(2, _instance.codeProduct);
+    }
+    if (_instance.nameProduct) {
+      _writer.writeString(3, _instance.nameProduct);
+    }
+    if (_instance.idTypeProduct) {
+      _writer.writeInt32(4, _instance.idTypeProduct);
+    }
+    if (_instance.nameTypeProduct) {
+      _writer.writeString(5, _instance.nameTypeProduct);
+    }
+    if (_instance.codeTypePacket) {
+      _writer.writeString(6, _instance.codeTypePacket);
+    }
+    if (_instance.nameTypePacket) {
+      _writer.writeString(7, _instance.nameTypePacket);
+    }
+    if (_instance.codeParcel) {
+      _writer.writeString(8, _instance.codeParcel);
+    }
+    if (_instance.nameParcel) {
+      _writer.writeString(9, _instance.nameParcel);
+    }
+    if (_instance.codeRecord) {
+      _writer.writeString(10, _instance.codeRecord);
+    }
+    if (_instance.quantity) {
+      _writer.writeInt64String(11, _instance.quantity);
+    }
+    if (_instance.idPackingUnit) {
+      _writer.writeInt32(12, _instance.idPackingUnit);
+    }
+    if (_instance.namePackingUnit) {
+      _writer.writeString(13, _instance.namePackingUnit);
+    }
+    if (_instance.idRecord) {
+      _writer.writeInt64String(14, _instance.idRecord);
+    }
+    if (_instance.createdPerson) {
+      _writer.writeString(15, _instance.createdPerson);
+    }
+    if (_instance.createdDate) {
+      _writer.writeString(16, _instance.createdDate);
+    }
+    if (_instance.shift) {
+      _writer.writeString(17, _instance.shift);
+    }
+    if (_instance.isChangable) {
+      _writer.writeBool(18, _instance.isChangable);
+    }
+    if (_instance.namePerson) {
+      _writer.writeString(19, _instance.namePerson);
+    }
+    if (_instance.codeWareHouse) {
+      _writer.writeString(20, _instance.codeWareHouse);
+    }
+    if (_instance.nameWareHouse) {
+      _writer.writeString(21, _instance.nameWareHouse);
+    }
+  }
+
+  private _idRecordDetail?: number;
+  private _codeProduct?: string;
+  private _nameProduct?: string;
+  private _idTypeProduct?: number;
+  private _nameTypeProduct?: string;
+  private _codeTypePacket?: string;
+  private _nameTypePacket?: string;
+  private _codeParcel?: string;
+  private _nameParcel?: string;
+  private _codeRecord?: string;
+  private _quantity?: string;
+  private _idPackingUnit?: number;
+  private _namePackingUnit?: string;
+  private _idRecord?: string;
+  private _createdPerson?: string;
+  private _createdDate?: string;
+  private _shift?: string;
+  private _isChangable?: boolean;
+  private _namePerson?: string;
+  private _codeWareHouse?: string;
+  private _nameWareHouse?: string;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of RecordDetailInfo to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<RecordDetailInfo.AsObject>) {
+    _value = _value || {};
+    this.idRecordDetail = _value.idRecordDetail;
+    this.codeProduct = _value.codeProduct;
+    this.nameProduct = _value.nameProduct;
+    this.idTypeProduct = _value.idTypeProduct;
+    this.nameTypeProduct = _value.nameTypeProduct;
+    this.codeTypePacket = _value.codeTypePacket;
+    this.nameTypePacket = _value.nameTypePacket;
+    this.codeParcel = _value.codeParcel;
+    this.nameParcel = _value.nameParcel;
+    this.codeRecord = _value.codeRecord;
+    this.quantity = _value.quantity;
+    this.idPackingUnit = _value.idPackingUnit;
+    this.namePackingUnit = _value.namePackingUnit;
+    this.idRecord = _value.idRecord;
+    this.createdPerson = _value.createdPerson;
+    this.createdDate = _value.createdDate;
+    this.shift = _value.shift;
+    this.isChangable = _value.isChangable;
+    this.namePerson = _value.namePerson;
+    this.codeWareHouse = _value.codeWareHouse;
+    this.nameWareHouse = _value.nameWareHouse;
+    RecordDetailInfo.refineValues(this);
+  }
+  get idRecordDetail(): number | undefined {
+    return this._idRecordDetail;
+  }
+  set idRecordDetail(value: number | undefined) {
+    this._idRecordDetail = value;
+  }
+  get codeProduct(): string | undefined {
+    return this._codeProduct;
+  }
+  set codeProduct(value: string | undefined) {
+    this._codeProduct = value;
+  }
+  get nameProduct(): string | undefined {
+    return this._nameProduct;
+  }
+  set nameProduct(value: string | undefined) {
+    this._nameProduct = value;
+  }
+  get idTypeProduct(): number | undefined {
+    return this._idTypeProduct;
+  }
+  set idTypeProduct(value: number | undefined) {
+    this._idTypeProduct = value;
+  }
+  get nameTypeProduct(): string | undefined {
+    return this._nameTypeProduct;
+  }
+  set nameTypeProduct(value: string | undefined) {
+    this._nameTypeProduct = value;
+  }
+  get codeTypePacket(): string | undefined {
+    return this._codeTypePacket;
+  }
+  set codeTypePacket(value: string | undefined) {
+    this._codeTypePacket = value;
+  }
+  get nameTypePacket(): string | undefined {
+    return this._nameTypePacket;
+  }
+  set nameTypePacket(value: string | undefined) {
+    this._nameTypePacket = value;
+  }
+  get codeParcel(): string | undefined {
+    return this._codeParcel;
+  }
+  set codeParcel(value: string | undefined) {
+    this._codeParcel = value;
+  }
+  get nameParcel(): string | undefined {
+    return this._nameParcel;
+  }
+  set nameParcel(value: string | undefined) {
+    this._nameParcel = value;
+  }
+  get codeRecord(): string | undefined {
+    return this._codeRecord;
+  }
+  set codeRecord(value: string | undefined) {
+    this._codeRecord = value;
+  }
+  get quantity(): string | undefined {
+    return this._quantity;
+  }
+  set quantity(value: string | undefined) {
+    this._quantity = value;
+  }
+  get idPackingUnit(): number | undefined {
+    return this._idPackingUnit;
+  }
+  set idPackingUnit(value: number | undefined) {
+    this._idPackingUnit = value;
+  }
+  get namePackingUnit(): string | undefined {
+    return this._namePackingUnit;
+  }
+  set namePackingUnit(value: string | undefined) {
+    this._namePackingUnit = value;
+  }
+  get idRecord(): string | undefined {
+    return this._idRecord;
+  }
+  set idRecord(value: string | undefined) {
+    this._idRecord = value;
+  }
+  get createdPerson(): string | undefined {
+    return this._createdPerson;
+  }
+  set createdPerson(value: string | undefined) {
+    this._createdPerson = value;
+  }
+  get createdDate(): string | undefined {
+    return this._createdDate;
+  }
+  set createdDate(value: string | undefined) {
+    this._createdDate = value;
+  }
+  get shift(): string | undefined {
+    return this._shift;
+  }
+  set shift(value: string | undefined) {
+    this._shift = value;
+  }
+  get isChangable(): boolean | undefined {
+    return this._isChangable;
+  }
+  set isChangable(value: boolean | undefined) {
+    this._isChangable = value;
+  }
+  get namePerson(): string | undefined {
+    return this._namePerson;
+  }
+  set namePerson(value: string | undefined) {
+    this._namePerson = value;
+  }
+  get codeWareHouse(): string | undefined {
+    return this._codeWareHouse;
+  }
+  set codeWareHouse(value: string | undefined) {
+    this._codeWareHouse = value;
+  }
+  get nameWareHouse(): string | undefined {
+    return this._nameWareHouse;
+  }
+  set nameWareHouse(value: string | undefined) {
+    this._nameWareHouse = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    RecordDetailInfo.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): RecordDetailInfo.AsObject {
+    return {
+      idRecordDetail: this.idRecordDetail,
+      codeProduct: this.codeProduct,
+      nameProduct: this.nameProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      codeParcel: this.codeParcel,
+      nameParcel: this.nameParcel,
+      codeRecord: this.codeRecord,
+      quantity: this.quantity,
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      idRecord: this.idRecord,
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      shift: this.shift,
+      isChangable: this.isChangable,
+      namePerson: this.namePerson,
+      codeWareHouse: this.codeWareHouse,
+      nameWareHouse: this.nameWareHouse
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): RecordDetailInfo.AsProtobufJSON {
+    return {
+      idRecordDetail: this.idRecordDetail,
+      codeProduct: this.codeProduct,
+      nameProduct: this.nameProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      codeParcel: this.codeParcel,
+      nameParcel: this.nameParcel,
+      codeRecord: this.codeRecord,
+      quantity: this.quantity,
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      idRecord: this.idRecord,
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      shift: this.shift,
+      isChangable: this.isChangable,
+      namePerson: this.namePerson,
+      codeWareHouse: this.codeWareHouse,
+      nameWareHouse: this.nameWareHouse
+    };
+  }
+}
+export module RecordDetailInfo {
+  /**
+   * Standard JavaScript object representation for RecordDetailInfo
+   */
+  export interface AsObject {
+    idRecordDetail?: number;
+    codeProduct?: string;
+    nameProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    codeParcel?: string;
+    nameParcel?: string;
+    codeRecord?: string;
+    quantity?: string;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    idRecord?: string;
+    createdPerson?: string;
+    createdDate?: string;
+    shift?: string;
+    isChangable?: boolean;
+    namePerson?: string;
+    codeWareHouse?: string;
+    nameWareHouse?: string;
+  }
+
+  /**
+   * Protobuf JSON representation for RecordDetailInfo
+   */
+  export interface AsProtobufJSON {
+    idRecordDetail?: number;
+    codeProduct?: string;
+    nameProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    codeParcel?: string;
+    nameParcel?: string;
+    codeRecord?: string;
+    quantity?: string;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    idRecord?: string;
+    createdPerson?: string;
+    createdDate?: string;
+    shift?: string;
+    isChangable?: boolean;
+    namePerson?: string;
+    codeWareHouse?: string;
+    nameWareHouse?: string;
+  }
+}
+
+/**
+ * Message implementation for client.RecordDetailResponse
+ */
+export class RecordDetailResponse implements GrpcMessage {
+  static id = 'client.RecordDetailResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new RecordDetailResponse();
+    RecordDetailResponse.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: RecordDetailResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: RecordDetailResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new RecordDetailInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            RecordDetailInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    RecordDetailResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: RecordDetailResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        RecordDetailInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: RecordDetailInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of RecordDetailResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<RecordDetailResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new RecordDetailInfo(m));
+    RecordDetailResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): RecordDetailInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: RecordDetailInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    RecordDetailResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): RecordDetailResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): RecordDetailResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module RecordDetailResponse {
+  /**
+   * Standard JavaScript object representation for RecordDetailResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: RecordDetailInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for RecordDetailResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: RecordDetailInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.Record
+ */
+export class Record implements GrpcMessage {
+  static id = 'client.Record';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new Record();
+    Record.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: Record) {
+    _instance.createdPerson = _instance.createdPerson || '';
+    _instance.createdDate = _instance.createdDate || '';
+    _instance.shift = _instance.shift || '';
+    _instance.codeWareHouse = _instance.codeWareHouse || '';
+    _instance.codeRecord = _instance.codeRecord || '';
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(_instance: Record, _reader: BinaryReader) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.createdPerson = _reader.readString();
+          break;
+        case 2:
+          _instance.createdDate = _reader.readString();
+          break;
+        case 3:
+          _instance.shift = _reader.readString();
+          break;
+        case 4:
+          _instance.codeWareHouse = _reader.readString();
+          break;
+        case 5:
+          _instance.codeRecord = _reader.readString();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    Record.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(_instance: Record, _writer: BinaryWriter) {
+    if (_instance.createdPerson) {
+      _writer.writeString(1, _instance.createdPerson);
+    }
+    if (_instance.createdDate) {
+      _writer.writeString(2, _instance.createdDate);
+    }
+    if (_instance.shift) {
+      _writer.writeString(3, _instance.shift);
+    }
+    if (_instance.codeWareHouse) {
+      _writer.writeString(4, _instance.codeWareHouse);
+    }
+    if (_instance.codeRecord) {
+      _writer.writeString(5, _instance.codeRecord);
+    }
+  }
+
+  private _createdPerson?: string;
+  private _createdDate?: string;
+  private _shift?: string;
+  private _codeWareHouse?: string;
+  private _codeRecord?: string;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of Record to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<Record.AsObject>) {
+    _value = _value || {};
+    this.createdPerson = _value.createdPerson;
+    this.createdDate = _value.createdDate;
+    this.shift = _value.shift;
+    this.codeWareHouse = _value.codeWareHouse;
+    this.codeRecord = _value.codeRecord;
+    Record.refineValues(this);
+  }
+  get createdPerson(): string | undefined {
+    return this._createdPerson;
+  }
+  set createdPerson(value: string | undefined) {
+    this._createdPerson = value;
+  }
+  get createdDate(): string | undefined {
+    return this._createdDate;
+  }
+  set createdDate(value: string | undefined) {
+    this._createdDate = value;
+  }
+  get shift(): string | undefined {
+    return this._shift;
+  }
+  set shift(value: string | undefined) {
+    this._shift = value;
+  }
+  get codeWareHouse(): string | undefined {
+    return this._codeWareHouse;
+  }
+  set codeWareHouse(value: string | undefined) {
+    this._codeWareHouse = value;
+  }
+  get codeRecord(): string | undefined {
+    return this._codeRecord;
+  }
+  set codeRecord(value: string | undefined) {
+    this._codeRecord = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    Record.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): Record.AsObject {
+    return {
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      shift: this.shift,
+      codeWareHouse: this.codeWareHouse,
+      codeRecord: this.codeRecord
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): Record.AsProtobufJSON {
+    return {
+      createdPerson: this.createdPerson,
+      createdDate: this.createdDate,
+      shift: this.shift,
+      codeWareHouse: this.codeWareHouse,
+      codeRecord: this.codeRecord
+    };
+  }
+}
+export module Record {
+  /**
+   * Standard JavaScript object representation for Record
+   */
+  export interface AsObject {
+    createdPerson?: string;
+    createdDate?: string;
+    shift?: string;
+    codeWareHouse?: string;
+    codeRecord?: string;
+  }
+
+  /**
+   * Protobuf JSON representation for Record
+   */
+  export interface AsProtobufJSON {
+    createdPerson?: string;
+    createdDate?: string;
+    shift?: string;
+    codeWareHouse?: string;
+    codeRecord?: string;
+  }
+}
+
+/**
+ * Message implementation for client.InsertRecordRequest
+ */
+export class InsertRecordRequest implements GrpcMessage {
+  static id = 'client.InsertRecordRequest';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new InsertRecordRequest();
+    InsertRecordRequest.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: InsertRecordRequest) {
+    _instance.record = _instance.record || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: InsertRecordRequest,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.record = new Record();
+          _reader.readMessage(
+            _instance.record,
+            Record.deserializeBinaryFromReader
+          );
+          break;
+        case 5:
+          const messageInitializer5 = new RecordDetailInfo();
+          _reader.readMessage(
+            messageInitializer5,
+            RecordDetailInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer5);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    InsertRecordRequest.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: InsertRecordRequest,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.record) {
+      _writer.writeMessage(
+        1,
+        _instance.record as any,
+        Record.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        5,
+        _instance.data as any,
+        RecordDetailInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _record?: Record;
+  private _data?: RecordDetailInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of InsertRecordRequest to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<InsertRecordRequest.AsObject>) {
+    _value = _value || {};
+    this.record = _value.record ? new Record(_value.record) : undefined;
+    this.data = (_value.data || []).map(m => new RecordDetailInfo(m));
+    InsertRecordRequest.refineValues(this);
+  }
+  get record(): Record | undefined {
+    return this._record;
+  }
+  set record(value: Record | undefined) {
+    this._record = value;
+  }
+  get data(): RecordDetailInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: RecordDetailInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    InsertRecordRequest.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): InsertRecordRequest.AsObject {
+    return {
+      record: this.record ? this.record.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): InsertRecordRequest.AsProtobufJSON {
+    return {
+      record: this.record ? this.record.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module InsertRecordRequest {
+  /**
+   * Standard JavaScript object representation for InsertRecordRequest
+   */
+  export interface AsObject {
+    record?: Record.AsObject;
+    data?: RecordDetailInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for InsertRecordRequest
+   */
+  export interface AsProtobufJSON {
+    record?: Record.AsProtobufJSON | null;
+    data?: RecordDetailInfo.AsProtobufJSON[] | null;
+  }
+}
+
+/**
+ * Message implementation for client.ReportVolConsumtion
+ */
+export class ReportVolConsumtion implements GrpcMessage {
+  static id = 'client.ReportVolConsumtion';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new ReportVolConsumtion();
+    ReportVolConsumtion.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: ReportVolConsumtion) {
+    _instance.date = _instance.date || '';
+    _instance.codeProduct = _instance.codeProduct || '';
+    _instance.namesProduct = _instance.namesProduct || '';
+    _instance.idTypeProduct = _instance.idTypeProduct || 0;
+    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.codeTypePacket = _instance.codeTypePacket || '';
+    _instance.nameTypePacket = _instance.nameTypePacket || '';
+    _instance.idPackingUnit = _instance.idPackingUnit || 0;
+    _instance.namePackingUnit = _instance.namePackingUnit || '';
+    _instance.idCustomer = _instance.idCustomer || '';
+    _instance.nameCustomer = _instance.nameCustomer || 0;
+    _instance.codeTypeBill = _instance.codeTypeBill || '';
+    _instance.nameTypeBill = _instance.nameTypeBill || '';
+    _instance.tripNumber = _instance.tripNumber || 0;
+    _instance.codeParcel = _instance.codeParcel || '';
+    _instance.quantity = _instance.quantity || 0;
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: ReportVolConsumtion,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.date = _reader.readString();
+          break;
+        case 2:
+          _instance.codeProduct = _reader.readString();
+          break;
+        case 3:
+          _instance.namesProduct = _reader.readString();
+          break;
+        case 4:
+          _instance.idTypeProduct = _reader.readInt32();
+          break;
+        case 5:
+          _instance.nameTypeProduct = _reader.readString();
+          break;
+        case 6:
+          _instance.codeTypePacket = _reader.readString();
+          break;
+        case 7:
+          _instance.nameTypePacket = _reader.readString();
+          break;
+        case 8:
+          _instance.idPackingUnit = _reader.readInt32();
+          break;
+        case 9:
+          _instance.namePackingUnit = _reader.readString();
+          break;
+        case 10:
+          _instance.idCustomer = _reader.readString();
+          break;
+        case 11:
+          _instance.nameCustomer = _reader.readInt32();
+          break;
+        case 12:
+          _instance.codeTypeBill = _reader.readString();
+          break;
+        case 13:
+          _instance.nameTypeBill = _reader.readString();
+          break;
+        case 14:
+          _instance.tripNumber = _reader.readInt32();
+          break;
+        case 15:
+          _instance.codeParcel = _reader.readString();
+          break;
+        case 16:
+          _instance.quantity = _reader.readInt32();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    ReportVolConsumtion.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: ReportVolConsumtion,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.date) {
+      _writer.writeString(1, _instance.date);
+    }
+    if (_instance.codeProduct) {
+      _writer.writeString(2, _instance.codeProduct);
+    }
+    if (_instance.namesProduct) {
+      _writer.writeString(3, _instance.namesProduct);
+    }
+    if (_instance.idTypeProduct) {
+      _writer.writeInt32(4, _instance.idTypeProduct);
+    }
+    if (_instance.nameTypeProduct) {
+      _writer.writeString(5, _instance.nameTypeProduct);
+    }
+    if (_instance.codeTypePacket) {
+      _writer.writeString(6, _instance.codeTypePacket);
+    }
+    if (_instance.nameTypePacket) {
+      _writer.writeString(7, _instance.nameTypePacket);
+    }
+    if (_instance.idPackingUnit) {
+      _writer.writeInt32(8, _instance.idPackingUnit);
+    }
+    if (_instance.namePackingUnit) {
+      _writer.writeString(9, _instance.namePackingUnit);
+    }
+    if (_instance.idCustomer) {
+      _writer.writeString(10, _instance.idCustomer);
+    }
+    if (_instance.nameCustomer) {
+      _writer.writeInt32(11, _instance.nameCustomer);
+    }
+    if (_instance.codeTypeBill) {
+      _writer.writeString(12, _instance.codeTypeBill);
+    }
+    if (_instance.nameTypeBill) {
+      _writer.writeString(13, _instance.nameTypeBill);
+    }
+    if (_instance.tripNumber) {
+      _writer.writeInt32(14, _instance.tripNumber);
+    }
+    if (_instance.codeParcel) {
+      _writer.writeString(15, _instance.codeParcel);
+    }
+    if (_instance.quantity) {
+      _writer.writeInt32(16, _instance.quantity);
+    }
+  }
+
+  private _date?: string;
+  private _codeProduct?: string;
+  private _namesProduct?: string;
+  private _idTypeProduct?: number;
+  private _nameTypeProduct?: string;
+  private _codeTypePacket?: string;
+  private _nameTypePacket?: string;
+  private _idPackingUnit?: number;
+  private _namePackingUnit?: string;
+  private _idCustomer?: string;
+  private _nameCustomer?: number;
+  private _codeTypeBill?: string;
+  private _nameTypeBill?: string;
+  private _tripNumber?: number;
+  private _codeParcel?: string;
+  private _quantity?: number;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of ReportVolConsumtion to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<ReportVolConsumtion.AsObject>) {
+    _value = _value || {};
+    this.date = _value.date;
+    this.codeProduct = _value.codeProduct;
+    this.namesProduct = _value.namesProduct;
+    this.idTypeProduct = _value.idTypeProduct;
+    this.nameTypeProduct = _value.nameTypeProduct;
+    this.codeTypePacket = _value.codeTypePacket;
+    this.nameTypePacket = _value.nameTypePacket;
+    this.idPackingUnit = _value.idPackingUnit;
+    this.namePackingUnit = _value.namePackingUnit;
+    this.idCustomer = _value.idCustomer;
+    this.nameCustomer = _value.nameCustomer;
+    this.codeTypeBill = _value.codeTypeBill;
+    this.nameTypeBill = _value.nameTypeBill;
+    this.tripNumber = _value.tripNumber;
+    this.codeParcel = _value.codeParcel;
+    this.quantity = _value.quantity;
+    ReportVolConsumtion.refineValues(this);
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
+  }
+  get codeProduct(): string | undefined {
+    return this._codeProduct;
+  }
+  set codeProduct(value: string | undefined) {
+    this._codeProduct = value;
+  }
+  get namesProduct(): string | undefined {
+    return this._namesProduct;
+  }
+  set namesProduct(value: string | undefined) {
+    this._namesProduct = value;
+  }
+  get idTypeProduct(): number | undefined {
+    return this._idTypeProduct;
+  }
+  set idTypeProduct(value: number | undefined) {
+    this._idTypeProduct = value;
+  }
+  get nameTypeProduct(): string | undefined {
+    return this._nameTypeProduct;
+  }
+  set nameTypeProduct(value: string | undefined) {
+    this._nameTypeProduct = value;
+  }
+  get codeTypePacket(): string | undefined {
+    return this._codeTypePacket;
+  }
+  set codeTypePacket(value: string | undefined) {
+    this._codeTypePacket = value;
+  }
+  get nameTypePacket(): string | undefined {
+    return this._nameTypePacket;
+  }
+  set nameTypePacket(value: string | undefined) {
+    this._nameTypePacket = value;
+  }
+  get idPackingUnit(): number | undefined {
+    return this._idPackingUnit;
+  }
+  set idPackingUnit(value: number | undefined) {
+    this._idPackingUnit = value;
+  }
+  get namePackingUnit(): string | undefined {
+    return this._namePackingUnit;
+  }
+  set namePackingUnit(value: string | undefined) {
+    this._namePackingUnit = value;
+  }
+  get idCustomer(): string | undefined {
+    return this._idCustomer;
+  }
+  set idCustomer(value: string | undefined) {
+    this._idCustomer = value;
+  }
+  get nameCustomer(): number | undefined {
+    return this._nameCustomer;
+  }
+  set nameCustomer(value: number | undefined) {
+    this._nameCustomer = value;
+  }
+  get codeTypeBill(): string | undefined {
+    return this._codeTypeBill;
+  }
+  set codeTypeBill(value: string | undefined) {
+    this._codeTypeBill = value;
+  }
+  get nameTypeBill(): string | undefined {
+    return this._nameTypeBill;
+  }
+  set nameTypeBill(value: string | undefined) {
+    this._nameTypeBill = value;
+  }
+  get tripNumber(): number | undefined {
+    return this._tripNumber;
+  }
+  set tripNumber(value: number | undefined) {
+    this._tripNumber = value;
+  }
+  get codeParcel(): string | undefined {
+    return this._codeParcel;
+  }
+  set codeParcel(value: string | undefined) {
+    this._codeParcel = value;
+  }
+  get quantity(): number | undefined {
+    return this._quantity;
+  }
+  set quantity(value: number | undefined) {
+    this._quantity = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    ReportVolConsumtion.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): ReportVolConsumtion.AsObject {
+    return {
+      date: this.date,
+      codeProduct: this.codeProduct,
+      namesProduct: this.namesProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      idCustomer: this.idCustomer,
+      nameCustomer: this.nameCustomer,
+      codeTypeBill: this.codeTypeBill,
+      nameTypeBill: this.nameTypeBill,
+      tripNumber: this.tripNumber,
+      codeParcel: this.codeParcel,
+      quantity: this.quantity
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ReportVolConsumtion.AsProtobufJSON {
+    return {
+      date: this.date,
+      codeProduct: this.codeProduct,
+      namesProduct: this.namesProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      idPackingUnit: this.idPackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      idCustomer: this.idCustomer,
+      nameCustomer: this.nameCustomer,
+      codeTypeBill: this.codeTypeBill,
+      nameTypeBill: this.nameTypeBill,
+      tripNumber: this.tripNumber,
+      codeParcel: this.codeParcel,
+      quantity: this.quantity
+    };
+  }
+}
+export module ReportVolConsumtion {
+  /**
+   * Standard JavaScript object representation for ReportVolConsumtion
+   */
+  export interface AsObject {
+    date?: string;
+    codeProduct?: string;
+    namesProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    idCustomer?: string;
+    nameCustomer?: number;
+    codeTypeBill?: string;
+    nameTypeBill?: string;
+    tripNumber?: number;
+    codeParcel?: string;
+    quantity?: number;
+  }
+
+  /**
+   * Protobuf JSON representation for ReportVolConsumtion
+   */
+  export interface AsProtobufJSON {
+    date?: string;
+    codeProduct?: string;
+    namesProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    idPackingUnit?: number;
+    namePackingUnit?: string;
+    idCustomer?: string;
+    nameCustomer?: number;
+    codeTypeBill?: string;
+    nameTypeBill?: string;
+    tripNumber?: number;
+    codeParcel?: string;
+    quantity?: number;
+  }
+}
+
+/**
+ * Message implementation for client.ReportVolConsumtionResponse
+ */
+export class ReportVolConsumtionResponse implements GrpcMessage {
+  static id = 'client.ReportVolConsumtionResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new ReportVolConsumtionResponse();
+    ReportVolConsumtionResponse.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: ReportVolConsumtionResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: ReportVolConsumtionResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new ReportVolConsumtion();
+          _reader.readMessage(
+            messageInitializer2,
+            ReportVolConsumtion.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    ReportVolConsumtionResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: ReportVolConsumtionResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        ReportVolConsumtion.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: ReportVolConsumtion[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of ReportVolConsumtionResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<ReportVolConsumtionResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new ReportVolConsumtion(m));
+    ReportVolConsumtionResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): ReportVolConsumtion[] | undefined {
+    return this._data;
+  }
+  set data(value: ReportVolConsumtion[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    ReportVolConsumtionResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): ReportVolConsumtionResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): ReportVolConsumtionResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module ReportVolConsumtionResponse {
+  /**
+   * Standard JavaScript object representation for ReportVolConsumtionResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: ReportVolConsumtion.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for ReportVolConsumtionResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: ReportVolConsumtion.AsProtobufJSON[] | null;
   }
 }

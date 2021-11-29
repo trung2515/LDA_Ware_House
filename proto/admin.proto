@@ -83,12 +83,18 @@ service Administrator {
     rpc DeleteDevice(DeviceInfo) returns (Response);
 }
 service WareHouse {
+   
+   // get all
     rpc GetListShift(MasterRequest) returns (ShiftResponse);
-    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);
-    rpc GetListParcel(MasterRequest) returns (ParcelResponse);
-    rpc GetListParcelDetail(MasterRequest) returns (ParcelDetailResponse);
+    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);     // from date ->  to date 
+
+    rpc GetListParcel(MasterRequest) returns (ParcelResponse);               // get all   
+    rpc GetListParcelDetail(MasterRequest) returns (ParcelDetailResponse);   // from date -> to date
     rpc GetListParcelDetailByCode(MasterRequest) returns (ParcelDetailResponse);
 
+    rpc GetListTask(MasterRequest) returns (TaskResponse);                   // from date -> to date
+    rpc getListTaskDetailById(TaskInfo) returns (TaskDetailResponse);       
+    rpc getListTaskDetail(MasterRequest) returns (TaskDetailResponse);       // from date -> to date
 
     rpc NewInsertShift(InsertShiftRequest) returns (Response);
     rpc NewUpdateShift(InsertShiftRequest) returns (Response);
@@ -100,16 +106,31 @@ service WareHouse {
 
     rpc InsertParcel(InsertParcelRequest) returns (Response);
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
+    rpc DeleteParcel(ParcelInfo) returns (Response);
 
     rpc InsertTask(InsertTaskRequest) returns (Response);
     rpc UpdateTask(InsertTaskRequest) returns (Response);
-   
+    rpc DeleteTask(TaskInfo) returns (Response);
+    
 }
 service Card
 {
+    rpc GetListCard(MasterRequest) returns (CardResponse); //get all
+    rpc getListCardDetailByCode(MasterRequest) returns (CardDetailResponse); //get by code
+    rpc GetListCardDetail(MasterRequest) returns (CardDetailResponse); // from date -> to date
+
     rpc InsertCard(InsertCardRequest) returns (Response);
     rpc UpdateCard(InsertCardRequest) returns (Response); 
-    rpc GetListCard(MasterRequest) returns (CardResponse);
-    rpc getListCardDetailByCode(MasterRequest) returns (CardDetailResponse);
     rpc SetChangeableCard(CardInfo) returns (Response);
+    rpc DeleteCard(CardInfo) returns (Response);
+
+    rpc GetListRecordDetail(MasterRequest) returns (RecordDetailResponse);
+    rpc InsertRecord (InsertRecordRequest) returns (Response);
+    rpc DeleteRecord (InsertRecordRequest) returns (Response);
+
+}
+
+service Report
+{
+    rpc GetReportVolConsumtion (MasterRequest) returns (ReportVolConsumtionResponse);
 }

@@ -7,7 +7,7 @@ export class ParcelModel {
   created_by: string
   constructor(data: ParcelInfo) {
     this.parcel_code = data.codeParcel || ''
-    this.parcel_name = data.nameParcel || ''
+    this.parcel_name = data.codeParcel || ''
     this.created_date = ''
     this.created_by = ''
   }

@@ -62,7 +62,8 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
     ParcelComponent,
     CardComponent,
     DetailParcelGrid,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,

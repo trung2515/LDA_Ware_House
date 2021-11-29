@@ -26,6 +26,7 @@ ReasonComponent
 JobComponent
 BillComponent
 const routes: Routes = [
+  { path: 'test', component: TestComponent},
   {
     path: 'dashboard',
     data: {

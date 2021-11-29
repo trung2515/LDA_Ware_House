@@ -24,7 +24,8 @@ import {
   GRPC_ACCOUNT_CLIENT_SETTINGS,
   GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
   GRPC_WARE_HOUSE_CLIENT_SETTINGS,
-  GRPC_CARD_CLIENT_SETTINGS
+  GRPC_CARD_CLIENT_SETTINGS,
+  GRPC_REPORT_CLIENT_SETTINGS
 } from './admin.pbconf';
 /**
  * Service client implementation for client.Account
@@ -2263,6 +2264,69 @@ export class WareHouseClient {
       });
     },
     /**
+     * Unary RPC for /client.WareHouse/GetListTask
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.TaskResponse>>
+     */
+    getListTask: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.TaskResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/GetListTask',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.TaskResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/getListTaskDetailById
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.TaskDetailResponse>>
+     */
+    getListTaskDetailById: (
+      requestData: client000.TaskInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.TaskDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/getListTaskDetailById',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TaskInfo,
+        responseClass: client000.TaskDetailResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/getListTaskDetail
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.TaskDetailResponse>>
+     */
+    getListTaskDetail: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.TaskDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/getListTaskDetail',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.TaskDetailResponse
+      });
+    },
+    /**
      * Unary RPC for /client.WareHouse/NewInsertShift
      *
      * @param requestMessage Request message
@@ -2368,6 +2432,27 @@ export class WareHouseClient {
       });
     },
     /**
+     * Unary RPC for /client.WareHouse/DeleteParcel
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteParcel: (
+      requestData: client000.ParcelInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/DeleteParcel',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ParcelInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
      * Unary RPC for /client.WareHouse/InsertTask
      *
      * @param requestMessage Request message
@@ -2406,6 +2491,27 @@ export class WareHouseClient {
         requestData,
         requestMetadata,
         requestClass: client000.InsertTaskRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/DeleteTask
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteTask: (
+      requestData: client000.TaskInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/DeleteTask',
+        requestData,
+        requestMetadata,
+        requestClass: client000.TaskInfo,
         responseClass: client000.Response
       });
     }
@@ -2500,6 +2606,54 @@ export class WareHouseClient {
   }
 
   /**
+   * Unary RPC for /client.WareHouse/GetListTask
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.TaskResponse>
+   */
+  getListTask(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.TaskResponse> {
+    return this.$raw
+      .getListTask(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/getListTaskDetailById
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.TaskDetailResponse>
+   */
+  getListTaskDetailById(
+    requestData: client000.TaskInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.TaskDetailResponse> {
+    return this.$raw
+      .getListTaskDetailById(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/getListTaskDetail
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.TaskDetailResponse>
+   */
+  getListTaskDetail(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.TaskDetailResponse> {
+    return this.$raw
+      .getListTaskDetail(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
    * Unary RPC for /client.WareHouse/NewInsertShift
    *
    * @param requestMessage Request message
@@ -2580,6 +2734,22 @@ export class WareHouseClient {
   }
 
   /**
+   * Unary RPC for /client.WareHouse/DeleteParcel
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteParcel(
+    requestData: client000.ParcelInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteParcel(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
    * Unary RPC for /client.WareHouse/InsertTask
    *
    * @param requestMessage Request message
@@ -2610,6 +2780,22 @@ export class WareHouseClient {
       .updateTask(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
+
+  /**
+   * Unary RPC for /client.WareHouse/DeleteTask
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteTask(
+    requestData: client000.TaskInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteTask(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
 }
 /**
  * Service client implementation for client.Card
@@ -2624,48 +2810,6 @@ export class CardClient {
    * Attention: these methods do not throw errors when non-zero status codes are received.
    */
   $raw = {
-    /**
-     * Unary RPC for /client.Card/InsertCard
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    insertCard: (
-      requestData: client000.InsertCardRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Card/InsertCard',
-        requestData,
-        requestMetadata,
-        requestClass: client000.InsertCardRequest,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.Card/UpdateCard
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    updateCard: (
-      requestData: client000.InsertCardRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Card/UpdateCard',
-        requestData,
-        requestMetadata,
-        requestClass: client000.InsertCardRequest,
-        responseClass: client000.Response
-      });
-    },
     /**
      * Unary RPC for /client.Card/GetListCard
      *
@@ -2709,6 +2853,69 @@ export class CardClient {
       });
     },
     /**
+     * Unary RPC for /client.Card/GetListCardDetail
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.CardDetailResponse>>
+     */
+    getListCardDetail: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.CardDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/GetListCardDetail',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.CardDetailResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/InsertCard
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertCard: (
+      requestData: client000.InsertCardRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/InsertCard',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertCardRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/UpdateCard
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateCard: (
+      requestData: client000.InsertCardRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/UpdateCard',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertCardRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
      * Unary RPC for /client.Card/SetChangeableCard
      *
      * @param requestMessage Request message
@@ -2728,6 +2935,90 @@ export class CardClient {
         requestClass: client000.CardInfo,
         responseClass: client000.Response
       });
+    },
+    /**
+     * Unary RPC for /client.Card/DeleteCard
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteCard: (
+      requestData: client000.CardInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/DeleteCard',
+        requestData,
+        requestMetadata,
+        requestClass: client000.CardInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/GetListRecordDetail
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.RecordDetailResponse>>
+     */
+    getListRecordDetail: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.RecordDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/GetListRecordDetail',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.RecordDetailResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/InsertRecord
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertRecord: (
+      requestData: client000.InsertRecordRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/InsertRecord',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertRecordRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/DeleteRecord
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    deleteRecord: (
+      requestData: client000.InsertRecordRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/DeleteRecord',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertRecordRequest,
+        responseClass: client000.Response
+      });
     }
   };
 
@@ -2737,38 +3028,6 @@ export class CardClient {
     private handler: GrpcHandler
   ) {
     this.client = clientFactory.createClient('client.Card', settings);
-  }
-
-  /**
-   * Unary RPC for /client.Card/InsertCard
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  insertCard(
-    requestData: client000.InsertCardRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .insertCard(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.Card/UpdateCard
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  updateCard(
-    requestData: client000.InsertCardRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .updateCard(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
   }
 
   /**
@@ -2804,6 +3063,54 @@ export class CardClient {
   }
 
   /**
+   * Unary RPC for /client.Card/GetListCardDetail
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.CardDetailResponse>
+   */
+  getListCardDetail(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.CardDetailResponse> {
+    return this.$raw
+      .getListCardDetail(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/InsertCard
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertCard(
+    requestData: client000.InsertCardRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertCard(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/UpdateCard
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateCard(
+    requestData: client000.InsertCardRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateCard(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
    * Unary RPC for /client.Card/SetChangeableCard
    *
    * @param requestMessage Request message
@@ -2816,6 +3123,130 @@ export class CardClient {
   ): Observable<client000.Response> {
     return this.$raw
       .setChangeableCard(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/DeleteCard
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteCard(
+    requestData: client000.CardInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteCard(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/GetListRecordDetail
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.RecordDetailResponse>
+   */
+  getListRecordDetail(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.RecordDetailResponse> {
+    return this.$raw
+      .getListRecordDetail(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/InsertRecord
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertRecord(
+    requestData: client000.InsertRecordRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertRecord(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/DeleteRecord
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  deleteRecord(
+    requestData: client000.InsertRecordRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .deleteRecord(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+}
+/**
+ * Service client implementation for client.Report
+ */
+@Injectable({ providedIn: 'any' })
+export class ReportClient {
+  private client: GrpcClient<any>;
+
+  /**
+   * Raw RPC implementation for each service client method.
+   * The raw methods provide more control on the incoming data and events. E.g. they can be useful to read status `OK` metadata.
+   * Attention: these methods do not throw errors when non-zero status codes are received.
+   */
+  $raw = {
+    /**
+     * Unary RPC for /client.Report/GetReportVolConsumtion
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.ReportVolConsumtionResponse>>
+     */
+    getReportVolConsumtion: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.ReportVolConsumtionResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Report/GetReportVolConsumtion',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.ReportVolConsumtionResponse
+      });
+    }
+  };
+
+  constructor(
+    @Optional() @Inject(GRPC_REPORT_CLIENT_SETTINGS) settings: any,
+    @Inject(GRPC_CLIENT_FACTORY) clientFactory: GrpcClientFactory<any>,
+    private handler: GrpcHandler
+  ) {
+    this.client = clientFactory.createClient('client.Report', settings);
+  }
+
+  /**
+   * Unary RPC for /client.Report/GetReportVolConsumtion
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.ReportVolConsumtionResponse>
+   */
+  getReportVolConsumtion(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.ReportVolConsumtionResponse> {
+    return this.$raw
+      .getReportVolConsumtion(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }
