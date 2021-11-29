@@ -1,309 +1,309 @@
-import { Component, OnInit } from '@angular/core'
-import * as _ from 'src/app/_lib/longLib'
-import { AdminService } from 'src/app/core/services/admin.service'
+import { Component, OnInit } from '@angular/core';
+import * as _ from 'src/app/_lib/longLib';
+import { AdminService } from 'src/app/core/services/admin.service';
+import Query from 'devextreme/data/query';
+import Form from 'devextreme/ui/form';
 import {
   ProductInfo,
   Response,
   ResponseState,
-  ShiftInfo,
-} from 'src/app/core/models/model.pb'
-import { forkJoin, of } from 'rxjs'
+  ShiftInfo
+} from 'src/app/core/models/model.pb';
+import { forkJoin, of } from 'rxjs';
+import { Resource, Appointment, ShiftDetail, ShiftMaster, Product, Lot ,Option } from './model';
+import { Any } from '@ngx-grpc/well-known-types';
 @Component({
   selector: 'app-shift',
   templateUrl: './shift.component.html',
-  styleUrls: ['./shift.component.css'],
+  styleUrls: ['./shift.component.css']
 })
 export class ShiftComponent implements OnInit {
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) { }
   ngOnInit(): void {
-    this.getListShift()
-    this.getListTypeBill()
-    this.getListProduct()
-    this.getListParcel()
-    this.getListTypeProduct()
-    this.getListTypePacket()
-    this.getListWareHouse()
+    this.dataDemo()
   }
-  // -----------------------------------------------------Shift---------------------------------------
-  listShift: ShiftInfo[] = []
-  itemShiftClicked: ShiftInfo = new ShiftInfo({})
-  getListShift() {
-    this.adminService.getListShift().subscribe((data: any) => {
-      this.listShift = data
-    })
+
+  currentDate: Date = new Date(2021,10,1);
+  showPopup: boolean = false;
+  viewData() {
+    console.log(this.appointments);
+  }
+  shiftMaster: ShiftMaster = {
+    id: 1,
+    name: '',
+    shift: 0,
+
+    startDate: new Date(),
+    endDate: new Date(),
+    description: '',
+  };
+  shiftDetail: ShiftDetail[] = [
+    {
+      id: 1,
+      option: '',
+      type: '',
+      product: '',
+      productRange: 1,
+      packaging: '',
+      lot: 1,
+      unit: '',
+      wareHouse: ''
+    }
+  ];
+
+  listProduct: Product[] = [
+    { name: 'Alumin 1 Tấn' },
+    { name: 'Alumin 2 Tấn' },
+    { name: 'Alumin 3 Tấn' },
+    { name: 'Alumin 4 Tấn' }
+  ];
+  listOptions : Option[] = [
+    {value: 1,name:'option 1'},
+    {value: 2,name:'option 2'},
+    
+  ];
+  listProductRange: Lot[] = [
+    { name: 1 },
+    { name: 2 },
+    { name: 3 },
+  ];
+  listPackaging: Product[] = [
+    { name: 'Xả đáy' },
+  ];
+  listType: Product[] = [
+    { name: 'NDL' },
+    { name: 'NDM' },
+  ];
+  listUnit: Product[] = [
+    { name: 'NUNG' },
+    { name: 'XTRE' },
+  ];
+  listWareHouse: Product[] = [
+    { name: 'Kho TT' },
+
+  ];
+  listLot: Lot[] = [
+    { name: 189 },
+    { name: 190 },
+    { name: 200 },
+    { name: 201 }
+  ];
+  resources: Resource[] = [
+    {
+      text: 'Ca 1',
+      id: 1,
+      color: '#00A560'
+    },
+    {
+      text: 'Ca 2',
+      id: 2,
+      color: '#3459E6'
+    },
+    {
+      text: 'Ca 3',
+      id: 3,
+      color: '#ff8817'
+    }
+  ];
+  appointments: Appointment[] = [];
+  dataDemo(){
+    
+    for(var i = 1;  i <  20 ; i++){
+      let a = new Date(2021,10,1)
+      let item:any = {}
+      item.id = i
+      item.text = 'Hiếu '+i
+      // item.shift = i%2 +1
+      item.shift = 1
+      item.startDate = new Date( new Date(a.getFullYear(),a.getMonth(),a.getDate()+i).setHours(1))
+      item.endDate = new Date(new Date(a.getFullYear(),a.getMonth(),a.getDate()+i).setHours(2))
+      item.description = 'test'
+      item.shiftDetail = [
+        {
+          id: 1,
+          option: '1',
+          type: 'NDL',
+          product: 'Alumin 1 Tấn',
+          productRange: 3,
+          packaging: 'Xả đáy',
+          lot: 190,
+          unit: 'XTRE',
+          wareHouse: 'Kho TT'
+        }
+      ]
+      this.appointments.push(item)
+    }
+  }
+  showUpdateButton: boolean = false
+  onAppointmentFormOpening(data: any) {
+    data.cancel = true;
+    this.showPopup = true;
+    let newStartDate = new Date(data.appointmentData.startDate)
+    let newEndDate = new Date(data.appointmentData.startDate)
+    console.log('form', data);
+    if (data.appointmentData.id) {
+      this.showUpdateButton = true
+      newStartDate.setHours(data.appointmentData.shift)
+      newEndDate.setHours(data.appointmentData.shift+1)
+      this.shiftMaster = {
+        id: data.appointmentData.id,
+        shift: data.appointmentData.shift,
+        name: data.appointmentData.text,
+        startDate: newStartDate,
+        endDate: newEndDate ,
+        description: data.appointmentData.description,
+      };
+      this.shiftDetail = data.appointmentData.shiftDetail;
+      console.log(this.shiftDetail);
+    } else {
+      let checkShift = 1
+      data.showUpdateButton = false
+      for (var i = 0; i < this.appointments.length; i++) {
+        if (this.appointments[i].startDate.getDate() == data.appointmentData.startDate.getDate() &&
+          this.appointments[i].startDate.getMonth() == data.appointmentData.startDate.getMonth() &&
+          this.appointments[i].startDate.getFullYear() == data.appointmentData.startDate.getFullYear()
+        ) {
+          checkShift++
+        }
+      }
+      newStartDate.setHours(checkShift)
+      newEndDate.setHours(checkShift+1)
+      this.shiftMaster = {
+        id: 1,
+        name: 'administrator',
+        shift: checkShift,
+        startDate: newStartDate,
+        endDate: newEndDate,
+        description: data.appointmentData.description,
+      };
+      this.shiftDetail = []
+    }
+
+
+  }
+  updateShiftData() {
+
+    let newAppointments: Appointment = {
+      id: this.shiftMaster.id,
+      shift: this.shiftMaster.shift,
+      text: this.shiftMaster.name,
+      startDate: this.shiftMaster.startDate,
+      endDate: this.shiftMaster.endDate,
+      description: this.shiftMaster.description,
+      shiftDetail: this.shiftDetail
+    };
+
+    let item = this.appointments.find(
+      element => element.id == newAppointments.id
+    );
+
+    this.appointments = this.appointments.filter(element => element !== item);
+
+    this.appointments.push(newAppointments)
+
+    this.showPopup = false
+  }
+
+  addShiftData() {
+    let idMax = 0
+    for (var i = 0; i < this.appointments.length; i++) {
+      idMax = this.appointments[i].id > idMax ? this.appointments[i].id : idMax;
+    }
+
+    let newShift: Appointment = {
+      id: idMax + 1,
+      shift: this.shiftMaster.shift,
+      text: this.shiftMaster.name,
+      startDate: this.shiftMaster.startDate,
+      endDate: this.shiftMaster.endDate,
+      description: this.shiftMaster.description,
+      shiftDetail: this.shiftDetail
+    }
+    this.appointments.push(newShift)
+    // console.log('newShift', newShift)
+    // console.log('apointment', this.appointments)
+    this.showPopup = false
+  }
+  closePop() {
+    this.showPopup = false
   }
 
   // -----------------------------------------------------add Shift---------------------------------------
-  timeShowMess: any = 3000
-  now: Date = new Date()
-  shiftClicked: any = null
-  onValueChangedTime(e: any) {
-    let value = e.value
-    if (!value) return
-    let date = _.DATEtoYMD(value)
-    this.objAddShift.date = date
-    //console.log(date)
-    this.findShiftInDate(date)
-  }
-  onValueChangeShiftInDateForAdd(e: any) {
-    let value = e.value
-    //console.log(value)
-    this.objAddShift.nameShift = value
-    this.shiftClicked = this.objShiftInDateForAdd[value]
-    if (this.objShiftInDateForAdd[value]) {
-      // ca đã tạo
-      this.getListShiftDetail(this.objShiftInDateForAdd[value].idShift)
-    } else {
-      // ca chưa được tạo
-      this.listShiftDetail = []
-    }
-  }
-  findShiftInDate(date: any) {
-    this.objShiftInDateForAdd = {}
-    this.listShift.forEach((item: any) => {
-      if (item.date == date) this.objShiftInDateForAdd[item.nameShift] = item
-    })
-  }
-  listFakeShift: any = ['CA 1', 'CA 2']
-
-  isPopupAddShift: any = false
-  objAddShift: any = {
-    title: 'Thêm mới ca làm việc',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    date: '',
-    idAdmin: 'NV01',
-    nameShift: 'CA 1',
-  }
-
-  objShiftInDateForAdd: any = {}
-  clickAddShift(e: any) {
-    this.objShiftInDateForAdd = {}
-    this.listShiftDetail = []
-    this.togglePopupAddShift()
-  }
-  togglePopupAddShift() {
-    this.isPopupAddShift = !this.isPopupAddShift
-  }
-  onSubmitAddShift(e: any) {
-    let { date, idAdmin, nameShift } = this.objAddShift
-    let arr = this.listShiftDetail
-    if (!this.shiftClicked) {
-      this.adminService
-        .newInsertShift(date, nameShift, idAdmin, arr)
-        .subscribe((data: any) => {
-          if (data.state == ResponseState.SUCCESS) {
-            this.objAddShift.formSuccMess = data.message
-            this.objAddShift.formErrMess = ''
-            this.getListShift()
-            setTimeout(() => {
-              this.objAddShift = {
-                title: 'Thêm mới ca làm việc',
-                mess: '',
-                formErrMess: '',
-                formSuccMess: '',
-                date: '',
-                idAdmin: 'NV01',
-                nameShift: 'CA 1',
-              }
-              if (this.isPopupAddShift) this.togglePopupAddShift()
-            }, this.timeShowMess)
-          } else {
-            this.objAddShift.formSuccMess = ''
-            this.objAddShift.formErrMess = data.message
-          }
-        })
-    } else {
-      let idShift = this.shiftClicked.idShift
-      this.adminService.newUpdateShift(idShift, arr).subscribe((data: any) => {
-        if (data.state == ResponseState.SUCCESS) {
-          this.objAddShift.formSuccMess = data.message
-          this.objAddShift.formErrMess = ''
-          this.getListShift()
-          setTimeout(() => {
-            this.objAddShift = {
-              title: 'Thêm mới ca làm việc',
-              mess: '',
-              formErrMess: '',
-              formSuccMess: '',
-              date: '',
-              idAdmin: 'NV01',
-              nameShift: 'CA 1',
-            }
-            if (this.isPopupAddShift) this.togglePopupAddShift()
-          }, this.timeShowMess)
-        } else {
-          this.objAddShift.formSuccMess = ''
-          this.objAddShift.formErrMess = data.message
-        }
-      })
-    }
-  }
-  // delete shift
-  isPopupDeleteShift: any = false
-  objDeleteShift: any = {
-    title: 'Xác nhận',
-    mess: 'Xóa ',
-    formErrMess: '',
-    formSuccMess: '',
-  }
-
-  clickDelete(idShift: number) {
-    this.objDeleteShift.mess = `Xóa ca ${idShift}?`
-    this.togglePopupDeleteShift()
-  }
-
-  togglePopupDeleteShift() {
-    this.isPopupDeleteShift = !this.isPopupDeleteShift
-  }
-
-  onSubmitDeleteShift(e: any) {
-    let id = this.itemShiftClicked.idShift
-    this.adminService.deleteShift(id).subscribe((data: any) => {
-      if (data.state == ResponseState.SUCCESS) {
-        this.objDeleteShift.formSuccMess = data.message
-        this.objDeleteShift.formErrMess = ''
-        this.getListShift()
-        setTimeout(() => {
-          this.objDeleteShift = {
-            title: 'Xác nhận',
-            mess: 'Xóa ',
-            formErrMess: '',
-            formSuccMess: '',
-          }
-          if (this.isPopupDeleteShift) this.togglePopupDeleteShift()
-        }, this.timeShowMess)
-      } else {
-        this.objDeleteShift.formSuccMess = ''
-        this.objDeleteShift.formErrMess = data.message
-      }
-    })
-  }
-
-  // detail ------------------------------------------------------------------------------
-
-  listShiftDetail: any = []
-  itemShiftDetailClicked: any = {}
-  getListShiftDetail(idShift: number) {
-    const shiftInfo = this.listShift.filter((s) => (s.idShift = idShift))[0]
-    forkJoin([
-      this.adminService.getListShiftDetail(idShift),
-      of(shiftInfo),
-    ]).subscribe(
-      ([detailShift, shiftInfo]) => {
-        console.log('shiftDetail', detailShift)
-        this.listShiftDetail = detailShift
-        this.itemShiftClicked = shiftInfo
-      },
-      (err) => console.log(err),
-    )
-  }
-  isPopupDetailShift: any = false
-  objDetailShift: any = {
-    title: 'Chi tiết ca làm việc',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    date: '',
-    idAdmin: 'NV01',
-    nameShift: 'CA 1',
-  }
-  listShiftInDay: any = []
-
-  clickDetailShift(id_shift: number) {
-    this.getListShiftDetail(id_shift)
-    this.togglePopupDetailShift()
-  }
-  togglePopupDetailShift() {
-    this.isPopupDetailShift = !this.isPopupDetailShift
-  }
-  onValueChangeShiftInDateForDetail(e: any) {
-    let value = e.value
-    this.listShiftInDay.forEach((item: any) => {
-      if (item.nameShift == value) {
-        this.itemShiftClicked = item
-        this.getListShiftDetail(this.itemShiftClicked.idShift!)
-      }
-    })
-  }
-  onSubmitDetailShift(e: any) {
-    let arr = this.listShiftDetail
-    let idShift = this.itemShiftClicked.idShift
-    this.adminService.newUpdateShift(idShift, arr).subscribe((data: any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.objDetailShift.formSuccMess = data.message
-        this.objDetailShift.formErrMess = ''
-        this.getListShift()
-        setTimeout(() => {
-          this.objDetailShift = {
-            title: 'Chi tiết ca làm việc',
-            mess: '',
-            formErrMess: '',
-            formSuccMess: '',
-            date: '',
-            idAdmin: 'NV01',
-            nameShift: 'CA 1',
-          }
-          if (this.isPopupDetailShift) this.togglePopupDetailShift()
-        }, this.timeShowMess)
-      } else {
-        this.objDetailShift.formSuccMess = ''
-        this.objDetailShift.formErrMess = data.message
-      }
-    })
-  }
-
-  //  getData selectbox --------------------------
-  listTypeBill: any = []
-  getListTypeBill() {
-    this.adminService.getListTypeBill().subscribe((data: any) => {
-      this.listTypeBill = data
-    })
-  }
-
-  listProduct: any = []
-  getListProduct() {
-    this.adminService.getListProduct().subscribe((data: any) => {
-      this.listProduct = data
-    })
-  }
-
-  listTypeProduct: any = []
-  getListTypeProduct() {
-    this.adminService.getListTypeProduct().subscribe((data: any) => {
-      this.listTypeProduct = data
-      //console.log("listTypeProduct",data)
-    })
-  }
-
-  listTypePacket: any = []
-  getListTypePacket() {
-    this.adminService.getListTypePacket().subscribe((data: any) => {
-      this.listTypePacket = data
-      //console.log("listTypePacket",data)
-    })
-  }
-
-  listParcel: any = []
-  getListParcel() {
-    this.adminService.getListParcel().subscribe((data: any) => {
-      this.listParcel = data
-      //console.log("listParcel",data)
-    })
-  }
-
-  listWareHouse: any = []
-  getListWareHouse() {
-    this.adminService.getListWareHouse().subscribe((data: any) => {
-      this.listWareHouse = data
-    })
-  }
-
-  onParcelValueChanged(event: any) {
-    // this.listProduct = this.listParcel.map((l: any) => new ProductInfo(l))
-    console.log('value changed', event);
-    this.listProduct = []
-  }
 }
+
+// appointments: Appointment[] = [
+//   {
+//     id: 1,
+//     text: 'Phan Đình Trung',
+//     shift: 1,
+//     startDate: new Date('Tue Nov 02 2021 1:00:00 GMT+0700'),
+//     endDate: new Date('Tue Nov 02 2021 11:00:00 GMT+0700'),
+//     description: 'test',
+//     shiftDetail: [
+//       {
+//         id: 1,
+//         option: 'option 1',
+//         type: 'NDL',
+//         product: 'Alumin 1 Tấn',
+//         productRange: 2,
+//         packaging: 'Xả đáy',
+//         lot: 189,
+//         unit: 'NUNG',
+//         wareHouse: 'Kho TT'
+//       },
+//       {
+//         id: 2,
+//         option: 'option 2',
+//         type: 'NDM',
+//         product: 'Alumin 3 Tấn',
+//         productRange: 3,
+//         packaging: 'Xả đáy',
+//         lot: 190,
+//         unit: 'XTRE',
+//         wareHouse: 'Kho TT'
+//       }
+//     ]
+//   },
+//   {
+//     id: 2,
+//     text: 'Tống Trần Hiếu',
+//     shift: 2,
+//     startDate: new Date('Tue Nov 02 2021 2:00:00 GMT+0700'),
+//     endDate: new Date('Tue Nov 02 2021 17:00:00 GMT+0700'),
+//     description: 'test',
+//     shiftDetail: [
+//       {
+//         id: 1,
+//         option: 'option 2',
+//         type: 'NDL',
+//         product: 'Alumin 1 Tấn',
+//         productRange: 3,
+//         packaging: 'Xả đáy',
+//         lot: 190,
+//         unit: 'XTRE',
+//         wareHouse: 'Kho TT'
+//       }
+//     ]
+//   },
+//   {
+//     id: 3,
+//     text: 'trung hiếu',
+//     shift: 1,
+//     startDate: new Date('Wed Nov 03 2021  1:00:00 GMT+0700'),
+//     endDate: new Date('Wed Nov 03 2021 11:00:00 GMT+0700'),
+//     description: 'test',
+//     shiftDetail: [
+//       {
+//         id: 1,
+//         option: 'option 2',
+//         type: 'NDL',
+//         product: 'Alumin 1 Tấn',
+//         productRange: 3,
+//         packaging: 'Xả đáy',
+//         lot: 190,
+//         unit: 'XTRE',
+//         wareHouse: 'Kho TT'
+//       }
+//     ]
+//   }
+// ];

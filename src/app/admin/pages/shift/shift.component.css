@@ -1,22 +1,23 @@
-.title__detail{
-  width:300px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 6px;
+.title{
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  padding-top: 10px;
 }
-
-.title__detail__content{
-  font-family: Roboto;
-  font-weight: normal;
-  font-size: 14px;
-  align-items: center;
-  color: #000000;
+.btn-add{
+  width: 48px;
+  height: 48px;
+  border: 1px solid #CBD3EE;
+  background-color: white;
+  border-radius: 3px;
 }
-
-.title__detail__label{
-  width: 118px  ;
-  display: inline-block;
+.row{
+  --bs-gutter-x: 0 !important;
 }
-
-.icon-update-table {
-  cursor: pointer;
+thead th {
+  text-transform: capitalize !important
+}
+::ng-deep .dx-datagrid-headers {
+  background-color: #E7F0FF;
+  color: #3459E6;
 }
