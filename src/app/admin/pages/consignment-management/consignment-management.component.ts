@@ -229,7 +229,10 @@ export class ConsignmentManagementComponent implements OnInit {
     return this.getConsignmentListByTImeLine(consignments, yearSelect)
   }
   // check 2 arrays are same
-  tryEqualsArr = function (arrayA: any[], arrayB: any[]) {
+
+
+
+  tryEqualsArr =  (arrayA: any[], arrayB: any[]) => {
     // if the other array is a falsy value, return
     if (!arrayA)
       return false;
@@ -242,8 +245,10 @@ export class ConsignmentManagementComponent implements OnInit {
       // Check if we have nested arrays
       if (arrayA[i] instanceof Array && arrayB[i] instanceof Array) {
         // recurse into the nested arrays
-        if (!arrayA[i].equals(arrayB[i]))
-          return false;
+        // if (!arrayA[i].equals(arrayB[i]))
+        //   return false;
+        if(!this.tryEqualsArr(arrayA[i], arrayB[i]))
+        return false
       }
       else if (arrayA[i] != arrayB[i]) {
         // Warning - two different object instances will never be equal: {x:20} != {x:20}
@@ -253,3 +258,4 @@ export class ConsignmentManagementComponent implements OnInit {
     return true;
   }
 }
+

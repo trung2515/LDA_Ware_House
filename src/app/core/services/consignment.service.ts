@@ -2,7 +2,6 @@ import { InputProductModel, ParcelModel } from './../../admin/pages/consignment-
 import { Injectable } from '@angular/core';
 
 
-
 const consignment: ParcelModel[] = []
 const products:InputProductModel[] = [
   {
@@ -62,3 +61,5 @@ export class ConsignmentService {
     return infoSelection
   }
 }
+
+
