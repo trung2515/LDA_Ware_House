@@ -6,12 +6,15 @@ import { ItemFormComponent } from './component/item-form/item-form.component'
 import { ToolPageComponent } from './pages/tool-page/tool-page.component'
 import { FormsMineralComponent } from './forms.component'
 import { FormsService } from './services/forms-service.service'
+import {FormsModule} from '@angular/forms';
+import { PageMinutesComponent } from './pages/tool-page/page-minutes/page-minutes.component'
 @NgModule({
-  declarations: [ItemFormComponent, ToolPageComponent, FormsMineralComponent],
+  declarations: [ItemFormComponent, ToolPageComponent, FormsMineralComponent, PageMinutesComponent],
   imports: [
     CommonModule,
     FormsMineralRoutingModule,
     SharedModule,
+    FormsModule
   ],
   providers: [FormsService],
 })
