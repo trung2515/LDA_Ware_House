@@ -6,12 +6,14 @@ import { ItemFormComponent } from './component/item-form/item-form.component'
 import { ToolPageComponent } from './pages/tool-page/tool-page.component'
 import { FormsMineralComponent } from './forms.component'
 import { FormsService } from './services/forms-service.service'
+import {FormsModule} from '@angular/forms'
 @NgModule({
   declarations: [ItemFormComponent, ToolPageComponent, FormsMineralComponent],
   imports: [
     CommonModule,
     FormsMineralRoutingModule,
     SharedModule,
+    FormsModule
   ],
   providers: [FormsService],
 })
