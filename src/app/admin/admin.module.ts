@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import {
-  DevExtremeModule,
-  DxPopupModule,
-  DxSelectBoxModule,
-} from 'devextreme-angular'
 import { AdminRoutingModule } from './admin-routing.module'
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
@@ -35,6 +30,8 @@ import { CardComponent } from './pages/dashboard/component/card.component'
 import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component'
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
 import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
+import { SharedModule } from '../shared/shared.module'
+import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
 
 @NgModule({
   declarations: [
@@ -60,20 +57,14 @@ import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.co
     ReasonComponent,
     ConfigurationLayoutComponent,
     ShiftComponent,
-    ParcelComponent,
-    CardComponent,
-    DetailParcelGrid,
-    BreadcrumbComponent,
-    MinuteManagerComponent,
+    ConsignmentManagementComponent,
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DevExtremeModule,
-    DxPopupModule,
-    DxSelectBoxModule,
+    SharedModule,
   ],
   providers: [PercelService],
 })
