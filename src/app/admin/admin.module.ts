@@ -29,7 +29,7 @@ import { PercelService } from './pages/parcel/parcel.service'
 import { CardComponent } from './pages/dashboard/component/card.component'
 import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component'
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
-import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
+// import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { SharedModule } from '../shared/shared.module'
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
 import { CoreModule } from '../core/core.module'
@@ -40,6 +40,7 @@ import { CoreModule } from '../core/core.module'
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
+    CardComponent,
     WarehouseReportComponent,
     ConsumptionReportComponent,
     TransportationReportComponent,
@@ -61,10 +62,7 @@ import { CoreModule } from '../core/core.module'
     ConsignmentManagementComponent,
     DetailParcelGrid,
     BreadcrumbComponent,
-    MinuteManagerComponent,
     ParcelComponent,
-    ShiftComponent,
-    CardComponent
   ],
   imports: [
     CommonModule,
