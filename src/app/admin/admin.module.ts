@@ -32,6 +32,7 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
 import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { SharedModule } from '../shared/shared.module'
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
+import { CoreModule } from '../core/core.module'
 
 @NgModule({
   declarations: [
@@ -58,6 +59,12 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
     ConfigurationLayoutComponent,
     ShiftComponent,
     ConsignmentManagementComponent,
+    DetailParcelGrid,
+    BreadcrumbComponent,
+    MinuteManagerComponent,
+    ParcelComponent,
+    ShiftComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
@@ -65,6 +72,7 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    CoreModule
   ],
   providers: [PercelService],
 })

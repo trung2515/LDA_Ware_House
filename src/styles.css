@@ -36,11 +36,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
-<<<<<<< HEAD
-  color: #074ea3;
-=======
   color: #074EA3;
->>>>>>> origin/hieu_tong
   padding-top: 26px;
   margin-bottom: 26px;
 }
@@ -98,12 +94,8 @@
   }
 }
 /* form */
-<<<<<<< HEAD
-.wrap-input {
-=======
 .wrap-input{
 
->>>>>>> origin/hieu_tong
 }
 .wrap-input input {
   width: 300px;

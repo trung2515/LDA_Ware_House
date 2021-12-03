@@ -12,14 +12,18 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
+  DxButtonModule,
   DxChartModule,
   DxDataGridModule,
   DxDateBoxModule,
   DxFormModule,
   DxPivotGridModule,
   DxPopupModule,
+  DxSchedulerModule,
   DxSelectBoxModule,
+  DxTabPanelModule,
   DxTextAreaModule,
+  DxTreeListModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 
@@ -50,6 +54,10 @@ import { FooterComponent } from './component/footer/footer.component'
     DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
+    DxSchedulerModule,
+    DxButtonModule,
+    DxTabPanelModule,
+    DxTreeListModule,
     // SampleModule,
   ],
   exports: [
@@ -73,6 +81,10 @@ import { FooterComponent } from './component/footer/footer.component'
     DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
+    DxSchedulerModule,
+    DxButtonModule,
+    DxTabPanelModule,
+    DxTreeListModule,
     // SampleModule,
     //Component
 

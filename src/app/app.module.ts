@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './admin/login/login.component';
 import { SharedModule } from './shared/shared.module';
+import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     CoreModule,
     AdminModule,
+    FormsMineralModule,
     SharedModule
     // GrpcCoreModule.forRoot(),
   ],
