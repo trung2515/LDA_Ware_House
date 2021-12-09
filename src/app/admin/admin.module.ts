@@ -26,7 +26,7 @@ import { ReasonComponent } from './components/reason/reason.component';
 import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
 import { ShiftComponent } from './pages/shift/shift.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
-
+import { HeaderReportComponent } from './components/header-report/header-report.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -51,7 +51,8 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
     ReasonComponent,
     ConfigurationLayoutComponent,
     ShiftComponent,
-    ConsignmentManagementComponent
+    ConsignmentManagementComponent,
+    HeaderReportComponent,
   ],
   imports: [
     CommonModule,

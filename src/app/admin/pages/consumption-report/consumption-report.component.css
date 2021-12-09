@@ -23,7 +23,7 @@
 /* select date */
 .start-end-date-wrap{
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 .field-value {
   position: relative;
@@ -75,9 +75,8 @@
 }
 
 /* tab */
-
-::ng-deep .dx-tabpanel-tabs {
-  margin-top: 15px;
+::ng-deep .dx-tab {
+  white-space: normal;
 }
 
 ::ng-deep .tab-title {
@@ -89,7 +88,7 @@
   margin-bottom: 0;
   color: #060606;
   word-break: break-word;
-  white-space: normal;
+  /* white-space: normal; */
 }
 ::ng-deep .tab-title:hover p {
   color: #3459e6;

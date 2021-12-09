@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="place-bar">
+    <span>Báo cáo</span> / <span>{{ title_nav }}</span>
+  </div>
+  <h2 class="heading">{{ title_nav }}</h2>
+</div>
+<div class="filter-bar">
+  <div class="start-end-date-wrap">
+    <div class="field-value">
+      <p>Từ ngày</p>
+      <dx-date-box
+        placeholder="12/1/2021"
+        type="date"
+        id="selected-date-time"
+        [(value)]="startDate"
+        (onValueChanged)="getStartDate($event)"
+      >
+      </dx-date-box>
+    </div>
+    <div class="field-value">
+      <p>Đến ngày</p>
+      <dx-date-box
+        placeholder="12/1/2021"
+        type="date"
+        id="selected-date-time"
+        [(value)]="endDate"
+        (onValueChanged)="getEndDate($event)"
+        [disabledDates] ="disabledDates"
+      >
+      </dx-date-box>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <div class="xlsx">
+      <img (click)="onExportFile()" src="assets/svg/xlsx.svg" alt="xlsx" />
+    </div>
+    <div class="form-group">
+      <img src="assets/svg/search.svg" alt="search icon" />
+      <input (keyup)="handleKeydown($event)" name='search' type="text" class="input-control" />
+    </div>
+  </div>
+</div>

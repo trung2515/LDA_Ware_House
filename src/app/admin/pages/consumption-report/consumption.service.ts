@@ -14,7 +14,6 @@ function generateStatistical():  ProductionStatisticalModel[]{
       date: strDate,
       name: 'Alumin '+ (i / 2) +' tấn',
       type_product: i%2===0 ? 1: 2,
-
       type_bag: 'Xả đáy 1 tấn ',
       name_kttc: 'Tên KTTC',
       bag_unit: 'NUNG',

@@ -1,6 +1,7 @@
+import { tryEqualsArr } from './../../../utils/helper';
 import { InputProductModel, ParcelModel } from './models';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ConsignmentService } from 'src/app/core/services/consignment.service';
+import { ConsignmentService } from 'src/app/admin/pages/consignment-management/consignment.service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -152,7 +153,7 @@ export class ConsignmentManagementComponent implements OnInit {
   onClosePopupPr(e: any) {
     const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
 
-    const checkReplace = this.tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
+    const checkReplace = tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
     if (checkReplace) {
       this.popupVisible = false
     } else {
@@ -164,7 +165,7 @@ export class ConsignmentManagementComponent implements OnInit {
     // this.confirmPopupVisible = true
     const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
 
-    const checkReplace = this.tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
+    const checkReplace = tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
     if (checkReplace) {
       this.popupVisible = false
     } else {
@@ -230,32 +231,5 @@ export class ConsignmentManagementComponent implements OnInit {
   }
   // check 2 arrays are same
 
-
-
-  tryEqualsArr =  (arrayA: any[], arrayB: any[]) => {
-    // if the other array is a falsy value, return
-    if (!arrayA)
-      return false;
-
-    // compare lengths - can save a lot of time
-    if (arrayA.length != arrayB.length)
-      return false;
-
-    for (var i = 0, l = arrayA.length; i < l; i++) {
-      // Check if we have nested arrays
-      if (arrayA[i] instanceof Array && arrayB[i] instanceof Array) {
-        // recurse into the nested arrays
-        // if (!arrayA[i].equals(arrayB[i]))
-        //   return false;
-        if(!this.tryEqualsArr(arrayA[i], arrayB[i]))
-        return false
-      }
-      else if (arrayA[i] != arrayB[i]) {
-        // Warning - two different object instances will never be equal: {x:20} != {x:20}
-        return false;
-      }
-    }
-    return true;
-  }
 }
 

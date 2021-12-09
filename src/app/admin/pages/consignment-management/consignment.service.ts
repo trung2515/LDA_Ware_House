@@ -1,4 +1,4 @@
-import { InputProductModel, ParcelModel } from './../../admin/pages/consignment-management/models';
+import { ParcelModel, InputProductModel } from './models';
 import { Injectable } from '@angular/core';
 
 

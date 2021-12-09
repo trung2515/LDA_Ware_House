@@ -1,1 +1,85 @@
-<p>warehouse-report works!</p>
+<div class="wrapper">
+  <app-header-report
+    [title_nav]="title_nav"
+    [startDate]="startDate"
+    [endDate]="endDate"
+    [getStartDate]="getStartDate"
+    [getEndDate]="getEndDate"
+    [disabledDates]="disabledDates"
+    (onHandleInputChange)="filterWithProductName($event)"
+  ></app-header-report>
+</div>
+<div class="content">
+  <dx-data-grid
+    id="production_table_"
+    [dataSource]="qtyOnBaggingMachines_copy"
+    keyExpr="id"
+    [showRowLines]="true"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    (onExporting)="onExportingGrid($event)"
+  >
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-scrolling mode="standard"></dxo-scrolling>
+    <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showInfo]="false"
+      [showNavigationButtons]="true"
+    >
+    </dxo-pager>
+    <dxo-header-filter
+      [allowSearch]="true"
+      [visible]="true"
+    ></dxo-header-filter>
+
+    <dxi-column
+      dataField="ca"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Ca"
+    ></dxi-column>
+    <dxi-column
+      dataField="date"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Ngày"
+    ></dxi-column>
+    <dxi-column
+      dataField="product_name"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Sản phẩm"
+    ></dxi-column>
+    <dxi-column
+      dataField="bag_type"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Loại bao"
+    ></dxi-column>
+    <dxi-column
+      dataField="bagging_machine"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Máy ĐB"
+    ></dxi-column>
+    <dxi-column
+      dataField="display_bagM"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Hiện thị trên máy ĐB"
+    ></dxi-column>
+    <dxi-column
+      dataField="username"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Tên tài khoản"
+    ></dxi-column>
+    <dxi-column
+      dataField="note"
+      headerCellTemplate="titleHeaderTemplate"
+      caption="Ghi chú"
+    ></dxi-column>
+
+    <!-- title header template -->
+    <div class="caption-cus" *dxTemplate="let info of 'titleHeaderTemplate'">
+      <p style="font-size:16px; color: #3459E6; font-weight: 500;">
+        {{ info.column.caption }}
+      </p>
+    </div>
+  </dx-data-grid>
+</div>
