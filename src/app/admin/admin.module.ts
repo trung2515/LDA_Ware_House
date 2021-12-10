@@ -27,6 +27,9 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
 import { ShiftComponent } from './pages/shift/shift.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 import { HeaderReportComponent } from './components/header-report/header-report.component';
+import { FilterBarDashboardComponent } from './components/filter-bar-dashboard/filter-bar-dashboard.component';
+import { BarCharComponent } from './pages/dashboard/components/bar-char/bar-char.component';
+import { LineCharComponent } from './pages/dashboard/components/line-char/line-char.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -53,6 +56,9 @@ import { HeaderReportComponent } from './components/header-report/header-report.
     ShiftComponent,
     ConsignmentManagementComponent,
     HeaderReportComponent,
+    FilterBarDashboardComponent,
+    BarCharComponent,
+    LineCharComponent,
   ],
   imports: [
     CommonModule,

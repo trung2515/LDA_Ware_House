@@ -1,0 +1,36 @@
+<dx-chart [id]="chartID" [dataSource]="dataSource" palette="soft">
+  <dxi-series
+    valueField="oranges"
+    [name]="configChart.chartLegend"
+    [color]="configChart.color"
+    argumentField="day"
+    type="bar"
+    barWidth="14"
+  >
+  </dxi-series>
+  <dxi-value-axis>
+    <dxo-title text="Tấn" position="top"></dxo-title>
+  </dxi-value-axis>
+  <dxo-legend
+    [visible]="true"
+    [font]="configChart.fontLegend"
+    verticalAlignment="top"
+    horizontalAlignment="center"
+    itemTextPosition="right"
+    markerSize="18"
+  ></dxo-legend>
+  <dxo-title
+    text="Tên sản phẩm"
+    [font]="configChart.fontTitle"
+    verticalAlignment="top"
+    horizontalAlignment="right"
+  ></dxo-title>
+
+  <dxo-tooltip
+    [enabled]="true"
+    location="edge"
+    [border]="configChart.borderTooltip"
+  >
+  </dxo-tooltip>
+</dx-chart>
+<p class="total-consume-packaging">total-consume-packaging</p>

@@ -1,1 +1,60 @@
-<p>dashboard works!</p>
+<div class="wrapper">
+  <div class="filter-bar">
+    <app-filter-bar-dashboard></app-filter-bar-dashboard>
+  </div>
+  <div class="content">
+    <dx-tab-panel
+      #tabPanel
+      [dataSource]="tabInfo"
+      [selectedIndex]="0"
+      [loop]="false"
+      [animationEnabled]="true"
+      [swipeEnabled]="false"
+      [hoverStateEnabled]="true"
+      [animationEnabled]="true"
+      [focusStateEnabled]="false"
+    >
+      <div
+        *dxTemplate="let tabTitle of 'title'"
+        [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id"
+      >
+        <p>{{ tabTitle.tabName }}</p>
+      </div>
+
+      <div *dxTemplate="let tabPanel of 'item'">
+        <div *ngIf="tabPanel.id === 1" class="tab-1">
+          <!-- statics qty pakaging -->
+          <div class="chart-container">
+            <app-bar-char
+              [chartID]="'chart-db'"
+              [dataSource]="dataSource"
+              [configChart]="configChart"
+            ></app-bar-char>
+          </div>
+          <!-- tieu thu -->
+          <div class="chart-container">
+            <app-bar-char
+              [chartID]="'chart-tt'"
+              [dataSource]="dataSource"
+              [configChart]="configChartDB"
+            ></app-bar-char>
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 2" class="tab-2">
+          <div class="chart-container">
+            <app-line-char
+              [typeOfMachines]="typeMachines"
+              [productListInfo]="dataSourceLine"
+            ></app-line-char>
+          </div>
+          <div class="chart-container">
+            <app-line-char
+              [typeOfMachines]="typeMachines"
+              [productListInfo]="dataSourceLine"
+            ></app-line-char>
+          </div>
+        </div>
+      </div>
+    </dx-tab-panel>
+  </div>
+</div>
