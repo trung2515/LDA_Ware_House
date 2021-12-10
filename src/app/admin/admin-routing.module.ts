@@ -79,7 +79,7 @@ const routes: Routes = [
         },
         component: ParcelComponent,
       },
-
+  
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
   },
