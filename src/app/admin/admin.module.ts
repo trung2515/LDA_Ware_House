@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component';
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -63,7 +64,8 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
     ConsignmentManagementComponent,
     HeaderReportComponent,
     DetailParcelGrid,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,6 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    CoreModule,
   ],
   providers: [PercelService],
 })

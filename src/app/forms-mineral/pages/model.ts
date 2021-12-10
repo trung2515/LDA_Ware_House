@@ -10,7 +10,7 @@ export interface ListShift {
 export interface DataTableMinute {
     id: number
     product : string;
-    type : string;
+    type : number;
     packaging : string;
     lot : number;
     seri : number;
@@ -19,5 +19,6 @@ export interface DataTableMinute {
     shift:number;
     startDate : Date;
     quantityPac : number;
+    mass : number;
     wareHouse: string;
 }
