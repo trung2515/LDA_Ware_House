@@ -20,6 +20,8 @@ import { DeviceCategoryComponent } from './components/device-category/device-cat
 import { BillComponent } from './components/bill/bill.component'
 import { JobComponent } from './components/job/job.component'
 import { ReasonComponent } from './components/reason/reason.component'
+import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
+// import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { ParcelComponent } from './pages/parcel/parcel.component'
 import { LoginComponent } from './login/login.component'
 
@@ -27,7 +29,7 @@ ReasonComponent
 JobComponent
 BillComponent
 const routes: Routes = [
-  { path: 'test', component: TestComponent},
+  { path: 'test', component: TestComponent },
   {
     path: 'dashboard',
     data: {
@@ -75,45 +77,21 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Lô hàng',
         },
-        component: ParcelComponent,
+        component: ConsignmentManagementComponent,
       },
   
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
   },
   {
-    path: 'report',
-    data: {
-      breadcrumb: 'Báo cáo',
-    },
+    path: 'warehouse-manager',
     component: AdminLayoutComponent,
     children: [
-      {
-        path: 'consumption-report',
-        data: {
-          breadcrumb: 'Báo cáo nhập xuất',
-        },
-        component: ConsumptionReportComponent,
-      },
-      {
-        path: 'transportation-report',
-        data: {
-          breadcrumb: 'Báo cáo vận chuyển',
-        },
-        component: TransportationReportComponent,
-      },
-      {
-        path: 'warehouse-report',
-        data: {
-          breadcrumb: 'Báo cáo kho',
-        },
-        component: WarehouseReportComponent,
-      },
-      { path: '**', pathMatch: 'full', redirectTo: 'warehouse-report' },
+      { path: 'shift', component: ShiftComponent },
+      { path: 'consignment', component: ConsignmentManagementComponent },
     ],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
-
 ]
 
 @NgModule({

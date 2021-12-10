@@ -1,0 +1,146 @@
+.wrapper {
+  padding-top: 10px;
+}
+.place-bar span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+.place-bar span:first-child {
+  color: #4a80ff;
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 0 20px 0;
+}
+/* filter bar */
+.filter-bar{
+  display: flex;
+  justify-content: space-between;
+}
+/* select date */
+.start-end-date-wrap{
+  display: flex;
+  margin: 20px 0;
+}
+.field-value {
+  position: relative;
+}
+.field-value:first-child {
+  padding-right: 20px;
+}
+.field-value p{
+  position: absolute;
+  margin-top: 0;
+  top: -22px;
+  font-weight: 400;
+  font-size: 13px;
+  color: #6B6B6B;
+  line-height: 15.23px;
+}
+.search-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.xlsx {
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  position: relative;
+  padding: 7.8px 9px;
+}
+.form-group{
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  position: relative;
+  margin-bottom:0;
+  margin-left: 5px;
+}
+.input-control{
+  border: 0;
+  outline: none;
+  height: 100%;
+  padding: 12px 15px;
+  margin-left: 30px;
+}
+.form-group img{
+  position: absolute;
+  top: 50%;
+  left: 16.5px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+}
+
+/* tab */
+::ng-deep .dx-tab {
+  white-space: normal;
+}
+
+::ng-deep .tab-title {
+  width: 178px;
+  height: 44px;
+}
+::ng-deep .tab-title p {
+  font-size: 15px;
+  margin-bottom: 0;
+  color: #060606;
+  word-break: break-word;
+  /* white-space: normal; */
+}
+::ng-deep .tab-title:hover p {
+  color: #3459e6;
+}
+
+::ng-deep .dx-tab.dx-tab-selected p {
+  color: #3459e6;
+}
+/* tab content */
+::ng-deep #production_table {
+  padding-bottom: 15px;
+}
+::ng-deep .tabpanel-item {
+  max-height: calc(100vh - 300px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+
+::ng-deep .mobile .tabpanel-item {
+  padding-top: 10px;
+}
+
+::ng-deep .tabpanel-item > div {
+  float: left;
+  padding: 0 85px 10px 10px;
+}
+
+::ng-deep .tabpanel-item p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* title caption */
+::ng-deep .dx-treelist-headers .dx-treelist-table .dx-row > td,
+::ng-deep .dx-treelist-headers .dx-treelist-table .dx-row > td {
+  background-color: #e7f0ff;
+  /* height: 55px; */
+}
+::ng-deep .dx-row > td p {
+  /* line-height: 50px; */
+}
+::ng-deep .dx-treelist-container .dx-header-filter::before {
+  color: #cbd3ee;
+  /* position: relative; */
+  top: 17px;
+}
+.caption-cus {
+  position: relative;
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ToastrModule } from 'ngx-toastr'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import { PaginationModule } from 'ngx-bootstrap/pagination'
@@ -12,14 +12,18 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
+  DxButtonModule,
   DxChartModule,
   DxDataGridModule,
   DxDateBoxModule,
   DxFormModule,
   DxPivotGridModule,
   DxPopupModule,
+  DxSchedulerModule,
   DxSelectBoxModule,
+  DxTabPanelModule,
   DxTextAreaModule,
+  DxTreeListModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 
@@ -29,6 +33,7 @@ import { FooterComponent } from './component/footer/footer.component'
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
@@ -50,6 +55,10 @@ import { FooterComponent } from './component/footer/footer.component'
     DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
+    DxSchedulerModule,
+    DxButtonModule,
+    DxTabPanelModule,
+    DxTreeListModule,
     // SampleModule,
   ],
   exports: [
@@ -73,11 +82,17 @@ import { FooterComponent } from './component/footer/footer.component'
     DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
+    DxSchedulerModule,
+    DxButtonModule,
+    DxTabPanelModule,
+    DxTreeListModule,
     // SampleModule,
     //Component
+
+    FormsModule,
 
     FooterComponent,
     TextInputComponent
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

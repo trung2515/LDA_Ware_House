@@ -8,6 +8,7 @@ export interface ListShift {
     name : string;
 }
 export interface DataTableMinute {
+    header:object
     id: number
     product : string;
     type : number;
@@ -21,4 +22,28 @@ export interface DataTableMinute {
     quantityPac : number;
     mass : number;
     wareHouse: string;
+    task:string;
+    taskType : number;
+    porterTool:string;
+    porterWareHouse:string;
+    dismantlingWareHouse:string;
+    dismantlingTool:string;
+    distance: number;
+    errorCause: string;
 }
+export interface dataMinutesSuggest {
+    product:string,
+    productType: number|'',
+    packaging:string,
+    decision:string,
+    unit:string,
+    uses:string,
+    quantity:number|'',
+    quantityConfirm:number|'',
+    quantityBill:number|'',
+    request: string
+}
+
+
+
+

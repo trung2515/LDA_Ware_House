@@ -1,0 +1,48 @@
+.wrapper {
+  padding-top: 10px;
+}
+/* pagination */
+::ng-deep .dx-pager .dx-page-sizes .dx-selection,
+::ng-deep .dx-pager .dx-pages .dx-selection {
+  background-color: #3459E6;
+  color: #fff;
+}
+::ng-deep .dx-pager .dx-page,
+::ng-deep .dx-pager .dx-page-size {
+  border-radius: 0;
+  border-color: #DDDDDD;
+}
+::ng-deep .dx-pager .dx-pages .dx-page {
+  margin: 0;
+  padding: 9px 14.3px 8px;
+}
+
+
+::ng-deep .dx-item .dx-toolbar-item .dx-toolbar-button .dx-toolbar-item-auto-hide {
+  position: absolute;
+  top: -56px;
+  right: 251px;
+}
+
+::ng-deep .dx-datagrid-header-panel .dx-toolbar {
+  margin: 0;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 5px;
+}
+
+
+
+
+
+/* tab */
+
+::ng-deep .tab-title:hover p {
+  color: #3459e6;
+}
+
+::ng-deep .dx-tab.dx-tab-selected p {
+  color: #3459e6;
+}
+
