@@ -1,45 +1,13 @@
 <div class="wrapper">
-  <div class="header">
-    <div class="place-bar">
-      <span>Báo cáo</span> / <span>Nhập xuất tồn sản phẩm</span>
-    </div>
-    <h2 class="heading">Nhập xuất tồn sản phẩm</h2>
-  </div>
-  <div class="filter-bar">
-    <div class="start-end-date-wrap">
-      <div class="field-value">
-        <p>Từ ngày</p>
-        <dx-date-box
-          placeholder="12/1/2021"
-          type="date"
-          id="selected-date-time"
-          [(value)]="startDate"
-          (onValueChanged)="getStartDate($event)"
-        >
-        </dx-date-box>
-      </div>
-      <div class="field-value">
-        <p>Đến ngày</p>
-        <dx-date-box
-          placeholder="12/1/2021"
-          type="date"
-          id="selected-date-time"
-          [(value)]="endDate"
-          (onValueChanged)="getEndDate($event)"
-        >
-        </dx-date-box>
-      </div>
-    </div>
-    <div class="search-wrap">
-      <div class="xlsx">
-        <img src="assets/svg/xlsx.svg" alt="xlsx" />
-      </div>
-      <div class="form-group">
-        <img src="assets/svg/search.svg" alt="search icon" />
-        <input type="text" class="input-control" />
-      </div>
-    </div>
-  </div>
+  <app-header-report
+    [title_nav]="title_nav"
+    [startDate]="startDate"
+    [endDate]="endDate"
+    [getStartDate]="getStartDate"
+    [getEndDate]="getEndDate"
+    [disabledDates]="disabledDates"
+    (onHandleInputChange)="filterWithProductName($event)"
+  ></app-header-report>
 
   <!-- content -->
   <div class="content">
@@ -59,19 +27,21 @@
       </div>
       <div *dxTemplate="let tabPanel of 'item'">
         <div class="tabpanel-item">
-          <dx-tree-list
+          <dx-data-grid
             id="production_table"
-            [dataSource]="tabPanel.data"
+            [dataSource]="statistics_copy"
             keyExpr="shiftID"
             [showRowLines]="true"
             [showBorders]="true"
             [columnAutoWidth]="true"
             *ngIf="tabPanel.id === 1"
+            (onExporting) = "onExportingGrid($event)"
           >
             <dxo-header-filter
               [allowSearch]="true"
               [visible]="true"
             ></dxo-header-filter>
+            <dxo-export [enabled]="true"></dxo-export>
             <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
             <dxi-column
               dataField="shiftID"
@@ -177,10 +147,10 @@
                 {{ info.column.caption }}
               </p>
             </div>
-          </dx-tree-list>
+          </dx-data-grid>
           <div *ngIf="tabPanel.id === 2" id="pivotgrid-demo">
             <dx-pivot-grid
-              id="pivotgrid"
+              id="pivotgridNXSP"
               [allowSortingBySummary]="true"
               [allowSorting]="true"
               [showBorders]="true"
@@ -189,9 +159,12 @@
               [showRowTotals]="false"
               [showColumnTotals]="true"
               [allowFiltering]="true"
+              (onExporting) = "onExportingPivot($event, tabPanel)"
               [dataSource]="detailInputOutputReport"
+              searchExpr="name"
             >
               <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+              <dxo-export [enabled]="true"></dxo-export>
               <dxo-header-filter
                 [allowSearch]="true"
                 [showRelevantValues]="true"
@@ -204,20 +177,22 @@
 
           <div *ngIf="tabPanel.id === 3" id="pivotgrid-demo1">
             <dx-pivot-grid
-              id="pivotgrid"
+              id="pivotgridNXTSM"
               [allowSortingBySummary]="true"
               [allowSorting]="true"
               [showBorders]="true"
               [showColumnGrandTotals]="true"
               [showRowGrandTotals]="true"
-
               [showRowTotals]="false"
               [showColumnTotals]="true"
               [allowFiltering]="true"
               [allowExpandAll]="true"
               [dataSource]="detailImExInventoryReport"
+              (onExporting) = "onExportingPivot($event, tabPanel)"
+              searchExpr="name"
             >
-              <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+            <dxo-export [enabled]="true"></dxo-export>
+            <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
               <dxo-header-filter
                 [allowSearch]="true"
                 [showRelevantValues]="true"

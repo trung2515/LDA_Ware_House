@@ -1,0 +1,33 @@
+.wrapper {
+  padding-top: 10px;
+}
+.tab-title {
+  white-space: pre-wrap;
+}
+.tab-title p {
+  margin-bottom: 0;
+}
+::ng-deep .dx-tabpanel > .dx-tabpanel-tabs .dx-tab {
+  min-width: 172px;
+  max-width: 235px;
+}
+
+
+
+/* hidden arrow on left of item table */
+.dx-pivotgrid .dx-pivotgrid-collapsed .dx-expand::before {
+  display: none;
+}
+::ng-deep .dx-pivotgrid .dx-pivotgrid-expanded .dx-expand::before {
+  display: none;
+
+}
+::ng-deep .dx-pivotgrid .dx-pivotgrid-collapsed .dx-expand::before {
+  display: none;
+}
+
+::ng-deep .dx-toolbar-after .dx-toolbar-item:first-child {
+  position: relative;
+  top: 4px;
+  right: 5px;
+}

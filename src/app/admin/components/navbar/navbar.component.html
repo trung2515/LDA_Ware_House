@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-sm fixed-top p-0 bg-primary" style=" height: 64px;">
   <div class="mainCol d-flex">
     <ul class="navbar-nav mr-auto">
+<<<<<<< HEAD
       <li *ngFor="let menu of parentMenu" class="nav-item dropdown">
         <a *ngIf="menu.parentId == -1" class="nav-link" [routerLink]="menu.link" aria-haspopup="true"
           aria-expanded="false" routerLinkActive="active">
@@ -18,6 +19,35 @@
             </a>
           </li>
         </ul>
+=======
+      <li class="nav-item">
+        <a class='nav-link'  [routerLink]="'/admin/dashboard'"   [routerLinkActive]="'active'" >Tổng quan</a>
+        <!-- <a class="nav-link" href="/admin/dashboard">Tổng quan</a> -->
+      </li>
+      <li class="nav-item dropdown">
+        <div class="nav-link dropdown-toggle" data-toggle="dropdown" >Báo cáo</div>
+        <div class="dropdown-menu dropdown-menu-right" style='padding-right: 8px; padding-left: 8px'>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/warehouse-report'" [routerLinkActive]="'active'" >Báo cáo kho</a>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/consumption-report'" [routerLinkActive]="'active'" >Báo cáo tiêu thụ</a>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/transportation-report'" [routerLinkActive]="'active'" >Báo cáo vận chuyển</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <div class="nav-link dropdown-toggle" data-toggle="dropdown" >Quản lí kho</div>
+        <div class="dropdown-menu dropdown-menu-right" style='padding-right: 8px; padding-left: 8px'>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/warehouse-manager/shift'" [routerLinkActive]="'active'" >Ca làm việc</a>
+          <a class="dropdown-item nav-link childMenu" [routerLink]="'/admin/warehouse-manager/consignment'" [routerLinkActive]="'active'" >Lô hàng</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/admin/'"   [routerLinkActive]="'active'" >Vận chuyển</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/admin/configuration'"   [routerLinkActive]="'active'" >Cấu hình</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/admin/test'"   [routerLinkActive]="'active'" >Test</a>
+>>>>>>> origin/hieu_tong
       </li>
     </ul>
     <div class="nav-item dropdown">

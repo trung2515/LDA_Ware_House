@@ -22,8 +22,6 @@ import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
     FormsMineralModule,
     SharedModule
     // GrpcCoreModule.forRoot(),
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
