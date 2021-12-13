@@ -1,3 +1,8 @@
-.chart-line {
+.line-chart-wrap {
   position: relative;
+}
+.line-chart-wrap span {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

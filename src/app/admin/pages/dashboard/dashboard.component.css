@@ -18,7 +18,7 @@
   left: 300px;
   right: 0;
   padding-left: 10px;
-  padding-top: 20px;
+  padding-top: 5px;
 }
 .chart-container {
   position: relative;
@@ -27,16 +27,18 @@
 
 
 /* tab decoration */
-::ng-deep .tab-title:hover p {
+::ng-deep #tab-panel-dashboard .tab-title:hover p {
   color: #3459e6;
 }
 
-::ng-deep .dx-tab.dx-tab-selected p {
+::ng-deep #tab-panel-dashboard .dx-tab.dx-tab-selected p {
   color: #3459e6;
 }
 
-::ng-deep .dx-tabpanel > .dx-tabpanel-tabs .dx-tabs {
+::ng-deep #tab-panel-dashboard .dx-tabpanel > .dx-tabpanel-tabs .dx-tabs {
   background-color: #e7f0ff;
+  word-break: break-all;
+  word-wrap: wrap;
 }
 ::ng-deep .dx-tab {
   background-color: #e7f0ff;

@@ -8,27 +8,29 @@ import { GrpcWebClientFactory, GrpcWebClientModule } from '@ngx-grpc/grpc-web-cl
 import { environment } from 'src/environments/environment'
 import {
   GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
- } from './models/admin.pbconf';
- import { AdminService } from './services/admin.service';
-@NgModule({ 
-  imports: [   
+} from './models/admin.pbconf';
+import { AdminService } from './services/admin.service';
+import { AuthService } from './services/auth.service';
+@NgModule({
+  imports: [
     GrpcCoreModule.forRoot(),
     GrpcWebClientModule.forRoot({
-      settings: { host: 'https://office.stvg.vn:59066' },
+      settings: { host: environment.host },
     }),
   ],
-  providers:[
+  providers: [
     AdminService,
+    AuthService,
     { provide: GRPC_CLIENT_FACTORY, useClass: GrpcWebClientFactory },
     {
-      provide:   GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
+      provide: GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
       useValue: {
-        host: 'https://office.stvg.vn:59066',
+        host: environment.host,
       }
     },
   ],
   declarations: [
-   
+
   ],
 
 })

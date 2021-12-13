@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
-import { DxPivotGridModule } from 'devextreme-angular';
+import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
 
 @NgModule({
   declarations: [
@@ -16,10 +16,9 @@ import { DxPivotGridModule } from 'devextreme-angular';
     AppRoutingModule,
     CoreModule,
     AdminModule,
-    DxPivotGridModule
+    FormsMineralModule,
     // GrpcCoreModule.forRoot(),
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

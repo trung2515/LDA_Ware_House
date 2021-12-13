@@ -1,5 +1,10 @@
-<div >
-  <dx-chart class="chart-line" id="" palette="Green" [dataSource]="productListInfo">
+<div class="line-chart-wrap">
+  <dx-chart
+    class="chart-line"
+    [id]="idChartLine"
+    palette="Green"
+    [dataSource]="dataSource"
+  >
     <dxi-series
       *ngFor="let machine of typeOfMachines"
       [valueField]="machine.value"
@@ -10,30 +15,23 @@
       verticalAlignment="bottom"
       horizontalAlignment="center"
       itemTextPosition="bottom"
+      [visible]="true"
+      [font]="configChart.fontLegend"
     >
     </dxo-legend>
-    <dxo-common-series-settings #seriesSettings argumentField="day" type="line">
+    <dxo-common-series-settings #seriesSettings argumentField="day" type="line" valueField="tons">
     </dxo-common-series-settings>
-    <!-- <dxo-margin [bottom]="20"></dxo-margin> -->
-    <!-- <dxo-argument-axis
-      [valueMarginsEnabled]="false"
-      discreteAxisDivisionMode="crossLabels"
-    >
-      <dxo-grid [visible]="true"></dxo-grid>
-    </dxo-argument-axis> -->
 
     <dxo-title
       [text]="title"
+      [font]="configChart.fontTitle"
       verticalAlignment="top"
       horizontalAlignment="left"
     ></dxo-title>
-    <!-- <dxo-title
-      text="Tên sản phẩm"
-      verticalAlignment="top"
-      horizontalAlignment="left"
-    ></dxo-title> -->
-    <!-- [font]="configChart.fontTitle" -->
-    <!-- <dxo-export [enabled]="true"></dxo-export> -->
-    <dxo-tooltip [enabled]="true"></dxo-tooltip>
+    <dxo-tooltip
+      [enabled]="true"
+      [border]="configChart.borderTooltip"
+    ></dxo-tooltip>
   </dx-chart>
+  <span>{{ filterControl.product_name }}</span>
 </div>

@@ -1,9 +1,15 @@
 <div class="wrapper">
   <div class="filter-bar">
-    <app-filter-bar-dashboard></app-filter-bar-dashboard>
+    <app-filter-bar-dashboard
+      [products]="dataSource"
+      [filterControl]="filterController"
+      (onFilterChanges)="onFilterChange($event)"
+      (onRadioChanges)="onRadioFilterChange($event)"
+    ></app-filter-bar-dashboard>
   </div>
   <div class="content">
     <dx-tab-panel
+      id="tab-panel-dashboard"
       #tabPanel
       [dataSource]="tabInfo"
       [selectedIndex]="0"
@@ -26,17 +32,19 @@
           <!-- statics qty pakaging -->
           <div class="chart-container">
             <app-bar-char
-              [chartID]="'chart-db'"
-              [dataSource]="dataSource"
+              chartID="chart-db"
+              [products]="dataSource"
               [configChart]="configChart"
+              [filterControl]="filterController"
             ></app-bar-char>
           </div>
           <!-- tieu thu -->
           <div class="chart-container">
             <app-bar-char
-              [chartID]="'chart-tt'"
-              [dataSource]="dataSource"
+              chartID="chart-tt"
+              [products]="dataSource"
               [configChart]="configChartDB"
+              [filterControl]="filterController"
             ></app-bar-char>
           </div>
         </div>
@@ -44,13 +52,23 @@
           <div class="chart-container">
             <app-line-char
               [typeOfMachines]="typeMachines"
-              [productListInfo]="dataSourceLine"
+              title="Thống kê sản lượng đóng bao"
+              [configChart]="configCommon"
+              idChartLine="lineChart-db"
+              [filterControl]="filterController"
+              [products]="dataSource"
+              [typeMachines]="typeMachines"
             ></app-line-char>
           </div>
           <div class="chart-container">
             <app-line-char
               [typeOfMachines]="typeMachines"
-              [productListInfo]="dataSourceLine"
+              title="Thống kê sản lượng tiêu thụ"
+              [configChart]="configCommon"
+              idChartLine="lineChart-tt"
+              [filterControl]="filterController"
+              [products]="dataSource"
+              [typeMachines]="typeMachines"
             ></app-line-char>
           </div>
         </div>

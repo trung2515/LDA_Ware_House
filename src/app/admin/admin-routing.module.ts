@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -22,51 +21,92 @@ import { BillComponent } from './components/bill/bill.component';
 import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
-ReasonComponent
-JobComponent
-BillComponent
+// import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
+import { ParcelComponent } from './pages/parcel/parcel.component';
+import { LoginComponent } from './login/login.component';
+
+ReasonComponent;
+JobComponent;
+BillComponent;
 const routes: Routes = [
+  { path: 'test', component: TestComponent },
   {
-    path: '',
-    component:AdminLayoutComponent,
-    children:[
-      { path:'dashboard',               component:DashboardComponent  },
-      { path:'consumption-report',      component:ConsumptionReportComponent   },
-      { path:'transportation-report',   component:TransportationReportComponent    },
-      { path:'warehouse-manager',       component:WarehouseManagerComponent     },
-      { path:'warehouse-report',        component:WarehouseReportComponent      },
-      { path:'test',                    component:TestComponent  },
-    ]
+    path: 'dashboard',
+    data: {
+      breadcrumb: 'Thống kê'
+    },
+    component: AdminLayoutComponent,
+    children: [{ path: '', component: DashboardComponent }]
   },
   {
     path: 'configuration',
-    component:ConfigurationLayoutComponent,
-    children:[
-      { path:'product-category',        component:ProductCategoryComponent  },
-      { path:'type-bag',                component:TypeBagComponent     },
-      { path:'id-bag',                  component:IdBagComponent   },
-      { path:'warehouse-category',      component:WarehouseCategoryComponent    },
-      { path:'partner',                 component:PartnerComponent     },
-      { path:'packet-unit',             component:PacketUnitComponent      },
-      { path:'device-category',         component:DeviceCategoryComponent  },
-      { path:'bill',                    component:BillComponent  },
-      { path:'job',                     component:JobComponent  },
-      { path:'reason',                  component:ReasonComponent  },
+    data: {
+      breadcrumb: 'Cài đặt hệ thống'
+    },
+    component: ConfigurationLayoutComponent,
+    children: [
+      { path: 'product-category', component: ProductCategoryComponent },
+      { path: 'type-bag', component: TypeBagComponent },
+      { path: 'id-bag', component: IdBagComponent },
+      { path: 'warehouse-category', component: WarehouseCategoryComponent },
+      { path: 'partner', component: PartnerComponent },
+      { path: 'packet-unit', component: PacketUnitComponent },
+      { path: 'device-category', component: DeviceCategoryComponent },
+      { path: 'bill', component: BillComponent },
+      { path: 'job', component: JobComponent },
+      { path: 'reason', component: ReasonComponent },
+      { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
     ]
   },
   {
-    path: 'warehouse-manager',
-    component:AdminLayoutComponent,
-    children:[
-      { path:'shift',        component:ShiftComponent  },
-      { path:'consignment',        component:ConsignmentManagementComponent  },
+    path: 'warehouse-control',
+    data: {
+      breadcrumb: 'Quản lý kho'
+    },
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'shift',
+        data: {
+          breadcrumb: 'Ca làm việc'
+        },
+        component: ShiftComponent
+      },
+      {
+        path: 'parcel',
+        data: {
+          breadcrumb: 'Lô hàng'
+        },
+        component: ConsignmentManagementComponent
+      },
+
+      { path: '**', pathMatch: 'full', redirectTo: 'shift' }
     ]
   },
+  {
+    path: 'report',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'warehouse-report',
+        component: WarehouseReportComponent
+      },
+      {
+        path: 'transportation-report',
+        component: TransportationReportComponent
+      },
+      {
+        path: 'consumption-report',
+        component: ConsumptionReportComponent
+      },
 
+    ]
+  },
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

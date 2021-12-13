@@ -15,6 +15,7 @@ import { ExcelService } from 'src/app/core/services/excel.service';
   styleUrls: ['./transportation-report.component.css']
 })
 export class TransportationReportComponent implements OnInit {
+  allowSearch: boolean = false
   title_nav = 'Báo cáo vận chuyển';
   startDate: Date = new Date();
   endDate: Date = new Date();

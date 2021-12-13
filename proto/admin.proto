@@ -4,8 +4,16 @@ option csharp_namespace = "MineralInventory";
 
 package client;
 
+service Account {
+    rpc SignIn (UserInfo) returns (UserReply);
+    rpc ChangePassword(UserInfo) returns (Response);
+    rpc InsertUser(UserInfo) returns (Response);
+    rpc UpdateUser(UserInfo) returns (Response);
+    rpc DeleteUser(UserInfo) returns (Response);
+}
 
 service Administrator {
+
     rpc GetListCodePacket(MasterRequest) returns (CodePacketResponse);
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
@@ -19,7 +27,8 @@ service Administrator {
     rpc GetListWork(MasterRequest) returns (WorkResponse);
     rpc GetListTypeEquipment(MasterRequest) returns (MasterDataResponse);
     rpc GetListTypePartner(MasterRequest) returns (MasterDataResponse);
-
+    rpc GetListUsers(MasterRequest) returns (UserResponse);
+    rpc GetListDevices(MasterRequest) returns (DeviceResponse);
 
     rpc InsertCodePacket(CodePacketInfo) returns (Response);
     rpc UpdateCodePacket(CodePacketInfo) returns (Response);
@@ -65,19 +74,63 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
+    
+    //rpc Login(UserInfo) returns (UserReply);
+    
+
+    rpc InsertDevice(DeviceInfo) returns (Response);
+    rpc UpdateDevice(DeviceInfo) returns (Response);
+    rpc DeleteDevice(DeviceInfo) returns (Response);
 }
 service WareHouse {
+   
+   // get all
     rpc GetListShift(MasterRequest) returns (ShiftResponse);
-    rpc InsertShift(ShiftInfo) returns (Response);
+    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);     // from date ->  to date 
+
+    rpc GetListParcel(MasterRequest) returns (ParcelResponse);               // get all   
+    rpc GetListParcelDetail(MasterRequest) returns (ParcelDetailResponse);   // from date -> to date
+    rpc GetListParcelDetailByCode(MasterRequest) returns (ParcelDetailResponse);
+
+    rpc GetListTask(MasterRequest) returns (TaskResponse);                   // from date -> to date
+    rpc getListTaskDetailById(TaskInfo) returns (TaskDetailResponse);       
+    rpc getListTaskDetail(MasterRequest) returns (TaskDetailResponse);       // from date -> to date
+
     rpc NewInsertShift(InsertShiftRequest) returns (Response);
-    rpc NewUpdateShift(InsertShiftRequest) returns (Response);//xoa-sua
-    rpc DeleteShift(ShiftInfo) returns (Response);// xoa ca -idShirt
+    rpc NewUpdateShift(InsertShiftRequest) returns (Response);
+    rpc DeleteShift(ShiftInfo) returns (Response);
 
-    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);
-    rpc InsertShiftDetail(ShiftDetailInfo) returns (Response);
-    rpc UpdateShiftDetail(ShiftDetailInfo) returns (Response);
-    rpc DeleteShiftDetail(ShiftDetailInfo) returns (Response);
+    
 
-    rpc GetListParcel(MasterRequest) returns (ParcelResponse);
-    rpc test(MasterRequest) returns (ParcelResponse);
+   
+
+    rpc InsertParcel(InsertParcelRequest) returns (Response);
+    rpc UpdateParcel(InsertParcelRequest) returns (Response);
+    rpc DeleteParcel(ParcelInfo) returns (Response);
+
+    rpc InsertTask(InsertTaskRequest) returns (Response);
+    rpc UpdateTask(InsertTaskRequest) returns (Response);
+    rpc DeleteTask(TaskInfo) returns (Response);
+    
+}
+service Card
+{
+    rpc GetListCard(MasterRequest) returns (CardResponse); //get all
+    rpc getListCardDetailByCode(MasterRequest) returns (CardDetailResponse); //get by code
+    rpc GetListCardDetail(MasterRequest) returns (CardDetailResponse); // from date -> to date
+
+    rpc InsertCard(InsertCardRequest) returns (Response);
+    rpc UpdateCard(InsertCardRequest) returns (Response); 
+    rpc SetChangeableCard(CardInfo) returns (Response);
+    rpc DeleteCard(CardInfo) returns (Response);
+
+    rpc GetListRecordDetail(MasterRequest) returns (RecordDetailResponse);
+    rpc InsertRecord (InsertRecordRequest) returns (Response);
+    rpc DeleteRecord (InsertRecordRequest) returns (Response);
+
+}
+
+service Report
+{
+    rpc GetReportVolConsumtion (MasterRequest) returns (ReportVolConsumtionResponse);
 }

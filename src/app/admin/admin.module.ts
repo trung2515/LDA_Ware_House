@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component';
+import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import {DevExtremeModule, DxPopupModule,DxSelectBoxModule  } from 'devextreme-angular';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -27,15 +28,22 @@ import { ConfigurationLayoutComponent } from './layouts/configuration-layout/con
 import { ShiftComponent } from './pages/shift/shift.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 import { HeaderReportComponent } from './components/header-report/header-report.component';
-import { FilterBarDashboardComponent } from './components/filter-bar-dashboard/filter-bar-dashboard.component';
 import { BarCharComponent } from './pages/dashboard/components/bar-char/bar-char.component';
 import { LineCharComponent } from './pages/dashboard/components/line-char/line-char.component';
+import { SharedModule } from '../shared/shared.module';
+import { PercelService } from './pages/parcel/parcel.service';
+import { CardComponent } from './pages/dashboard/component/card.component';
+import { ParcelComponent } from './pages/parcel/parcel.component';
+import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
+import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component';
 @NgModule({
   declarations: [
+    ParcelComponent,
     AdminLayoutComponent,
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
+    CardComponent,
     WarehouseReportComponent,
     ConsumptionReportComponent,
     TransportationReportComponent,
@@ -59,15 +67,17 @@ import { LineCharComponent } from './pages/dashboard/components/line-char/line-c
     FilterBarDashboardComponent,
     BarCharComponent,
     LineCharComponent,
+    DetailParcelGrid,
+    BreadcrumbComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    SharedModule,
     FormsModule,
-    ReactiveFormsModule,
-    DevExtremeModule,
-    DxPopupModule,
-    DxSelectBoxModule
-  ]
+    ReactiveFormsModule
+  ],
+  providers: [PercelService],
 })
 export class AdminModule { }

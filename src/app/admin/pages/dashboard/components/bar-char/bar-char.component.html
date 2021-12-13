@@ -1,6 +1,6 @@
 <dx-chart [id]="chartID" [dataSource]="dataSource" palette="soft">
   <dxi-series
-    valueField="oranges"
+    valueField="tons"
     [name]="configChart.chartLegend"
     [color]="configChart.color"
     argumentField="day"
@@ -20,7 +20,7 @@
     markerSize="18"
   ></dxo-legend>
   <dxo-title
-    text="Tên sản phẩm"
+    [text]="filterControl.product_name"
     [font]="configChart.fontTitle"
     verticalAlignment="top"
     horizontalAlignment="right"
@@ -33,4 +33,4 @@
   >
   </dxo-tooltip>
 </dx-chart>
-<p class="total-consume-packaging">total-consume-packaging</p>
+<p class="total-consume-packaging">{{sumSomething}}</p>

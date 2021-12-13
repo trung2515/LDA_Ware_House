@@ -20,6 +20,9 @@
   margin-bottom: 6px;
   border-bottom: 1px solid #CBD3EE;
 }
+.form-title span {
+  font-weight: 500;
+}
 .form-group {
   margin: 0 12.5px;
   display: flex;
@@ -28,7 +31,7 @@
 .form-group label {
   font-family: Roboto, sans-serif;
   font-size:15px;
-  font-weight:400;
+  font-weight:500;
   margin-bottom: 0;
   margin-left: 12.5px;
 }
@@ -44,4 +47,36 @@
 /* range date */
 .day-range {
   overflow-x: hidden;
+}
+
+.inventory-month-title {
+  font-weight: bold;
+}
+/* table */
+.product-select.inventory-month {
+  border: 0;
+}
+#table-inventory-month {
+  width: 100%;
+  font-family: Roboto, sans-serif;
+}
+#table-inventory-month td,
+#table-inventory-month th {
+  border: 1px solid #CBD3EE;
+  padding: 12px 8px;
+}
+#table-inventory-month tr:first-child {
+  color: #3459E6;
+}
+#table-inventory-month tr td:nth-child(2),
+#table-inventory-month tr th:nth-child(2) {
+  text-align: right;
+}
+
+#table-inventory-month tr:first-child {
+  background-color: #E7F0FF;
+}
+#table-inventory-month .field-total {
+  color: #000000;
+  font-weight: 500;
 }
