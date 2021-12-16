@@ -1,78 +1,78 @@
-<div class="row pt-3">
-    <div class="col-4 " *ngFor="let item of data">
-        <dashboard-card [model]="item"></dashboard-card>
-    </div>
-</div>
-<div class="row pt-3">
-    <div class="col-12 ">
-        <dx-chart id="chart" class="card-d px-4 py-4" title="Nhập Xuất Kho" [dataSource]="grossProductData"
-            [palette]="['#4A80FF','#00A560']" (onPointClick)="onPointClick($event)">
-            <dxi-series valueField="In" name="Nhập Kho"></dxi-series>
-            <dxi-series valueField="Out" name="Xuất Kho"></dxi-series>
-            <dxo-common-series-settings argumentField="month" type="bar" hoverMode="allArgumentPoints"
-                selectionMode="allArgumentPoints">
-                <dxo-label [visible]="true" [format]="{
-        type: 'fixedPoint',
-        precision: '0'
-      }">
-                </dxo-label>
-            </dxo-common-series-settings>
-            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-            </dxo-legend>
-            <dxo-export [enabled]="true"></dxo-export>
-        </dx-chart>
-    </div>
-</div>
+<div class="wrapper">
+  <div class="filter-bar">
+    <app-filter-bar-dashboard
+      [products]="dataSource"
+      [filterControl]="filterController"
+      (onFilterChanges)="onFilterChange($event)"
+      (onRadioChanges)="onRadioFilterChange($event)"
+    ></app-filter-bar-dashboard>
+  </div>
+  <div class="content">
+    <dx-tab-panel
+      id="tab-panel-dashboard"
+      #tabPanel
+      [dataSource]="tabInfo"
+      [selectedIndex]="0"
+      [loop]="false"
+      [animationEnabled]="true"
+      [swipeEnabled]="false"
+      [hoverStateEnabled]="true"
+      [animationEnabled]="true"
+      [focusStateEnabled]="false"
+    >
+      <div
+        *dxTemplate="let tabTitle of 'title'"
+        [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id"
+      >
+        <p>{{ tabTitle.tabName }}</p>
+      </div>
 
-<div class="row py-3">
-    <div class="col-3 ">
-        <dx-chart id="chart" class="card-d px-4 py-4" title="Nhập Xuất Kho" [dataSource]="grossProductData"
-            [palette]="['#4A80FF','#00A560']" (onPointClick)="onPointClick($event)">
-            <dxi-series valueField="In" name="Nhập Kho"></dxi-series>
-            <dxi-series valueField="Out" name="Xuất Kho"></dxi-series>
-            <dxo-common-series-settings argumentField="month" type="bar" hoverMode="allArgumentPoints"
-                selectionMode="allArgumentPoints">
-                <dxo-label [visible]="true" [format]="{
-    type: 'fixedPoint',
-    precision: '0'
-  }">
-                </dxo-label>
-            </dxo-common-series-settings>
-            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-            </dxo-legend>
-            <dxo-export [enabled]="true"></dxo-export>
-        </dx-chart>
-    </div>
-    <div class="col-3 ">
-        <dx-chart id="chart" class="card-d px-4 py-4" [dataSource]="catBreeds" [rotated]="true"
-            title="Most Popular US Cat Breeds" (onPointClick)="pointClick($event)" (onDone)="done($event)">
-            <dxi-series valueField="count" name="breeds" color="#a3d6d2">
-                <dxo-selection-style color="#ec2e7a">
-                    <dxo-hatching direction="none"></dxo-hatching>
-                </dxo-selection-style>
-            </dxi-series>
-            <dxo-common-series-settings argumentField="breed" type="bar">
-            </dxo-common-series-settings>
-            <dxo-legend [visible]="false"></dxo-legend>
-            <dxo-export [enabled]="true"></dxo-export>
-        </dx-chart>
-    </div>
-    <div class="col-6 ">
-        <dx-chart id="chart" class="card-d px-4 py-4" title="Nhập Xuất Kho" [dataSource]="grossProductData"
-            [palette]="['#4A80FF','#00A560']" (onPointClick)="onPointClick($event)">
-            <dxi-series valueField="In" name="Nhập Kho"></dxi-series>
-            <dxi-series valueField="Out" name="Xuất Kho"></dxi-series>
-            <dxo-common-series-settings argumentField="month" type="bar" hoverMode="allArgumentPoints"
-                selectionMode="allArgumentPoints">
-                <dxo-label [visible]="true" [format]="{
-    type: 'fixedPoint',
-    precision: '0'
-  }">
-                </dxo-label>
-            </dxo-common-series-settings>
-            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-            </dxo-legend>
-            <dxo-export [enabled]="true"></dxo-export>
-        </dx-chart>
-    </div>
+      <div *dxTemplate="let tabPanel of 'item'">
+        <div *ngIf="tabPanel.id === 1" class="tab-1">
+          <!-- statics qty pakaging -->
+          <div class="chart-container">
+            <app-bar-char
+              chartID="chart-db"
+              [products]="dataSource"
+              [configChart]="configChart"
+              [filterControl]="filterController"
+            ></app-bar-char>
+          </div>
+          <!-- tieu thu -->
+          <div class="chart-container">
+            <app-bar-char
+              chartID="chart-tt"
+              [products]="dataSource"
+              [configChart]="configChartDB"
+              [filterControl]="filterController"
+            ></app-bar-char>
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 2" class="tab-2">
+          <div class="chart-container">
+            <app-line-char
+              [typeOfMachines]="typeMachines"
+              title="Thống kê sản lượng đóng bao"
+              [configChart]="configCommon"
+              idChartLine="lineChart-db"
+              [filterControl]="filterController"
+              [products]="dataSource"
+              [typeMachines]="typeMachines"
+            ></app-line-char>
+          </div>
+          <div class="chart-container">
+            <app-line-char
+              [typeOfMachines]="typeMachines"
+              title="Thống kê sản lượng tiêu thụ"
+              [configChart]="configCommon"
+              idChartLine="lineChart-tt"
+              [filterControl]="filterController"
+              [products]="dataSource"
+              [typeMachines]="typeMachines"
+            ></app-line-char>
+          </div>
+        </div>
+      </div>
+    </dx-tab-panel>
+  </div>
 </div>

@@ -25,23 +25,23 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { ParcelComponent } from './pages/parcel/parcel.component'
 import { LoginComponent } from './login/login.component'
 
-ReasonComponent
-JobComponent
-BillComponent
+ReasonComponent;
+JobComponent;
+BillComponent;
 const routes: Routes = [
   { path: 'test', component: TestComponent },
   {
     path: 'dashboard',
     data: {
-      breadcrumb: 'Thống kê',
+      breadcrumb: 'Thống kê'
     },
     component: AdminLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [{ path: '', component: DashboardComponent }]
   },
   {
     path: 'configuration',
     data: {
-      breadcrumb: 'Cài đặt hệ thống',
+      breadcrumb: 'Cài đặt hệ thống'
     },
     component: ConfigurationLayoutComponent,
     children: [
@@ -55,44 +55,55 @@ const routes: Routes = [
       { path: 'bill', component: BillComponent },
       { path: 'job', component: JobComponent },
       { path: 'reason', component: ReasonComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'product-category' },
-    ],
+      { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
+    ]
   },
   {
     path: 'warehouse-control',
     data: {
-      breadcrumb: 'Quản lý kho',
+      breadcrumb: 'Quản lý kho'
     },
     component: AdminLayoutComponent,
     children: [
       {
         path: 'shift',
         data: {
-          breadcrumb: 'Ca làm việc',
+          breadcrumb: 'Ca làm việc'
         },
-        component: ShiftComponent,
+        component: ShiftComponent
       },
       {
         path: 'parcel',
         data: {
-          breadcrumb: 'Lô hàng',
+          breadcrumb: 'Lô hàng'
         },
-        component: ParcelComponent,
+        component: ConsignmentManagementComponent
       },
-  
-      { path: '**', pathMatch: 'full', redirectTo: 'shift' },
-    ],
+
+      { path: '**', pathMatch: 'full', redirectTo: 'shift' }
+    ]
   },
   {
-    path: 'warehouse-manager',
+    path: 'report',
     component: AdminLayoutComponent,
     children: [
-      { path: 'shift', component: ShiftComponent },
-      { path: 'consignment', component: ConsignmentManagementComponent },
-    ],
+      {
+        path: 'warehouse-report',
+        component: WarehouseReportComponent
+      },
+      {
+        path: 'transportation-report',
+        component: TransportationReportComponent
+      },
+      {
+        path: 'consumption-report',
+        component: ConsumptionReportComponent
+      },
+
+    ]
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
-]
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

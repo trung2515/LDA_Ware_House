@@ -1,0 +1,37 @@
+<div class="line-chart-wrap">
+  <dx-chart
+    class="chart-line"
+    [id]="idChartLine"
+    palette="Green"
+    [dataSource]="dataSource"
+  >
+    <dxi-series
+      *ngFor="let machine of typeOfMachines"
+      [valueField]="machine.value"
+      [name]="machine.name"
+    >
+    </dxi-series>
+    <dxo-legend
+      verticalAlignment="bottom"
+      horizontalAlignment="center"
+      itemTextPosition="bottom"
+      [visible]="true"
+      [font]="configChart.fontLegend"
+    >
+    </dxo-legend>
+    <dxo-common-series-settings #seriesSettings argumentField="day" type="line" valueField="tons">
+    </dxo-common-series-settings>
+
+    <dxo-title
+      [text]="title"
+      [font]="configChart.fontTitle"
+      verticalAlignment="top"
+      horizontalAlignment="left"
+    ></dxo-title>
+    <dxo-tooltip
+      [enabled]="true"
+      [border]="configChart.borderTooltip"
+    ></dxo-tooltip>
+  </dx-chart>
+  <span>{{ filterControl.product_name }}</span>
+</div>

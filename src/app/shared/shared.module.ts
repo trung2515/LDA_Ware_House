@@ -7,9 +7,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { TabsModule } from 'ngx-bootstrap/tabs'
+import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { TextInputComponent } from './_forms/text-input/text-input.component'
 import { NgxSpinnerModule } from 'ngx-spinner'
-import { NgxLocalStorageModule } from 'ngx-localstorage'
+// import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
   DxButtonModule,
@@ -19,6 +20,7 @@ import {
   DxFormModule,
   DxPivotGridModule,
   DxPopupModule,
+  DxRangeSelectorModule,
   DxSchedulerModule,
   DxSelectBoxModule,
   DxTabPanelModule,
@@ -38,6 +40,11 @@ import { FooterComponent } from './component/footer/footer.component'
       positionClass: 'toast-bottom-right',
     }),
     TabsModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass: "bottom-right"
+    }),
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -61,14 +68,17 @@ import { FooterComponent } from './component/footer/footer.component'
     DxTreeListModule,
     // SampleModule,
   ],
+
   exports: [
+    TabsModule,
+    DxRangeSelectorModule,
+    FormsModule,
+    ReactiveFormsModule,
     ToastrModule,
     PaginationModule,
-    ReactiveFormsModule,
     BsDropdownModule,
     BsDatepickerModule,
     ModalModule,
-    TabsModule,
     NgxSpinnerModule,
     NgxDropzoneModule,
     DxPivotGridModule,
@@ -90,6 +100,10 @@ import { FooterComponent } from './component/footer/footer.component'
     //Component
 
     FormsModule,
+    DxRangeSelectorModule,
+    // SampleModule,
+    //Component
+
     FooterComponent,
     TextInputComponent
   ],

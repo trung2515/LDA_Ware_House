@@ -1,8 +1,5 @@
 <div class="wrapper">
   <div class="header">
-    <div class="place-bar">
-      <span>Quản lý kho</span> / <span>Quản lý lô hàng</span>
-    </div>
     <h2 class="heading">Quản lý lô hàng</h2>
   </div>
   <!-- table part -->
@@ -122,7 +119,6 @@
       <dx-data-grid
         id="con-gridContainer"
         [dataSource]="currentProducts"
-        [showBorders]="true"
       >
         <dxo-paging [enabled]="true"></dxo-paging>
         <dxo-editing
