@@ -90,7 +90,6 @@ import { FooterComponent } from './component/footer/footer.component'
     //Component
 
     FormsModule,
-
     FooterComponent,
     TextInputComponent
   ],
