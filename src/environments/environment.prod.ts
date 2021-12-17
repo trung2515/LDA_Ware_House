@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  host: 'https://office.stvg.vn:59066',
+  host: 'https://lda.stvg.vn:50002',
 };
