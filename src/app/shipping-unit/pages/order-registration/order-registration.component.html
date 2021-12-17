@@ -1,0 +1,79 @@
+<div class="wrapper">
+  <app-header-bar
+    (onBackClicked)="onBackClicked()"
+    [title]="title"
+  ></app-header-bar>
+  <div class="content mainCol">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+      <div *ngIf="!isAddingSuccessful" class="input-group">
+        <div class="info-wrap">
+          <h4 class="title-info">{{ driverFields.title }}</h4>
+          <div class="row info-row">
+            <div
+              *ngFor="let field of driverFields.fields"
+              class="col-12 col-lg-3 info-col"
+            >
+              <div class="form-groups">
+                <p class="info-field">{{ field.caption + ":" }}</p>
+                <app-text-input
+                  [formControlName]="field.controlName"
+                  [label]="field.label"
+                  [type]="'text'"
+                ></app-text-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- order info -->
+        <div class="info-wrap">
+          <h4 class="title-info">{{ orderFields.title }}</h4>
+          <div class="row info-row">
+            <div
+              *ngFor="let field of orderFields.fields"
+              class="col-12 col-lg-3 info-col"
+            >
+              <div *ngIf="field.type === 'input'" class="form-groups">
+                <p class="info-field">{{ field.caption + ":" }}</p>
+                <app-text-input
+                  [formControlName]="field.controlName"
+                  [label]="field.label"
+                  [type]="'text'"
+                ></app-text-input>
+              </div>
+              <div *ngIf="field.type === 'select'" class="form-groups">
+                <p class="info-field">{{ field.caption }}</p>
+                <app-select-option
+                  [formControlName]="field.controlName"
+                  [label]="field.label"
+                  [type]="'select'"
+                ></app-select-option>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- notification -->
+
+      <div *ngIf="isAddingSuccessful" class="successfully-notification">
+        <img
+          class="circle_check"
+          src="assets/img/check-circle.png"
+          alt="Check Circle"
+        />
+        <h3 class="notif-title">Đã đăng ký phiếu đơn hàng thành công!</h3>
+        <div class="horizontal-line"></div>
+        <div class="notif-info">
+          <span class="title-done">Mã đơn hàng:</span>
+          <span class="title-done">{{order_Code}}</span>
+        </div>
+        <div class="qr-code-wrap">
+          <p class="title-done qr-title">Mã QR Code:</p>
+          <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
+          <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
+          <button (click)="onBackClicked()" class="btn-ship btn-done">Xong</button>
+        </div>
+      </div>
+      <button *ngIf="!isAddingSuccessful" class="btn-ship btn-order-regis" type="submit">Đăng ký</button>
+    </form>
+  </div>
+</div>

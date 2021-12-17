@@ -17,10 +17,13 @@
   font-size: 15px;
   color: #979797;
   font-family: "Roboto";
+  border-radius: 3px;
+  border: 1px solid #CBD3EE;
 }
 .select:after {
   content: '';
 }
 .select:focus {
   outline: none;
+  border: 1px solid #9aacf3;
 }

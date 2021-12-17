@@ -12,15 +12,17 @@ import {
 import { forkJoin, of } from 'rxjs';
 import { Resource, Appointment, ShiftDetail, ShiftMaster, Product, Lot ,Option } from './model';
 import { Any } from '@ngx-grpc/well-known-types';
+import { ShiftService } from './services/shift.service';
 @Component({
   selector: 'app-shift',
   templateUrl: './shift.component.html',
   styleUrls: ['./shift.component.css']
 })
 export class ShiftComponent implements OnInit {
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, shiftService: ShiftService) {
+    this.appointments =  shiftService.getAppointments();
+  }
   ngOnInit(): void {
-    this.dataDemo()
   }
 
   currentDate: Date = new Date(2021,10,1);
@@ -60,7 +62,7 @@ export class ShiftComponent implements OnInit {
   listOptions : Option[] = [
     {value: 1,name:'option 1'},
     {value: 2,name:'option 2'},
-    
+
   ];
   listProductRange: Lot[] = [
     { name: 1 },
@@ -106,34 +108,7 @@ export class ShiftComponent implements OnInit {
     }
   ];
   appointments: Appointment[] = [];
-  dataDemo(){
-    
-    for(var i = 1;  i <  20 ; i++){
-      let a = new Date(2021,10,1)
-      let item:any = {}
-      item.id = i
-      item.text = 'Hiếu '+i
-      // item.shift = i%2 +1
-      item.shift = 1
-      item.startDate = new Date( new Date(a.getFullYear(),a.getMonth(),a.getDate()+i).setHours(1))
-      item.endDate = new Date(new Date(a.getFullYear(),a.getMonth(),a.getDate()+i).setHours(2))
-      item.description = 'test'
-      item.shiftDetail = [
-        {
-          id: 1,
-          option: '1',
-          type: 'NDL',
-          product: 'Alumin 1 Tấn',
-          productRange: 3,
-          packaging: 'Xả đáy',
-          lot: 190,
-          unit: 'XTRE',
-          wareHouse: 'Kho TT'
-        }
-      ]
-      this.appointments.push(item)
-    }
-  }
+
   showUpdateButton: boolean = false
   onAppointmentFormOpening(data: any) {
     data.cancel = true;

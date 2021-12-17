@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
+import { ShippingUnitRoutingModule } from './shipping-unit/shipping-unit-routing.module';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
     CoreModule,
     AdminModule,
     FormsMineralModule,
+    ShippingUnitRoutingModule,
+    LoginModule,
     // GrpcCoreModule.forRoot(),
   ],
   bootstrap: [AppComponent]

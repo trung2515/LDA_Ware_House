@@ -23,12 +23,16 @@ import {
   DxTabPanelModule,
   DxTextAreaModule,
   DxTreeListModule,
+  DxValidationSummaryModule,
+  DxValidatorModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgxLocalStorageModule } from 'ngx-localstorage'
+import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { QRCodeModule } from 'angularx-qrcode';
+import { SelectOptionComponent } from './_forms/select-option/select-option.component'
 @NgModule({
-  declarations: [TextInputComponent, FooterComponent],
+  declarations: [TextInputComponent, FooterComponent, SelectOptionComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -57,7 +61,10 @@ import { NgxLocalStorageModule } from 'ngx-localstorage'
     DxButtonModule,
     DxTabPanelModule,
     DxTreeListModule,
-    DxRangeSelectorModule
+    DxRangeSelectorModule,
+    DxValidatorModule,
+    DxValidationSummaryModule,
+    QRCodeModule
     // SampleModule,
   ],
   exports: [
@@ -86,12 +93,12 @@ import { NgxLocalStorageModule } from 'ngx-localstorage'
     DxTabPanelModule,
     DxTreeListModule,
     DxRangeSelectorModule,
+    QRCodeModule,
     // SampleModule,
     //Component
-
-
     FooterComponent,
-    TextInputComponent
+    TextInputComponent,
+    SelectOptionComponent
   ],
 })
 export class SharedModule { }

@@ -1,0 +1,95 @@
+.brand-wrap {
+  position: fixed;
+  top: 46px;
+  left: 52px;
+  display: flex;
+}
+.brand-wrap .brand {
+  min-height: 66px;
+  height: 66px;
+}
+.brand-wrap .company-name {
+  margin-left: 24px;
+}
+.brand-wrap .company-name p {
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.02);
+}
+.brand-wrap .company-name p:first-child {
+  color: #418bca;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.brand-wrap .company-name p:last-child {
+  color: #9f221e;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.wrap {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.form-title {
+  font-family: Roboto, sans-serif;
+  color: #000;
+  font-weight: 500;
+  font-size: 24px;
+}
+.bg_img_login {
+  background-image: url("../../assets/img/bg2.jpg");
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login-form {
+  background-color: #fff;
+  flex-basis: 387px;
+  padding: 45px 60px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+}
+.wrap button {
+  font-size: 16px;
+  background-color: #3459E6;
+  color: #fff;
+}
+.wrap button:hover{
+  background-color: #fff;
+  color: #3459E6;
+}
+
+// mobile
+@media only screen and (max-width: 37.5rem) {
+  .bg_img_login {
+    display: none;
+  }
+  .brand-wrap {
+    top: 100px;
+    left: 0;
+    right: 0;
+    justify-content: center;
+}
+  .company-name {
+    display: none;
+  }
+  .login-form {
+    box-shadow: none;
+    padding: 0 16px;
+  }
+  .form-control {
+    font-size: 0.875rem;
+  }
+}

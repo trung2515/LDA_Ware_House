@@ -1,33 +1,38 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
-import { LoginComponent } from './admin/login/login.component'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.module').then((m) => m.AdminModule),
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'forms',
     loadChildren: () =>
       import('./forms-mineral/forms-mineral.module').then(
-        (m) => m.FormsMineralModule,
-      ),
+        m => m.FormsMineralModule
+      )
+  },
+  {
+    path: 'shipper',
+    loadChildren: () =>
+      import('./shipping-unit/shipping-unit.module').then(
+        m => m.ShippingUnitModule
+      )
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'admin',
-  },
-]
+    redirectTo: 'login'
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

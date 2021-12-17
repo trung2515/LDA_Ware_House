@@ -1,16 +1,18 @@
-import { Component, Input, Self, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+  selector: 'app-select-option',
+  templateUrl: './select-option.component.html',
+  styleUrls: ['./select-option.component.css']
 })
-export class TextInputComponent implements ControlValueAccessor, OnInit {
-
+export class SelectOptionComponent implements ControlValueAccessor {
+  @Input() options: any[] = [
+    'Alumin 1 tấn',
+    'Alumin 5kg',
+  ];
   @Input() label!: string;
   @Input() type = 'text';
-
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
   }
@@ -26,4 +28,5 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
   registerOnTouched(fn: any): void {
 
   }
+
 }

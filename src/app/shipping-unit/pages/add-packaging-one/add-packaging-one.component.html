@@ -1,0 +1,74 @@
+<div class="wrapper">
+  <app-header-bar
+    (onBackClicked)="onBackClicked()"
+    title="Nhập sản lượng đóng bao loại 1 tấn"
+  ></app-header-bar>
+  <div class="content mainCol">
+    <h3 class="heading-title">
+      Ca làm việc:
+    </h3>
+    <div class="horizontal-line"></div>
+    <div class="select-group row">
+      <div class="select-date col-12 col-lg-3">
+        <label for="">Ngày</label>
+        <dx-date-box [value]="now" type="date"></dx-date-box>
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label for="">Ca làm việc</label>
+        <dx-select-box
+          [dataSource]="['Ca 1', 'Ca 2']"
+          value="Ca 1"
+          hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc"
+        ></dx-select-box>
+        <!-- <app-text-input type="select"></app-text-input> -->
+      </div>
+    </div>
+    <h3 class="heading-title pt-4">
+      Số lượng máy đóng bao
+    </h3>
+    <div class="horizontal-line"></div>
+    <div class="option-group">
+      <div
+        *ngFor="let optionItem of currentAppointment.shiftDetail"
+        class="option-item"
+      >
+        <div class="option-head">
+          <span>Option {{ optionItem.option }}:</span>
+          <span class="option-title">
+            {{ optionItem.product }} - Loại {{ optionItem.productRange }} -
+            {{ optionItem.packaging }}</span
+          >
+          <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
+            >Nhập đóng mới</span
+          >
+          <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
+            >Nhập đóng lại</span
+          >
+        </div>
+        <div class="option-location-info row d-none d-lg-flex">
+          <div class="col-lg-4">
+            <p>Lô</p>
+            <p>{{ optionItem.lot }}</p>
+          </div>
+          <div class="col-lg-4">
+            <p>Kho</p>
+            <p>{{ optionItem.wareHouse }}</p>
+          </div>
+          <div class="col-lg-4">
+            <p>Đơn vị đóng</p>
+            <p>{{ optionItem.unit }}</p>
+          </div>
+        </div>
+        <form class="form-info-group row">
+          <div class="col-12 col-lg-3">dsdsds</div>
+          <div class="col-12 col-lg-3">dsdsds</div>
+          <div class="col-12 col-lg-3">dsdsds</div>
+          <div class="col-12 col-lg-3">dsdsds</div>
+          <div class="col-12 col-lg-3">dsdsds</div>
+        </form>
+        <div [class]="'horizontal-line dotted option-'+optionItem.option"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+.wrapper {
+  background-color: #f8f8f9;
+  font-family: "Roboto", sans-serif;
+}
+.content {
+  height: calc(var(--contentHeight) - 20px);
+  background-color: #fff;
+  position: relative;
+  overflow-y: auto;
+  padding: 16px 24px 0 24px;
+}
+.info-wrap {
+  width: 100%;
+}
+.form-groups {
+  margin-top: 8px;
+}
+.title-info {
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 8px 0;
+}
+
+.title-info:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background-color: #cbd3ee;
+}
+.info-row {
+  margin-top: 16px;
+}
+.info-col {
+}
+.info-col .info-field {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+.btn-order-regis {
+  margin-top: 32px;
+}
+
+.form-groups ::ng-deep .form-control {
+  padding: 8px;
+}
+.successfully-notification {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+  max-width: 100%;
+  margin: 8px auto;
+}
+.circle_check {
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+.notif-title {
+  width: 100%;
+  margin-bottom: 0;
+}
+.horizontal-line {
+  width: 100%;
+  height: 1px;
+  background-color: #cbd3ee;
+  margin: 18px 0;
+}
+.notif-info {
+}
+.title-done {
+  font-weight: 400;
+  font-size: 15px;
+  color: #000000;
+  margin: 12px 0 0;
+}
+.notif-info span:last-child {
+  color: #3459e6;
+  font-size: 16px;
+  margin-left: 8px;
+  line-height: 24px;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.qr-code-wrap {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.qr-title {
+  width: 100%;
+}
+.btn-done {
+  margin-top: 32px;
+}
+.btn-order-regis {
+}
+/* mobile */
+@media only screen and (max-width: 37.5rem) {
+  .btn-order-regis {
+    width: 100%;
+    margin: 24px 0;
+  }
+  .title-info {
+    display: inline-block;
+  }
+
+  .successfully-notification {
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .notif-title {
+    font-size: 18px;
+  }
+
+  .notif-info span:last-child {
+    display: block;
+    margin-left: 0;
+  }
+  .btn-done {
+    width: 100%;
+  }
+}

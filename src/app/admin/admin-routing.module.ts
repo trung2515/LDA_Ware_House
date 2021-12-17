@@ -1,3 +1,4 @@
+import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -23,7 +24,7 @@ import { ReasonComponent } from './components/reason/reason.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { ParcelComponent } from './pages/parcel/parcel.component';
-import { LoginComponent } from './login/login.component';
+import { OrderRegistrationComponent } from '../shipping-unit/pages/order-registration/order-registration.component';
 
 ReasonComponent;
 JobComponent;
@@ -98,11 +99,10 @@ const routes: Routes = [
       {
         path: 'consumption-report',
         component: ConsumptionReportComponent
-      },
-
+      }
     ]
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
+  { path: '**', pathMatch: 'full', redirectTo: 'menu' }
 ];
 
 @NgModule({
