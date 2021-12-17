@@ -49,7 +49,6 @@ export class DashboardService {
   getData(): Product[] {
     console.log(GenerateProductList())
     return GenerateProductList();
-
   }
   getDataForLine(): any[] {
     for (var i = 0; i < 30; i++) {
