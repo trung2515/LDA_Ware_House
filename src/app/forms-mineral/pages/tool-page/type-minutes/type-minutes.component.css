@@ -1,0 +1,20 @@
+.poiter {
+    cursor: pointer;
+}
+
+.card-minutes {
+    border: 1px solid #CBD3EE;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.card-minutes:hover {
+    background-color: #CBD3EE;
+}
+
+.arrow-right {
+    position: relative;
+    top: -35px;
+
+}

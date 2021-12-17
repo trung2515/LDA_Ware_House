@@ -4,7 +4,7 @@ import { ConsumptionReportService } from './consumption.service';
 import { Component, OnInit } from '@angular/core';
 import { getDates } from 'src/app/utils/helper';
 import CustomStore from 'devextreme/data/custom_store';
-import { LoadOptions } from 'devextreme/data';
+// import { LoadOptions } from 'devextreme/data';
 import PivotGridDataSource from 'devextreme/ui/pivot_grid/data_source';
 import { ExcelService } from 'src/app/core/services/excel.service';
 

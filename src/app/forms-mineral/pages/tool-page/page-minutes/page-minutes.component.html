@@ -1,123 +1,146 @@
-<div class="card-pdfview"  style="line-height: 34px;">
-    <div class="d-flex bg-white justify-content-center text-dark">
-        <div class="d-flex preview justify-content-center">
-          <div class="cover">
-            <div id="contentToConvert" >
-              <div class="d-flex justify-content-between">
-                <div class="d-flex flex-column align-items-center badge-left title-header-left">
-                  <span>CÔNG TY TNHH MỘT THÀNH VIÊN </span>
-                  <span> NHÔM LÂM ĐỒNG - TKV </span>
-                  <span class="title-underline">
-                    PHÒNG KHTT</span>
+<div class="card-pdfview">
+  
+  <div class="d-flex bg-white justify-content-center text-dark">
+    <div class="d-flex preview justify-content-center">
+      <div class="cover">
+        <div id="contentToConvert">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column align-items-center badge-left title-header-left" *ngIf="minuteType !==3">
+              <span>TẬP ĐOÀN CÔNG NGHIỆP </span>
+              <span>THAN KHOÁNG SẢN VIỆT NAM</span>
+              <span class="fw-bold">CÔNG TY TNHH MTV</span>
+              <span class="title-underline"> NHÔM LÂM ĐỒNG - TKV </span>
+         
+            </div>
+            <div class="d-flex flex-column align-items-center badge-left title-header-left" *ngIf="minuteType==3">
+              <span class="fw-bold">CÔNG TY TNHH MTV</span>
+              <span class="fw-bold">NHÔM LÂM DÔNGD-VINACOMIC</span>
+              <span class="title-underline"> PHÒNG KHTT</span>
+            </div>
+            <!-- <button class="btn-danger" (click)="showData()">view</button> -->
+            <div class="d-flex flex-column align-items-center badge-right title-header-right">
+              <span> CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</span>
+              <span>Độc lập - Tự do - Hạnh phúc</span>
+            </div>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center py-5 ">
+            <span class="form-name-title text-center fs-2 fw-bold"> {{ dataBinding.title }}</span>
+            <span class="form-name-title text-center fs-2 fw-bold">{{ dataBinding.subtitle1 }}</span>
+            <span class="form-name-title text-center fs-2 fw-bold">{{ dataBinding.subtitle2 }}</span>
+            <span class="form-name-title text-center fs-2 fw-bold" *ngIf="switchInternal">
+              {{minuteType==1? 'CHO ĐƠN VỊ THUÊ NGOÀI': 'CỦA ĐƠN VỊ THUÊ NGOÀI'}}
+            </span>
+          </div>
+         
+          <div *ngIf="minuteType == 1 || minuteType == 2" class="d-flex flex-column content" >
+            <span  class="totalAll fw-bold">
+              1. Đại diện bên giao: {{ dataBinding.sender }}
+            </span>
+            <div *ngFor="let person of surrogateSender; let i = index">
+              <div class="row ">
+                <span class="col-7 totalAll_5 px-4">
+                  - Ông/(Bà): {{ person.name }}
+                </span>
+                <span class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
+              </div>
+            </div>
+            <span class="totalAll fw-bold">
+              1. Đại diện bên nhận: {{ dataBinding.receiver }}
+            </span>
+            <div *ngFor="let person of surrogateReceiver; let i = index">
+              <div class="row ">
+                <span class="col-7 totalAll_5 px-4"> - Ông/(Bà): {{ person.name }}</span>
+                <span class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="minuteType == 3">
+            <div>
+              <span  class="totalAll fw-bold ps-5">
+                Chúng tôi gồm có:
+              </span>
+            </div>
+            <div *ngFor="let person of surrogateSender; let i = index">
+              <div class="row ">
+                <span class="col-7 totalAll_5 px-4">
+                  - Ông/(Bà): {{ person.name }}
+                </span>
+                <span class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
+              </div>
+            </div>
+          </div>
+
+            <div class="totalAll_5 py-3 text-indent">
+              {{ dataBinding.contentMinute }}
+            </div>
+            <div *ngIf="minuteType==4">
+                <div>
+                  <div class="text-indent"> 
+                    Căn cứ Quyết định số {{decision}} của TGĐ Công ty TNHH MTV nhôm Lâm Đồng - TKV về việc ban hành Quy định và quy trình xử lý sản phẩm lỗi và hạn mức quản lý tỷ lệ sản phẩm lỗi.
+                  </div>
+                  <div class="text-indent">
+                    {{request}}
+                  </div>
                 </div>
-                <div class="d-flex flex-column align-items-center badge-right title-header-right">
-                  <span> CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</span>
-                  <span>Độc lập - Tự do - Hạnh phúc</span>
+            </div>
+          <!-- ---------------------------------------/table/--------------------------- -->
+          <div class="py-4">
+            <table-minutes
+            [minuteType]="minuteType"
+            [dataSelect]="dataSelect"
+            [dataSelectConvert]="dataSelectConvert"
+            [dataSelectTask]="dataSelectTask"
+            [dataSelectExport]="dataSelectExport"
+            [totalAllQuantity]="totalAllQuantity"
+            [totalAllMass]="totalAllMass"
+            [request]="request"
+            [decision]="decision"
+            [suggest]="suggest"
+            >
+          </table-minutes>
+        </div>
+          <div class=" pt-3 totalAll_5 text-indent ">
+            {{ dataBinding.verify }}
+          </div>
+          <div style="padding: 80px 0;">
+            <!-- ---------------------------------------/footer biên bản giao nhận sp/--------------------------- -->
+            <div *ngIf="minuteType==1">
+              <div class="d-flex justify-content-around pt-4">
+                <span class=" fw-bold">ĐD BÊN GIAO</span>
+                <span class=" fw-bold">ĐD BÊN NHẬN</span>
+              </div>
+              <div style="height:150px"></div>
+              <div class="d-flex justify-content-around ">
+                <div class="fw-bold d-flex mt-auto">
+                  Nguyễn Đình Thảnh
+                </div>
+                <div class="d-flex flex-column ">
+                  <div>Thủ kho:</div>
+                  <div>DD P.KHTT:</div>
+                </div>
+                <div class="fw-bold">
+                  <div>Võ Thị Hồng</div>
+                  <div>Trần Quốc Tuấn</div>
                 </div>
               </div>
-              <div class="d-flex flex-column align-items-center justify-content-center py-5 ">
-                <span class="form-name-title text-center fs-2 fw-bold">
-                  {{ dataBinding.title }}
-                </span>
-                <span class="form-name-title text-center fs-2 fw-bold">
-                  {{ dataBinding.subtitle }}
-                </span>
-                <span class="form-name-title text-center fs-2 fw-bold" *ngIf="!switchInternal">NỘI BỘ
-                </span>
-                <span class="form-name-title text-center fs-2 fw-bold" *ngIf="switchInternal">CHO ĐƠN VỊ THUÊ NGOÀI</span>
+            </div>
+            <!-- ---------------------------------------/footer biên bản xác nhận bốc xếp/--------------------------- -->
+            <div *ngIf="minuteType==2">
+              <div class="d-flex justify-content-around pt-4">
+                <span class=" fw-bold">{{'<ĐD ĐV THỰC HIỆN>'}}</span>
+                <span class=" fw-bold">{{'<ĐD ĐV ĐƯỢC THỰC HIỆN>'}}</span>
               </div>
-              <div class="d-flex flex-column content">
-                <span class="totalAll fw-bold">
-                  1. Đại diện bên giao: {{ dataBinding.sender }}
-                </span>
-                <div *ngFor="let person of surrogateSender; let i = index">
-                  <div class="row ">
-                    <span class="col-7 totalAll_5 px-4">
-                      - Ông/(Bà): {{ person.name }}
-                    </span>
-                    <span class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
-                  </div>
-                </div>
-                <span class="totalAll fw-bold">
-                  1. Đại diện bên nhận: {{ dataBinding.receiver }}
-                </span>
-                <div *ngFor="let person of surrogateReceiver; let i = index">
-                  <div class="row ">
-                    <span class="col-7 totalAll_5 px-4"> - Ông/(Bà): {{ person.name }}</span>
-                    <span class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
-                  </div>
-                </div>
-    
-                <span class="totalAll_5 pb-3">
-                  {{ dataBinding.contentMinute }}
-                </span>
-    
-                <table>
-                  <thead>
-                    <tr>
-                      <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">TT</th>
-                      <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Tên sản
-                        phẩm</th>
-                      <th class="text-center align-center text-bold" colspan="2" scope="colgroup">Số lượng
-                      </th>
-                      <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Số lô
-                      </th>
-                      <th class="text-center align-center text-bold" rowspan="2" scope="colgroup">Kho</th>
-                    </tr>
-                    <tr>
-                      <th class="text-center align-center text-bold" scope="col">SL bao</th>
-                      <th class="text-center align-center text-bold" scope="col">K/lượng (tấn)</th>
-                    </tr>
-                  </thead>
-                  <tbody *ngFor="let arr of dataSelectConvert | keyvalue;">
-                    <tr class="text-center" *ngFor="let item of dataSelectConvert[arr.key]; "[ngClass]="item.index==9999? 'fw-bold':''"  >
-                      <td scope="row" >{{item.product.includes("Tổng") ? "" : item.index}}</td>
-                      <td scope="row">{{item.product }}</td>
-                      <td>{{item.quantity}}</td>
-                      <td>{{item.mass}}</td>
-                      <td scope="row">{{item.lot}}</td>
-                      <td scope="row">{{item.wareHouse}}</td>
-                    </tr>
-                  </tbody>
-                  <tbody>
-                    <tr class="fw-bold">
-                      <td scope="row"></td>
-                      <td class="text-center" scope="row">Tổng Cộng</td>
-                      <td>{{totalAllQuantity}}</td>
-                      <td>{{totalAllMass}}</td>
-                      <td scope="row"></td>
-                      <td scope="row"></td>
-                    </tr>
-                  </tbody>
-    
-                </table>
-    
-                <span class=" pt-3 totalAll_5">
-                  {{ dataBinding.verify }}
-                </span>
-              </div>
-              <div style="padding: 80px 0;">
-                <div class="d-flex justify-content-around pt-4">
-                  <span class=" fw-bold">ĐD BÊN GIAO</span>
-                  <span class=" fw-bold">ĐD BÊN NHẬN</span>
-                </div>
-                <div style="height:150px"></div>
-                <div class="d-flex justify-content-around ">
-                  <div class="fw-bold d-flex mt-auto">
-                    Nguyễn Đình Thảnh
-                  </div>
-                  <div class="d-flex flex-column ">
-                    <div>Thủ kho:</div>
-                    <div>DD P.KHTT:</div>
-                  </div>
-                  <div class="fw-bold">
-                    <div>Võ Thị Hồng</div>
-                    <div>Trần Quốc Tuấn</div>
-                  </div>
-                </div>
+            </div>
+          <!-- ---------------------------------------/footer biên Bao lỗi/--------------------------- -->
+            <div *ngIf="minuteType==3">
+              <div class="d-flex justify-content-around pt-4">
+                <span class=" fw-bold">PHÒNG KTTC</span>
+                <span class=" fw-bold">CÁC ĐƠN VỊ KHÁC</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
