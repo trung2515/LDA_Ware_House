@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service'
 export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) {}
   parentMenuSelectId: number = 0
- 
+
   ngOnInit(): void {
     this.menus = [
       {
@@ -55,15 +55,22 @@ export class NavbarComponent implements OnInit {
         parentId: 3,
       },
       {
-        link: '/admin/report/transportation-report',
+        link: '/admin/report/warehouse-report',
         menuId: 7,
+        name: 'Báo cáo số lượng trên máy đóng bao',
+        isParent: false,
+        parentId: 4,
+      },
+      {
+        link: '/admin/report/transportation-report',
+        menuId: 8,
         name: 'Báo cáo vận chuyển',
         isParent: false,
         parentId: 4,
       },
       {
-        link: '/admin/report/warehouse-report',
-        menuId: 8,
+        link: '/admin/report/consumption-report',
+        menuId: 9,
         name: 'Báo cáo nhập xuất',
         isParent: false,
         parentId: 4,
@@ -76,7 +83,7 @@ export class NavbarComponent implements OnInit {
   getChildMenu(menuId: number) {
     return this.menus.filter((m) => m.parentId == menuId)
   }
-  
+
   selectMenu(menuId: number){
     console.log('select', menuId)
     this.parentMenuSelectId = menuId;

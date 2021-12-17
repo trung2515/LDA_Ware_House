@@ -5,8 +5,10 @@
 export const environment = {
   production: false,
   // host: 'http://192.168.1.243:8001',
-  // host: 'https://office.stvg.vn:59066',
-  host: 'http://115.78.230.192:59026',
+  host: 'https://office.stvg.vn:59066',
+  // host: 'https://office.stvg.vn:50002',
+
+  // host: 'http://115.78.230.192:59026',
 };
 
 /*

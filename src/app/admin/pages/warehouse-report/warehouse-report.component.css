@@ -25,11 +25,11 @@
 }
 
 ::ng-deep .dx-datagrid-header-panel .dx-toolbar {
-  margin: 0;
-  border-top: 1px solid #ddd;
+  /* margin: 0; */
+  /* border-top: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  padding: 5px;
+  padding: 5px;*/
 }
 
 

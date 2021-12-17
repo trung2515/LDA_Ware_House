@@ -31,10 +31,13 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { HeaderReportComponent } from './components/header-report/header-report.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
+import { BarCharComponent } from './pages/dashboard/components/bar-char/bar-char.component';
+import { LineCharComponent } from './pages/dashboard/components/line-char/line-char.component';
 import { PercelService } from './pages/parcel/parcel.service';
 import { CardComponent } from './pages/dashboard/component/card.component';
 import { ParcelComponent } from './pages/parcel/parcel.component';
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
+import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component';
 @NgModule({
   declarations: [
     ParcelComponent,
@@ -63,6 +66,9 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
     ShiftComponent,
     ConsignmentManagementComponent,
     HeaderReportComponent,
+    FilterBarDashboardComponent,
+    BarCharComponent,
+    LineCharComponent,
     DetailParcelGrid,
     BreadcrumbComponent,
     LoginComponent
@@ -70,6 +76,7 @@ import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

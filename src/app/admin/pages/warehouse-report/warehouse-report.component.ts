@@ -25,7 +25,6 @@ export class WarehouseReportComponent implements OnInit {
 
 
 
-
   disabledDates: Date[] = [];
   constructor(
     private excelService: ExcelService,

@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { CardInfo, ChartIn, ChartModel } from './component/model'
+import { DashboardService } from './dashboard.service';
+import { Component, OnInit } from '@angular/core';
+import {
+  Product,
+  TypeMachineModel,
+  FilterControllerModel,
+  paramChangeModel
+} from './models';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,134 +13,106 @@ import { CardInfo, ChartIn, ChartModel } from './component/model'
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  data: CardInfo[] = []
-  grossProductData: ChartModel[] = [
-    {
-      month: 'Jan',
-      In: 803,
-      Out: 823,
+  tabInfo: any[] = [];
+
+  // bar chart
+  dataSource: Product[] = [];
+  typeMachines: TypeMachineModel[] = [];
+
+  configCommon = {
+    borderTooltip: {
+      color: '#CBD3EE',
+      dashStyle: 'solid',
+      visible: true,
+      width: 1
     },
-    {
-      month: 'Feb',
-      In: 316,
-      Out: 332,
+    color: '#3459E6',
+    fontLegend: {
+      color: '#000000',
+      family: 'Roboto',
+      opacity: 1,
+      size: 16,
+      weight: 400
     },
-    {
-      month: 'Mar',
-      In: 452,
-      Out: 459,
-    },
-    {
-      month: 'Apr',
-      In: 621,
-      Out: 642,
-    },
-    {
-      month: 'May',
-      In: 290,
-      Out: 294,
-    },
-  ]
-  constructor() {}
+    fontTitle: {
+      color: '#000000',
+      family: 'Roboto',
+      opacity: 1,
+      size: 15,
+      weight: 400
+    }
+  };
+
+  configChart: any = {
+    ...this.configCommon,
+    color: '#3459E6',
+    chartLegend: 'Thống kê sản lượng đóng bao'
+  };
+  configChartDB: any = {
+    ...this.configCommon,
+    color: '#00A560',
+    chartLegend: 'Thống kê sản lượng tiêu thụ'
+  };
+  filterController: FilterControllerModel = {
+    product_name: 'Alumin 1 tấn',
+    year: String(new Date().getFullYear()),
+    month: String(new Date().getMonth() + 1),
+    dayAround: {
+      startDate: 1,
+      endDate: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        0
+      ).getDate()
+    }
+  };
+
+  constructor(dashboardService: DashboardService) {
+    this.dataSource = dashboardService.getData();
+    this.typeMachines = dashboardService.getTypeMachines();
+  }
 
   ngOnInit(): void {
-    this.data = [
+    this.tabInfo = [
       {
-        name: 'Nhập kho trong ngày',
-        value: '5,120',
-        image: '/assets/svg/upload.svg',
+        id: 1,
+        tabName: 'Thống kê sản lượng đóng bao - tiêu thụ'
       },
       {
-        name: 'Xuất kho trong ngày',
-        value: '2,560',
-        image: '/assets/svg/download.svg',
-      },
-      {
-        name: 'Đơn hàng trong ngày',
-        value: '120',
-        image: '/assets/svg/order.svg',
-      },
-    ]
+        id: 2,
+        tabName: 'Thống kê vận chuyển'
+      }
+    ];
   }
-
-  onPointClick(e: any) {
-    e.target.select()
+  onFilterChange(changeValue: any) {
+    this.filterController = {
+      ...this.filterController,
+      dayAround: {
+        startDate: changeValue[0],
+        endDate: changeValue[1]
+      }
+    };
   }
-
-  /** */
-  catBreeds: ChartIn[] = [
-    {
-      breed: 'Domestic Shorthair',
-      count: 61046,
-    },
-    {
-      breed: 'American Shorthair',
-      count: 37545,
-    },
-    {
-      breed: 'Domestic Medium Hair',
-      count: 16776,
-    },
-    {
-      breed: 'Domestic Long Hair',
-      count: 15049,
-    },
-    {
-      breed: 'Siamese',
-      count: 14582,
-    },
-    {
-      breed: 'Maine Coon',
-      count: 10852,
-    },
-    {
-      breed: 'Persian',
-      count: 6717,
-    },
-    {
-      breed: 'Russian Blue',
-      count: 3864,
-    },
-    {
-      breed: 'Himalayan',
-      count: 3701,
-    },
-    {
-      breed: 'Ragdoll',
-      count: 3567,
-    },
-    {
-      breed: 'Bengal',
-      count: 3118,
-    },
-    {
-      breed: 'Manx',
-      count: 2349,
-    },
-    {
-      breed: 'British Shorthair',
-      count: 2171,
-    },
-    {
-      breed: 'Norwegian Forest Cat',
-      count: 1827,
-    },
-    {
-      breed: 'Bombay',
-      count: 1580,
-    },
-  ]
-
-  pointClick(e: any) {
-    const point = e.target
-    if (point.isSelected()) {
-      point.clearSelection()
-    } else {
-      point.select()
+  onRadioFilterChange({ value, name }: paramChangeModel) {
+    switch (name) {
+      case 'year':
+        this.filterController = {
+          ...this.filterController,
+          year: value
+        };
+        break;
+      case 'month':
+        this.filterController = {
+          ...this.filterController,
+          month: value
+        };
+        break;
+      default:
+        this.filterController = {
+          ...this.filterController,
+          product_name: value
+        };
+        break;
     }
-  }
-
-  done(e: any) {
-    e.component.getSeriesByPos(0).getPointsByArg('Siamese')[0].select()
   }
 }
