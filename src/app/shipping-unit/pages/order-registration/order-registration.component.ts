@@ -19,82 +19,10 @@ export class OrderRegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   isAddingSuccessful: boolean = false;
   order_Code:string =''
-  orderFields: any = {
-    title: 'Thông tin đơn hàng',
-    fields: [
-      {
-        caption: 'Sản phẩm',
-        label: 'Sản phẩm',
-        controlName: 'order_name',
-        type: 'select'
-      },
-      {
-        caption: 'Loại bao',
-        label: 'Loại bao',
-        controlName: 'bagging_type',
-        type: 'select'
-      },
-      {
-        caption: 'Số lượng',
-        label: 'Số lượng',
-        controlName: 'qty',
-        type: 'input'
-      },
-      {
-        caption: 'Tên đơn vị vận chuyển',
-        label: 'Tên đơn vị vận chuyển ',
-        controlName: 'shipping_unit_name',
-        type: 'input'
-      },
-      {
-        caption: 'Lớp 1',
-        label: 'Lớp 1',
-        controlName: 'grade_1',
-        type: 'input'
-      },
-      {
-        caption: 'Lớp 2',
-        label: 'Lớp 2',
-        controlName: 'grade_2',
-        type: 'input'
-      }
-    ]
-  };
-  driverFields: any = {
-    title: 'Thông tin tài xế',
-    fields: [
-      {
-        caption: 'CCCD/CMND',
-        label: 'Số CCCD/CMND',
-        controlName: 'identity_card_num'
-      },
-      {
-        caption: 'Tên tài xế',
-        label: 'Tên tài xế: ',
-        controlName: 'driver_name'
-      },
-      {
-        caption: 'Số Rơ mooc',
-        label: 'Số Rơ mooc: ',
-        controlName: 'ro_mooc_number'
-      },
-      {
-        caption: 'Biển số xe',
-        label: 'Biển số xe: ',
-        controlName: 'number_plate'
-      },
-      {
-        caption: 'KL đăng kiểm',
-        label: 'KL đăng kiểm',
-        controlName: 'weight_registry'
-      },
-      {
-        caption: 'KL cho phép chở',
-        label: 'KL cho phép chở',
-        controlName: 'net_weight'
-      }
-    ]
-  };
+  product_options:any
+  bagging_type_options:any
+  orderFields: any = {}
+  driverFields: any = {}
   orderList: OrderModel[] = [];
   constructor(
     private _location: Location,
@@ -102,9 +30,89 @@ export class OrderRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.orderList = orderService.getOrderList();
+    this.product_options = orderService.getProduct_options();
+    this.bagging_type_options =  orderService.getBagging_type_options();
   }
 
   ngOnInit(): void {
+    this.orderFields = {
+      title: 'Thông tin đơn hàng',
+      fields: [
+        {
+          caption: 'Sản phẩm',
+          label: 'Sản phẩm',
+          controlName: 'order_name',
+          type: 'select',
+          options: this.product_options
+        },
+        {
+          caption: 'Loại bao',
+          label: 'Loại bao',
+          controlName: 'bagging_type',
+          type: 'select',
+          options: this.bagging_type_options
+        },
+        {
+          caption: 'Số lượng',
+          label: 'Số lượng',
+          controlName: 'qty',
+          type: 'input'
+        },
+        {
+          caption: 'Tên đơn vị vận chuyển',
+          label: 'Tên đơn vị vận chuyển ',
+          controlName: 'shipping_unit_name',
+          type: 'input'
+        },
+        {
+          caption: 'Lớp 1',
+          label: 'Lớp 1',
+          controlName: 'grade_1',
+          type: 'input'
+        },
+        {
+          caption: 'Lớp 2',
+          label: 'Lớp 2',
+          controlName: 'grade_2',
+          type: 'input'
+        }
+      ]
+    };
+    this.driverFields = {
+      title: 'Thông tin tài xế',
+      fields: [
+        {
+          caption: 'CCCD/CMND',
+          label: 'Số CCCD/CMND',
+          controlName: 'identity_card_num'
+        },
+        {
+          caption: 'Tên tài xế',
+          label: 'Tên tài xế: ',
+          controlName: 'driver_name'
+        },
+        {
+          caption: 'Số Rơ mooc',
+          label: 'Số Rơ mooc: ',
+          controlName: 'ro_mooc_number'
+        },
+        {
+          caption: 'Biển số xe',
+          label: 'Biển số xe: ',
+          controlName: 'number_plate'
+        },
+        {
+          caption: 'KL đăng kiểm',
+          label: 'KL đăng kiểm',
+          controlName: 'weight_registry'
+        },
+        {
+          caption: 'KL cho phép chở',
+          label: 'KL cho phép chở',
+          controlName: 'net_weight'
+        }
+      ]
+    };
     this.initializeForm();
   }
   initializeForm() {

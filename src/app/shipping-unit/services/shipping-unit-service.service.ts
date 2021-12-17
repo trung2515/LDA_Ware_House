@@ -49,5 +49,10 @@ export class ShippingUnitService {
   generateId(): string {
     return makeid(36);
   }
-
+  getProduct_options() {
+    return ['Alumin 1 tấn', 'Alumin 50kg', 'Hydrat 1 tấn', 'Hydrat 50kg']
+  }
+  getBagging_type_options() {
+    return ['Xả đáy 1 lần', 'Cải tạo', 'Đáy liền']
+  }
 }
