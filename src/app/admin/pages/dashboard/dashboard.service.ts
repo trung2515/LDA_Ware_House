@@ -15,14 +15,13 @@ function GenerateProductList(): Product[] {
     const strDate = now.getMonth() + 1 + '/' + i + '/' + now.getFullYear();
     let product: Product = {
       id: i + '',
-      name:
-        i % 2 === 0
-          ? 'Alumin 1 tấn'
-          : i % 3 === 0
+      name: i % 2 === 0
+        ? 'Alumin 1 tấn'
+        : i % 3 === 0
           ? 'Alumin 50kg'
           : i % 5 === 0
-          ? 'Hydrat 1 tấn'
-          : 'Hydrat 50kg',
+            ? 'Hydrat 1 tấn'
+            : 'Hydrat 50kg',
       date: strDate,
       packaging_qty: 1000 * i,
       amountConsumption: 800 * i,
@@ -48,7 +47,9 @@ function GenerateProductList(): Product[] {
 })
 export class DashboardService {
   getData(): Product[] {
+    console.log(GenerateProductList())
     return GenerateProductList();
+
   }
   getDataForLine(): any[] {
     for (var i = 0; i < 30; i++) {
