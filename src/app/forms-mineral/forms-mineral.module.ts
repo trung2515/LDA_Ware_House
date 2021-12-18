@@ -7,7 +7,6 @@ import { ItemFormComponent } from './component/item-form/item-form.component'
 import { ToolPageComponent } from './pages/tool-page/tool-page.component'
 import { FormsMineralComponent } from './forms.component'
 import { FormsService } from './services/forms-service.service'
-import { FormsModule } from '@angular/forms';
 import { PageMinutesComponent } from './pages/tool-page/page-minutes/page-minutes.component';
 import { TypeMinutesComponent } from './pages/tool-page/type-minutes/type-minutes.component';
 import { TableMinutesComponent } from './pages/tool-page/page-minutes/table-minutes/table-minutes.component';
@@ -16,10 +15,8 @@ import { PageMinutesSuggestComponent } from './pages/tool-page/page-minutes-sugg
   declarations: [ItemFormComponent, ToolPageComponent, FormsMineralComponent, PageMinutesComponent, TypeMinutesComponent, TableMinutesComponent, PageMinutesSuggestComponent],
   imports: [
     CommonModule,
-    FormsModule,
     FormsMineralRoutingModule,
     SharedModule,
-    FormsModule
   ],
   providers: [FormsService],
 })

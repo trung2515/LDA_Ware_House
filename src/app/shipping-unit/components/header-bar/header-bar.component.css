@@ -1,0 +1,31 @@
+.header {
+  background-color: #3459e6;
+  height: calc(var(--heightHeader) + 16px);
+}
+.header-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.header-bar span {
+  color: #fff;
+  margin-left: 16px;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+}
+.arrow-back {
+  width: 9px;
+  cursor: pointer;
+}
+
+/* mobile */
+@media only screen and (max-width: 37.5rem) {
+  .header-bar {
+    padding-left: 24px
+  }
+  .header-bar span {
+    font-size: 20px;
+  }
+}
+

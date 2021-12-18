@@ -23,6 +23,8 @@ export class ConsumptionReportComponent implements OnInit {
   title_nav: string = 'Nhập xuất tồn sản phẩm';
 
   detailInputOutputReport: any;
+  pipotParcelReport: any;
+
   detailImExInventoryReport: any;
 
   filterControl: FilterModel = {
@@ -98,6 +100,58 @@ export class ConsumptionReportComponent implements OnInit {
         }
       })
     });
+
+
+    this.pipotParcelReport = new PivotGridDataSource({
+      fields: [
+        {
+          dataField: 'date',
+          caption: 'Ngay',
+          headerFilter: {
+            allowSearch: true
+          },
+          area: 'row',
+          expanded: true
+        },
+        {
+          dataField: 'name',
+          caption: 'Sản phẩm',
+          area: 'column',
+          expanded: true
+        },
+        {
+          dataField: 'type_bag',
+          caption: 'Loại bao',
+          area: 'column',
+          expanded: true
+        },
+        {
+          caption: 'Loại phiếu',
+          dataField: 'ballot_type',
+          area: 'column',
+          expanded: true
+
+        },
+        {
+          dataField: 'consignments_number',
+          caption: 'Lo',
+          area: 'column',
+          expanded: true
+        },
+        {
+          caption: 'Số bao',
+          dataField: 'bag_number',
+          summaryType: 'sum',
+          area: 'data'
+        }
+      ],
+      store: new CustomStore({
+        load: LoadOptions => {
+          return this.statistics_copy;
+        }
+      })
+    });
+
     this.detailImExInventoryReport = new PivotGridDataSource({
       fields: [
         {
@@ -169,6 +223,10 @@ export class ConsumptionReportComponent implements OnInit {
       {
         id: 3,
         tabName: 'Báo cáo nhập xuất tồn sản phẩm'
+      },
+      {
+        id: 4,
+        tabName: 'Báo cáo Pipot Lo NDM'
       }
     ];
   }

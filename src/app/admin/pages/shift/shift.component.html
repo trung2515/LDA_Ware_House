@@ -3,7 +3,7 @@
 
 
   <div >
-  
+
     <dx-scheduler [dataSource]="appointments" [views]="['']" currentView="month"
       [currentDate]="currentDate" [height]="600" [firstDayOfWeek]="1"
       (onAppointmentFormOpening)="onAppointmentFormOpening($event)">
@@ -13,7 +13,7 @@
 
     <dx-popup [width]="988" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
       [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="showPopup">
-      
+
       <div *dxTemplate="let data of 'content'" class="d-flex flex-column">
         <div style="width:100%" class="p-4">
           <div class="row d-flex align-items-center px-3" style="background-color: #EEF1F9;height: 48px;margin-bottom: 10px;">
@@ -33,7 +33,7 @@
             [dataSource]="shiftDetail"
             [showBorders]="true"
           >
-          
+
           <dxi-column dataField="option" caption="Option">
             <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
             </dxo-lookup>
@@ -42,7 +42,7 @@
             <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="name">
             </dxo-lookup>
           </dxi-column>
-     
+
           <dxi-column dataField="product" caption="Sản phẩm" >
             <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="name">
             </dxo-lookup>
@@ -67,12 +67,13 @@
             <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
             </dxo-lookup>
           </dxi-column>
-        
+
           <dxo-editing
           mode="popup"
           [allowUpdating]="true"
           [allowAdding]="true"
           [allowDeleting]="true"
+          [useIcons]="true"
         >
           <dxo-popup
             title="Thêm mới option "
@@ -92,7 +93,7 @@
               <dxi-item dataField="unit" caption="Đơn vị đóng" ></dxi-item>
               <dxi-item dataField="wareHouse" caption="kho" ></dxi-item>
             </dxi-item>
-          </dxo-form>        
+          </dxo-form>
         </dxo-editing>
         </dx-data-grid>
          </div>
@@ -102,7 +103,7 @@
           <button class="btn btn-light text-dark me-3 " (click)="closePop()">Đóng</button>
           <button class="btn text-white" *ngIf='!showUpdateButton' style="background-color:#3459E6;" (click)="addShiftData()">Lưu thay đổi</button>
           <button class="btn text-white" *ngIf='showUpdateButton' style="background-color:#3459E6;" (click)="updateShiftData()">Lưu thay đổi</button>
-        </div> 
+        </div>
       </div>
 
     </dx-popup>
