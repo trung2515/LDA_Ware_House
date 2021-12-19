@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm fixed-top p-0 bg-primary" style=" height: 64px;">
-  <div class="mainCol d-flex">
+  <div class="container-fluid d-flex">
     <ul class="navbar-nav mr-auto">
       <li *ngFor="let menu of parentMenu" class="nav-item dropdown">
         <a *ngIf="menu.parentId == -1" class="nav-link" [routerLink]="menu.link" aria-haspopup="true"

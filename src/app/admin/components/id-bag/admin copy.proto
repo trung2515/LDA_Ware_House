@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "model.proto";
+import "Protos/model.proto";
 option csharp_namespace = "MineralInventory";
 
 package client;
@@ -89,7 +89,7 @@ service Administrator {
     rpc DeletePeople(PeopleInfo) returns (Response);
 
 
-  
+    rpc GerReportInportExport(MasterRequest) returns (CardDetailResponse);
 
 }
 service WareHouse {
@@ -140,6 +140,6 @@ service Card
 
 service Report
 {
-rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
-rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
+rpc GetReportVolConsumtion (MasterRequest) returns (ReportVolConsumtionResponse);
+rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse);
 }

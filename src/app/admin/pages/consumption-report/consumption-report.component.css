@@ -16,12 +16,12 @@
   margin: 8px 0 20px 0;
 }
 /* filter bar */
-.filter-bar{
+.filter-bar {
   display: flex;
   justify-content: space-between;
 }
 /* select date */
-.start-end-date-wrap{
+.start-end-date-wrap {
   display: flex;
   margin: 20px 0;
 }
@@ -31,41 +31,41 @@
 .field-value:first-child {
   padding-right: 20px;
 }
-.field-value p{
+.field-value p {
   position: absolute;
   margin-top: 0;
   top: -22px;
   font-weight: 400;
   font-size: 13px;
-  color: #6B6B6B;
+  color: #6b6b6b;
   line-height: 15.23px;
 }
-.search-wrap{
+.search-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .xlsx {
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
   border-radius: 4px;
   position: relative;
   padding: 7.8px 9px;
 }
-.form-group{
-  border: 1px solid #CED4DA;
+.form-group {
+  border: 1px solid #ced4da;
   border-radius: 4px;
   position: relative;
-  margin-bottom:0;
+  margin-bottom: 0;
   margin-left: 5px;
 }
-.input-control{
+.input-control {
   border: 0;
   outline: none;
   height: 100%;
   padding: 12px 15px;
   margin-left: 30px;
 }
-.form-group img{
+.form-group img {
   position: absolute;
   top: 50%;
   left: 16.5px;
@@ -100,9 +100,10 @@
 /* tab content */
 ::ng-deep #production_table {
   padding-bottom: 15px;
+  padding-top: 10px;
 }
 ::ng-deep .tabpanel-item {
-  max-height: calc(100vh - 300px);
+  /* max-height: calc(100vh - 300px);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -110,7 +111,7 @@
   -ms-user-select: none;
   user-select: none;
   padding-left: 16px;
-  padding-top: 16px;
+  padding-top: 16px; */
 }
 
 ::ng-deep .mobile .tabpanel-item {

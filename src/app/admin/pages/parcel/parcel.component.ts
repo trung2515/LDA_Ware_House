@@ -24,10 +24,10 @@ export class ParcelComponent implements OnInit {
   saveButtonOptions: any
   closeButtonOptions: any
   ngOnInit(): void {
-    this.parcelService.getListPercel().subscribe(
-      (data) => (this.parcelList = data!),
-      (err) => console.log(err),
-    )
+    // this.parcelService.getListPercel().subscribe(
+    //   (data) => (this.parcelList = data!),
+    //   (err) => console.log(err),
+    // )
     this.saveButtonOptions = {
       text: 'Lưu thay đổi',
       onClick(e: any) {

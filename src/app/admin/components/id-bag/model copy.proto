@@ -566,39 +566,4 @@ message OrderResponse
    OrderInfo order = 1;
    Response response = 2;
 }
-message TransportInfo
-{
-    string createddate = 1;
-    string codeProduct = 2;
-    int32 idTypeProduct = 3;
-    string codeTypePacket = 4;
-    string codeWork= 5;
-    string codeWareHouseload = 6;
-    string codeWareHouseUnload = 7;
-    string  codeEquipmentLoad = 8;
-    string codeEquipmentUnLoad = 9;
-
-    string nameProduct = 10;
-    string nameTypeProduct = 11;
-    string nameTypePacket = 12;
-    string nameWork = 13;
-    string nameWareHouseLoad = 14;
-    string nameWareHouseUnLoad = 15;
-    string nameEquipmentLoad = 16;
-    string nameEquipmentUnLoad = 17;
-
-    int32 quantity = 18;
-    int32 weight = 19;
-    int32 distance = 20;
-
-    string createdPerson = 21;
-    string nameCreatedPerson = 22;
-    int32 CountTrip = 23;
-}
-message TransportResponse
-{
-     Response response = 1;
-    repeated TransportInfo data = 2;
-}
-
  

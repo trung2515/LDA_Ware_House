@@ -11,6 +11,7 @@ import {
 } from './models/admin.pbconf';
 import { AdminService } from './services/admin.service';
 import { AuthService } from './services/auth.service';
+import { ReportService } from './services/report.service';
 @NgModule({
   imports: [
     GrpcCoreModule.forRoot(),
@@ -21,6 +22,7 @@ import { AuthService } from './services/auth.service';
   providers: [
     AdminService,
     AuthService,
+    ReportService,
     { provide: GRPC_CLIENT_FACTORY, useClass: GrpcWebClientFactory },
     {
       provide: GRPC_ADMINISTRATOR_CLIENT_SETTINGS,

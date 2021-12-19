@@ -10,7 +10,7 @@ function generateStatistical(): ProductionStatisticalModel[] {
     const now = new Date();
     const strDate = (now.getMonth() + 1) + '/' + (now.getDate() + i) + '/' + now.getFullYear()
     let productionStatistic: ProductionStatisticalModel = {
-      shiftID: i,
+      shiftID: i.toString(),
       date: strDate,
       name: 'Alumin 1' ,//'Alumin '+ (i / 2) + ' tấn',
       type_product: i % 2 === 0 ? 1 : 2,

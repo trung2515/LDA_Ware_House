@@ -5,9 +5,10 @@
   <div >
 
     <dx-scheduler [dataSource]="appointments" [views]="['']" currentView="month"
-      [currentDate]="currentDate" [height]="600" [firstDayOfWeek]="1"
-      (onAppointmentFormOpening)="onAppointmentFormOpening($event)">
-      <dxi-resource fieldExpr="shift" label="Ca" [dataSource]="resources">
+      [currentDate]="currentDate" [height]="700" [firstDayOfWeek]="0" 
+      (onAppointmentFormOpening)="onAppointmentFormOpening($event)" 
+      >
+      <dxi-resource fieldExpr="shift" label="Ca" [dataSource]="resources" >
       </dxi-resource>
     </dx-scheduler>
 

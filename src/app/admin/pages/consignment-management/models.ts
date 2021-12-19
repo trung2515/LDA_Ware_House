@@ -1,3 +1,4 @@
+import { ParcelInfo } from "src/app/core/models/model.pb";
 
 export class ParcelDetailModel {
 
@@ -7,7 +8,11 @@ export class ParcelModel {
   name: string = '';
   date: string = ''
   products : ParcelDetailModel[] = []
-
+  constructor(data: ParcelInfo){
+    this.id = data.idParcel
+    this.name = data.codeParcel
+    this.date = data.createdDate
+  }
 }
 
 export class InputProductModel {

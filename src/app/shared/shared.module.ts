@@ -44,9 +44,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     TabsModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({
-      positionClass: "bottom-right"
-    }),
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),

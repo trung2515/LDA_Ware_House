@@ -12,6 +12,14 @@
   max-width: 235px;
 }
 
+.tabpanel-item{
+  padding-bottom: 10px;
+}
+
+.content{
+  padding-bottom: 50px;
+}
+
 
 
 /* hidden arrow on left of item table */
@@ -25,9 +33,9 @@
 ::ng-deep .dx-pivotgrid .dx-pivotgrid-collapsed .dx-expand::before {
   display: none;
 }
-
+/* 
 ::ng-deep .dx-toolbar-after .dx-toolbar-item:first-child {
   position: relative;
   top: 4px;
   right: 5px;
-}
+} */

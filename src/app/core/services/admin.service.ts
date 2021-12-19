@@ -166,66 +166,66 @@ export class AdminService {
     )
   }
 
-  getListCodePacket() {
-    let req: MasterRequest = new MasterRequest()
-    return this.administratorClient.getListCodePacket(req).pipe(
-      map((reply: CodePacketResponse) => {
-        console.log(reply)
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      }),
-    )
-  }
-  insertCodePacket(
-    codePacket: any,
-    nameProductPacket: any,
-    unit: any,
-    idTypePacket: any,
-    description: any,
-  ) {
-    let req: CodePacketInfo = new CodePacketInfo()
-    req.codePacket = codePacket
-    req.nameProductPacket = nameProductPacket
-    req.unit = unit
-    req.idTypePacket = idTypePacket
-    req.description = description
-    return this.administratorClient.insertCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply
-      }),
-    )
-  }
-  updateCodePacket(
-    id: any,
-    codePacket: any,
-    nameProductPacket: any,
-    unit: any,
-    idTypePacket: any,
-    description: any,
-  ) {
-    let req: CodePacketInfo = new CodePacketInfo()
-    req.id = id
-    req.codePacket = codePacket
-    req.nameProductPacket = nameProductPacket
-    req.unit = unit
-    req.idTypePacket = idTypePacket
-    req.description = description
-    return this.administratorClient.updateCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply
-      }),
-    )
-  }
-  deleteCodePacket(id: any) {
-    let req: CodePacketInfo = new CodePacketInfo()
-    req.id = id
-    return this.administratorClient.deleteCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply
-      }),
-    )
-  }
+  // getListCodePacket() {
+  //   let req: MasterRequest = new MasterRequest()
+  //   return this.administratorClient.getListCodePacket(req).pipe(
+  //     map((reply: CodePacketResponse) => {
+  //       console.log(reply)
+  //       if (reply.response?.state == ResponseState.SUCCESS) {
+  //         return reply.data
+  //       } else return []
+  //     }),
+  //   )
+  // }
+  // insertCodePacket(
+  //   codePacket: any,
+  //   nameProductPacket: any,
+  //   unit: any,
+  //   idTypePacket: any,
+  //   description: any,
+  // ) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.codePacket = codePacket
+  //   req.nameProductPacket = nameProductPacket
+  //   req.unit = unit
+  //   req.idTypePacket = idTypePacket
+  //   req.description = description
+  //   return this.administratorClient.insertCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
+  // updateCodePacket(
+  //   id: any,
+  //   codePacket: any,
+  //   nameProductPacket: any,
+  //   unit: any,
+  //   idTypePacket: any,
+  //   description: any,
+  // ) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.id = id
+  //   req.codePacket = codePacket
+  //   req.nameProductPacket = nameProductPacket
+  //   req.unit = unit
+  //   req.idTypePacket = idTypePacket
+  //   req.description = description
+  //   return this.administratorClient.updateCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
+  // deleteCodePacket(id: any) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.id = id
+  //   return this.administratorClient.deleteCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
 
   getListWareHouse() {
     let req: MasterRequest = new MasterRequest()
@@ -581,17 +581,17 @@ export class AdminService {
     )
   }
 
-  getListShift() {
-    let req: MasterRequest = new MasterRequest()
-    return this.warehouseClient.getListShift(req).pipe(
-      map((reply: ShiftResponse) => {
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          console.log('shift', reply.data)
-          return reply.data
-        } else return []
-      }),
-    )
-  }
+  // getListShift() {
+  //   let req: MasterRequest = new MasterRequest()
+  //   return this.warehouseClient.getListShiftByDate(req).pipe(
+  //     map((reply: ShiftResponse) => {
+  //       if (reply.response?.state == ResponseState.SUCCESS) {
+  //         console.log('shift', reply.data)
+  //         return reply.data
+  //       } else return []
+  //     }),
+  //   )
+  // }
 
   newInsertShift(
     date: any,
@@ -602,7 +602,7 @@ export class AdminService {
     let req: InsertShiftRequest = new InsertShiftRequest()
     req.date = date
     req.nameShift = nameShift
-    req.createPerson = createPerson
+    req.createdPerson = createPerson
     req.data = []
 
     req.data = arrOption.map((item: any) => new ShiftDetailInfo(item))
@@ -629,9 +629,10 @@ export class AdminService {
     )
   }
 
-  getListShiftDetail(idShift: any) {
+  getListShiftDetail(fromDate: string, toDate: string) {
     let req: MasterRequest = new MasterRequest()
-    req.idShift = idShift
+    req.fromDate = fromDate
+    req.toDate = toDate
     return this.warehouseClient.getListShiftDetail(req).pipe(
       map((reply: ShiftDetailResponse) => {
         if (reply.response?.state == ResponseState.SUCCESS) {
