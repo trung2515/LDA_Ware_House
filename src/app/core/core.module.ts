@@ -1,3 +1,4 @@
+import { WareHouseService } from './services/warehouse.service';
 import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core';
 import {
   GrpcCoreModule,
@@ -23,6 +24,7 @@ import { ReportService } from './services/report.service';
     AdminService,
     AuthService,
     ReportService,
+    WareHouseService,
     { provide: GRPC_CLIENT_FACTORY, useClass: GrpcWebClientFactory },
     {
       provide: GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
