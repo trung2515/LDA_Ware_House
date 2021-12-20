@@ -1,0 +1,60 @@
+.item-wrap {
+  font-family: 'Roboto';
+  border: 1px solid #CBD3EE;
+  border-radius: 5px;
+  padding: 16px 0;
+  cursor: pointer;
+}
+.item-wrap:hover {
+  -webkit-box-shadow: 0px 0px 12px 4px rgb(0 0 0 / 12%);
+  box-shadow: 0px 0px 12px 4px rgb(0 0 0 / 12%);
+}
+
+.item-head {
+    padding: 2px 16px 4px;
+    border-bottom: 1px solid #CBD3EE;
+}
+.item-content {
+  padding: 16px;
+}
+.option-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #000000;
+}
+.option-info {
+  background-color: #EEF1F9;
+  padding: 8px 4px;
+  margin: 0 2px;
+}
+.shift-info {
+  padding-left: 4px;
+}
+
+.shift-label {
+  font-size: 13px;
+  line-height: 24px;
+  color: #4E4E4E;
+}
+.shift-value {
+  font-size: 15px;
+  color: #000000;
+  line-height: 18px;
+}
+.machine-list {
+  margin: 8px 0;
+}
+.machine-item {
+  padding-left: 8px;
+}
+.machine-label {
+  font-size: 13px;
+  line-height: 24px;
+  color: #4E4E4E;
+}
+.machine-value {
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+}

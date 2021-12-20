@@ -45,22 +45,7 @@
             {{ optionItem.product }} - Loại {{ optionItem.productRange }} -
             {{ optionItem.packaging }}</span
           >
-          <div class="d-none d-lg-inline-block">
-            <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
-              >Nhập đóng mới</span
-            >
-            <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
-              >Nhập đóng lại</span
-            >
-          </div>
-          <div  class="d-lg-none d-inline-block">
-            <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
-              >NDM</span
-            >
-            <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
-              >NDL</span
-            >
-          </div>
+          <app-option-status [type]="optionItem.type"></app-option-status>
         </div>
         <div class="option-location-info row d-none d-lg-flex">
           <div class="col-lg-4">

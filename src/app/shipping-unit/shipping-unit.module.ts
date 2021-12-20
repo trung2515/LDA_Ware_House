@@ -11,6 +11,8 @@ import { AddPackagingOneComponent } from './pages/add-packaging-one/add-packagin
 import { EditingPackagingInfoComponent } from './pages/editing-packaging-info/editing-packaging-info.component';
 import { ListTypeOneComponent } from './pages/list-type-one/list-type-one.component';
 import { ListTypeFiftyComponent } from './pages/list-type-fifty/list-type-fifty.component';
+import { OptionStatusComponent } from './components/option-status/option-status.component';
+import { OptionItemComponent } from './components/option-item/option-item.component';
 @NgModule({
   declarations: [
     ShippingUnitComponent,
@@ -19,7 +21,9 @@ import { ListTypeFiftyComponent } from './pages/list-type-fifty/list-type-fifty.
     AddPackagingFiftyComponent,
     EditingPackagingInfoComponent,
     ListTypeOneComponent,
-    ListTypeFiftyComponent
+    ListTypeFiftyComponent,
+    OptionStatusComponent,
+    OptionItemComponent
   ],
   imports: [
     CommonModule,

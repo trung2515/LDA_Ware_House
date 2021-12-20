@@ -1,1 +1,65 @@
-<p>add-packaging-fifty works!</p>
+<div class="wrapper">
+  <app-header-bar
+    (onBackClicked)="onBackClicked()"
+    [title]="title"
+  ></app-header-bar>
+  <div class="content mainCol">
+    <h4 class="title-info">Ca làm việc</h4>
+    <div class="select-group row">
+      <div class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Ngày</label>
+        <dx-date-box
+          [(value)]="now"
+          type="date"
+          (onValueChanged)="onDateValueChanged($event)"
+        ></dx-date-box>
+      </div>
+      <div class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Ca làm việc</label>
+        <dx-select-box
+          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [(value)]="ca_no_option"
+          hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectShiftChange($event)"
+        ></dx-select-box>
+      </div>
+    </div>
+    <h4 class="title-info">Số lượng máy đóng bao</h4>
+
+    <div class="product-list">
+      <div class="row product-item">
+        <div class="col-lg-3 col-12 field-item">
+          <div class="field-label">Sản phẩm:</div>
+          <div class="field-control">
+            input
+          </div>
+        </div>
+        <div class="col-lg-3 col-12 field-item">
+          <div class="field-label">Sản phẩm:</div>
+          <div class="field-control">
+            input
+          </div>
+        </div>
+        <div class="col-lg-3 col-12 field-item">
+          <div class="field-label">Sản phẩm:</div>
+          <div class="field-control">
+            input
+          </div>
+        </div>
+        <div class="col-lg-3 col-12 field-item">
+          <div class="field-label">Sản phẩm:</div>
+          <div class="field-control">
+            input
+          </div>
+        </div>
+        <div class="col-lg-3 col-12 filed-item">
+          <div class="field-label">Sản phẩm:</div>
+          <div class="filed-control">
+            input
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
