@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('/admin').catch(e =>
                 this.toastr.warning('Ban khong co quyen truy cap he thong'))
             } else if (user.role == 22) {
-              this.router.navigateByUrl('/shipper').catch(e =>
+              this.router.navigateByUrl('/order').catch(e =>
                 this.toastr.warning('Ban khong co quyen truy cap he thong'))
             }
 

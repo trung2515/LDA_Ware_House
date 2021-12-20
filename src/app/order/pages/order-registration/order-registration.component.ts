@@ -1,4 +1,4 @@
-import { ShippingUnitService } from './../../services/shipping-unit-service.service';
+import { ShippingUnitService } from '../../../shipping-unit/services/shipping-unit-service.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { OrderModel } from '../../models/shipping-model';
+import { OrderModel } from '../../../shipping-unit/models/shipping-model';
 
 @Component({
   selector: 'app-order-registration',
