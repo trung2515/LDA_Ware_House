@@ -1,4 +1,4 @@
-import { InventoryModel } from './../../warehouse-inventory/model';
+import { InventoryModel } from '../model';
 import { ReportService } from 'src/app/core/services/report.service';
 import { Component, OnInit } from '@angular/core';
 @Component(

@@ -1,10 +1,11 @@
+import { WareHouseService } from './../../../core/services/warehouse.service';
+import { AdminService } from 'src/app/core/services/admin.service';
 import { tryEqualsArr } from './../../../utils/helper';
-import { InputProductModel, ParcelModel } from './models';
+import { InputProductModel, ParcelDetailModel, ParcelModel } from './models';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsignmentService } from 'src/app/admin/pages/consignment-management/consignment.service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PercelService } from '../parcel/parcel.service';
 import Utils from 'src/app/_lib/utils';
 
 @Component({
@@ -21,6 +22,17 @@ export class ConsignmentManagementComponent implements OnInit {
   ConsignmentWithTimeLine: any = []
 
   consignments: ParcelModel[] = []
+
+  products: any = [
+    {
+      name: 'Alumin 50Kg',
+      code: 'AO50KG'
+    },
+    {
+      name: 'Alumin 1 Tan',
+      code: 'AO1T'
+    }
+  ]
   // name type type_bag
   infoSelection: any =
     {
@@ -45,6 +57,8 @@ export class ConsignmentManagementComponent implements OnInit {
   saveReplace: any;
   currentConsignment: any = {}
 
+  consigmentDetail: ParcelDetailModel[] = []
+
   // popup addNew
   popupCreatorTitle: string = 'Thêm mới lô hàng'
   popupCreatorVisible: boolean = false
@@ -61,10 +75,12 @@ export class ConsignmentManagementComponent implements OnInit {
     this.popupCreatorVisible = true;
     this.inputProductPopupCreator = []
   }
-  showInfo(consignment: any) {
+  showInfo(consignment: ParcelModel) {
     this.popupVisible = true;
     this.popupTitle = `Chi tiết đơn hàng #${consignment.id}`
-
+    this.warehouseService.getListParcelDetailByCode(consignment.name).subscribe(data => {
+      this.consigmentDetail = data.map(d => new ParcelDetailModel(d))
+    })
     this.currentConsignment = { ...consignment }
     this.currentProducts = [...this.currentConsignment.products]
   }
@@ -86,7 +102,6 @@ export class ConsignmentManagementComponent implements OnInit {
         products: [...this.inputProductPopupCreator]
       }
       this.consignments.push(newConsignment)
-      this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
     }
   }
 
@@ -94,20 +109,21 @@ export class ConsignmentManagementComponent implements OnInit {
 
 
   constructor(private consignmentService: ConsignmentService,
-    private formBuilder: FormBuilder, private parcelService: PercelService) {
+    private warehouseService: WareHouseService,
+    private formBuilder: FormBuilder) {
 
     const that = this;
-    that.consignments = consignmentService.getConsignment()
+    // that.consignments = consignmentService.getConsignment()
 
-    this.onClickCancel = this.onClickCancel.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
+    // this.onClickCancel = this.onClickCancel.bind(this);
+    // this.onClickSave = this.onClickSave.bind(this);
 
 
-    this.onClosePopupPr = this.onClosePopupPr.bind(this);
-    this.onSaveReplace = this.onSaveReplace.bind(this);
+    // this.onClosePopupPr = this.onClosePopupPr.bind(this);
+    // this.onSaveReplace = this.onSaveReplace.bind(this);
 
-    this.onConfirm = this.onConfirm.bind(this);
-    this.onCloseConfirm = this.onCloseConfirm.bind(this)
+    // this.onConfirm = this.onConfirm.bind(this);
+    // this.onCloseConfirm = this.onCloseConfirm.bind(this)
 
     that.closePopupCreator = {
       text: 'Đóng',
@@ -136,16 +152,18 @@ export class ConsignmentManagementComponent implements OnInit {
         ])
       ]
     })
+
+    this.getData(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1)
   }
 
   getData(year: number, month: number) {
     var date = new Date(year, month, 1)
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-    this.parcelService.getListPercel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
+    this.warehouseService.getListParcel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
       this.consignments = data.map(d => new ParcelModel(d))
       console.log(this.consignments)
-      this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
+      // this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
     })
   }
   onSubmit(): void {
@@ -195,59 +213,15 @@ export class ConsignmentManagementComponent implements OnInit {
     this.dataGrid.instance.cancelEditData();
   }
   onFilterChange(e: any) {
-    if (e.target.value)
-      this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, '2021', Number(e.target.value))
+
   }
   //handle dx-date-box change event
   onValueChanged(e: any) {
     const year = (new Date(e.value)).getFullYear()
     const month = e.value.getMonth() + 1
-
-    this.getData(month, year)
-
-    // this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, String(year))
+    this.getData(year, month)
   }
-  getConsignmentListByTImeLine(consignments: any, yearSelect?: string, keyWords?: number) {
-    const currentYear = new Date().getFullYear()
-    let output = []
-    let monthYear = ''
 
-    if (!keyWords) {
-      for (let i = 1; i > -2; i--) {
-        monthYear = (new Date().getMonth() + i) + '/' + (yearSelect || currentYear)
-        const result = consignments.filter((consignment: any) => {
-          const created_at = new Date(consignment.date)
-          let stringDate = (created_at.getMonth() + 1) + '/' + created_at.getFullYear()
-          return stringDate === monthYear
-        })
-        output.push({
-          time_line: monthYear,
-          consignments: [...result],
-        })
-      }
-      return output
-    }
-    for (let i = 1; i > -2; i--) {
-      monthYear = (new Date().getMonth() + i) + '/' + (yearSelect || currentYear)
-      const result = consignments.filter((consignment: any) => {
-        const created_at = new Date(consignment.date)
-        let stringDate = (created_at.getMonth() + 1) + '/' + created_at.getFullYear()
-        return (stringDate === monthYear) && consignment.id === keyWords
-      })
-      output.push({
-        time_line: monthYear,
-        consignments: [...result],
-      })
-    }
-    return output
-  }
-  getConsignInThreeMonthRecently(consignments: any, yearSelect?: string, keyWords?: number) {
-    if (keyWords) {
-      return this.getConsignmentListByTImeLine(consignments, yearSelect, keyWords)
-    }
-    return this.getConsignmentListByTImeLine(consignments, yearSelect)
-  }
-  // check 2 arrays are same
 
 }
 

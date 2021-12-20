@@ -1,4 +1,3 @@
-import { DetailParcelGrid } from './pages/parcel/component/detail-parcel-grid.component';
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -32,17 +31,14 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { BarCharComponent } from './pages/dashboard/components/bar-char/bar-char.component';
 import { LineCharComponent } from './pages/dashboard/components/line-char/line-char.component';
-import { PercelService } from './pages/parcel/parcel.service';
 import { CardComponent } from './pages/dashboard/component/card.component';
-import { ParcelComponent } from './pages/parcel/parcel.component';
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
 import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component';
 import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component';
 import { ShiftService } from './pages/shift/services/shift.service';
-import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/warehouse-inventory.component';
+import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component';
 @NgModule({
   declarations: [
-    ParcelComponent,
     AdminLayoutComponent,
     NavbarComponent,
     FooterComponent,
@@ -71,7 +67,6 @@ import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/
     FilterBarDashboardComponent,
     BarCharComponent,
     LineCharComponent,
-    DetailParcelGrid,
     BreadcrumbComponent,
     MenuConfirmComponent,
     WareHouseInventoryComponent
@@ -84,6 +79,6 @@ import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/
     ReactiveFormsModule,
     SharedModule,
   ],
-  providers: [PercelService, ShiftService],
+  providers: [ShiftService],
 })
 export class AdminModule { }

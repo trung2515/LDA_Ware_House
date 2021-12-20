@@ -23,9 +23,8 @@ import { JobComponent } from './components/job/job.component';
 import { ReasonComponent } from './components/reason/reason.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
-import { ParcelComponent } from './pages/parcel/parcel.component';
 import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component';
-import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/warehouse-inventory.component';
+import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component';
 
 ReasonComponent;
 JobComponent;

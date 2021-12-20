@@ -43,7 +43,7 @@ export class AdminService {
     private administratorClient: AdministratorClient,
     private warehouseClient: WareHouseClient,
     private authService: AuthService
-  ) {}
+  ) { }
 
   getListProduct() {
     let req: MasterRequest = new MasterRequest()
@@ -303,7 +303,7 @@ export class AdminService {
     )
   }
 
-  getMasterData(){
+  getMasterData() {
     let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypePartner(req).pipe(
       map((reply: MasterDataResponse) => {
@@ -646,15 +646,5 @@ export class AdminService {
     )
   }
 
-  getListParcel() {
-    let req: MasterRequest = new MasterRequest()
-    return this.warehouseClient.getListParcel(req).pipe(
-      map((reply: ParcelResponse) => {
-        console.log(reply)
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      }),
-    )
-  }
+
 }
