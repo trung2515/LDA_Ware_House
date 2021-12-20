@@ -1,3 +1,4 @@
+import { ReportInventoryResponse } from './../models/model.pb';
 import { Injectable } from '@angular/core'
 import { map } from 'rxjs/operators'
 import { AdministratorClient, ReportClient } from '../models/admin.pbsc'
@@ -31,6 +32,17 @@ export class ReportService {
     request.userName = 'stvg'
     return this.reportClient.getReportTransport(request).pipe(
       map((reply: TransportResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportWarehouse(){
+    let request: MasterRequest = new MasterRequest()
+    request.userName = 'stvg'
+    return this.reportClient.getReportInventory(request).pipe(
+      map((reply: ReportInventoryResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),

@@ -19,7 +19,7 @@ import {
   styleUrls: ['./add-packaging-one.component.css']
 })
 export class AddPackagingOneComponent implements OnInit {
-  popupVisible: Boolean = false;
+  popupVisible: boolean = false;
   now: Date = new Date();
   ca_no_option: string = 'Ca 1';
   appointments: Appointment[] = [];
@@ -114,7 +114,7 @@ export class AddPackagingOneComponent implements OnInit {
       }
     }
   }
-  handleAddNewShiftDetail(index:number) {
+  handleAddNewShiftDetail(index: number) {
     this.setNewAppointment(
       this.currentAppointment.shiftDetail[0],
       this.qtyMachinesPackaging_1
@@ -180,7 +180,7 @@ export class AddPackagingOneComponent implements OnInit {
   }
   getCurrentDateDMY(date: Date): string {
     return (
-      date.getDate()  + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+      date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     );
   }
   getCurrentShift(ca_option: string) {

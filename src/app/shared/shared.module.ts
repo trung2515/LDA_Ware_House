@@ -43,7 +43,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
       positionClass: 'toast-bottom-right',
     }),
     TabsModule.forRoot(),
-    FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
@@ -53,7 +52,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     NgxLocalStorageModule.forRoot(),
     NgxDropzoneModule,
     DxPivotGridModule,
-    DxDateBoxModule,
     DxDataGridModule,
     DxChartModule,
     DxSelectBoxModule,
@@ -76,7 +74,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
 
   exports: [
     TabsModule,
-    DxRangeSelectorModule,
     FormsModule,
     ReactiveFormsModule,
     ToastrModule,
@@ -109,7 +106,7 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
 
     DxRangeSelectorModule,
     QRCodeModule,
-    // SampleModule,
+// SampleModule,
     //Component
     FooterComponent,
     TextInputComponent,
