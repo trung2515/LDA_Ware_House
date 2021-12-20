@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ToastrModule } from 'ngx-toastr'
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
-import { PaginationModule } from 'ngx-bootstrap/pagination'
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
-import { ModalModule } from 'ngx-bootstrap/modal'
-import { TextInputComponent } from './_forms/text-input/text-input.component'
-import { NgxSpinnerModule } from 'ngx-spinner'
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 // import { NgxLocalStorageModule } from 'ngx-localstorage'
-import { NgxDropzoneModule } from 'ngx-dropzone'
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import {
   DxButtonModule,
   DxChartModule,
@@ -22,15 +23,16 @@ import {
   DxSelectBoxModule,
   DxTabPanelModule,
   DxTextAreaModule,
+  DxToastModule,
   DxTreeListModule,
   DxValidationSummaryModule,
-  DxValidatorModule,
-} from 'devextreme-angular'
-import { FooterComponent } from './component/footer/footer.component'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+  DxValidatorModule
+} from 'devextreme-angular';
+import { FooterComponent } from './component/footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { QRCodeModule } from 'angularx-qrcode';
-import { SelectOptionComponent } from './_forms/select-option/select-option.component'
+import { SelectOptionComponent } from './_forms/select-option/select-option.component';
 @NgModule({
   declarations: [TextInputComponent, FooterComponent, SelectOptionComponent],
   imports: [
@@ -38,7 +40,7 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
-      positionClass: "bottom-right"
+      positionClass: 'toast-bottom-right'
     }),
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
@@ -64,7 +66,8 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     DxRangeSelectorModule,
     DxValidatorModule,
     DxValidationSummaryModule,
-    QRCodeModule
+    QRCodeModule,
+    DxToastModule
     // SampleModule,
   ],
   exports: [
@@ -98,7 +101,8 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     //Component
     FooterComponent,
     TextInputComponent,
-    SelectOptionComponent
-  ],
+    SelectOptionComponent,
+    DxToastModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}

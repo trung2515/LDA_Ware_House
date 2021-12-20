@@ -23,26 +23,41 @@
     </div>
   </div>
   <div class="mainCol ">
-    <div class="menu-group">
-      <div *ngFor="let item of registrationMenuList" class="menu-item">
-        <div [routerLink]="item.linkTo" class="menu-item-content ">
+    <!-- registration -->
+    <div class="menu-group search-menu">
+      <div class="menu-item">
+        <div
+          routerLink="order-registration"
+          class="menu-item-content "
+        >
           <div class="img-around">
-
-            <img *ngIf="item.icon_class === 'adding'" [class]="item.icon_class" src="assets/svg/add_png.svg"  alt="file-plus" />
-            <img *ngIf="item.icon_class === 'list-view'" src="assets/svg/file-plus.svg" alt="file-plus" />
+            <img src="assets/svg/file-plus.svg" alt="file-plus" />
           </div>
-          <h3 class="menu-title">{{item.title}}</h3>
-          <div class="img-arrow-wrap">
-            <img
-              src="assets/svg/arrow-right.svg"
-              alt="arrow-right"
-              class="arrow-right-menu"
-            />
-          </div>
+          <h3 class="menu-title">Đăng ký</h3>
+          <img
+            src="assets/svg/arrow-right.svg"
+            alt="arrow-right"
+            class="arrow-right-menu"
+          />
         </div>
       </div>
-
-
+      <div class="menu-item">
+        <div
+          routerLink="research-order"
+          class="menu-item-content registration"
+        >
+          <div class="img-around">
+            <img src="assets/svg/search.svg" alt="file-plus" />
+          </div>
+          <h3 class="menu-title">Tìm kiếm đơn hàng</h3>
+          <img
+            src="assets/svg/arrow-right.svg"
+            alt="arrow-right"
+            class="arrow-right-menu"
+          />
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

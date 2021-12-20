@@ -24,7 +24,7 @@ import { ReasonComponent } from './components/reason/reason.component';
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { ParcelComponent } from './pages/parcel/parcel.component';
-import { OrderRegistrationComponent } from '../shipping-unit/pages/order-registration/order-registration.component';
+import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component';
 
 ReasonComponent;
 JobComponent;

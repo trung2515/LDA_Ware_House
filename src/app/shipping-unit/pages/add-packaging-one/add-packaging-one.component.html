@@ -7,30 +7,36 @@
     <h3 class="heading-title">
       Ca làm việc:
     </h3>
+
     <div class="horizontal-line"></div>
     <div class="select-group row">
       <div class="select-date col-12 col-lg-3">
         <label for="">Ngày</label>
-        <dx-date-box [value]="now" type="date"></dx-date-box>
+        <dx-date-box
+          [(value)]="now"
+          type="date"
+          (onValueChanged)="onDateValueChanged($event)"
+        ></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
         <label for="">Ca làm việc</label>
         <dx-select-box
-          [dataSource]="['Ca 1', 'Ca 2']"
-          value="Ca 1"
+          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [(value)]="ca_no_option"
           hoverStateEnabled="false"
           placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectCaChange($event)"
         ></dx-select-box>
-        <!-- <app-text-input type="select"></app-text-input> -->
       </div>
     </div>
     <h3 class="heading-title pt-4">
       Số lượng máy đóng bao
     </h3>
     <div class="horizontal-line"></div>
+
     <div class="option-group">
       <div
-        *ngFor="let optionItem of currentAppointment.shiftDetail"
+        *ngFor="let optionItem of currentAppointment?.shiftDetail"
         class="option-item"
       >
         <div class="option-head">
@@ -39,12 +45,22 @@
             {{ optionItem.product }} - Loại {{ optionItem.productRange }} -
             {{ optionItem.packaging }}</span
           >
-          <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
-            >Nhập đóng mới</span
-          >
-          <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
-            >Nhập đóng lại</span
-          >
+          <div class="d-none d-lg-inline-block">
+            <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
+              >Nhập đóng mới</span
+            >
+            <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
+              >Nhập đóng lại</span
+            >
+          </div>
+          <div  class="d-lg-none d-inline-block">
+            <span *ngIf="optionItem.type === 'NDM'" class="option-status new"
+              >NDM</span
+            >
+            <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
+              >NDL</span
+            >
+          </div>
         </div>
         <div class="option-location-info row d-none d-lg-flex">
           <div class="col-lg-4">
@@ -60,15 +76,139 @@
             <p>{{ optionItem.unit }}</p>
           </div>
         </div>
-        <form class="form-info-group row">
-          <div class="col-12 col-lg-3">dsdsds</div>
-          <div class="col-12 col-lg-3">dsdsds</div>
-          <div class="col-12 col-lg-3">dsdsds</div>
-          <div class="col-12 col-lg-3">dsdsds</div>
-          <div class="col-12 col-lg-3">dsdsds</div>
+        <!-- form -->
+        <form
+          [formGroup]="getFormGroup(optionItem.option)"
+          class="form-info-group row"
+        >
+          <div *ngFor="let input of inputs_options" class="col-12 col-lg-3 form-item">
+            <p class="info-field">{{ input.label + ":" }}</p>
+            <app-text-input
+              [formControlName]="input.formControlName"
+              [label]="input.label"
+              type="text"
+            ></app-text-input>
+          </div>
         </form>
-        <div [class]="'horizontal-line dotted option-'+optionItem.option"></div>
+        <div
+          [class]="'horizontal-line dotted option-' + optionItem.option"
+        ></div>
       </div>
+      <button class="btn-ship btn-completed" (click)="onSubmit($event)">
+        Hoàn tất
+      </button>
+
+      <dx-popup
+        [showTitle]="true"
+        title="Xác nhận thay đổi"
+        [dragEnabled]="false"
+        [closeOnOutsideClick]="false"
+        [showCloseButton]="true"
+        container=".dx-viewport"
+        [(visible)]="popupVisible"
+        id="popUpAddPackaging"
+        [toolbarItems]="[
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Đóng',
+              class: 'btn-demo'
+            },
+            toolbar: 'bottom',
+            onClick: onClosePopup
+          },
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Xác nhận'
+            },
+            toolbar: 'bottom',
+            onClick: onConfirm
+          }
+        ]"
+      >
+        <div class="popup-head">
+          <p>
+            Số lượng máy đóng bao của ca này đã được ghi nhận trước đó, gồm:
+          </p>
+        </div>
+        <div class="popup-content">
+          <div class="item-info row">
+            <div class="item-wrap col-6 col-lg-3">
+              <div class="item-title">Ca</div>
+              <div class="item-value">{{ currentAppointment.shift }}</div>
+            </div>
+            <div class="item-wrap col-6 col-lg-3">
+              <div class="item-title">Ngày</div>
+              <div class="item-value">
+                {{ getCurrentDateDMY(currentAppointment.startDate) }}
+              </div>
+            </div>
+            <div class="item-wrap col-6 col-lg-3">
+              <div class="item-title">Người lập phiếu:</div>
+              <div class="item-value">{{ currentAppointment.text }}</div>
+            </div>
+            <div class="item-wrap col-6 col-lg-3">
+              <div class="item-title">Đơn vị đóng:</div>
+              <div class="item-value">
+                {{ currentAppointment.shiftDetail[0].unit }}
+              </div>
+            </div>
+          </div>
+          <div
+            *ngFor="let shift of currentAppointment.shiftDetail; let i = index"
+            class="option-wrap"
+          >
+            <div class="option-info">
+              <span class="option-p">Option: {{ shift.option }}</span>
+              <span class="option-name-bag">
+                Alumin 1 tấn - Loại 1 - Đáy bằng
+              </span>
+              <span class="option-status new">Nhập đóng mới</span>
+              <!-- <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
+              >Nhập đóng lại</span
+            > -->
+            </div>
+            <div class="row option-group ">
+              <div class="option-item col-6 col-lg-3">
+                <p class="option-title">Máy A:</p>
+                <p class="option-qty">
+                  {{ shift.machines_packaging.machine_a }}
+                </p>
+              </div>
+              <div class="option-item col-6 col-lg-3">
+                <p class="option-title">Máy B:</p>
+                <p class="option-qty">
+                  {{ shift.machines_packaging.machine_b }}
+                </p>
+              </div>
+              <div class="option-item col-6 col-lg-3">
+                <p class="option-title">Máy C:</p>
+                <p class="option-qty">
+                  {{ shift.machines_packaging.machine_c }}
+                </p>
+              </div>
+              <div class="option-item col-6 col-lg-3">
+                <p class="option-title">Máy D:</p>
+                <p class="option-qty">
+                  {{ shift.machines_packaging.machine_d }}
+                </p>
+              </div>
+              <div class="option-item col-6 col-lg-3">
+                <p class="option-title">Máy E:</p>
+                <p class="option-qty">
+                  {{ shift.machines_packaging.machine_e }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <p>Xác nhận thay đổi thành thông tin vừa nhập?</p>
+        </div>
+      </dx-popup>
     </div>
   </div>
 </div>

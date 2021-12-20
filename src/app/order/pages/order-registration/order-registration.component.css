@@ -101,8 +101,8 @@
 }
 .btn-order-regis {
 }
-/* mobile */
-@media only screen and (max-width: 37.5rem) {
+/*tablet and  mobile */
+@media only screen and (max-width: 63.938rem) {
   .btn-order-regis {
     width: 100%;
     margin: 24px 0;
@@ -128,3 +128,7 @@
     width: 100%;
   }
 }
+@media only screen and (min-width: 37.5rem) and (max-width:633938rem){
+
+}
+/* @media only screen and (max-width: 63.938rem) {} */
