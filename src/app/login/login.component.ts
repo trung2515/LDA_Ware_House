@@ -80,6 +80,8 @@ export class LoginComponent implements OnInit {
             } else if (user.role == 22) {
               this.router.navigateByUrl('/order').catch(e =>
                 this.toastr.warning('Ban khong co quyen truy cap he thong'))
+            } else if (user.role == 14) {
+              this.router.navigateByUrl('/shipper')
             }
 
           })

@@ -23,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsMineralModule,
     ShippingUnitRoutingModule,
     LoginModule,
-    BrowserAnimationsModule
     // GrpcCoreModule.forRoot(),
   ],
   bootstrap: [AppComponent]
