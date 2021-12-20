@@ -46,8 +46,8 @@ export class ConsumptionReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getEndDate = this.getEndDate.bind(this)
-    this.getStartDate = this.getStartDate.bind(this)
+    // this.getEndDate = this.getEndDate.bind(this)
+    // this.getStartDate = this.getStartDate.bind(this)
     this.getData()
     this.tabCaptions = [
       {
@@ -246,13 +246,13 @@ export class ConsumptionReportComponent implements OnInit {
       })
   }
 
-  filterWithProductName({ value, keyCode }: any) {
-    if (keyCode === 13 && value) {
-      this.filterControl.inputValue = value
-      this.handleFilter()
-      this.loadPivotGrid()
-    }
-  }
+  // filterWithProductName({ value, keyCode }: any) {
+  //   if (keyCode === 13 && value) {
+  //     this.filterControl.inputValue = value
+  //     this.handleFilter()
+  //     this.loadPivotGrid()
+  //   }
+  // }
   loadPivotGrid = (): void => {
     this.detailInputOutputReport.reload()
     this.detailImExInventoryReport.reload()
@@ -260,9 +260,9 @@ export class ConsumptionReportComponent implements OnInit {
   //handle dx-date-box change event
   getStartDate(e: any) {
     this.startDate = e.value
-    if (this.startDate) {
-      this.disabledDates = this.getDisabledDates(this.startDate)
-    }
+    // if (this.startDate) {
+    //   this.disabledDates = this.getDisabledDates(this.startDate)
+    // }
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {
@@ -271,18 +271,18 @@ export class ConsumptionReportComponent implements OnInit {
   }
   getEndDate(e: any) {
     this.endDate = e.value
-    const endDate = this.endDate.getTime()
-    const startDate = this.startDate.getTime()
+    // const endDate = this.endDate.getTime()
+    // const startDate = this.startDate.getTime()
 
-    this.filterControl.objDate = {
-      endDate,
-      startDate,
-    }
+    // this.filterControl.objDate = {
+    //   endDate,
+    //   startDate,
+    // }
 
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {
-      this.toastr.error('Ngày bắt đầu lớn hơn ngày kết thúc')
+      this.toastr.warning('Ngày bắt đầu lớn hơn ngày kết thúc')
     }
     // this.handleFilter()
   }
@@ -290,44 +290,43 @@ export class ConsumptionReportComponent implements OnInit {
     return getDates(stopDate)
   }
 
-  handleFilter = () => {
-    const { objDate, inputValue } = this.filterControl
-    // filter only date
-    if (objDate.endDate && !inputValue) {
-      if (this.endDate >= this.startDate) {
-        const result = this.statistics.filter((item: any) => {
-          const dateOfItem = new Date(item.date).getTime()
-          return (
-            dateOfItem >= objDate.startDate && dateOfItem <= objDate.endDate
-          )
-        })
+  // handleFilter = () => {
+  //   const { objDate, inputValue } = this.filterControl
+  //   // filter only date
+  //   if (objDate.endDate && !inputValue) {
+  //     if (this.endDate >= this.startDate) {
+  //       const result = this.statistics.filter((item: any) => {
+  //         const dateOfItem = new Date(item.date).getTime()
+  //         return (
+  //           dateOfItem >= objDate.startDate && dateOfItem <= objDate.endDate
+  //         )
+  //       })
+  //       this.statistics_copy = result
+  //     }
+  //   }
+  //   // filter only product name
+  //   else if (inputValue && !objDate.endDate) {
+  //     this.statistics_copy = this.statistics.filter((product) => {
+  //       return (
+  //         product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+  //       )
+  //     })
+  //   }
+  //   // filter with both conditions
+  //   else {
+  //     const result = this.statistics.filter((product: any) => {
+  //       const dateOfItem = new Date(product.date).getTime()
 
-        this.statistics_copy = result
-      }
-    }
-    // filter only product name
-    else if (inputValue && !objDate.endDate) {
-      this.statistics_copy = this.statistics.filter((product) => {
-        return (
-          product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        )
-      })
-    }
-    // filter with both conditions
-    else {
-      const result = this.statistics.filter((product: any) => {
-        const dateOfItem = new Date(product.date).getTime()
-
-        return (
-          dateOfItem >= objDate.startDate &&
-          dateOfItem <= objDate.endDate &&
-          product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        )
-      })
-      this.statistics_copy = result
-      this.loadPivotGrid()
-    }
-  }
+  //       return (
+  //         dateOfItem >= objDate.startDate &&
+  //         dateOfItem <= objDate.endDate &&
+  //         product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+  //       )
+  //     })
+  //     this.statistics_copy = result
+  //     this.loadPivotGrid()
+  //   }
+  // }
 
   onExportingGrid(e: any) {
     this.excelService.onExportingExcelGrid(

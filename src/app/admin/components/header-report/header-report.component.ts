@@ -6,22 +6,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./header-report.component.css']
 })
 export class HeaderReportComponent implements OnInit {
-  @Input() startDate:Date = new Date();
-  @Input() endDate:Date = new Date();
-  @Input() getStartDate:any;
-  @Input() getEndDate:any
-  @Input() title_nav:string = 'title nav'
-  @Input() disabledDates:Date[] = []
+  @Input() startDate: Date = new Date();
+  @Input() endDate: Date = new Date();
+  // @Input() getStartDate:any;
+  // @Input() getEndDate:any
+  @Input() title_nav: string = 'title nav'
+  @Input() disabledDates: Date[] = []
   @Output() onSearchByProductName = new EventEmitter();
   @Output() onExport = new EventEmitter();
   @Output() onHandleInputChange = new EventEmitter();
+
+  @Output() getStartDate = new EventEmitter<Date>();
+  @Output() getEndDate = new EventEmitter<Date>();
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  handleKeydown(event:any): void {
+  handleKeydown(event: any): void {
     const sender = {
       value: event.target.value,
       keyCode: event.keyCode
@@ -30,6 +33,14 @@ export class HeaderReportComponent implements OnInit {
   }
   onExportFile() {
     this.onExport.emit()
+  }
+
+  onStartDateChange(e: any) {
+    this.getStartDate.emit(e.value);
+  }
+
+  onEndDateChange(e: any) {
+    this.getEndDate.emit(e.value);
   }
 
 }

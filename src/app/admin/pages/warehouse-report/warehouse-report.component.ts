@@ -28,15 +28,14 @@ export class WarehouseReportComponent implements OnInit {
   disabledDates: Date[] = [];
   constructor(
     private excelService: ExcelService,
-    warehouseReportService: WarehouseReportService
+    private warehouseReportService: WarehouseReportService
   ) {
-    this.getEndDate = this.getEndDate.bind(this);
-    this.getStartDate = this.getStartDate.bind(this);
-    this.qtyOnBaggingMachines = warehouseReportService.getQtyOnBaggingMachine();
+
 
   }
 
   ngOnInit(): void {
+    this.qtyOnBaggingMachines = this.warehouseReportService.getQtyOnBaggingMachine();
     this.disabledDates = this.getDisabledDates(this.startDate);
     this.qtyOnBaggingMachines_copy = [...this.qtyOnBaggingMachines];
   }
