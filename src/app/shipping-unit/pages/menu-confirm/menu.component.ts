@@ -13,22 +13,22 @@ export class MenuConfirmComponent implements OnInit {
 
   registrationMenuList: any = [
     {
-      linkTo: 'add-packaging-one',
+      linkTo: '../add-packaging-one',
       title: 'Nhập sản lượng đóng bao loại 1 tấn',
       icon_class: 'adding'
     },
     {
-      linkTo: 'list-packaging-one',
+      linkTo: '../list-packaging-one',
       title: 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn',
       icon_class: 'list-view'
     },
     {
-      linkTo: 'add-packaging-fifty',
+      linkTo: '../add-packaging-fifty',
       title: 'Nhập sản lượng đóng bao loại 50kg',
       icon_class: 'adding'
     },
     {
-      linkTo: 'list-packaging-fifty',
+      linkTo: '../list-packaging-fifty',
       title: 'Danh sách sản lượng đóng bao loại 50kg',
       icon_class: 'list-view'
     },

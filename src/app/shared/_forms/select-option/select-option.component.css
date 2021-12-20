@@ -27,3 +27,6 @@
   outline: none;
   border: 1px solid #9aacf3;
 }
+.select option:active {
+  background-color: red;
+}

@@ -98,117 +98,132 @@
         Hoàn tất
       </button>
 
-      <dx-popup
-        [showTitle]="true"
-        title="Xác nhận thay đổi"
-        [dragEnabled]="false"
-        [closeOnOutsideClick]="false"
-        [showCloseButton]="true"
-        container=".dx-viewport"
-        [(visible)]="popupVisible"
-        id="popUpAddPackaging"
-        [toolbarItems]="[
-          {
-            widget: 'dxButton',
-            location: 'after',
-            options: {
-              text: 'Đóng',
-              class: 'btn-demo'
-            },
-            toolbar: 'bottom',
-            onClick: onClosePopup
-          },
-          {
-            widget: 'dxButton',
-            location: 'after',
-            options: {
-              text: 'Xác nhận'
-            },
-            toolbar: 'bottom',
-            onClick: onConfirm
-          }
-        ]"
-      >
-        <div class="popup-head">
-          <p>
-            Số lượng máy đóng bao của ca này đã được ghi nhận trước đó, gồm:
-          </p>
-        </div>
-        <div class="popup-content">
-          <div class="item-info row">
-            <div class="item-wrap col-6 col-lg-3">
-              <div class="item-title">Ca</div>
-              <div class="item-value">{{ currentAppointment.shift }}</div>
-            </div>
-            <div class="item-wrap col-6 col-lg-3">
-              <div class="item-title">Ngày</div>
-              <div class="item-value">
-                {{ getCurrentDateDMY(currentAppointment.startDate) }}
-              </div>
-            </div>
-            <div class="item-wrap col-6 col-lg-3">
-              <div class="item-title">Người lập phiếu:</div>
-              <div class="item-value">{{ currentAppointment.text }}</div>
-            </div>
-            <div class="item-wrap col-6 col-lg-3">
-              <div class="item-title">Đơn vị đóng:</div>
-              <div class="item-value">
-                {{ currentAppointment.shiftDetail[0].unit }}
-              </div>
-            </div>
-          </div>
-          <div
-            *ngFor="let shift of currentAppointment.shiftDetail; let i = index"
-            class="option-wrap"
-          >
-            <div class="option-info">
-              <span class="option-p">Option: {{ shift.option }}</span>
-              <span class="option-name-bag">
-                Alumin 1 tấn - Loại 1 - Đáy bằng
-              </span>
-              <span class="option-status new">Nhập đóng mới</span>
-              <!-- <span *ngIf="optionItem.type === 'NDL'" class="option-status old"
-              >Nhập đóng lại</span
-            > -->
-            </div>
-            <div class="row option-group ">
-              <div class="option-item col-6 col-lg-3">
-                <p class="option-title">Máy A:</p>
-                <p class="option-qty">
-                  {{ shift.machines_packaging.machine_a }}
-                </p>
-              </div>
-              <div class="option-item col-6 col-lg-3">
-                <p class="option-title">Máy B:</p>
-                <p class="option-qty">
-                  {{ shift.machines_packaging.machine_b }}
-                </p>
-              </div>
-              <div class="option-item col-6 col-lg-3">
-                <p class="option-title">Máy C:</p>
-                <p class="option-qty">
-                  {{ shift.machines_packaging.machine_c }}
-                </p>
-              </div>
-              <div class="option-item col-6 col-lg-3">
-                <p class="option-title">Máy D:</p>
-                <p class="option-qty">
-                  {{ shift.machines_packaging.machine_d }}
-                </p>
-              </div>
-              <div class="option-item col-6 col-lg-3">
-                <p class="option-title">Máy E:</p>
-                <p class="option-qty">
-                  {{ shift.machines_packaging.machine_e }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="popup-footer">
-          <p>Xác nhận thay đổi thành thông tin vừa nhập?</p>
-        </div>
-      </dx-popup>
     </div>
   </div>
 </div>
+
+<dx-popup
+[showTitle]="true"
+width="90%"
+title="Xác nhận thay đổi"
+[dragEnabled]="false"
+[closeOnOutsideClick]="false"
+[showCloseButton]="true"
+container=".dx-viewport"
+[(visible)]="popupVisible"
+shadingColor="rgba(0,0,0,0.3)"
+id="popUpAddPackaging"
+[toolbarItems]="[
+  {
+    widget: 'dxButton',
+    location: 'after',
+    options: {
+      text: 'Đóng'
+    },
+    toolbar: 'bottom',
+    onClick: onClosePopup
+  },
+  {
+    widget: 'dxButton',
+    location: 'after',
+    options: {
+      text: 'Xác nhận'
+    },
+    toolbar: 'bottom',
+    onClick: onConfirm
+  }
+]"
+>
+<div class="popup-head">
+  <p>
+    Số lượng máy đóng bao của ca này đã được ghi nhận trước đó, gồm:
+  </p>
+</div>
+<div class="popup-content">
+  <div class="item-info row">
+    <div class="item-wrap col-6 col-lg-3">
+      <div class="item-title">Ca</div>
+      <div class="item-value">{{ currentAppointment.shift }}</div>
+    </div>
+    <div class="item-wrap col-6 col-lg-3">
+      <div class="item-title">Ngày</div>
+      <div class="item-value">
+        {{ getCurrentDateDMY(currentAppointment.startDate) }}
+      </div>
+    </div>
+    <div class="item-wrap col-6 col-lg-3">
+      <div class="item-title">Người lập phiếu:</div>
+      <div class="item-value">{{ currentAppointment.text }}</div>
+    </div>
+    <div class="item-wrap col-6 col-lg-3">
+      <div class="item-title">Đơn vị đóng:</div>
+      <div class="item-value">
+        {{ currentAppointment.shiftDetail[0].unit }}
+      </div>
+    </div>
+  </div>
+  <div
+    *ngFor="let shift of currentAppointment.shiftDetail; let i = index"
+    class="option-wrap"
+  >
+    <div class="option-info">
+      <span class="option-p">Option: {{ shift.option }}</span>
+      <span class="option-name-bag">
+        Alumin 1 tấn - Loại 1 - Đáy bằng
+      </span>
+
+      <div class="d-none d-lg-inline-block">
+        <span *ngIf="shift.type === 'NDM'" class="option-status new"
+          >Nhập đóng mới</span
+        >
+        <span *ngIf="shift.type === 'NDL'" class="option-status old"
+          >Nhập đóng lại</span
+        >
+      </div>
+      <div  class="d-lg-none d-inline-block">
+        <span *ngIf="shift.type === 'NDM'" class="option-status new"
+          >NDM</span
+        >
+        <span *ngIf="shift.type === 'NDL'" class="option-status old"
+          >NDL</span
+        >
+      </div>
+    </div>
+    <div class="row option-group ">
+      <div class="option-item col-6 col-lg-3">
+        <p class="option-title">Máy A:</p>
+        <p class="option-qty">
+          {{ shift.machines_packaging.machine_a }}
+        </p>
+      </div>
+      <div class="option-item col-6 col-lg-3">
+        <p class="option-title">Máy B:</p>
+        <p class="option-qty">
+          {{ shift.machines_packaging.machine_b }}
+        </p>
+      </div>
+      <div class="option-item col-6 col-lg-3">
+        <p class="option-title">Máy C:</p>
+        <p class="option-qty">
+          {{ shift.machines_packaging.machine_c }}
+        </p>
+      </div>
+      <div class="option-item col-6 col-lg-3">
+        <p class="option-title">Máy D:</p>
+        <p class="option-qty">
+          {{ shift.machines_packaging.machine_d }}
+        </p>
+      </div>
+      <div class="option-item col-6 col-lg-3">
+        <p class="option-title">Máy E:</p>
+        <p class="option-qty">
+          {{ shift.machines_packaging.machine_e }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup-footer">
+  <p>Xác nhận thay đổi thành thông tin vừa nhập?</p>
+</div>
+</dx-popup>
