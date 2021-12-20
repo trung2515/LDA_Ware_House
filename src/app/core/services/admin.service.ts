@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { Injectable } from '@angular/core'
 import { identity, Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -41,6 +42,7 @@ export class AdminService {
   constructor(
     private administratorClient: AdministratorClient,
     private warehouseClient: WareHouseClient,
+    private authService: AuthService
   ) {}
 
   getListProduct() {
@@ -633,6 +635,8 @@ export class AdminService {
     let req: MasterRequest = new MasterRequest()
     req.fromDate = fromDate
     req.toDate = toDate
+    req.userName = this.authService.getUser().user;
+    console.log(req);
     return this.warehouseClient.getListShiftDetail(req).pipe(
       map((reply: ShiftDetailResponse) => {
         if (reply.response?.state == ResponseState.SUCCESS) {

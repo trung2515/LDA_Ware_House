@@ -91,6 +91,13 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
+          caption: 'Nơi dở',
+          dataField: 'unloading_warehouse',
+          area: 'row',
+          width: 70,
+          expanded: true,
+        },
+        {
           caption: 'Thiết bị bốc',
           dataField: 'loading_equipment',
           area: 'row',
@@ -136,62 +143,6 @@ export class TransportationReportComponent implements OnInit {
     this.detailUnLoadWDVReport = new PivotGridDataSource({
       fields: [
         {
-          caption: 'Thiết bị bốc/chỉ tiêu',
-          dataField: 'unloading_equipment',
-          headerFilter: {
-            allowSearch: true,
-          },
-          area: 'row',
-          expanded: true,
-        },
-        {
-          caption: 'Sản phẩm',
-          dataField: 'product_name',
-          headerFilter: {
-            allowSearch: true,
-          },
-          area: 'row',
-          expanded: true,
-        },
-        {
-          caption: 'Nơi bốc',
-          dataField: 'unloading_warehouse',
-          headerFilter: {
-            allowSearch: true,
-          },
-          area: 'row',
-          expanded: true,
-        },
-        {
-          caption: 'ca',
-          dataField: 'shift',
-          area: 'column',
-        },
-
-        {
-          caption: 'Bao',
-          dataField: 'bag_number',
-          summaryType: 'sum',
-          area: 'data',
-        },
-
-        {
-          caption: 'Tấn',
-          dataField: 'ton_number',
-          summaryType: 'sum',
-          area: 'data',
-        },
-      ],
-      store: new CustomStore({
-        load: (LoadOptions) => {
-          return this.transportationList
-        },
-      }),
-    })
-    // tab 4
-    this.detailLoadWDVReport = new PivotGridDataSource({
-      fields: [
-        {
           caption: 'Thiết bị dở/chỉ tiêu',
           dataField: 'unloading_equipment',
           headerFilter: {
@@ -210,8 +161,64 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Nơi bốc',
+          caption: 'Nơi dở',
           dataField: 'unloading_warehouse',
+          headerFilter: {
+            allowSearch: true,
+          },
+          area: 'row',
+          expanded: true,
+        },
+        {
+          caption: 'ca',
+          dataField: 'shift',
+          area: 'column',
+        },
+
+        {
+          caption: 'Bao',
+          dataField: 'bag_number',
+          summaryType: 'sum',
+          area: 'data',
+        },
+
+        {
+          caption: 'Tấn',
+          dataField: 'ton_number',
+          summaryType: 'sum',
+          area: 'data',
+        },
+      ],
+      store: new CustomStore({
+        load: (LoadOptions) => {
+          return this.transportationList.filter(t => t.unloading_equipment != '' && t.unloading_warehouse != '' )
+        },
+      }),
+    })
+    // tab 4
+    this.detailLoadWDVReport = new PivotGridDataSource({
+      fields: [
+        {
+          caption: 'Thiết bị bốc/chỉ tiêu',
+          dataField: ' loading_equipment',
+          headerFilter: {
+            allowSearch: true,
+          },
+          area: 'row',
+          expanded: true,
+        },
+        {
+          caption: 'Sản phẩm',
+          dataField: 'product_name',
+          headerFilter: {
+            allowSearch: true,
+          },
+          area: 'row',
+          expanded: true,
+        },
+        {
+          caption: 'Nơi bốc',
+          dataField: 'loading_warehouse',
           headerFilter: {
             allowSearch: true,
           },
@@ -241,7 +248,7 @@ export class TransportationReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.transportationList
+          return this.transportationList.filter(t => t.loading_equipment != '' && t.lau_warehouse != '' )
         },
       }),
     })
@@ -301,7 +308,7 @@ export class TransportationReportComponent implements OnInit {
       this.toastr.warning('Ngày bắt đầu lớn hơn ngày kết thúc')
     }
   }
-  
+
   getEndDate(e: any) {
     this.endDate = e.value
     // const endDate = this.endDate.getTime()

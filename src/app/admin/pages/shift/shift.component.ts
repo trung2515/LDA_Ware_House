@@ -37,11 +37,17 @@ export class ShiftComponent implements OnInit {
     private authService: AuthService,
   ) {}
   ngOnInit(): void {
-    this.appointments = this.shiftService.getAppointments()
-    this.adminService.getListShiftDetail(Utils.formatDate(new Date()), Utils.formatDate(new Date())).subscribe(data => {
-      // this.appointments = d
+    // this.appointments = this.shiftService.getAppointments()
+    this.getData()
+  }
+
+  getData(){
+    this.adminService.getListShiftDetail('2021-12-01', Utils.formatDate(new Date())).subscribe(data => {
+      this.appointments = data.map(d => new Appointment(d));
+      this.appointments.sort((a, b)=> a.shift - b.shift)
+      console.log(this.appointments);
     });
-  } 
+  }
 
   currentDate: Date = new Date()
   showPopup: boolean = false
@@ -52,7 +58,6 @@ export class ShiftComponent implements OnInit {
     id: 1,
     name: '',
     shift: 0,
-
     startDate: new Date(),
     endDate: new Date(),
     description: '',
@@ -89,17 +94,17 @@ export class ShiftComponent implements OnInit {
   listLot: Lot[] = [{ name: 189 }, { name: 190 }, { name: 200 }, { name: 201 }]
   resources: Resource[] = [
     {
-      text: 'Ca 1',
+      text: 'CA 1',
       id: 1,
       color: '#00A560',
     },
     {
-      text: 'Ca 2',
+      text: 'CA 2',
       id: 2,
       color: '#3459E6',
     },
     {
-      text: 'Ca 3',
+      text: 'CA 3',
       id: 3,
       color: '#ff8817',
     },
@@ -109,7 +114,7 @@ export class ShiftComponent implements OnInit {
   showUpdateButton: boolean = false
   onAppointmentFormOpening(data: any) {
     data.cancel = true
-    if (this.authService.getUser().role == 4) {
+    if (this.authService.getUser().role == 14) {
       this.showPopup = true
       let newStartDate = new Date(data.appointmentData.startDate)
       let newEndDate = new Date(data.appointmentData.startDate)
@@ -147,7 +152,7 @@ export class ShiftComponent implements OnInit {
         newEndDate.setHours(checkShift + 1)
         this.shiftMaster = {
           id: 1,
-          name: 'administrator',
+          name: this.authService.getUser().name,
           shift: checkShift,
           startDate: newStartDate,
           endDate: newEndDate,

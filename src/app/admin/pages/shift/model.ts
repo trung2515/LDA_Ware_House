@@ -1,18 +1,19 @@
-import { ShiftInfo } from "src/app/core/models/model.pb";
+import { ShiftDetailInfo, ShiftInfo } from "src/app/core/models/model.pb";
 
 export class Appointment {
     id:number;
     text : string ;
-    shift:number
+    shift: number ;
     startDate: Date;
     endDate: Date  ;
     description:string;
     shiftDetail: ShiftDetail[]
-    constructor(data: ShiftInfo){
-        this.text = data.nameShift
-        this.description = data.nameShift + ' ' + data.nameCreatedPerson
-        this.startDate = new Date(data.date) 
+    constructor(data: ShiftDetailInfo){
+        // this.text = data.nameShift
+        this.text = data.nameShift + ' ' + data.nameCreatedPerson
+        this.startDate = new Date(data.date)
         this.endDate = new Date(data.date)
+        this.shift = parseInt(data.nameShift.toLowerCase().replace('ca', '').trim())
     }
 }
 

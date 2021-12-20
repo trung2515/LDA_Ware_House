@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service'
 export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) {}
   parentMenuSelectId: number = 0
-
+  username: string = ''
   ngOnInit(): void {
     this.menus = [
       {
@@ -78,6 +78,8 @@ export class NavbarComponent implements OnInit {
     ]
 
     this.parentMenu = this.menus.filter((m) => m.isParent == true)
+
+    this.username = this.authService.getUser().name;
   }
 
   getChildMenu(menuId: number) {

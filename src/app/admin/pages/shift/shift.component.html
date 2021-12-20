@@ -1,20 +1,16 @@
 <div >
   <div class="title">Ca làm việc</div>
-
-
   <div >
-
     <dx-scheduler [dataSource]="appointments" [views]="['']" currentView="month"
-      [currentDate]="currentDate" [height]="700" [firstDayOfWeek]="0" 
-      (onAppointmentFormOpening)="onAppointmentFormOpening($event)" 
+      [currentDate]="currentDate" [height]="700" [firstDayOfWeek]="1"
+      (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
       >
-      <dxi-resource fieldExpr="shift" label="Ca" [dataSource]="resources" >
+      <dxi-resource fieldExpr="shift" label="shift" [dataSource]="resources" >
       </dxi-resource>
     </dx-scheduler>
 
     <dx-popup [width]="988" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
       [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="showPopup">
-
       <div *dxTemplate="let data of 'content'" class="d-flex flex-column">
         <div style="width:100%" class="p-4">
           <div class="row d-flex align-items-center px-3" style="background-color: #EEF1F9;height: 48px;margin-bottom: 10px;">

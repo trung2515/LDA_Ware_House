@@ -23,12 +23,12 @@ export class TransportationReportModel {
     this.product_type = data.idTypeProduct
     this.bag_type = data.codeTypePacket
     this.work = data.codeWork
-    this.lau_warehouse = data.nameWareHouseUnLoad
-    this.unloading_equipment = data.codeEquipmentUnLoad
-    this.loading_equipment = data.codeEquipmentLoad
+    this.lau_warehouse = data.nameWareHouseUnLoad || ''
+    this.unloading_equipment = data.codeEquipmentUnLoad || ''
+    this.loading_equipment = data.codeEquipmentLoad || ''
     this.date = Utils.formatDate(new Date(data.createddate))
     this.trips_number = data.countTrip
-    this.lau_warehouse = data.codeWareHouseload
+    this.lau_warehouse = data.codeWareHouseload || ''
     this.unloading_warehouse = data.codeWareHouseUnload
     this.cdo = data.distance
     this.bag_number = data.quantity
