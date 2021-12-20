@@ -5,6 +5,7 @@ import { ConsignmentService } from 'src/app/admin/pages/consignment-management/c
 import { DxDataGridComponent } from 'devextreme-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PercelService } from '../parcel/parcel.service';
+import Utils from 'src/app/_lib/utils';
 
 @Component({
   selector: 'app-consignment-management',
@@ -92,8 +93,8 @@ export class ConsignmentManagementComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({})
 
 
-  constructor(private consignmentService: ConsignmentService, 
-    private formBuilder: FormBuilder, private parcelService: PercelService ) {
+  constructor(private consignmentService: ConsignmentService,
+    private formBuilder: FormBuilder, private parcelService: PercelService) {
 
     const that = this;
     that.consignments = consignmentService.getConsignment()
@@ -125,10 +126,7 @@ export class ConsignmentManagementComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
-    this.parcelService.getListPercel().subscribe(data=>{
-      this.consignments = data.map(d => new ParcelModel(d))
-    })
+
     this.filterForm = this.formBuilder.group({
       id: [
         "",
@@ -139,6 +137,17 @@ export class ConsignmentManagementComponent implements OnInit {
       ]
     })
   }
+
+  getData(year: number, month: number) {
+    var date = new Date(year, month, 1)
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+    this.parcelService.getListPercel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
+      this.consignments = data.map(d => new ParcelModel(d))
+      console.log(this.consignments)
+      this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
+    })
+  }
   onSubmit(): void {
     console.log(this.filterForm);
   }
@@ -146,7 +155,7 @@ export class ConsignmentManagementComponent implements OnInit {
   // confirm popup
   onCloseConfirm() {
     this.confirmPopupVisible = false;
-    this.popupVisible =  false
+    this.popupVisible = false
   }
 
   onConfirm() {
@@ -192,7 +201,11 @@ export class ConsignmentManagementComponent implements OnInit {
   //handle dx-date-box change event
   onValueChanged(e: any) {
     const year = (new Date(e.value)).getFullYear()
-    this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, String(year))
+    const month = e.value.getMonth() + 1
+
+    this.getData(month, year)
+
+    // this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments, String(year))
   }
   getConsignmentListByTImeLine(consignments: any, yearSelect?: string, keyWords?: number) {
     const currentYear = new Date().getFullYear()

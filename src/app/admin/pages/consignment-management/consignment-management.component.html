@@ -11,7 +11,7 @@
       <div class="dx-field">
         <!-- <div class="dx-field-label">Format with literal characters</div> -->
         <div class="dx-field-value">
-          <dx-date-box
+          <!-- <dx-date-box
             placeholder="2021"
             displayFormat="yyyy"
             type="date"
@@ -19,7 +19,18 @@
             [(value)]="currentDate"
             (onValueChanged)="onValueChanged($event)"
           >
+          </dx-date-box> -->
+
+          <dx-date-box [value]="currentDate" displayFormat="monthAndYear" type="date"
+            (onValueChanged)="onValueChanged($event)">
+            <dxo-calendar-options displayFormat='monthAndYear' maxZoomLevel='year' minZoomLevel='century'>
+            </dxo-calendar-options>
           </dx-date-box>
+          <!-- <dx-date-box [value]="currentDate" displayFormat="Year" type="date"
+            (onValueChanged)="onValueChanged($event)">
+            <dxo-calendar-options displayFormat='monthAndYear' maxZoomLevel='year' minZoomLevel='century'>
+            </dxo-calendar-options>
+          </dx-date-box> -->
         </div>
       </div>
 
@@ -28,14 +39,8 @@
         <form (ngSubmit)="onSubmit()" autocomplete="off" [formGroup]="filterForm">
           <div class="research-group">
             <img src="assets/svg/search.svg" alt="search" />
-            <input
-              type="text"
-              id='id'
-              formControlName="id"
-              placeholder="Tìm kiếm lô hàng"
-              (change)="onFilterChange($event)"
-              class="research_control "
-            />
+            <input type="text" id='id' formControlName="id" placeholder="Tìm kiếm lô hàng"
+              (change)="onFilterChange($event)" class="research_control " />
             <!-- <div *ngIf="filterForm.status === 'VALID'" class="form-message"></div> -->
           </div>
         </form>
@@ -47,46 +52,28 @@
   </div>
   <!-- content -->
   <div class="content">
-    <div
-      *ngFor="let consignmentList of ConsignmentWithTimeLine"
-      class="row-table"
-    >
+    <div *ngFor="let consignmentList of ConsignmentWithTimeLine" class="row-table">
       <div class="time-point">
         <img src="assets/svg/ellipse.svg" alt="ellipse" />
         <span> Tháng {{ consignmentList.time_line }}</span>
       </div>
       <div class="data-table">
-        <div
-          *ngFor="let consignment of consignmentList.consignments"
-          class="con-item"
-        >
+        <div *ngFor="let consignment of consignmentList.consignments" class="con-item">
           <img src="assets/svg/box.svg" alt="box" />
           <div class="info">
             <p>Lô {{ consignment.id }}</p>
             <p>{{ consignment.date }}</p>
           </div>
-          <dx-button
-            class="btn-show-popup"
-            (onClick)="showInfo(consignment)"
-          ></dx-button>
+          <dx-button class="btn-show-popup" (onClick)="showInfo(consignment)"></dx-button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- popup editing -->
-  <dx-popup
-    [width]="900"
-    [height]="500"
-    [showTitle]="true"
-    [title]="popupTitle"
-    [dragEnabled]="false"
-    [closeOnOutsideClick]="false"
-    [showCloseButton]="true"
-    container=".dx-viewport"
-    [(visible)]="popupVisible"
-    id="popupConignment"
-    [toolbarItems]="[
+  <dx-popup [width]="900" [height]="500" [showTitle]="true" [title]="popupTitle" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [showCloseButton]="true" container=".dx-viewport" [(visible)]="popupVisible"
+    id="popupConignment" [toolbarItems]="[
       {
         widget: 'dxButton',
         location: 'after',
@@ -105,8 +92,7 @@
         toolbar: 'bottom',
         onClick: onClosePopupPr
       }
-    ]"
-  >
+    ]">
     <div class="popup-head">
       <p class="day">
         Ngày: <span>{{ currentConsignment.date }}</span>
@@ -116,24 +102,10 @@
       </p>
     </div>
     <div id="data-grid-demo">
-      <dx-data-grid
-        id="con-gridContainer"
-        [dataSource]="currentProducts"
-      >
+      <dx-data-grid id="con-gridContainer" [dataSource]="currentProducts">
         <dxo-paging [enabled]="true"></dxo-paging>
-        <dxo-editing
-          mode="popup"
-          [confirmDelete]="true"
-          [allowAdding]="true"
-          [allowDeleting]="true"
-          [useIcons]="true"
-        >
-          <dxo-popup
-            title="Thêm mới"
-            [showTitle]="true"
-            [width]="671"
-            [height]="434"
-            [toolbarItems]="[
+        <dxo-editing mode="popup" [confirmDelete]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true">
+          <dxo-popup title="Thêm mới" [showTitle]="true" [width]="671" [height]="434" [toolbarItems]="[
               {
                 widget: 'dxButton',
                 location: 'after',
@@ -152,99 +124,49 @@
                 toolbar: 'bottom',
                 onClick: onClickCancel
               }
-            ]"
-          >
+            ]">
           </dxo-popup>
           <dxo-form>
             <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
               <dxi-item dataField="name"></dxi-item>
-              <dxi-item
-                dataField="type"
-                caption="Loại sản phẩm"
-                [colSpan]="1"
-                [editorOptions]="{ height: 45 }"
-              >
+              <dxi-item dataField="type" caption="Loại sản phẩm" [colSpan]="1" [editorOptions]="{ height: 45 }">
               </dxi-item>
-              <dxi-item
-                dataField="type_bag"
-                caption="Loại bao"
-                [colSpan]="1"
-                [editorOptions]="{ height: 45 }"
-              >
+              <dxi-item dataField="type_bag" caption="Loại bao" [colSpan]="1" [editorOptions]="{ height: 45 }">
               </dxi-item>
-              <dxi-item
-                dataField="quantity"
-                caption="Số lượng"
-                [colSpan]="1"
-                [editorOptions]="{ height: 45 }"
-              >
+              <dxi-item dataField="quantity" caption="Số lượng" [colSpan]="1" [editorOptions]="{ height: 45 }">
               </dxi-item>
             </dxi-item>
           </dxo-form>
         </dxo-editing>
 
         <dxi-column dataField="name" caption="Sản phẩm">
-          <dxi-validation-rule
-            type="required"
-            message="Tên sản phẩm không được bỏ trống"
-          ></dxi-validation-rule>
-          <dxo-lookup
-            [dataSource]="infoSelection.name"
-            displayExpr="Value"
-            valueExpr="Value"
-            placeholder="Choose Product"
-          ></dxo-lookup>
+          <dxi-validation-rule type="required" message="Tên sản phẩm không được bỏ trống"></dxi-validation-rule>
+          <dxo-lookup [dataSource]="infoSelection.name" displayExpr="Value" valueExpr="Value"
+            placeholder="Choose Product"></dxo-lookup>
         </dxi-column>
         <dxi-column dataField="type" caption="Loại sản phẩm">
-          <dxi-validation-rule
-            type="required"
-            message="Loại sản phẩm không được bỏ trống"
-          ></dxi-validation-rule>
-          <dxo-lookup
-            [dataSource]="infoSelection.type"
-            displayExpr="Key"
-            valueExpr="Value"
-          ></dxo-lookup>
+          <dxi-validation-rule type="required" message="Loại sản phẩm không được bỏ trống"></dxi-validation-rule>
+          <dxo-lookup [dataSource]="infoSelection.type" displayExpr="Key" valueExpr="Value"></dxo-lookup>
         </dxi-column>
         <dxi-column dataField="type_bag" caption="Loại bao">
-          <dxi-validation-rule
-            type="required"
-            message="Loại không được bỏ trống"
-          ></dxi-validation-rule>
-          <dxo-lookup
-            [dataSource]="infoSelection.type_bag"
-            displayExpr="Value"
-            valueExpr="Value"
-          ></dxo-lookup>
+          <dxi-validation-rule type="required" message="Loại không được bỏ trống"></dxi-validation-rule>
+          <dxo-lookup [dataSource]="infoSelection.type_bag" displayExpr="Value" valueExpr="Value"></dxo-lookup>
         </dxi-column>
-        <dxi-column
-          dataField="quantity"
-          [ngClass]="'quantity-column'"
-          caption="số lượng"
-        >
-          <dxi-validation-rule
-            type="required"
-            message="Số lượng không được bỏ trống"
-          ></dxi-validation-rule>
+        <dxi-column dataField="quantity" [ngClass]="'quantity-column'" caption="số lượng">
+          <dxi-validation-rule type="required" message="Số lượng không được bỏ trống"></dxi-validation-rule>
         </dxi-column>
         <dxi-column dataField="hasProduced" caption="Đã sản xuất"> </dxi-column>
-        <dxi-column
-          dataField="status"
-          cellTemplate="statusCellTemplate"
-          caption="Trạng thái"
-        ></dxi-column>
+        <dxi-column dataField="status" cellTemplate="statusCellTemplate" caption="Trạng thái"></dxi-column>
 
         <!-- statusCellTemplate -->
         <div *dxTemplate="let cell of 'statusCellTemplate'">
-          <div
-            [class]="
+          <div [class]="
               cell.value === 'Mới'
                 ? 'con-status con-status-bl'
                 : cell.value === 'Đang sản xuất'
                 ? 'con-status con-status-yl'
                 : 'con-status con-status-gr'
-            "
-          >
+            ">
             <span>
               {{ cell.value }}
             </span>
@@ -255,137 +177,61 @@
   </dx-popup>
 
   <!-- popup add new consignment -->
-  <dx-popup
-    [width]="900"
-    [height]="500"
-    [showTitle]="true"
-    [title]="popupCreatorTitle"
-    [dragEnabled]="false"
-    [closeOnOutsideClick]="false"
-    [showCloseButton]="true"
-    container=".addNewConsignment"
-    [(visible)]="popupCreatorVisible"
-    id="popupAddNewConignment"
-  >
+  <dx-popup [width]="900" [height]="500" [showTitle]="true" [title]="popupCreatorTitle" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [showCloseButton]="true" container=".addNewConsignment"
+    [(visible)]="popupCreatorVisible" id="popupAddNewConignment">
     <div class="form-group">
       <label for="name_consignment">Lô</label>
-      <input
-        type="text"
-        (change)="setIdConsignment($event)"
-        name="name_consignment"
-        class="name_consignment"
-        placeholder="Nhập số lô"
-      />
+      <input type="text" (change)="setIdConsignment($event)" name="name_consignment" class="name_consignment"
+        placeholder="Nhập số lô" />
     </div>
     <dx-data-grid [dataSource]="inputProductPopupCreator" [showBorders]="true">
       <dxo-paging [enabled]="true"></dxo-paging>
       <dxo-editing mode="popup" [allowAdding]="true">
         <!-- [allowUpdating]="true" -->
 
-        <dxo-popup
-          title="Thêm mới"
-          [showTitle]="true"
-          [width]="671"
-          [height]="434"
-        >
+        <dxo-popup title="Thêm mới" [showTitle]="true" [width]="671" [height]="434">
         </dxo-popup>
         <dxo-form>
           <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
             <dxi-item dataField="name"></dxi-item>
-            <dxi-item
-              dataField="type"
-              caption="Loại sản phẩm"
-              [colSpan]="1"
-              [editorOptions]="{ height: 45 }"
-            >
+            <dxi-item dataField="type" caption="Loại sản phẩm" [colSpan]="1" [editorOptions]="{ height: 45 }">
             </dxi-item>
-            <dxi-item
-              dataField="type_bag"
-              caption="Loại bao"
-              [colSpan]="1"
-              [editorOptions]="{ height: 45 }"
-            >
+            <dxi-item dataField="type_bag" caption="Loại bao" [colSpan]="1" [editorOptions]="{ height: 45 }">
             </dxi-item>
-            <dxi-item
-              dataField="quantity"
-              caption="Số lượng"
-              [colSpan]="1"
-              [editorOptions]="{ height: 45 }"
-            >
+            <dxi-item dataField="quantity" caption="Số lượng" [colSpan]="1" [editorOptions]="{ height: 45 }">
             </dxi-item>
           </dxi-item>
         </dxo-form>
       </dxo-editing>
 
       <dxi-column dataField="name" caption="Sản phẩm">
-        <dxi-validation-rule
-          type="required"
-          message="Tên sản phẩm không được bỏ trống"
-        ></dxi-validation-rule>
-        <dxo-lookup
-          [dataSource]="infoSelection.name"
-          displayExpr="Value"
-          valueExpr="Value"
-        ></dxo-lookup>
+        <dxi-validation-rule type="required" message="Tên sản phẩm không được bỏ trống"></dxi-validation-rule>
+        <dxo-lookup [dataSource]="infoSelection.name" displayExpr="Value" valueExpr="Value"></dxo-lookup>
       </dxi-column>
       <dxi-column dataField="type" caption="Loại sản phẩm">
-        <dxi-validation-rule
-        type="required"
-        message="Loại sản phẩm không được bỏ trống"
-      ></dxi-validation-rule>
-        <dxo-lookup
-          [dataSource]="infoSelection.type"
-          displayExpr="Key"
-          valueExpr="Value"
-        ></dxo-lookup>
+        <dxi-validation-rule type="required" message="Loại sản phẩm không được bỏ trống"></dxi-validation-rule>
+        <dxo-lookup [dataSource]="infoSelection.type" displayExpr="Key" valueExpr="Value"></dxo-lookup>
       </dxi-column>
       <dxi-column dataField="type_bag" caption="Loại bao">
-        <dxi-validation-rule
-        type="required"
-        message="Loại bao không được bỏ trống"
-      ></dxi-validation-rule>
-        <dxo-lookup
-          [dataSource]="infoSelection.type_bag"
-          displayExpr="Value"
-          valueExpr="Value"
-        ></dxo-lookup>
+        <dxi-validation-rule type="required" message="Loại bao không được bỏ trống"></dxi-validation-rule>
+        <dxo-lookup [dataSource]="infoSelection.type_bag" displayExpr="Value" valueExpr="Value"></dxo-lookup>
       </dxi-column>
       <dxi-column dataField="quantity" caption="Số lượng">
-        <dxi-validation-rule
-        type="required"
-        message="Số lượng không được bỏ trống"
-      ></dxi-validation-rule>
+        <dxi-validation-rule type="required" message="Số lượng không được bỏ trống"></dxi-validation-rule>
       </dxi-column>
       <dxi-column dataField="id" [visible]="false"></dxi-column>
     </dx-data-grid>
 
-    <dxi-toolbar-item
-      widget="dxButton"
-      toolbar="bottom"
-      location="after"
-      [options]="closePopupCreator"
-    >
+    <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="after" [options]="closePopupCreator">
     </dxi-toolbar-item>
-    <dxi-toolbar-item
-      widget="dxButton"
-      toolbar="bottom"
-      location="after"
-      [options]="addConsignment"
-    >
+    <dxi-toolbar-item widget="dxButton" toolbar="bottom" location="after" [options]="addConsignment">
     </dxi-toolbar-item>
   </dx-popup>
 
-  <dx-popup
-  [width]="300"
-  [height]="200"
-  [showTitle]="true"
-  title="Xác nhận thay đổi"
-  [dragEnabled]="false"
-  [closeOnOutsideClick]="false"
-  [showCloseButton]="true"
-  container=".confirm-popup"
-  [(visible)]="confirmPopupVisible"
-  [toolbarItems]="[
+  <dx-popup [width]="300" [height]="200" [showTitle]="true" title="Xác nhận thay đổi" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [showCloseButton]="true" container=".confirm-popup" [(visible)]="confirmPopupVisible"
+    [toolbarItems]="[
   {
     widget: 'dxButton',
     location: 'after',
@@ -404,9 +250,8 @@
     toolbar: 'bottom',
     onClick: onCloseConfirm
   }
-]"
->
+]">
 
-  <p>Bạn có muốn giữ lại những thay đổi không?</p>
-</dx-popup>
+    <p>Bạn có muốn giữ lại những thay đổi không?</p>
+  </dx-popup>
 </div>

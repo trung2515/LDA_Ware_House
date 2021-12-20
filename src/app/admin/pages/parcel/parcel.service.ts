@@ -9,8 +9,10 @@ export class PercelService {
 
     constructor(private warehouseClient: WareHouseClient) { }
 
-    getListPercel() {
+    getListPercel(fromDate: string, toDate: string) {
         let request: MasterRequest = new MasterRequest()
+        request.fromDate = fromDate
+        request.toDate = toDate
         return this.warehouseClient.getListParcel(request).pipe(map(reply => reply.response?.state == ResponseState.SUCCESS ? reply.data : []))
     }
 
