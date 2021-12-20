@@ -21,6 +21,7 @@ import { BillComponent } from './components/bill/bill.component'
 import { JobComponent } from './components/job/job.component'
 import { ReasonComponent } from './components/reason/reason.component'
 import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
+import {WorkflowManagementComponent} from './pages/workflow-management/workflow-management.component'
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { ParcelComponent } from './pages/parcel/parcel.component'
 import { LoginComponent } from './login/login.component'
@@ -78,6 +79,13 @@ const routes: Routes = [
           breadcrumb: 'Lô hàng'
         },
         component: ConsignmentManagementComponent
+      },
+      {
+        path: 'work-management',
+        data: {
+          breadcrumb: 'Quản lí công việc'
+        },
+        component: WorkflowManagementComponent
       },
 
       { path: '**', pathMatch: 'full', redirectTo: 'shift' }

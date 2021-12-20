@@ -1,0 +1,31 @@
+.page-body{
+    padding-top: 30px;
+}
+.choose-date{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+label{
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 15px;
+display: flex;
+align-items: center;
+color: #6B6B6B;
+}
+.elip{
+Width : 10px;
+Height:10px;
+border-radius: 50%;
+background: #3459E6;
+}
+.border-top-white {
+    border-top: 2px solid white;
+}
+
+.border-top-white :first-child{
+    border-top: 0;
+}

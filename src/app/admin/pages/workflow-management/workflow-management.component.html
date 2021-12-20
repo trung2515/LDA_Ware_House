@@ -1,0 +1,33 @@
+<div class="page-body">
+    <div class="choose-date">
+      <button class="btn-primary"(click)="convertDataWork()">viewData</button>
+        <label >từ ngày</label>
+        <div >
+          <dx-date-box [value]="now" type="date"> </dx-date-box>
+        </div>
+    </div>
+    <div *ngFor="let array of dataWorkConvert | keyvalue;">
+    <div class="pt-5 d-flex justify-content-start align-items-center">
+       <div class="elip me-2"></div> <div>{{array.key}}</div>
+    </div>
+    <hr>
+    <div *ngFor="let item of dataWorkConvert[array.key]" class="d-flex justify-content-start align-items-center">
+      <div class="d-flex justify-content-center align-items-center" style="width: 150px; height: 100px;border: 1px solid #CBD3EE;" >
+       Ca {{item.shift}}
+      </div>
+      <div class=" border-top-white p-2 d-flex justify-content-start" style="width: 100%;height: 100px;background-color: #E9EBF3;">
+        <div class="me-2">
+        <div class="d-flex flex-column align-items-center p-2" style="width:180px ; height:100%; background-color: white;border: 1px solid #CBD3EE;border-radius: 5px;">
+          <div class="p-1" style="background: #E7F0FF;border-radius: 4px;color: #3459E6;font-size:15px;">{{item.task}}</div>
+          <div class="mt-auto" style="font-size:18px">
+            <span>{{item.fromWareHouse}}</span>
+            <img class="p-2" src="../../../../assets/svg/icon-arrow-right-short.svg" alt="">
+            <span>{{item.toWareHouse}}</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+   
+</div>

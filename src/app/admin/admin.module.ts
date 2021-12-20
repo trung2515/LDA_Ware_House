@@ -38,6 +38,7 @@ import { CardComponent } from './pages/dashboard/component/card.component';
 import { ParcelComponent } from './pages/parcel/parcel.component';
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
 import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component';
+import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 @NgModule({
   declarations: [
     ParcelComponent,
@@ -71,7 +72,8 @@ import { FilterBarDashboardComponent } from './pages/dashboard/components/filter
     LineCharComponent,
     DetailParcelGrid,
     BreadcrumbComponent,
-    LoginComponent
+    LoginComponent,
+    WorkflowManagementComponent
   ],
   imports: [
     CommonModule,
