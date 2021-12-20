@@ -17,13 +17,13 @@ const routes: Routes = [
   //       m => m.FormsMineralModule
   //     )
   // },
-  {
-    path: 'shipper',
-    loadChildren: () =>
-      import('./shipping-unit/shipping-unit.module').then(
-        m => m.ShippingUnitModule
-      )
-  },
+  // {
+  //   path: 'shipper',
+  //   loadChildren: () =>
+  //     import('./shipping-unit/shipping-unit.module').then(
+  //       m => m.ShippingUnitModule
+  //     )
+  // },
   {
     path: 'order',
     loadChildren: () =>
