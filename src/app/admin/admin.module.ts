@@ -37,8 +37,9 @@ import { CardComponent } from './pages/dashboard/component/card.component';
 import { ParcelComponent } from './pages/parcel/parcel.component';
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component';
 import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component';
-import {  MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component';
+import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component';
 import { ShiftService } from './pages/shift/services/shift.service';
+import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/warehouse-inventory.component';
 @NgModule({
   declarations: [
     ParcelComponent,
@@ -72,7 +73,8 @@ import { ShiftService } from './pages/shift/services/shift.service';
     LineCharComponent,
     DetailParcelGrid,
     BreadcrumbComponent,
-    MenuConfirmComponent
+    MenuConfirmComponent,
+    WareHouseInventoryComponent
   ],
   imports: [
     CommonModule,

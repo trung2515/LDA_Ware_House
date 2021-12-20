@@ -12,12 +12,17 @@ export class HeaderReportComponent implements OnInit {
   // @Input() getEndDate:any
   @Input() title_nav: string = 'title nav'
   @Input() disabledDates: Date[] = []
+
+  @Input() isFilterDate: boolean = true;
+
   @Output() onSearchByProductName = new EventEmitter();
   @Output() onExport = new EventEmitter();
   @Output() onHandleInputChange = new EventEmitter();
 
   @Output() getStartDate = new EventEmitter<Date>();
   @Output() getEndDate = new EventEmitter<Date>();
+
+
 
 
   constructor() { }

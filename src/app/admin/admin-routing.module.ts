@@ -25,6 +25,7 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
 import { ParcelComponent } from './pages/parcel/parcel.component';
 import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component';
+import { WareHouseInventoryComponent } from './pages/warehouse-inventory/report/warehouse-inventory.component';
 
 ReasonComponent;
 JobComponent;
@@ -44,20 +45,27 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Cài đặt hệ thống'
     },
-    component: ConfigurationLayoutComponent,
+    component: AdminLayoutComponent,
     children: [
-      { path: 'product-category', component: ProductCategoryComponent },
-      { path: 'type-bag', component: TypeBagComponent },
-      { path: 'id-bag', component: IdBagComponent },
-      { path: 'warehouse-category', component: WarehouseCategoryComponent },
-      { path: 'partner', component: PartnerComponent },
-      { path: 'packet-unit', component: PacketUnitComponent },
-      { path: 'device-category', component: DeviceCategoryComponent },
-      { path: 'bill', component: BillComponent },
-      { path: 'job', component: JobComponent },
-      { path: 'reason', component: ReasonComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
+      {
+        path: '',
+        component: ConfigurationLayoutComponent,
+        children: [
+          { path: 'product-category', component: ProductCategoryComponent },
+          { path: 'type-bag', component: TypeBagComponent },
+          { path: 'id-bag', component: IdBagComponent },
+          { path: 'warehouse-category', component: WarehouseCategoryComponent },
+          { path: 'partner', component: PartnerComponent },
+          { path: 'packet-unit', component: PacketUnitComponent },
+          { path: 'device-category', component: DeviceCategoryComponent },
+          { path: 'bill', component: BillComponent },
+          { path: 'job', component: JobComponent },
+          { path: 'reason', component: ReasonComponent },
+          { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
+        ]
+      }
     ]
+
   },
   {
     path: 'warehouse-control',
@@ -80,26 +88,46 @@ const routes: Routes = [
         },
         component: ConsignmentManagementComponent
       },
-
+      {
+        path: 'warehouse-inventory',
+        data: {
+          breadcrumb: 'Ton kho'
+        },
+        component: WareHouseInventoryComponent
+      },
+      {
+        path: 'warehouse-report',
+        data: {
+          breadcrumb: 'Nhập sản lượng đóng bao - tiêu thụ loại 50kg'
+        },
+        component: WarehouseReportComponent
+      },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' }
     ]
   },
   {
     path: 'report',
+    data: {
+      breadcrumb: 'Báo cáo'
+    },
     component: AdminLayoutComponent,
     children: [
-      {
-        path: 'warehouse-report',
-        component: WarehouseReportComponent
-      },
+
       {
         path: 'transportation-report',
+        data: {
+          breadcrumb: 'Báo cáo vận chuyển'
+        },
         component: TransportationReportComponent
       },
       {
         path: 'consumption-report',
+        data: {
+          breadcrumb: 'Nhập xuất tồn sản phẩm'
+        },
         component: ConsumptionReportComponent
-      }
+      },
+
     ]
   },
   { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
@@ -109,4 +137,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

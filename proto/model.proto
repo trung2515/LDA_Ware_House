@@ -538,17 +538,18 @@ message DepartmentResponse
     repeated DepartmentInfo data = 2;
 
 }
-message PeopleInfo
+message ReportObjectInfo
 {
-    string namePeople = 1;
-    int32 idRole = 2;
-    string nameRole = 4 ;
+    string nameObject = 1;
+    int32 idObject = 2;
+    int32 typeObject = 3;
+    string nameTypeObject = 4 ;
 }
 
-message PeopleResponse
+message ReportObjectResponse
 {
     Response response = 1;
-    repeated PeopleInfo data = 2;
+    repeated ReportObjectInfo data = 2;
 }
 message ConfirmProduction1000
 {
@@ -597,8 +598,28 @@ message TransportInfo
 }
 message TransportResponse
 {
+
+
      Response response = 1;
     repeated TransportInfo data = 2;
 }
 
- 
+
+message ReportInventoryInfo
+{
+    string codeWareHouse = 1;
+    string nameWareHouse = 2;
+    string codeProduct = 3;
+    string nameProduct = 4;
+    int32 idTypeProduct = 5;
+    string nameTypeProduct = 6;
+    string codeTypePacket = 7;
+    string nameTypePacket = 8;
+    string codeParcel = 9;
+    int64 quantity = 10;
+}
+message ReportInventoryResponse
+{
+    Response response = 1;
+    repeated ReportInventoryInfo data = 2;
+}
