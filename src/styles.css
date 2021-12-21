@@ -7,6 +7,11 @@
   --heightHeader: 64px;
   --contentHeight: calc(100vh - var(--heightHeader));
 }
+
+*{
+  font-family: 'Roboto';
+}
+
 .mainCol {
   width: 86%;
   margin: auto;

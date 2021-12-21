@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path: 'configuration',
     data: {
-      breadcrumb: 'Cài đặt hệ thống',
+      breadcrumb: 'Cấu hình',
     },
     component: AdminLayoutComponent,
     children: [
@@ -97,7 +97,7 @@ const routes: Routes = [
       {
         path: 'warehouse-report',
         data: {
-          breadcrumb: 'Nhập sản lượng đóng bao - tiêu thụ loại 50kg',
+          breadcrumb: 'Báo cáo sản lượng đóng bao',
         },
         component: WarehouseReportComponent,
       },

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { WareHouseService } from './../../../core/services/warehouse.service';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { tryEqualsArr } from './../../../utils/helper';
@@ -33,14 +34,14 @@ export class ConsignmentManagementComponent implements OnInit {
       code: 'AO1T'
     }
   ]
-  // name type type_bag
-  infoSelection: any =
-    {
-      name: [{ Value: 'Alumin 1 tấn' }, { Value: 'Alumin 2 tấn' }, { Value: 'Alumin 3 tấn' }, { Value: 'Alumin 30000 tấn' }],
-      type: [{ Value: 1, Key: 'Loại 1' }, { Value: 2, Key: 'Loại 2' }],
-      type_bag: [{ Value: 'Xả đáy nhiều lần 3.7' }, { Value: 'Đáy liền' }, { Value: 'Bao alumin 50kg' }],
-      quantity: [1000, 1000, 900]
-    }
+
+  product_types: any = [
+
+  ]
+
+  bag_types: any = [
+
+  ]
   // other setting of option dxi
   searchModeOption = 'contains';
   searchExprOption: any = 'Name';
@@ -56,7 +57,6 @@ export class ConsignmentManagementComponent implements OnInit {
   closeButtonOptions: any;
   saveReplace: any;
   currentConsignment: any = {}
-
   consigmentDetail: ParcelDetailModel[] = []
 
   // popup addNew
@@ -77,13 +77,15 @@ export class ConsignmentManagementComponent implements OnInit {
   }
   showInfo(consignment: ParcelModel) {
     this.popupVisible = true;
-    this.popupTitle = `Chi tiết đơn hàng #${consignment.id}`
-    this.warehouseService.getListParcelDetailByCode(consignment.name).subscribe(data => {
-      this.consigmentDetail = data.map(d => new ParcelDetailModel(d))
-    })
-    this.currentConsignment = { ...consignment }
-    this.currentProducts = [...this.currentConsignment.products]
+    if (consignment != null) {
+      this.popupTitle = `Chi tiết lô hàng #${consignment.id}`
+      this.warehouseService.getListParcelDetailByCode(consignment.name).subscribe(data => {
+        this.consigmentDetail = data.map(d => new ParcelDetailModel(d))
+      })
+    }
+
   }
+
   setIdConsignment(e: any) {
     this.idConsignment = Number(e.target.value)
   }
@@ -98,7 +100,7 @@ export class ConsignmentManagementComponent implements OnInit {
       newConsignment = {
         id: this.idConsignment,
         date: now,
-        creator: 'hieu',
+        creator: this.authService.getUser().user,
         products: [...this.inputProductPopupCreator]
       }
       this.consignments.push(newConsignment)
@@ -107,23 +109,13 @@ export class ConsignmentManagementComponent implements OnInit {
 
   filterForm: FormGroup = new FormGroup({})
 
-
   constructor(private consignmentService: ConsignmentService,
     private warehouseService: WareHouseService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
 
     const that = this;
-    // that.consignments = consignmentService.getConsignment()
-
-    // this.onClickCancel = this.onClickCancel.bind(this);
-    // this.onClickSave = this.onClickSave.bind(this);
-
-
-    // this.onClosePopupPr = this.onClosePopupPr.bind(this);
-    // this.onSaveReplace = this.onSaveReplace.bind(this);
-
-    // this.onConfirm = this.onConfirm.bind(this);
-    // this.onCloseConfirm = this.onCloseConfirm.bind(this)
 
     that.closePopupCreator = {
       text: 'Đóng',
@@ -142,7 +134,6 @@ export class ConsignmentManagementComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
     this.filterForm = this.formBuilder.group({
       id: [
         "",
@@ -152,8 +143,7 @@ export class ConsignmentManagementComponent implements OnInit {
         ])
       ]
     })
-
-    this.getData(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1)
+    this.getData(this.currentDate.getFullYear(), this.currentDate.getMonth())
   }
 
   getData(year: number, month: number) {
@@ -163,7 +153,6 @@ export class ConsignmentManagementComponent implements OnInit {
     this.warehouseService.getListParcel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
       this.consignments = data.map(d => new ParcelModel(d))
       console.log(this.consignments)
-      // this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
     })
   }
   onSubmit(): void {
@@ -177,14 +166,13 @@ export class ConsignmentManagementComponent implements OnInit {
   }
 
   onConfirm() {
-    const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
-    this.consignments[currentIndexCon].products = [...this.currentProducts]
+    // const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
+    // this.consignments[currentIndexCon].products = [...this.currentProducts]
     this.confirmPopupVisible = false
   }
 
   onClosePopupPr(e: any) {
     const currentIndexCon = this.consignments.findIndex((con: any) => con.id === this.currentConsignment.id)
-
     const checkReplace = tryEqualsArr(this.consignments[currentIndexCon].products, this.currentProducts)
     if (checkReplace) {
       this.popupVisible = false
@@ -218,7 +206,7 @@ export class ConsignmentManagementComponent implements OnInit {
   //handle dx-date-box change event
   onValueChanged(e: any) {
     const year = (new Date(e.value)).getFullYear()
-    const month = e.value.getMonth() + 1
+    const month = e.value.getMonth()
     this.getData(year, month)
   }
 

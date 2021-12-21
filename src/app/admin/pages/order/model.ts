@@ -25,7 +25,8 @@ export class OrderModel {
     this.type_packet = data.nameTypePacket || ''
     this.lop1 = data.class1 || 0
     this.lop2 = data.class2 || 0
-    this.dvvc = data.shippingUnit || ''
+    // this.dvvc = data.idTransportationUnit || ''
+    this.dvvc = ''
     this.quantity = data.quantity || 0
     this.orderCode = data.codeOrder || ''
   }

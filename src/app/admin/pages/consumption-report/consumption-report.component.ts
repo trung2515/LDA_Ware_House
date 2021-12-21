@@ -256,17 +256,16 @@ export class ConsumptionReportComponent implements OnInit {
   loadPivotGrid = (): void => {
     this.detailInputOutputReport.reload()
     this.detailImExInventoryReport.reload()
+    this.pipotParcelReport.reload()
   }
   //handle dx-date-box change event
-  getStartDate(e: any) {
-    this.startDate = e.value
-    // if (this.startDate) {
-    //   this.disabledDates = this.getDisabledDates(this.startDate)
-    // }
+  getStartDate(date: Date) {
+    console.log(date);
+    this.startDate = date
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {
-      this.toastr.error('Ngày bắt đầu lớn hơn ngày kết thúc')
+      this.toastr.warning('Ngày bắt đầu lớn hơn ngày kết thúc')
     }
   }
   getEndDate(e: any) {
@@ -290,43 +289,6 @@ export class ConsumptionReportComponent implements OnInit {
     return getDates(stopDate)
   }
 
-  // handleFilter = () => {
-  //   const { objDate, inputValue } = this.filterControl
-  //   // filter only date
-  //   if (objDate.endDate && !inputValue) {
-  //     if (this.endDate >= this.startDate) {
-  //       const result = this.statistics.filter((item: any) => {
-  //         const dateOfItem = new Date(item.date).getTime()
-  //         return (
-  //           dateOfItem >= objDate.startDate && dateOfItem <= objDate.endDate
-  //         )
-  //       })
-  //       this.statistics_copy = result
-  //     }
-  //   }
-  //   // filter only product name
-  //   else if (inputValue && !objDate.endDate) {
-  //     this.statistics_copy = this.statistics.filter((product) => {
-  //       return (
-  //         product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-  //       )
-  //     })
-  //   }
-  //   // filter with both conditions
-  //   else {
-  //     const result = this.statistics.filter((product: any) => {
-  //       const dateOfItem = new Date(product.date).getTime()
-
-  //       return (
-  //         dateOfItem >= objDate.startDate &&
-  //         dateOfItem <= objDate.endDate &&
-  //         product.name.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-  //       )
-  //     })
-  //     this.statistics_copy = result
-  //     this.loadPivotGrid()
-  //   }
-  // }
 
   onExportingGrid(e: any) {
     this.excelService.onExportingExcelGrid(

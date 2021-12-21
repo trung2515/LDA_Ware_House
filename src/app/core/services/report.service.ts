@@ -1,5 +1,6 @@
 import {
   OrderInfo,
+  OrderReply,
   OrderResponse,
   ReportInventoryResponse,
 } from './../models/model.pb'
@@ -25,7 +26,7 @@ export class ReportService {
     private reportClient: ReportClient,
     private authService: AuthService,
     private cardClient: CardClient,
-  ) {}
+  ) { }
   reportInOut(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
@@ -57,26 +58,32 @@ export class ReportService {
     request.userName = 'stvg'
     return this.reportClient.getReportInventory(request).pipe(
       map((reply: ReportInventoryResponse) => {
-        console.log(reply.data)
+        console.log(reply)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )
   }
 
   reportOrders(fromDate: string, toDate: string, orderCode: string) {
-    let request: OrderInfo = new OrderInfo()
-    // request.fromDate = fromDate
-    // request.toDate = toDate
-    // request.userName = this.authService.getUser().user
-    request.codeOrder = orderCode
-    return this.cardClient.getOrderByCode(request).pipe(
-      map((reply: OrderResponse) => {
-        const orders: OrderInfo[] = []
-        console.log(reply)
-        if (reply.response.state == ResponseState.SUCCESS)
-          orders.push(reply.order)
-        return orders
-        // return reply.response.state == ResponseState.SUCCESS ? reply.order : {}
+    let request: MasterRequest = new MasterRequest()
+    request.fromDate = fromDate
+    request.toDate = toDate
+    request.userName = this.authService.getUser().user
+    return this.reportClient.getReportOrder(request).pipe(
+      map((reply: OrderReply) => {
+        return reply.response.state == ResponseState.SUCCESS ? reply.orders : []
+      }),
+    )
+  }
+
+  reportErrorBag(fromDate: string, toDate: string){
+    let request: MasterRequest = new MasterRequest()
+    request.fromDate = fromDate
+    request.toDate = toDate
+    request.userName = this.authService.getUser().user
+    return this.reportClient.getReportError(request).pipe(
+      map((reply: CardDetailResponse) => {
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )
   }

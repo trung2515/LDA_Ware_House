@@ -190,8 +190,8 @@ message ShiftDetailInfo
     string nameWareHouse = 13;
     int32 idShift = 14;
     string nameShift = 15;
-    string code_packing_unit = 16;
-    string name_packing_unit = 17;
+    string codePackingUnit = 16;
+    string namePackingUnit = 17;
     int32 createdPerson = 18;
     string nameCreatedPerson = 19;
     string date = 20;
@@ -358,10 +358,11 @@ message CardDetailInfo
     string nameShift = 22;
     string codeOrder = 23;
     string codeCreatedReason = 24;
-    string nameReason = 25;
-    string codePartner = 26;
-    string namePartner = 27;
-    int32 CountTrip = 28;
+    string codeReason = 25;
+    string nameReason = 26;
+    string codePartner = 27;
+    string namePartner = 28;
+    int32 CountTrip = 29;
 }
 
 message CardDetailResponse
@@ -519,12 +520,20 @@ message OrderInfo
    int32 weightAllow = 7;
    string codeTypePacket = 8;
    int32 quantity = 9;
-   string shippingUnit = 10;
+   int32 idTransportationUnit = 10;
    int32 class1 = 11;
    int32 class2 = 12;
    string codeProduct = 13;
    string nameProduct = 14;
    string nameTypePacket = 15;
+   string nameTransportationUnit = 16;
+   string customer = 17;
+   string nameCustomer = 18;
+   string typeCustomer = 19;
+   string nameTypeCustomer = 20; 
+   string wareHouse = 21;
+   int32 idTypeProduct = 22;
+    string nameTypeProdcut = 23;
 }
 
 message DepartmentInfo
@@ -554,12 +563,13 @@ message ReportObjectResponse
 message ConfirmProduction1000
 {
     int64 id_shift_detail = 1;
-    int32 id_equipment  = 2;
+    string code_equipment  = 2;
     int32 quantity = 3;
 }
 message ConfirmProduction1000Info
 {
-    repeated ConfirmProduction1000 data = 1;
+    int32 user = 1;
+    repeated ConfirmProduction1000 data = 2;
 }
 
 message OrderResponse
@@ -622,4 +632,52 @@ message ReportInventoryResponse
 {
     Response response = 1;
     repeated ReportInventoryInfo data = 2;
+}
+message ConfirmProductionDetail
+{
+    
+    int32 idShiftDetail = 1;
+    string optionName = 2;
+    string codeTypeBill = 3;
+    string nameTypeBill = 4;
+    string codeProduct = 5;
+    string nameProduct = 6;
+    int32 idTypeProduct = 7;
+    string nameTypeProduct = 8;
+    string codeTypePacket = 9;
+    string nameTypePacket = 10;
+    string codeParcel = 11;
+    string codeWareHouse = 12;
+    string nameWareHouse = 13;
+    int32 idShift = 14;
+    string nameShift = 15;
+    string codePackingUnit = 16;
+    string namePackingUnit = 17;
+    int32 createdPerson = 18;
+    string nameCreatedPerson = 19;
+    string date = 20;
+    string codeEquipment = 21;
+    int32 quantity = 22;
+}
+message ConfirmProductionResponse
+{
+    Response response = 1;
+    repeated ConfirmProductionDetail data = 2;
+}
+
+message OrderReply
+{
+   repeated OrderInfo orders = 1;
+   Response response = 2;
+}
+
+message  TransportationUnitInfo
+{
+    int32 idTransportationUnit = 1;
+    string nameTransportationUnit = 2;
+}
+message TransportationUnitResponse
+{
+    repeated TransportationUnitInfo data = 1;
+    Response response = 2;
 }
