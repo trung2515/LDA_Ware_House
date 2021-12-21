@@ -5,10 +5,11 @@
   ></app-header-bar>
   <div class="content mainCol">
     <h4 class="title-info">Ca làm việc</h4>
-    <div class="select-group row">
+    <div class="select-wrap row">
       <div class="select-group col-12 col-lg-3">
         <label class="select-label" for="">Ngày</label>
         <dx-date-box
+          height="42"
           [(value)]="now"
           type="date"
           (onValueChanged)="onDateValueChanged($event)"
@@ -17,6 +18,7 @@
       <div class="select-group col-12 col-lg-3">
         <label class="select-label" for="">Ca làm việc</label>
         <dx-select-box
+          height="42"
           [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
           [(value)]="ca_no_option"
           hoverStateEnabled="false"
@@ -24,42 +26,70 @@
           (onSelectionChanged)="onSelectShiftChange($event)"
         ></dx-select-box>
       </div>
-    </div>
-    <h4 class="title-info">Số lượng máy đóng bao</h4>
-
-    <div class="product-list">
-      <div class="row product-item">
-        <div class="col-lg-3 col-12 field-item">
-          <div class="field-label">Sản phẩm:</div>
-          <div class="field-control">
-            input
-          </div>
-        </div>
-        <div class="col-lg-3 col-12 field-item">
-          <div class="field-label">Sản phẩm:</div>
-          <div class="field-control">
-            input
-          </div>
-        </div>
-        <div class="col-lg-3 col-12 field-item">
-          <div class="field-label">Sản phẩm:</div>
-          <div class="field-control">
-            input
-          </div>
-        </div>
-        <div class="col-lg-3 col-12 field-item">
-          <div class="field-label">Sản phẩm:</div>
-          <div class="field-control">
-            input
-          </div>
-        </div>
-        <div class="col-lg-3 col-12 filed-item">
-          <div class="field-label">Sản phẩm:</div>
-          <div class="filed-control">
-            input
-          </div>
-        </div>
+      <div class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Loại phiếu</label>
+        <dx-select-box
+          height="42"
+          [dataSource]="['Nhập đóng mới', 'Nhập đóng lại']"
+          [(value)]="ballot_type"
+          hoverStateEnabled="false"
+          placeholder="Chọn loại phiếu"
+        ></dx-select-box>
+      </div>
+      <div class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Đơn vị đóng</label>
+        <dx-select-box
+          height="42"
+          [dataSource]="packaging_units"
+          [(value)]="packaging_unit"
+          hoverStateEnabled="false"
+          placeholder="Chọn đơn vị đóng"
+        ></dx-select-box>
       </div>
     </div>
+    <h4 class="title-info title-machine-qty">Số lượng máy đóng bao</h4>
+
+    <div class="product-list">
+      <form
+        *ngFor="let key of getKeyForm()"
+        [formGroup]="formGroupProduct[key]"
+        class="row product-item"
+      >
+        <div
+          *ngFor="let input of inputs_options"
+          class="col-lg-3 col-12 field-item"
+        >
+          <div *ngIf="input.type === 'text'" class="form-groups">
+            <div class="field-label">{{ input.label }}</div>
+            <div class="field-control">
+              <app-text-input
+                [formControlName]="input.formControlName"
+                [label]="input.label"
+                type="text"
+              ></app-text-input>
+            </div>
+          </div>
+
+          <div *ngIf="input.type === 'select'" class="form-groups">
+            <div class="field-label">{{ input.label }}</div>
+            <div class="field-control">
+              <app-select-option
+                [formControlName]="input.formControlName"
+                [label]="input.label"
+                [type]="'select'"
+                [options]="input.options"
+              ></app-select-option>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button (click)="addNewForm()" class="btn-add-new-form">
+        <img src="assets/svg/add_png_active.svg" alt="add" />
+        <span>Thêm sản phẩm</span>
+      </button>
+    </div>
+    <button (click)="onSubmit()" class="btn-ship btn-completed">
+      Hoàn tất
+    </button>
   </div>
 </div>

@@ -13,6 +13,7 @@ import { ListTypeOneComponent } from './pages/list-type-one/list-type-one.compon
 import { ListTypeFiftyComponent } from './pages/list-type-fifty/list-type-fifty.component';
 import { OptionStatusComponent } from './components/option-status/option-status.component';
 import { OptionItemComponent } from './components/option-item/option-item.component';
+
 @NgModule({
   declarations: [
     ShippingUnitComponent,

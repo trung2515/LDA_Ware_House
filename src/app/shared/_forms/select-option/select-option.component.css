@@ -1,4 +1,4 @@
-.form-group {
+.select-wrap {
   position: relative;
 }
 .invalid-feedback {
@@ -13,12 +13,17 @@
 .select {
   position: relative;
   width: 100%;
-  height: 46px;
   font-size: 15px;
   color: #979797;
   font-family: "Roboto";
   border-radius: 3px;
   border: 1px solid #CBD3EE;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: url('../../../../assets/svg/arrow_down.svg') no-repeat right #fff;
+  background-size: 28px 18px;
+  padding: 10.08px 6px;
 }
 .select:after {
   content: '';
