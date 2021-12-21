@@ -1,0 +1,70 @@
+.item-wrap {
+  font-family: "Roboto";
+  border: 1px solid #cbd3ee;
+  border-radius: 5px;
+  padding-bottom: 16px;
+}
+/* .item-wrap:hover {
+  -webkit-box-shadow: 0px 0px 12px 4px rgb(0 0 0 / 12%);
+  box-shadow: 0px 0px 12px 4px rgb(0 0 0 / 12%);
+} */
+
+.item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #cbd3ee;
+}
+.option-toolbar img {
+  cursor: pointer;
+}
+img.btn-edit {
+  margin-right: 16px;
+}
+
+
+.item-content {
+  padding: 16px;
+}
+.option-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #000000;
+}
+.option-info {
+  background-color: #eef1f9;
+  padding: 8px 4px;
+  margin: 0 2px;
+}
+.shift-info {
+  padding-left: 4px;
+}
+
+.shift-label {
+  font-size: 13px;
+  line-height: 24px;
+  color: #4e4e4e;
+}
+.shift-value {
+  font-size: 15px;
+  color: #000000;
+  line-height: 18px;
+}
+.machine-list {
+  margin: 8px 0;
+}
+.machine-item {
+  padding-left: 8px;
+}
+.machine-label {
+  font-size: 13px;
+  line-height: 24px;
+  color: #4e4e4e;
+}
+.machine-value {
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+}

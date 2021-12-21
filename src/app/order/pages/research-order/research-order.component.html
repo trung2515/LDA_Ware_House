@@ -38,22 +38,22 @@
         class="result-empty has-result"
       >
         <span>Mã đơn hàng:</span>
-        <span class="order-code">{{orderResultSearch.id}}</span>
+        <span class="order-code">{{orderResultSearch.codeOrder}}</span>
         <h3 class="head-title-row">Thông tin tài xế</h3>
        <div class="info-row">
         <div class="info-wrap">
           <div class="info-column">
             <div class="info-group">
               <p class="info-field">CCCD/CMND:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.identity_card_num}}</p>
+              <p class="info-data">{{orderResultSearch.identityDriver}}</p>
             </div>
             <div class="info-group">
               <p class="info-field">Số Rơ mooc:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.ro_mooc_number}}</p>
+              <p class="info-data">{{orderResultSearch.roMooc}}</p>
             </div>
             <div class="info-group">
               <p class="info-field">KL đăng kiểm:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.weight_registry}}</p>
+              <p class="info-data">{{orderResultSearch.weightRegistration}}</p>
             </div>
           </div>
         </div>
@@ -61,15 +61,15 @@
           <div class="info-column">
             <div class="info-group">
               <p class="info-field">Tên tài xế:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.name}}</p>
+              <p class="info-data">{{orderResultSearch.nameDriver}}</p>
             </div>
             <div class="info-group">
               <p class="info-field">Biển số xe:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.identity_card_num}}</p>
+              <p class="info-data">{{orderResultSearch.vehicleNumber}}</p>
             </div>
             <div class="info-group">
               <p class="info-field">KL cho phép chở:</p>
-              <p class="info-data">{{orderResultSearch.driverInfo.net_weight}}</p>
+              <p class="info-data">{{orderResultSearch.weightAllow}}</p>
             </div>
           </div>
         </div>
@@ -81,15 +81,15 @@
             <div class="info-column">
               <div class="info-group">
                 <p class="info-field">Sản phẩm:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.name}}</p>
+                <p class="info-data">{{orderResultSearch.nameProduct}}</p>
               </div>
               <div class="info-group">
                 <p class="info-field">Số lượng:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.qty}}</p>
+                <p class="info-data">{{orderResultSearch.quantity}}</p>
               </div>
               <div class="info-group">
                 <p class="info-field">Lớp 1:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.grade_1}}</p>
+                <p class="info-data">{{orderResultSearch.class1}}</p>
               </div>
             </div>
           </div>
@@ -97,15 +97,15 @@
             <div class="info-column">
               <div class="info-group">
                 <p class="info-field">Loại bao:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.bagging_type}}</p>
+                <p class="info-data">{{orderResultSearch.nameTypePacket}}</p>
               </div>
               <div class="info-group">
                 <p class="info-field">Tên đơn vị vận chuyển:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.shipping_unit_name}}</p>
+                <p class="info-data">{{orderResultSearch.nameTransportationUnit}}</p>
               </div>
               <div class="info-group">
                 <p class="info-field">Lớp 2:</p>
-                <p class="info-data">{{orderResultSearch.orderInfo.grade_2}}</p>
+                <p class="info-data">{{orderResultSearch.class2}}</p>
               </div>
             </div>
           </div>

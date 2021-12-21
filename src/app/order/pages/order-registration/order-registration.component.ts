@@ -22,22 +22,22 @@ export class OrderRegistrationComponent implements OnInit {
   title: string = 'Đăng ký phiếu đơn hàng';
   registerForm!: FormGroup;
   isAddingSuccessful: boolean = false;
-  order_Code:string =''
-  product_options:any
-  bagging_type_options:any
-  orderFields: any = {}
-  driverFields: any = {}
+  order_Code: string = '';
+  product_options: any;
+  bagging_type_options: any;
+  orderFields: any = {};
+  driverFields: any = {};
   orderList: OrderModel[] = [];
   constructor(
     private _location: Location,
     private orderService: ShippingUnitService,
     private formBuilder: FormBuilder,
     private order: OrderService,
-    private toastr : ToastrService
+    private toastr: ToastrService
   ) {
     this.orderList = orderService.getOrderList();
     this.product_options = orderService.getProduct_options();
-    this.bagging_type_options =  orderService.getBagging_type_options();
+    this.bagging_type_options = orderService.getBagging_type_options();
   }
 
   ngOnInit(): void {
@@ -124,24 +124,30 @@ export class OrderRegistrationComponent implements OnInit {
   initializeForm() {
     this.registerForm = this.formBuilder.group({
       identity_card_num: [
-        '',
+        '241605781',
         [Validators.required, Validators.minLength(9), Validators.maxLength(12)]
       ],
       weight_registry: [
-        '',
+        '111',
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
-      driver_name: ['', [Validators.required]],
-      net_weight: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      ro_mooc_number: ['', [Validators.required]],
-      number_plate: ['', [Validators.required, Validators.minLength(7)]],
+      driver_name: ['Nguyễn Đình Trung', [Validators.required]],
+      net_weight: [
+        '123',
+        [Validators.required, Validators.pattern('^[0-9]*$')]
+      ],
+      ro_mooc_number: ['28C3965', [Validators.required]],
+      number_plate: [
+        '49C5-90653',
+        [Validators.required, Validators.minLength(7)]
+      ],
 
       order_name: ['', [Validators.required]],
-      qty: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      grade_1: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      grade_2: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      qty: ['1234', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      grade_1: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      grade_2: ['456', [Validators.required, Validators.pattern('^[0-9]*$')]],
       bagging_type: ['', Validators.required],
-      shipping_unit_name: ['', [Validators.required]]
+      shipping_unit_name: ['Vận chuyển lâm đồng', [Validators.required]]
     });
   }
   onSubmit(e: any): void {
@@ -157,7 +163,7 @@ export class OrderRegistrationComponent implements OnInit {
         }
       }
     } else {
-      this.order_Code = this.orderService.generateId()
+      this.order_Code = this.orderService.generateId();
       const newOrder = {
         id: this.orderService.generateId(),
         driverInfo: {
@@ -179,19 +185,32 @@ export class OrderRegistrationComponent implements OnInit {
       };
 
       const order = new OrderInfo();
-      order.class1 = newOrder.orderInfo.grade_1
-      order.class2 = newOrder.orderInfo.grade_2
+
+      //  order.codeOrder = newOrder.orderInfo.
+      order.identityDriver = newOrder.driverInfo.identity_card_num;
+      order.nameDriver = newOrder.driverInfo.name;
+      order.vehicleNumber = newOrder.driverInfo.number_plate;
+      order.weightAllow = newOrder.driverInfo.net_weight;
+      order.weightRegistration = newOrder.driverInfo.weight_registry;
+      order.roMooc = newOrder.driverInfo.ro_mooc_number;
+      order.class1 = newOrder.orderInfo.grade_1;
+      order.class2 = newOrder.orderInfo.grade_2;
+      order.quantity = newOrder.orderInfo.qty;
+      order.nameTransportationUnit = newOrder.orderInfo.shipping_unit_name;
+      order.nameProduct = newOrder.orderInfo.name;
+      order.nameTypePacket = newOrder.orderInfo.bagging_type;
+
+      console.log(order);
 
 
-      this.order.insertOrder(order).subscribe(reply => {
-        if(reply.response.state == ResponseState.SUCCESS){
-
-          this.toastr.success(reply.response.message)
-          reply.order.codeOrder
-        } else {
-          this.toastr.error(reply.response.message)
-        }
-      })
+      // this.order.insertOrder(order).subscribe(reply => {
+      //   if (reply.response.state == ResponseState.SUCCESS) {
+      //     this.toastr.success(reply.response.message);
+      //     reply.order.codeOrder;
+      //   } else {
+      //     this.toastr.error(reply.response.message);
+      //   }
+      // });
 
       // this.orderList.push(newOrder);
       this.isAddingSuccessful = true;

@@ -1,1 +1,74 @@
-<p>list-type-one works!</p>
+<div class="wrapper">
+  <app-header-bar
+    (onBackClicked)="onBackClicked()"
+    [title]="title"
+  ></app-header-bar>
+  <div class="content mainCol">
+    <div class="select-group row">
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ngày</label>
+        <dx-date-box
+          [(value)]="now"
+          type="date"
+          (onValueChanged)="onDateValueChanged($event)"
+        ></dx-date-box>
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ca làm việc</label>
+        <dx-select-box
+          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [(value)]="ca_no_option"
+          hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectShiftChange($event)"
+        ></dx-select-box>
+      </div>
+    </div>
+
+    <div *ngIf="!isEditing" class="content-list">
+      <div class="row ">
+        <div
+          *ngFor="let option of currentAppointment.shiftDetail"
+          class="col-lg-4 col-12 shift-option"
+        >
+          <app-option-item
+            [objItem]="option"
+            (onClickItem)="onShiftOptionClicked()"
+          ></app-option-item>
+        </div>
+      </div>
+    </div>
+    <div class="detail-shift-option">
+      <div class="detail-title">
+        Số lượng máy đóng bao
+      </div>
+      <div class="option-shift-info">
+        <span class="option-num">Option: 1</span>
+        <span class="shift-info"> Alumin 1 tấn - Loại 1 - Đáy bằng  </span>
+        <app-option-status></app-option-status>
+      </div>
+      <div class="row shift-info-common">
+        <div class="col-lg-4">
+          <div class="shift-label">Lô</div>
+          <div class="shift-value">189</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="shift-label">Kho</div>
+          <div class="shift-value">Kho TT</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="shift-label">Đơn vị đóng</div>
+          <div class="shift-value">VTRE</div>
+        </div>
+      </div>
+      <div class="row machine-qty">
+        <div class="col-lg-3">
+          <div class="machine-label">Máy A:</div>
+          <div class="machine-control-qty">
+            input
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
