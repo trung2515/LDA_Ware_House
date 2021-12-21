@@ -363,6 +363,7 @@ message CardDetailInfo
     string codePartner = 27;
     string namePartner = 28;
     int32 CountTrip = 29;
+    int32 seri = 30;
 }
 
 message CardDetailResponse
@@ -376,7 +377,8 @@ message InsertCardRequest
 {
     string date = 1;
     string nameShift = 2;
-    repeated CardDetailInfo cardDetails = 3;
+    string user  = 3;
+    repeated CardDetailInfo cardDetails = 4;
 }
 
 message TaskInfo

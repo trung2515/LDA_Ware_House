@@ -1,5 +1,4 @@
 import { FilterModel } from './../warehouse-report/models'
-import { TransportationReportService } from './transportation-report.service'
 import { TransportationReportModel } from './models'
 import { Component, OnInit } from '@angular/core'
 import { getDates } from 'src/app/utils/helper'
@@ -41,7 +40,6 @@ export class TransportationReportComponent implements OnInit {
 
   constructor(
     private excelService: ExcelService,
-    private transportationService: TransportationReportService,
     private reportService: ReportService,
     private toastr: ToastrService,
   ) {
@@ -191,7 +189,7 @@ export class TransportationReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.transportationList.filter(t => t.unloading_equipment != '' && t.unloading_warehouse != '' )
+          return this.transportationList.filter(t => t.unloading_equipment != '' && t.unloading_warehouse != '')
         },
       }),
     })
@@ -200,7 +198,7 @@ export class TransportationReportComponent implements OnInit {
       fields: [
         {
           caption: 'Thiết bị bốc/chỉ tiêu',
-          dataField: ' loading_equipment',
+          dataField: 'loading_equipment',
           headerFilter: {
             allowSearch: true,
           },
@@ -218,7 +216,7 @@ export class TransportationReportComponent implements OnInit {
         },
         {
           caption: 'Nơi bốc',
-          dataField: 'loading_warehouse',
+          dataField: 'lau_warehouse',
           headerFilter: {
             allowSearch: true,
           },
@@ -248,7 +246,7 @@ export class TransportationReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.transportationList.filter(t => t.loading_equipment != '' && t.lau_warehouse != '' )
+          return this.transportationList.filter(t => t.loading_equipment != '' && t.lau_warehouse != '')
         },
       }),
     })

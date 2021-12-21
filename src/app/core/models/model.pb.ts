@@ -8820,6 +8820,7 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.codePartner = _instance.codePartner || '';
     _instance.namePartner = _instance.namePartner || '';
     _instance.countTrip = _instance.countTrip || 0;
+    _instance.seri = _instance.seri || 0;
   }
 
   /**
@@ -8921,6 +8922,9 @@ export class CardDetailInfo implements GrpcMessage {
           break;
         case 29:
           _instance.countTrip = _reader.readInt32();
+          break;
+        case 30:
+          _instance.seri = _reader.readInt32();
           break;
         default:
           _reader.skipField();
@@ -9026,6 +9030,9 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.countTrip) {
       _writer.writeInt32(29, _instance.countTrip);
     }
+    if (_instance.seri) {
+      _writer.writeInt32(30, _instance.seri);
+    }
   }
 
   private _idCard?: number;
@@ -9057,6 +9064,7 @@ export class CardDetailInfo implements GrpcMessage {
   private _codePartner?: string;
   private _namePartner?: string;
   private _countTrip?: number;
+  private _seri?: number;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9093,6 +9101,7 @@ export class CardDetailInfo implements GrpcMessage {
     this.codePartner = _value.codePartner;
     this.namePartner = _value.namePartner;
     this.countTrip = _value.countTrip;
+    this.seri = _value.seri;
     CardDetailInfo.refineValues(this);
   }
   get idCard(): number | undefined {
@@ -9269,6 +9278,12 @@ export class CardDetailInfo implements GrpcMessage {
   set countTrip(value: number | undefined) {
     this._countTrip = value;
   }
+  get seri(): number | undefined {
+    return this._seri;
+  }
+  set seri(value: number | undefined) {
+    this._seri = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -9313,7 +9328,8 @@ export class CardDetailInfo implements GrpcMessage {
       nameReason: this.nameReason,
       codePartner: this.codePartner,
       namePartner: this.namePartner,
-      countTrip: this.countTrip
+      countTrip: this.countTrip,
+      seri: this.seri
     };
   }
 
@@ -9362,7 +9378,8 @@ export class CardDetailInfo implements GrpcMessage {
       nameReason: this.nameReason,
       codePartner: this.codePartner,
       namePartner: this.namePartner,
-      countTrip: this.countTrip
+      countTrip: this.countTrip,
+      seri: this.seri
     };
   }
 }
@@ -9400,6 +9417,7 @@ export module CardDetailInfo {
     codePartner?: string;
     namePartner?: string;
     countTrip?: number;
+    seri?: number;
   }
 
   /**
@@ -9435,6 +9453,7 @@ export module CardDetailInfo {
     codePartner?: string;
     namePartner?: string;
     countTrip?: number;
+    seri?: number;
   }
 }
 
@@ -9639,6 +9658,7 @@ export class InsertCardRequest implements GrpcMessage {
   static refineValues(_instance: InsertCardRequest) {
     _instance.date = _instance.date || '';
     _instance.nameShift = _instance.nameShift || '';
+    _instance.user = _instance.user || '';
     _instance.cardDetails = _instance.cardDetails || [];
   }
 
@@ -9662,13 +9682,16 @@ export class InsertCardRequest implements GrpcMessage {
           _instance.nameShift = _reader.readString();
           break;
         case 3:
-          const messageInitializer3 = new CardDetailInfo();
+          _instance.user = _reader.readString();
+          break;
+        case 4:
+          const messageInitializer4 = new CardDetailInfo();
           _reader.readMessage(
-            messageInitializer3,
+            messageInitializer4,
             CardDetailInfo.deserializeBinaryFromReader
           );
           (_instance.cardDetails = _instance.cardDetails || []).push(
-            messageInitializer3
+            messageInitializer4
           );
           break;
         default:
@@ -9694,9 +9717,12 @@ export class InsertCardRequest implements GrpcMessage {
     if (_instance.nameShift) {
       _writer.writeString(2, _instance.nameShift);
     }
+    if (_instance.user) {
+      _writer.writeString(3, _instance.user);
+    }
     if (_instance.cardDetails && _instance.cardDetails.length) {
       _writer.writeRepeatedMessage(
-        3,
+        4,
         _instance.cardDetails as any,
         CardDetailInfo.serializeBinaryToWriter
       );
@@ -9705,6 +9731,7 @@ export class InsertCardRequest implements GrpcMessage {
 
   private _date?: string;
   private _nameShift?: string;
+  private _user?: string;
   private _cardDetails?: CardDetailInfo[];
 
   /**
@@ -9715,6 +9742,7 @@ export class InsertCardRequest implements GrpcMessage {
     _value = _value || {};
     this.date = _value.date;
     this.nameShift = _value.nameShift;
+    this.user = _value.user;
     this.cardDetails = (_value.cardDetails || []).map(
       m => new CardDetailInfo(m)
     );
@@ -9731,6 +9759,12 @@ export class InsertCardRequest implements GrpcMessage {
   }
   set nameShift(value: string | undefined) {
     this._nameShift = value;
+  }
+  get user(): string | undefined {
+    return this._user;
+  }
+  set user(value: string | undefined) {
+    this._user = value;
   }
   get cardDetails(): CardDetailInfo[] | undefined {
     return this._cardDetails;
@@ -9756,6 +9790,7 @@ export class InsertCardRequest implements GrpcMessage {
     return {
       date: this.date,
       nameShift: this.nameShift,
+      user: this.user,
       cardDetails: (this.cardDetails || []).map(m => m.toObject())
     };
   }
@@ -9779,6 +9814,7 @@ export class InsertCardRequest implements GrpcMessage {
     return {
       date: this.date,
       nameShift: this.nameShift,
+      user: this.user,
       cardDetails: (this.cardDetails || []).map(m => m.toProtobufJSON(options))
     };
   }
@@ -9790,6 +9826,7 @@ export module InsertCardRequest {
   export interface AsObject {
     date?: string;
     nameShift?: string;
+    user?: string;
     cardDetails?: CardDetailInfo.AsObject[];
   }
 
@@ -9799,6 +9836,7 @@ export module InsertCardRequest {
   export interface AsProtobufJSON {
     date?: string;
     nameShift?: string;
+    user?: string;
     cardDetails?: CardDetailInfo.AsProtobufJSON[] | null;
   }
 }

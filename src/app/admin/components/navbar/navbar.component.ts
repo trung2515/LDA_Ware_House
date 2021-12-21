@@ -89,7 +89,13 @@ export class NavbarComponent implements OnInit {
         isParent: false,
         parentId: 4,
       },
-
+      {
+        link: '/admin/warehouse-control/error-report',
+        menuId: 12,
+        name: 'Xác nhận bao lỗi',
+        isParent: false,
+        parentId: 3,
+      },
     ]
 
     this.parentMenu = this.menus.filter((m) => m.isParent == true)
