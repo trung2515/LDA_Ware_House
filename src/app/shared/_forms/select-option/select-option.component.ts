@@ -7,10 +7,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./select-option.component.css']
 })
 export class SelectOptionComponent implements ControlValueAccessor {
-  @Input() options: any[] = [
-    { label: 'Alumin 1 tấn', value: 'alm1' },
-    { label: 'Alumin 5kg', value: 'alm5' }
-  ];
+  @Input() options: any[] = [];
   @Input() label!: string;
   @Input() type = 'text';
   constructor(@Self() public ngControl: NgControl) {

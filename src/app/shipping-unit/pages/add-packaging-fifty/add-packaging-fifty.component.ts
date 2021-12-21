@@ -40,28 +40,19 @@ export class AddPackagingFiftyComponent implements OnInit {
       label: 'Sản phẩm',
       formControlName: 'product_name',
       type: 'select',
-      options: [
-        { label: 'Alumin 50kg', value: 'Alumin 50kg' },
-        { label: 'Hydrat 50kg', value: 'Hydrat 50kg' }
-      ]
+      options: ['Alumin 50kg', 'Hydrat 50kg']
     },
     {
       label: 'Loại sản phẩm',
       formControlName: 'product_type',
       type: 'select',
-      options: [
-        { label: 'Loại 1', value: 1 },
-        { label: 'Loại 2', value: 2 }
-      ]
+      options: ['Loại 1', 'Loại 2']
     },
     {
       label: 'Loại bao',
       formControlName: 'bag_type',
       type: 'select',
-      options: [
-        { label: 'Đáy liền', value: 'Đáy liền' },
-        { label: 'Đáy bằng', value: 'Đáy bằng' }
-      ]
+      options: ['Đáy liền', 'Đáy bằng']
     },
     { label: 'Số lượng', formControlName: 'qty', type: 'text' },
     { label: 'Lô', formControlName: 'consignments', type: 'text' },
@@ -69,10 +60,7 @@ export class AddPackagingFiftyComponent implements OnInit {
       label: 'Kho',
       formControlName: 'warehouse',
       type: 'select',
-      options: [
-        { label: 'Kho TT', value: 'Kho TT' },
-        { label: 'Kho TT 1', value: 'Kho TT 1' }
-      ]
+      options: ['Kho TT', 'Kho TT 1']
     }
   ];
   formGroupProduct: any = {};
@@ -133,10 +121,10 @@ export class AddPackagingFiftyComponent implements OnInit {
             control.markAsTouched();
           }
         }
-        return false
+        return false;
       }
-      return true
     }
+    return true;
   };
   initFormGroup() {
     return this.formBuilder.group({

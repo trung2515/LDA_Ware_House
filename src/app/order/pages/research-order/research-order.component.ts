@@ -3,6 +3,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { OrderModel } from '../../../shipping-unit/models/shipping-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { OrderService } from 'src/app/core/services/order.service';
+import { ResponseState } from 'src/app/core/models/model.pb';
 
 @Component({
   selector: 'app-research-order',
@@ -16,13 +19,15 @@ export class ResearchOrderComponent implements OnInit {
   filterForm!: FormGroup;
 
   orderList: OrderModel[] = [];
-  orderResultSearch: any = {};
+  orderResultSearch: any ;
   hasOrder: boolean = false;
 
   constructor(
     private _location: Location,
     orderService: ShippingUnitService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private order: OrderService,
+    private toastr: ToastrService
   ) {
     this.orderList = orderService.getOrderList();
   }
@@ -39,10 +44,14 @@ export class ResearchOrderComponent implements OnInit {
   searchOrder(e: any) {
     this.isSearching = true;
     const _order_code = this.filterForm.value.order_code;
-    const hasResult = this.orderList.find(order => order.id === _order_code);
-    if (hasResult) {
-      this.orderResultSearch = hasResult;
-      this.hasOrder = true;
-    } else this.hasOrder = false;
+    // const hasResult = this.orderList.find(order => order.id === _order_code);
+    this.order.getOrderByCode(_order_code).subscribe(reply => {
+      if(reply.order) {
+        this.orderResultSearch= reply.order
+        this.hasOrder = true;
+      }
+    })
+
+
   }
 }
