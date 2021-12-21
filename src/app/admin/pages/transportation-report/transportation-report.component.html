@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <app-header-report [title_nav]="title_nav" [startDate]="startDate" [endDate]="endDate"
-    (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)" [disabledDates]="disabledDates">
+  <app-header-report [title_nav]="title_nav" (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)"
+    [disabledDates]="disabledDates">
   </app-header-report>
   <div class="content">
     <dx-tab-panel #tabPanel [dataSource]="tabInfo" [selectedIndex]="0" [loop]="false" [animationEnabled]="true"

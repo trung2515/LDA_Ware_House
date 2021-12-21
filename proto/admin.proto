@@ -89,7 +89,10 @@ service Administrator {
     rpc DeleteReportObject(ReportObjectInfo) returns (Response);
     rpc UpdateReportObject(ReportObjectInfo) returns (Response);
 
-
+    rpc InsertTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc UpdateTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc DeleteTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc GetListTransportationUnit(MasterRequest) returns (TransportationUnitResponse);
 
 }
 service WareHouse {
@@ -117,8 +120,8 @@ service WareHouse {
     rpc UpdateTask(InsertTaskRequest) returns (Response);
     rpc DeleteTask(TaskInfo) returns (Response);
 
-    rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);
-
+    rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
+    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date
 }
 service Card
 {
@@ -136,11 +139,14 @@ service Card
 
 
 
+
 }
 
 service Report
 {
-rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
-rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
-rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse);
+    rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
+    rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
+    rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse); // from date -> to date
+    rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
+    rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
 }

@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <app-header-report [title_nav]="'Đơn hàng'" (getStartDate)="onStartDateChanged($event)" 
+    (getEndDate)="onEndDateChanged($event)"
+    >
+    </app-header-report> 
+</div>
+<div class="content">
+    <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true">
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-export [enabled]="true"></dxo-export>
+        <dxo-scrolling mode="standard"></dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="false"
+            [showNavigationButtons]="true">
+        </dxo-pager>
+        <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+        <dxi-column dataField="orderCode" caption="Mã đơn hàng"></dxi-column>
+        <dxi-column dataField="idCardDriver" caption="CMND Tài xế"></dxi-column>
+        <dxi-column dataField="nameDriver" caption="Tên tài xế"></dxi-column>
+        <dxi-column dataField="vehicleNumber" caption="Bsx">
+        </dxi-column>
+        <dxi-column dataField="weightAllow" caption="Trọng tải cho phép"></dxi-column>
+        <dxi-column dataField="weightRegister" caption="Trọng tải đăng kiểm"></dxi-column>
+        <dxi-column dataField="lop1" caption="Lớp 1"></dxi-column>
+        <dxi-column dataField="lop2" caption="Lớp 2"></dxi-column>
+        <dxi-column dataField="dvvc" caption="DVVC"></dxi-column>
+        <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
+        <dxi-column dataField="romoocNumber" caption="Số romoc"></dxi-column>
+        <dxi-column dataField="product" caption="Sản phẩm"></dxi-column>
+        <dxi-column dataField="type_packet" caption="Loại bao"></dxi-column>
+        
+    </dx-data-grid>
+</div>

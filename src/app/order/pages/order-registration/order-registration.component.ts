@@ -1,3 +1,6 @@
+import { OrderInfo } from './../../../core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
+import { OrderService } from './../../../core/services/order.service';
 import { ShippingUnitService } from '../../../shipping-unit/services/shipping-unit-service.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +11,7 @@ import {
   Validators
 } from '@angular/forms';
 import { OrderModel } from '../../../shipping-unit/models/shipping-model';
+import { ResponseState } from 'src/app/core/models/model.pb';
 
 @Component({
   selector: 'app-order-registration',
@@ -27,7 +31,9 @@ export class OrderRegistrationComponent implements OnInit {
   constructor(
     private _location: Location,
     private orderService: ShippingUnitService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private order: OrderService,
+    private toastr : ToastrService
   ) {
     this.orderList = orderService.getOrderList();
     this.product_options = orderService.getProduct_options();
@@ -171,7 +177,23 @@ export class OrderRegistrationComponent implements OnInit {
           shipping_unit_name: this.registerForm.value.shipping_unit_name
         }
       };
-      this.orderList.push(newOrder);
+
+      const order = new OrderInfo();
+      order.class1 = newOrder.orderInfo.grade_1
+      order.class2 = newOrder.orderInfo.grade_2
+
+
+      this.order.insertOrder(order).subscribe(reply => {
+        if(reply.response.state == ResponseState.SUCCESS){
+
+          this.toastr.success(reply.response.message)
+          reply.order.codeOrder
+        } else {
+          this.toastr.error(reply.response.message)
+        }
+      })
+
+      // this.orderList.push(newOrder);
       this.isAddingSuccessful = true;
     }
   }
