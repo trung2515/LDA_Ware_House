@@ -79,12 +79,10 @@
                   [showRowTotals]="false" [showColumnTotals]="true" (onExporting)="onExportingPivot($event, tabPanel)"
                   [allowFiltering]="true" [dataSource]="detailUnLoadWDVReport">
                   <dxo-export [enabled]="true"></dxo-export>
-
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                   <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
                   </dxo-header-filter>
                   <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
-
                 </dx-pivot-grid>
               </div>
             </div>

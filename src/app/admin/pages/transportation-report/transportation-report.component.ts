@@ -223,13 +223,11 @@ export class TransportationReportComponent implements OnInit {
           area: 'row',
           expanded: true,
         },
-
         {
           caption: 'ca',
           dataField: 'shift',
           area: 'column',
         },
-
         {
           caption: 'Bao',
           dataField: 'bag_number',
