@@ -14,7 +14,8 @@ service Account {
 
 service Administrator {
 
-
+    rpc GetListMasterData(MasterRequest) returns (MasterDataResponse);
+   
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
     rpc GetListPartner(MasterRequest) returns (PartnerResponse);
@@ -33,7 +34,7 @@ service Administrator {
     rpc GetListDepartment(MasterRequest) returns (DepartmentResponse);
     rpc GetListReportObject(MasterRequest) returns (ReportObjectResponse);
 
-
+  
 
     rpc InsertEquipment(EquipmentInfo) returns (Response);
     rpc UpdateEquipment(EquipmentInfo) returns (Response);
@@ -79,7 +80,7 @@ service Administrator {
     rpc UpdateDepartment(DepartmentInfo) returns (Response);
     rpc DeleteDepartment(DepartmentInfo) returns (Response);
     //rpc Login(UserInfo) returns (UserReply);
-
+    
 
     rpc InsertDevice(DeviceInfo) returns (Response);
     rpc UpdateDevice(DeviceInfo) returns (Response);
@@ -96,21 +97,21 @@ service Administrator {
 
 }
 service WareHouse {
-
+   
     rpc GetListShiftByDate(MasterRequest) returns (ShiftResponse);           // on day
-    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);     // from date ->  to date
+    rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);     // from date ->  to date 
 
-    rpc GetListParcel(MasterRequest) returns (ParcelResponse);               // get all
+    rpc GetListParcel(MasterRequest) returns (ParcelResponse);               // get all   
     rpc GetListParcelDetail(MasterRequest) returns (ParcelDetailResponse);   // from date -> to date
     rpc GetListParcelDetailByCode(MasterRequest) returns (ParcelDetailResponse);
 
     rpc GetListTask(MasterRequest) returns (TaskResponse);                   // from date -> to date
-    rpc getListTaskDetailById(TaskInfo) returns (TaskDetailResponse);
+    rpc getListTaskDetailById(TaskInfo) returns (TaskDetailResponse);       
     rpc getListTaskDetail(MasterRequest) returns (TaskDetailResponse);       // from date -> to date
 
     rpc NewInsertShift(InsertShiftRequest) returns (Response);
     rpc NewUpdateShift(InsertShiftRequest) returns (Response);
-    rpc DeleteShift(ShiftInfo) returns (Response);
+    rpc DeleteShift(ShiftInfo) returns (Response); 
 
     rpc InsertParcel(InsertParcelRequest) returns (Response);
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
@@ -121,24 +122,24 @@ service WareHouse {
     rpc DeleteTask(TaskInfo) returns (Response);
 
     rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
-    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date
+    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date    
 }
 service Card
 {
-
+  
     rpc GetListCard(MasterRequest) returns (CardDetailResponse); // from date -> to date
-    rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse);
+    rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse); 
     //rpc InsertCard(InsertCardRequest) returns (Response);
-    rpc UpdateCard50kg(InsertCardRequest) returns (Response);
+    rpc UpdateCard50kg(InsertCardRequest) returns (Response); 
     rpc SetChangeableCard(CardDetailInfo) returns (Response);
     rpc DeleteCard(CardDetailInfo) returns (Response);
 
     rpc InsertOrder(OrderInfo) returns (OrderResponse);
     rpc UpdateOrder(OrderInfo) returns (Response);
     rpc GetOrderByCode(OrderInfo) returns (OrderResponse);
+    
 
-
-
+   
 
 }
 
@@ -149,4 +150,5 @@ service Report
     rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse); // from date -> to date
     rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
     rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
+    rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);
 }

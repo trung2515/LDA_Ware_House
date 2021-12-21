@@ -5996,6 +5996,7 @@ export class MasterDataInfo implements GrpcMessage {
   static refineValues(_instance: MasterDataInfo) {
     _instance.objectId = _instance.objectId || 0;
     _instance.objectName = _instance.objectName || '';
+    _instance.objectType = _instance.objectType || '';
   }
 
   /**
@@ -6016,6 +6017,9 @@ export class MasterDataInfo implements GrpcMessage {
           break;
         case 2:
           _instance.objectName = _reader.readString();
+          break;
+        case 3:
+          _instance.objectType = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -6040,10 +6044,14 @@ export class MasterDataInfo implements GrpcMessage {
     if (_instance.objectName) {
       _writer.writeString(2, _instance.objectName);
     }
+    if (_instance.objectType) {
+      _writer.writeString(3, _instance.objectType);
+    }
   }
 
   private _objectId?: number;
   private _objectName?: string;
+  private _objectType?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -6053,6 +6061,7 @@ export class MasterDataInfo implements GrpcMessage {
     _value = _value || {};
     this.objectId = _value.objectId;
     this.objectName = _value.objectName;
+    this.objectType = _value.objectType;
     MasterDataInfo.refineValues(this);
   }
   get objectId(): number | undefined {
@@ -6066,6 +6075,12 @@ export class MasterDataInfo implements GrpcMessage {
   }
   set objectName(value: string | undefined) {
     this._objectName = value;
+  }
+  get objectType(): string | undefined {
+    return this._objectType;
+  }
+  set objectType(value: string | undefined) {
+    this._objectType = value;
   }
 
   /**
@@ -6084,7 +6099,8 @@ export class MasterDataInfo implements GrpcMessage {
   toObject(): MasterDataInfo.AsObject {
     return {
       objectId: this.objectId,
-      objectName: this.objectName
+      objectName: this.objectName,
+      objectType: this.objectType
     };
   }
 
@@ -6106,7 +6122,8 @@ export class MasterDataInfo implements GrpcMessage {
   ): MasterDataInfo.AsProtobufJSON {
     return {
       objectId: this.objectId,
-      objectName: this.objectName
+      objectName: this.objectName,
+      objectType: this.objectType
     };
   }
 }
@@ -6117,6 +6134,7 @@ export module MasterDataInfo {
   export interface AsObject {
     objectId?: number;
     objectName?: string;
+    objectType?: string;
   }
 
   /**
@@ -6125,6 +6143,7 @@ export module MasterDataInfo {
   export interface AsProtobufJSON {
     objectId?: number;
     objectName?: string;
+    objectType?: string;
   }
 }
 
@@ -12870,6 +12889,13 @@ export class OrderInfo implements GrpcMessage {
     _instance.wareHouse = _instance.wareHouse || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
     _instance.nameTypeProdcut = _instance.nameTypeProdcut || '';
+    _instance.quantityActual = _instance.quantityActual || 0;
+    _instance.weightEstimate = _instance.weightEstimate || 0;
+    _instance.weightActual = _instance.weightActual || 0;
+    _instance.timecreated = _instance.timecreated || '';
+    _instance.timelastest = _instance.timelastest || '';
+    _instance.status = _instance.status || 0;
+    _instance.codeTransport = _instance.codeTransport || '';
   }
 
   /**
@@ -12954,6 +12980,27 @@ export class OrderInfo implements GrpcMessage {
         case 23:
           _instance.nameTypeProdcut = _reader.readString();
           break;
+        case 24:
+          _instance.quantityActual = _reader.readInt32();
+          break;
+        case 25:
+          _instance.weightEstimate = _reader.readInt32();
+          break;
+        case 26:
+          _instance.weightActual = _reader.readInt32();
+          break;
+        case 27:
+          _instance.timecreated = _reader.readString();
+          break;
+        case 28:
+          _instance.timelastest = _reader.readString();
+          break;
+        case 29:
+          _instance.status = _reader.readInt32();
+          break;
+        case 30:
+          _instance.codeTransport = _reader.readString();
+          break;
         default:
           _reader.skipField();
       }
@@ -13037,6 +13084,27 @@ export class OrderInfo implements GrpcMessage {
     if (_instance.nameTypeProdcut) {
       _writer.writeString(23, _instance.nameTypeProdcut);
     }
+    if (_instance.quantityActual) {
+      _writer.writeInt32(24, _instance.quantityActual);
+    }
+    if (_instance.weightEstimate) {
+      _writer.writeInt32(25, _instance.weightEstimate);
+    }
+    if (_instance.weightActual) {
+      _writer.writeInt32(26, _instance.weightActual);
+    }
+    if (_instance.timecreated) {
+      _writer.writeString(27, _instance.timecreated);
+    }
+    if (_instance.timelastest) {
+      _writer.writeString(28, _instance.timelastest);
+    }
+    if (_instance.status) {
+      _writer.writeInt32(29, _instance.status);
+    }
+    if (_instance.codeTransport) {
+      _writer.writeString(30, _instance.codeTransport);
+    }
   }
 
   private _codeOrder?: string;
@@ -13062,6 +13130,13 @@ export class OrderInfo implements GrpcMessage {
   private _wareHouse?: string;
   private _idTypeProduct?: number;
   private _nameTypeProdcut?: string;
+  private _quantityActual?: number;
+  private _weightEstimate?: number;
+  private _weightActual?: number;
+  private _timecreated?: string;
+  private _timelastest?: string;
+  private _status?: number;
+  private _codeTransport?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -13092,6 +13167,13 @@ export class OrderInfo implements GrpcMessage {
     this.wareHouse = _value.wareHouse;
     this.idTypeProduct = _value.idTypeProduct;
     this.nameTypeProdcut = _value.nameTypeProdcut;
+    this.quantityActual = _value.quantityActual;
+    this.weightEstimate = _value.weightEstimate;
+    this.weightActual = _value.weightActual;
+    this.timecreated = _value.timecreated;
+    this.timelastest = _value.timelastest;
+    this.status = _value.status;
+    this.codeTransport = _value.codeTransport;
     OrderInfo.refineValues(this);
   }
   get codeOrder(): string | undefined {
@@ -13232,6 +13314,48 @@ export class OrderInfo implements GrpcMessage {
   set nameTypeProdcut(value: string | undefined) {
     this._nameTypeProdcut = value;
   }
+  get quantityActual(): number | undefined {
+    return this._quantityActual;
+  }
+  set quantityActual(value: number | undefined) {
+    this._quantityActual = value;
+  }
+  get weightEstimate(): number | undefined {
+    return this._weightEstimate;
+  }
+  set weightEstimate(value: number | undefined) {
+    this._weightEstimate = value;
+  }
+  get weightActual(): number | undefined {
+    return this._weightActual;
+  }
+  set weightActual(value: number | undefined) {
+    this._weightActual = value;
+  }
+  get timecreated(): string | undefined {
+    return this._timecreated;
+  }
+  set timecreated(value: string | undefined) {
+    this._timecreated = value;
+  }
+  get timelastest(): string | undefined {
+    return this._timelastest;
+  }
+  set timelastest(value: string | undefined) {
+    this._timelastest = value;
+  }
+  get status(): number | undefined {
+    return this._status;
+  }
+  set status(value: number | undefined) {
+    this._status = value;
+  }
+  get codeTransport(): string | undefined {
+    return this._codeTransport;
+  }
+  set codeTransport(value: string | undefined) {
+    this._codeTransport = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -13270,7 +13394,14 @@ export class OrderInfo implements GrpcMessage {
       nameTypeCustomer: this.nameTypeCustomer,
       wareHouse: this.wareHouse,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProdcut: this.nameTypeProdcut
+      nameTypeProdcut: this.nameTypeProdcut,
+      quantityActual: this.quantityActual,
+      weightEstimate: this.weightEstimate,
+      weightActual: this.weightActual,
+      timecreated: this.timecreated,
+      timelastest: this.timelastest,
+      status: this.status,
+      codeTransport: this.codeTransport
     };
   }
 
@@ -13313,7 +13444,14 @@ export class OrderInfo implements GrpcMessage {
       nameTypeCustomer: this.nameTypeCustomer,
       wareHouse: this.wareHouse,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProdcut: this.nameTypeProdcut
+      nameTypeProdcut: this.nameTypeProdcut,
+      quantityActual: this.quantityActual,
+      weightEstimate: this.weightEstimate,
+      weightActual: this.weightActual,
+      timecreated: this.timecreated,
+      timelastest: this.timelastest,
+      status: this.status,
+      codeTransport: this.codeTransport
     };
   }
 }
@@ -13345,6 +13483,13 @@ export module OrderInfo {
     wareHouse?: string;
     idTypeProduct?: number;
     nameTypeProdcut?: string;
+    quantityActual?: number;
+    weightEstimate?: number;
+    weightActual?: number;
+    timecreated?: string;
+    timelastest?: string;
+    status?: number;
+    codeTransport?: string;
   }
 
   /**
@@ -13374,6 +13519,13 @@ export module OrderInfo {
     wareHouse?: string;
     idTypeProduct?: number;
     nameTypeProdcut?: string;
+    quantityActual?: number;
+    weightEstimate?: number;
+    weightActual?: number;
+    timecreated?: string;
+    timelastest?: string;
+    status?: number;
+    codeTransport?: string;
   }
 }
 
@@ -17028,5 +17180,864 @@ export module TransportationUnitResponse {
   export interface AsProtobufJSON {
     data?: TransportationUnitInfo.AsProtobufJSON[] | null;
     response?: Response.AsProtobufJSON | null;
+  }
+}
+
+/**
+ * Message implementation for client.QRCodeInfo
+ */
+export class QRCodeInfo implements GrpcMessage {
+  static id = 'client.QRCodeInfo';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new QRCodeInfo();
+    QRCodeInfo.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: QRCodeInfo) {
+    _instance.line = _instance.line || 0;
+    _instance.codeProduct = _instance.codeProduct || '';
+    _instance.nameProduct = _instance.nameProduct || '';
+    _instance.idTypeProduct = _instance.idTypeProduct || 0;
+    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.codeIn = _instance.codeIn || '';
+    _instance.nameTypeIn = _instance.nameTypeIn || '';
+    _instance.codeParcel = _instance.codeParcel || '';
+    _instance.codeWareHouse = _instance.codeWareHouse || '';
+    _instance.nameWareHouse = _instance.nameWareHouse || '';
+    _instance.weight = _instance.weight || '0';
+    _instance.code = _instance.code || '';
+    _instance.codePackingUnit = _instance.codePackingUnit || '';
+    _instance.namePackingUnit = _instance.namePackingUnit || '';
+    _instance.codeTypeBill = _instance.codeTypeBill || '';
+    _instance.userIn = _instance.userIn || '';
+    _instance.nameUserIn = _instance.nameUserIn || '';
+    _instance.userOut = _instance.userOut || '';
+    _instance.nameUserOut = _instance.nameUserOut || '';
+    _instance.nameTypeBill = _instance.nameTypeBill || '';
+    _instance.codeOrder = _instance.codeOrder || '';
+    _instance.codeReason = _instance.codeReason || '';
+    _instance.nameReason = _instance.nameReason || '';
+    _instance.countTrip = _instance.countTrip || 0;
+    _instance.seri = _instance.seri || 0;
+    _instance.timeIn = _instance.timeIn || '';
+    _instance.timeOut = _instance.timeOut || '';
+    _instance.status = _instance.status || 0;
+    _instance.codeOut = _instance.codeOut || '';
+    _instance.nameTypeOut = _instance.nameTypeOut || '';
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: QRCodeInfo,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.line = _reader.readInt32();
+          break;
+        case 2:
+          _instance.codeProduct = _reader.readString();
+          break;
+        case 3:
+          _instance.nameProduct = _reader.readString();
+          break;
+        case 4:
+          _instance.idTypeProduct = _reader.readInt32();
+          break;
+        case 5:
+          _instance.nameTypeProduct = _reader.readString();
+          break;
+        case 6:
+          _instance.codeIn = _reader.readString();
+          break;
+        case 7:
+          _instance.nameTypeIn = _reader.readString();
+          break;
+        case 8:
+          _instance.codeParcel = _reader.readString();
+          break;
+        case 9:
+          _instance.codeWareHouse = _reader.readString();
+          break;
+        case 10:
+          _instance.nameWareHouse = _reader.readString();
+          break;
+        case 11:
+          _instance.weight = _reader.readInt64String();
+          break;
+        case 12:
+          _instance.code = _reader.readString();
+          break;
+        case 13:
+          _instance.codePackingUnit = _reader.readString();
+          break;
+        case 14:
+          _instance.namePackingUnit = _reader.readString();
+          break;
+        case 15:
+          _instance.codeTypeBill = _reader.readString();
+          break;
+        case 16:
+          _instance.userIn = _reader.readString();
+          break;
+        case 17:
+          _instance.nameUserIn = _reader.readString();
+          break;
+        case 18:
+          _instance.userOut = _reader.readString();
+          break;
+        case 19:
+          _instance.nameUserOut = _reader.readString();
+          break;
+        case 20:
+          _instance.nameTypeBill = _reader.readString();
+          break;
+        case 21:
+          _instance.codeOrder = _reader.readString();
+          break;
+        case 22:
+          _instance.codeReason = _reader.readString();
+          break;
+        case 23:
+          _instance.nameReason = _reader.readString();
+          break;
+        case 24:
+          _instance.countTrip = _reader.readInt32();
+          break;
+        case 25:
+          _instance.seri = _reader.readInt32();
+          break;
+        case 26:
+          _instance.timeIn = _reader.readString();
+          break;
+        case 27:
+          _instance.timeOut = _reader.readString();
+          break;
+        case 28:
+          _instance.status = _reader.readInt32();
+          break;
+        case 29:
+          _instance.codeOut = _reader.readString();
+          break;
+        case 30:
+          _instance.nameTypeOut = _reader.readString();
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    QRCodeInfo.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(_instance: QRCodeInfo, _writer: BinaryWriter) {
+    if (_instance.line) {
+      _writer.writeInt32(1, _instance.line);
+    }
+    if (_instance.codeProduct) {
+      _writer.writeString(2, _instance.codeProduct);
+    }
+    if (_instance.nameProduct) {
+      _writer.writeString(3, _instance.nameProduct);
+    }
+    if (_instance.idTypeProduct) {
+      _writer.writeInt32(4, _instance.idTypeProduct);
+    }
+    if (_instance.nameTypeProduct) {
+      _writer.writeString(5, _instance.nameTypeProduct);
+    }
+    if (_instance.codeIn) {
+      _writer.writeString(6, _instance.codeIn);
+    }
+    if (_instance.nameTypeIn) {
+      _writer.writeString(7, _instance.nameTypeIn);
+    }
+    if (_instance.codeParcel) {
+      _writer.writeString(8, _instance.codeParcel);
+    }
+    if (_instance.codeWareHouse) {
+      _writer.writeString(9, _instance.codeWareHouse);
+    }
+    if (_instance.nameWareHouse) {
+      _writer.writeString(10, _instance.nameWareHouse);
+    }
+    if (_instance.weight) {
+      _writer.writeInt64String(11, _instance.weight);
+    }
+    if (_instance.code) {
+      _writer.writeString(12, _instance.code);
+    }
+    if (_instance.codePackingUnit) {
+      _writer.writeString(13, _instance.codePackingUnit);
+    }
+    if (_instance.namePackingUnit) {
+      _writer.writeString(14, _instance.namePackingUnit);
+    }
+    if (_instance.codeTypeBill) {
+      _writer.writeString(15, _instance.codeTypeBill);
+    }
+    if (_instance.userIn) {
+      _writer.writeString(16, _instance.userIn);
+    }
+    if (_instance.nameUserIn) {
+      _writer.writeString(17, _instance.nameUserIn);
+    }
+    if (_instance.userOut) {
+      _writer.writeString(18, _instance.userOut);
+    }
+    if (_instance.nameUserOut) {
+      _writer.writeString(19, _instance.nameUserOut);
+    }
+    if (_instance.nameTypeBill) {
+      _writer.writeString(20, _instance.nameTypeBill);
+    }
+    if (_instance.codeOrder) {
+      _writer.writeString(21, _instance.codeOrder);
+    }
+    if (_instance.codeReason) {
+      _writer.writeString(22, _instance.codeReason);
+    }
+    if (_instance.nameReason) {
+      _writer.writeString(23, _instance.nameReason);
+    }
+    if (_instance.countTrip) {
+      _writer.writeInt32(24, _instance.countTrip);
+    }
+    if (_instance.seri) {
+      _writer.writeInt32(25, _instance.seri);
+    }
+    if (_instance.timeIn) {
+      _writer.writeString(26, _instance.timeIn);
+    }
+    if (_instance.timeOut) {
+      _writer.writeString(27, _instance.timeOut);
+    }
+    if (_instance.status) {
+      _writer.writeInt32(28, _instance.status);
+    }
+    if (_instance.codeOut) {
+      _writer.writeString(29, _instance.codeOut);
+    }
+    if (_instance.nameTypeOut) {
+      _writer.writeString(30, _instance.nameTypeOut);
+    }
+  }
+
+  private _line?: number;
+  private _codeProduct?: string;
+  private _nameProduct?: string;
+  private _idTypeProduct?: number;
+  private _nameTypeProduct?: string;
+  private _codeIn?: string;
+  private _nameTypeIn?: string;
+  private _codeParcel?: string;
+  private _codeWareHouse?: string;
+  private _nameWareHouse?: string;
+  private _weight?: string;
+  private _code?: string;
+  private _codePackingUnit?: string;
+  private _namePackingUnit?: string;
+  private _codeTypeBill?: string;
+  private _userIn?: string;
+  private _nameUserIn?: string;
+  private _userOut?: string;
+  private _nameUserOut?: string;
+  private _nameTypeBill?: string;
+  private _codeOrder?: string;
+  private _codeReason?: string;
+  private _nameReason?: string;
+  private _countTrip?: number;
+  private _seri?: number;
+  private _timeIn?: string;
+  private _timeOut?: string;
+  private _status?: number;
+  private _codeOut?: string;
+  private _nameTypeOut?: string;
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of QRCodeInfo to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<QRCodeInfo.AsObject>) {
+    _value = _value || {};
+    this.line = _value.line;
+    this.codeProduct = _value.codeProduct;
+    this.nameProduct = _value.nameProduct;
+    this.idTypeProduct = _value.idTypeProduct;
+    this.nameTypeProduct = _value.nameTypeProduct;
+    this.codeIn = _value.codeIn;
+    this.nameTypeIn = _value.nameTypeIn;
+    this.codeParcel = _value.codeParcel;
+    this.codeWareHouse = _value.codeWareHouse;
+    this.nameWareHouse = _value.nameWareHouse;
+    this.weight = _value.weight;
+    this.code = _value.code;
+    this.codePackingUnit = _value.codePackingUnit;
+    this.namePackingUnit = _value.namePackingUnit;
+    this.codeTypeBill = _value.codeTypeBill;
+    this.userIn = _value.userIn;
+    this.nameUserIn = _value.nameUserIn;
+    this.userOut = _value.userOut;
+    this.nameUserOut = _value.nameUserOut;
+    this.nameTypeBill = _value.nameTypeBill;
+    this.codeOrder = _value.codeOrder;
+    this.codeReason = _value.codeReason;
+    this.nameReason = _value.nameReason;
+    this.countTrip = _value.countTrip;
+    this.seri = _value.seri;
+    this.timeIn = _value.timeIn;
+    this.timeOut = _value.timeOut;
+    this.status = _value.status;
+    this.codeOut = _value.codeOut;
+    this.nameTypeOut = _value.nameTypeOut;
+    QRCodeInfo.refineValues(this);
+  }
+  get line(): number | undefined {
+    return this._line;
+  }
+  set line(value: number | undefined) {
+    this._line = value;
+  }
+  get codeProduct(): string | undefined {
+    return this._codeProduct;
+  }
+  set codeProduct(value: string | undefined) {
+    this._codeProduct = value;
+  }
+  get nameProduct(): string | undefined {
+    return this._nameProduct;
+  }
+  set nameProduct(value: string | undefined) {
+    this._nameProduct = value;
+  }
+  get idTypeProduct(): number | undefined {
+    return this._idTypeProduct;
+  }
+  set idTypeProduct(value: number | undefined) {
+    this._idTypeProduct = value;
+  }
+  get nameTypeProduct(): string | undefined {
+    return this._nameTypeProduct;
+  }
+  set nameTypeProduct(value: string | undefined) {
+    this._nameTypeProduct = value;
+  }
+  get codeIn(): string | undefined {
+    return this._codeIn;
+  }
+  set codeIn(value: string | undefined) {
+    this._codeIn = value;
+  }
+  get nameTypeIn(): string | undefined {
+    return this._nameTypeIn;
+  }
+  set nameTypeIn(value: string | undefined) {
+    this._nameTypeIn = value;
+  }
+  get codeParcel(): string | undefined {
+    return this._codeParcel;
+  }
+  set codeParcel(value: string | undefined) {
+    this._codeParcel = value;
+  }
+  get codeWareHouse(): string | undefined {
+    return this._codeWareHouse;
+  }
+  set codeWareHouse(value: string | undefined) {
+    this._codeWareHouse = value;
+  }
+  get nameWareHouse(): string | undefined {
+    return this._nameWareHouse;
+  }
+  set nameWareHouse(value: string | undefined) {
+    this._nameWareHouse = value;
+  }
+  get weight(): string | undefined {
+    return this._weight;
+  }
+  set weight(value: string | undefined) {
+    this._weight = value;
+  }
+  get code(): string | undefined {
+    return this._code;
+  }
+  set code(value: string | undefined) {
+    this._code = value;
+  }
+  get codePackingUnit(): string | undefined {
+    return this._codePackingUnit;
+  }
+  set codePackingUnit(value: string | undefined) {
+    this._codePackingUnit = value;
+  }
+  get namePackingUnit(): string | undefined {
+    return this._namePackingUnit;
+  }
+  set namePackingUnit(value: string | undefined) {
+    this._namePackingUnit = value;
+  }
+  get codeTypeBill(): string | undefined {
+    return this._codeTypeBill;
+  }
+  set codeTypeBill(value: string | undefined) {
+    this._codeTypeBill = value;
+  }
+  get userIn(): string | undefined {
+    return this._userIn;
+  }
+  set userIn(value: string | undefined) {
+    this._userIn = value;
+  }
+  get nameUserIn(): string | undefined {
+    return this._nameUserIn;
+  }
+  set nameUserIn(value: string | undefined) {
+    this._nameUserIn = value;
+  }
+  get userOut(): string | undefined {
+    return this._userOut;
+  }
+  set userOut(value: string | undefined) {
+    this._userOut = value;
+  }
+  get nameUserOut(): string | undefined {
+    return this._nameUserOut;
+  }
+  set nameUserOut(value: string | undefined) {
+    this._nameUserOut = value;
+  }
+  get nameTypeBill(): string | undefined {
+    return this._nameTypeBill;
+  }
+  set nameTypeBill(value: string | undefined) {
+    this._nameTypeBill = value;
+  }
+  get codeOrder(): string | undefined {
+    return this._codeOrder;
+  }
+  set codeOrder(value: string | undefined) {
+    this._codeOrder = value;
+  }
+  get codeReason(): string | undefined {
+    return this._codeReason;
+  }
+  set codeReason(value: string | undefined) {
+    this._codeReason = value;
+  }
+  get nameReason(): string | undefined {
+    return this._nameReason;
+  }
+  set nameReason(value: string | undefined) {
+    this._nameReason = value;
+  }
+  get countTrip(): number | undefined {
+    return this._countTrip;
+  }
+  set countTrip(value: number | undefined) {
+    this._countTrip = value;
+  }
+  get seri(): number | undefined {
+    return this._seri;
+  }
+  set seri(value: number | undefined) {
+    this._seri = value;
+  }
+  get timeIn(): string | undefined {
+    return this._timeIn;
+  }
+  set timeIn(value: string | undefined) {
+    this._timeIn = value;
+  }
+  get timeOut(): string | undefined {
+    return this._timeOut;
+  }
+  set timeOut(value: string | undefined) {
+    this._timeOut = value;
+  }
+  get status(): number | undefined {
+    return this._status;
+  }
+  set status(value: number | undefined) {
+    this._status = value;
+  }
+  get codeOut(): string | undefined {
+    return this._codeOut;
+  }
+  set codeOut(value: string | undefined) {
+    this._codeOut = value;
+  }
+  get nameTypeOut(): string | undefined {
+    return this._nameTypeOut;
+  }
+  set nameTypeOut(value: string | undefined) {
+    this._nameTypeOut = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    QRCodeInfo.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): QRCodeInfo.AsObject {
+    return {
+      line: this.line,
+      codeProduct: this.codeProduct,
+      nameProduct: this.nameProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeIn: this.codeIn,
+      nameTypeIn: this.nameTypeIn,
+      codeParcel: this.codeParcel,
+      codeWareHouse: this.codeWareHouse,
+      nameWareHouse: this.nameWareHouse,
+      weight: this.weight,
+      code: this.code,
+      codePackingUnit: this.codePackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      codeTypeBill: this.codeTypeBill,
+      userIn: this.userIn,
+      nameUserIn: this.nameUserIn,
+      userOut: this.userOut,
+      nameUserOut: this.nameUserOut,
+      nameTypeBill: this.nameTypeBill,
+      codeOrder: this.codeOrder,
+      codeReason: this.codeReason,
+      nameReason: this.nameReason,
+      countTrip: this.countTrip,
+      seri: this.seri,
+      timeIn: this.timeIn,
+      timeOut: this.timeOut,
+      status: this.status,
+      codeOut: this.codeOut,
+      nameTypeOut: this.nameTypeOut
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): QRCodeInfo.AsProtobufJSON {
+    return {
+      line: this.line,
+      codeProduct: this.codeProduct,
+      nameProduct: this.nameProduct,
+      idTypeProduct: this.idTypeProduct,
+      nameTypeProduct: this.nameTypeProduct,
+      codeIn: this.codeIn,
+      nameTypeIn: this.nameTypeIn,
+      codeParcel: this.codeParcel,
+      codeWareHouse: this.codeWareHouse,
+      nameWareHouse: this.nameWareHouse,
+      weight: this.weight,
+      code: this.code,
+      codePackingUnit: this.codePackingUnit,
+      namePackingUnit: this.namePackingUnit,
+      codeTypeBill: this.codeTypeBill,
+      userIn: this.userIn,
+      nameUserIn: this.nameUserIn,
+      userOut: this.userOut,
+      nameUserOut: this.nameUserOut,
+      nameTypeBill: this.nameTypeBill,
+      codeOrder: this.codeOrder,
+      codeReason: this.codeReason,
+      nameReason: this.nameReason,
+      countTrip: this.countTrip,
+      seri: this.seri,
+      timeIn: this.timeIn,
+      timeOut: this.timeOut,
+      status: this.status,
+      codeOut: this.codeOut,
+      nameTypeOut: this.nameTypeOut
+    };
+  }
+}
+export module QRCodeInfo {
+  /**
+   * Standard JavaScript object representation for QRCodeInfo
+   */
+  export interface AsObject {
+    line?: number;
+    codeProduct?: string;
+    nameProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeIn?: string;
+    nameTypeIn?: string;
+    codeParcel?: string;
+    codeWareHouse?: string;
+    nameWareHouse?: string;
+    weight?: string;
+    code?: string;
+    codePackingUnit?: string;
+    namePackingUnit?: string;
+    codeTypeBill?: string;
+    userIn?: string;
+    nameUserIn?: string;
+    userOut?: string;
+    nameUserOut?: string;
+    nameTypeBill?: string;
+    codeOrder?: string;
+    codeReason?: string;
+    nameReason?: string;
+    countTrip?: number;
+    seri?: number;
+    timeIn?: string;
+    timeOut?: string;
+    status?: number;
+    codeOut?: string;
+    nameTypeOut?: string;
+  }
+
+  /**
+   * Protobuf JSON representation for QRCodeInfo
+   */
+  export interface AsProtobufJSON {
+    line?: number;
+    codeProduct?: string;
+    nameProduct?: string;
+    idTypeProduct?: number;
+    nameTypeProduct?: string;
+    codeIn?: string;
+    nameTypeIn?: string;
+    codeParcel?: string;
+    codeWareHouse?: string;
+    nameWareHouse?: string;
+    weight?: string;
+    code?: string;
+    codePackingUnit?: string;
+    namePackingUnit?: string;
+    codeTypeBill?: string;
+    userIn?: string;
+    nameUserIn?: string;
+    userOut?: string;
+    nameUserOut?: string;
+    nameTypeBill?: string;
+    codeOrder?: string;
+    codeReason?: string;
+    nameReason?: string;
+    countTrip?: number;
+    seri?: number;
+    timeIn?: string;
+    timeOut?: string;
+    status?: number;
+    codeOut?: string;
+    nameTypeOut?: string;
+  }
+}
+
+/**
+ * Message implementation for client.QRCodeResponse
+ */
+export class QRCodeResponse implements GrpcMessage {
+  static id = 'client.QRCodeResponse';
+
+  /**
+   * Deserialize binary data to message
+   * @param instance message instance
+   */
+  static deserializeBinary(bytes: ByteSource) {
+    const instance = new QRCodeResponse();
+    QRCodeResponse.deserializeBinaryFromReader(
+      instance,
+      new BinaryReader(bytes)
+    );
+    return instance;
+  }
+
+  /**
+   * Check all the properties and set default protobuf values if necessary
+   * @param _instance message instance
+   */
+  static refineValues(_instance: QRCodeResponse) {
+    _instance.response = _instance.response || undefined;
+    _instance.data = _instance.data || [];
+  }
+
+  /**
+   * Deserializes / reads binary message into message instance using provided binary reader
+   * @param _instance message instance
+   * @param _reader binary reader instance
+   */
+  static deserializeBinaryFromReader(
+    _instance: QRCodeResponse,
+    _reader: BinaryReader
+  ) {
+    while (_reader.nextField()) {
+      if (_reader.isEndGroup()) break;
+
+      switch (_reader.getFieldNumber()) {
+        case 1:
+          _instance.response = new Response();
+          _reader.readMessage(
+            _instance.response,
+            Response.deserializeBinaryFromReader
+          );
+          break;
+        case 2:
+          const messageInitializer2 = new QRCodeInfo();
+          _reader.readMessage(
+            messageInitializer2,
+            QRCodeInfo.deserializeBinaryFromReader
+          );
+          (_instance.data = _instance.data || []).push(messageInitializer2);
+          break;
+        default:
+          _reader.skipField();
+      }
+    }
+
+    QRCodeResponse.refineValues(_instance);
+  }
+
+  /**
+   * Serializes a message to binary format using provided binary reader
+   * @param _instance message instance
+   * @param _writer binary writer instance
+   */
+  static serializeBinaryToWriter(
+    _instance: QRCodeResponse,
+    _writer: BinaryWriter
+  ) {
+    if (_instance.response) {
+      _writer.writeMessage(
+        1,
+        _instance.response as any,
+        Response.serializeBinaryToWriter
+      );
+    }
+    if (_instance.data && _instance.data.length) {
+      _writer.writeRepeatedMessage(
+        2,
+        _instance.data as any,
+        QRCodeInfo.serializeBinaryToWriter
+      );
+    }
+  }
+
+  private _response?: Response;
+  private _data?: QRCodeInfo[];
+
+  /**
+   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
+   * @param _value initial values object or instance of QRCodeResponse to deeply clone from
+   */
+  constructor(_value?: RecursivePartial<QRCodeResponse.AsObject>) {
+    _value = _value || {};
+    this.response = _value.response ? new Response(_value.response) : undefined;
+    this.data = (_value.data || []).map(m => new QRCodeInfo(m));
+    QRCodeResponse.refineValues(this);
+  }
+  get response(): Response | undefined {
+    return this._response;
+  }
+  set response(value: Response | undefined) {
+    this._response = value;
+  }
+  get data(): QRCodeInfo[] | undefined {
+    return this._data;
+  }
+  set data(value: QRCodeInfo[] | undefined) {
+    this._data = value;
+  }
+
+  /**
+   * Serialize message to binary data
+   * @param instance message instance
+   */
+  serializeBinary() {
+    const writer = new BinaryWriter();
+    QRCodeResponse.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  /**
+   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
+   */
+  toObject(): QRCodeResponse.AsObject {
+    return {
+      response: this.response ? this.response.toObject() : undefined,
+      data: (this.data || []).map(m => m.toObject())
+    };
+  }
+
+  /**
+   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
+   */
+  toJSON() {
+    return this.toObject();
+  }
+
+  /**
+   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
+   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
+   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
+   */
+  toProtobufJSON(
+    // @ts-ignore
+    options?: ToProtobufJSONOptions
+  ): QRCodeResponse.AsProtobufJSON {
+    return {
+      response: this.response ? this.response.toProtobufJSON(options) : null,
+      data: (this.data || []).map(m => m.toProtobufJSON(options))
+    };
+  }
+}
+export module QRCodeResponse {
+  /**
+   * Standard JavaScript object representation for QRCodeResponse
+   */
+  export interface AsObject {
+    response?: Response.AsObject;
+    data?: QRCodeInfo.AsObject[];
+  }
+
+  /**
+   * Protobuf JSON representation for QRCodeResponse
+   */
+  export interface AsProtobufJSON {
+    response?: Response.AsProtobufJSON | null;
+    data?: QRCodeInfo.AsProtobufJSON[] | null;
   }
 }

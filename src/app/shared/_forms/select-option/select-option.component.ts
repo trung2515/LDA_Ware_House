@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { OptionModel } from 'src/app/order/pages/order-registration/model';
 
 @Component({
   selector: 'app-select-option',
@@ -7,7 +8,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./select-option.component.css']
 })
 export class SelectOptionComponent implements ControlValueAccessor {
-  @Input() options: any[] = [];
+  @Input() options: OptionModel[] = [];
   @Input() label!: string;
   @Input() type = 'text';
   constructor(@Self() public ngControl: NgControl) {
