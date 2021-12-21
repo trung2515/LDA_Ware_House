@@ -8,7 +8,8 @@ import {
 import { GrpcWebClientFactory, GrpcWebClientModule } from '@ngx-grpc/grpc-web-client'
 import { environment } from 'src/environments/environment'
 import {
-  GRPC_ADMINISTRATOR_CLIENT_SETTINGS,
+  GRPC_ACCOUNT_CLIENT_SETTINGS,
+  GRPC_ADMINISTRATOR_CLIENT_SETTINGS, GRPC_CARD_CLIENT_SETTINGS, GRPC_REPORT_CLIENT_SETTINGS, GRPC_WARE_HOUSE_CLIENT_SETTINGS,
 } from './models/admin.pbconf';
 import { AdminService } from './services/admin.service';
 import { AuthService } from './services/auth.service';
@@ -32,6 +33,31 @@ import { ReportService } from './services/report.service';
         host: environment.host,
       }
     },
+    {
+      provide: GRPC_CARD_CLIENT_SETTINGS,
+      useValue: {
+        host: environment.host,
+      }
+    },
+    {
+      provide: GRPC_ACCOUNT_CLIENT_SETTINGS,
+      useValue: {
+        host: environment.host,
+      }
+    },
+    {
+      provide: GRPC_REPORT_CLIENT_SETTINGS,
+      useValue: {
+        host: environment.host,
+      }
+    },
+    {
+      provide: GRPC_WARE_HOUSE_CLIENT_SETTINGS,
+      useValue: {
+        host: environment.host,
+      }
+    },
+
   ],
   declarations: [
 

@@ -1,48 +1,49 @@
-import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ConfigurationComponent } from './pages/configuration/configuration.component';
-import { TestComponent } from './pages/test/test.component';
-import { ConsumptionReportComponent } from './pages/consumption-report/consumption-report.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { TransportationReportComponent } from './pages/transportation-report/transportation-report.component';
-import { WarehouseManagerComponent } from './pages/warehouse-manager/warehouse-manager.component';
-import { WarehouseReportComponent } from './pages/warehouse-report/warehouse-report.component';
-import { ShiftComponent } from './pages/shift/shift.component';
-import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component';
-import { ProductCategoryComponent } from './components/product-category/product-category.component';
-import { TypeBagComponent } from './components/type-bag/type-bag.component';
-import { IdBagComponent } from './components/id-bag/id-bag.component';
-import { WarehouseCategoryComponent } from './components/warehouse-category/warehouse-category.component';
-import { PartnerComponent } from './components/partner/partner.component';
-import { PacketUnitComponent } from './components/packet-unit/packet-unit.component';
-import { DeviceCategoryComponent } from './components/device-category/device-category.component';
-import { BillComponent } from './components/bill/bill.component';
-import { JobComponent } from './components/job/job.component';
-import { ReasonComponent } from './components/reason/reason.component';
-import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component';
+import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
+import { ConfigurationComponent } from './pages/configuration/configuration.component'
+import { TestComponent } from './pages/test/test.component'
+import { ConsumptionReportComponent } from './pages/consumption-report/consumption-report.component'
+import { DashboardComponent } from './pages/dashboard/dashboard.component'
+import { TransportationReportComponent } from './pages/transportation-report/transportation-report.component'
+import { WarehouseManagerComponent } from './pages/warehouse-manager/warehouse-manager.component'
+import { WarehouseReportComponent } from './pages/warehouse-report/warehouse-report.component'
+import { ShiftComponent } from './pages/shift/shift.component'
+import { ConfigurationLayoutComponent } from './layouts/configuration-layout/configuration-layout.component'
+import { ProductCategoryComponent } from './components/product-category/product-category.component'
+import { TypeBagComponent } from './components/type-bag/type-bag.component'
+import { IdBagComponent } from './components/id-bag/id-bag.component'
+import { WarehouseCategoryComponent } from './components/warehouse-category/warehouse-category.component'
+import { PartnerComponent } from './components/partner/partner.component'
+import { PacketUnitComponent } from './components/packet-unit/packet-unit.component'
+import { DeviceCategoryComponent } from './components/device-category/device-category.component'
+import { BillComponent } from './components/bill/bill.component'
+import { JobComponent } from './components/job/job.component'
+import { ReasonComponent } from './components/reason/reason.component'
+import { ConsignmentManagementComponent } from './pages/consignment-management/consignment-management.component'
 // import { MinuteManagerComponent } from './pages/minute-manager/minute-manager.component'
-import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component';
-import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component';
+import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component'
+import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
+import { OrderComponent } from './pages/order/report/order.component'
 
-ReasonComponent;
-JobComponent;
-BillComponent;
+ReasonComponent
+JobComponent
+BillComponent
 const routes: Routes = [
   { path: 'test', component: TestComponent },
   {
     path: 'dashboard',
     data: {
-      breadcrumb: 'Thống kê'
+      breadcrumb: 'Thống kê',
     },
     component: AdminLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }]
+    children: [{ path: '', component: DashboardComponent }],
   },
   {
     path: 'configuration',
     data: {
-      breadcrumb: 'Cài đặt hệ thống'
+      breadcrumb: 'Cài đặt hệ thống',
     },
     component: AdminLayoutComponent,
     children: [
@@ -60,80 +61,84 @@ const routes: Routes = [
           { path: 'bill', component: BillComponent },
           { path: 'job', component: JobComponent },
           { path: 'reason', component: ReasonComponent },
-          { path: '**', pathMatch: 'full', redirectTo: 'product-category' }
-        ]
-      }
-    ]
-
+          { path: '**', pathMatch: 'full', redirectTo: 'product-category' },
+        ],
+      },
+    ],
   },
   {
     path: 'warehouse-control',
     data: {
-      breadcrumb: 'Quản lý kho'
+      breadcrumb: 'Quản lý kho',
     },
     component: AdminLayoutComponent,
     children: [
       {
         path: 'shift',
         data: {
-          breadcrumb: 'Ca làm việc'
+          breadcrumb: 'Ca làm việc',
         },
-        component: ShiftComponent
+        component: ShiftComponent,
       },
       {
         path: 'parcel',
         data: {
-          breadcrumb: 'Lô hàng'
+          breadcrumb: 'Lô hàng',
         },
-        component: ConsignmentManagementComponent
+        component: ConsignmentManagementComponent,
       },
       {
         path: 'warehouse-inventory',
         data: {
-          breadcrumb: 'Ton kho'
+          breadcrumb: 'Tồn kho',
         },
-        component: WareHouseInventoryComponent
+        component: WareHouseInventoryComponent,
       },
       {
         path: 'warehouse-report',
         data: {
-          breadcrumb: 'Nhập sản lượng đóng bao - tiêu thụ loại 50kg'
+          breadcrumb: 'Nhập sản lượng đóng bao - tiêu thụ loại 50kg',
         },
-        component: WarehouseReportComponent
+        component: WarehouseReportComponent,
       },
-      { path: '**', pathMatch: 'full', redirectTo: 'shift' }
-    ]
+      { path: '**', pathMatch: 'full', redirectTo: 'shift' },
+    ],
   },
   {
     path: 'report',
     data: {
-      breadcrumb: 'Báo cáo'
+      breadcrumb: 'Báo cáo',
     },
     component: AdminLayoutComponent,
     children: [
-
       {
         path: 'transportation-report',
         data: {
-          breadcrumb: 'Báo cáo vận chuyển'
+          breadcrumb: 'Báo cáo vận chuyển',
         },
-        component: TransportationReportComponent
+        component: TransportationReportComponent,
       },
       {
         path: 'consumption-report',
         data: {
-          breadcrumb: 'Nhập xuất tồn sản phẩm'
+          breadcrumb: 'Nhập xuất tồn sản phẩm',
         },
-        component: ConsumptionReportComponent
+        component: ConsumptionReportComponent,
       },
-
-    ]
+      {
+        path: 'order-report',
+        data: {
+          breadcrumb: 'Báo cáo đơn hàng',
+        },
+        component: OrderComponent,
+      },
+    ],
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
-];
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

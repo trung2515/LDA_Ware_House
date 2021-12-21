@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit {
       {
         link: '/admin/warehouse-control/warehouse-inventory',
         menuId: 10,
-        name: 'Ton kho',
+        name: 'Tồn kho',
         isParent: false,
         parentId: 3,
       },
@@ -79,6 +79,13 @@ export class NavbarComponent implements OnInit {
         link: '/admin/report/consumption-report',
         menuId: 9,
         name: 'Báo cáo nhập xuất',
+        isParent: false,
+        parentId: 4,
+      },
+      {
+        link: '/admin/report/order-report',
+        menuId: 11,
+        name: 'Báo cáo đơn hàng',
         isParent: false,
         parentId: 4,
       },

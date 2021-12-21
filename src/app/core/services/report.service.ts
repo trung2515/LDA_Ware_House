@@ -1,17 +1,31 @@
-import { ReportInventoryResponse } from './../models/model.pb';
+import {
+  OrderInfo,
+  OrderResponse,
+  ReportInventoryResponse,
+} from './../models/model.pb'
 import { Injectable } from '@angular/core'
 import { map } from 'rxjs/operators'
-import { AdministratorClient, ReportClient } from '../models/admin.pbsc'
+import {
+  AdministratorClient,
+  CardClient,
+  ReportClient,
+  WareHouseClient,
+} from '../models/admin.pbsc'
 import {
   CardDetailResponse,
   ResponseState,
   MasterRequest,
   TransportResponse,
 } from '../models/model.pb'
+import { AuthService } from './auth.service'
 
 @Injectable()
 export class ReportService {
-  constructor(private reportClient: ReportClient) {}
+  constructor(
+    private reportClient: ReportClient,
+    private authService: AuthService,
+    private cardClient: CardClient,
+  ) {}
   reportInOut(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
@@ -38,13 +52,31 @@ export class ReportService {
     )
   }
 
-  reportWarehouse(){
+  reportWarehouse() {
     let request: MasterRequest = new MasterRequest()
     request.userName = 'stvg'
     return this.reportClient.getReportInventory(request).pipe(
       map((reply: ReportInventoryResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportOrders(fromDate: string, toDate: string, orderCode: string) {
+    let request: OrderInfo = new OrderInfo()
+    // request.fromDate = fromDate
+    // request.toDate = toDate
+    // request.userName = this.authService.getUser().user
+    request.codeOrder = orderCode
+    return this.cardClient.getOrderByCode(request).pipe(
+      map((reply: OrderResponse) => {
+        const orders: OrderInfo[] = []
+        console.log(reply)
+        if (reply.response.state == ResponseState.SUCCESS)
+          orders.push(reply.order)
+        return orders
+        // return reply.response.state == ResponseState.SUCCESS ? reply.order : {}
       }),
     )
   }
