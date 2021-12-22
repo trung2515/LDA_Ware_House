@@ -50,5 +50,8 @@ export class QtyAlumin50KG {
     this.warehouse = data.nameWareHouse
     this.username = data.createdPerson
     this.card_type = data.nameTypeBill
+    this.product_name = data.nameProduct
+    this.bag_type = data.nameTypePacket
+
   }
 }

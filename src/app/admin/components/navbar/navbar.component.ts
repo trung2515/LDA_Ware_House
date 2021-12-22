@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service'
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
   parentMenuSelectId: number = 0
   username: string = ''
   ngOnInit(): void {
@@ -15,17 +15,18 @@ export class NavbarComponent implements OnInit {
       {
         link: '/admin/dashboard',
         menuId: 1,
-        name: 'Tổng quan',
+        name: 'Thống kê',
         isParent: true,
         parentId: -1,
       },
       {
-        link: '/admin/configuration',
+        link: '/admin/report',
         menuId: 2,
-        name: 'Cấu hình',
+        name: 'Báo cáo',
         isParent: true,
-        parentId: -1,
+        parentId: 0,
       },
+
       {
         link: '/admin/warehouse-control',
         menuId: 3,
@@ -33,33 +34,47 @@ export class NavbarComponent implements OnInit {
         isParent: true,
         parentId: 0,
       },
+      // {
+      //   link: '/admin/warehouse-operation',
+      //   menuId: 4,
+      //   name: 'Vận hành kho',
+      //   isParent: true,
+      //   parentId: -1,
+      // },
+      // {
+      //   link: '/forms/tool-page',
+      //   menuId: 5,
+      //   name: 'Tạo biên bản',
+      //   isParent: true,
+      //   parentId: -1,
+      // },
       {
-        link: '/admin/report',
-        menuId: 4,
-        name: 'Báo cáo',
-        isParent: true,
-        parentId: 0,
-      },
-      {
-        link: '/admin/warehouse-control/shift',
-        menuId: 5,
-        name: 'Ca làm việc',
-        isParent: false,
-        parentId: 3,
-      },
-      {
-        link: '/admin/warehouse-control/parcel',
+        link: '/admin/configuration',
         menuId: 6,
-        name: 'Quản lý lô hàng',
-        isParent: false,
-        parentId: 3,
+        name: 'Cấu hình',
+        isParent: true,
+        parentId: -1,
       },
+      // {
+      //   link: '/admin/warehouse-control/shift',
+      //   menuId: 7,
+      //   name: 'Ca làm việc',
+      //   isParent: false,
+      //   parentId: 3,
+      // },
+      // {
+      //   link: '/admin/warehouse-control/parcel',
+      //   menuId: 8,
+      //   name: 'Quản lý lô hàng',
+      //   isParent: false,
+      //   parentId: 3,
+      // },
       {
-        link: '/admin/warehouse-control/warehouse-report',
-        menuId: 7,
+        link: '/admin/report/warehouse-report',
+        menuId: 9,
         name: 'Báo cáo số lượng trên máy đóng bao',
         isParent: false,
-        parentId: 4,
+        parentId: 2,
       },
       {
         link: '/admin/warehouse-control/warehouse-inventory',
@@ -70,28 +85,28 @@ export class NavbarComponent implements OnInit {
       },
       {
         link: '/admin/report/transportation-report',
-        menuId: 8,
+        menuId: 11,
         name: 'Báo cáo vận chuyển',
         isParent: false,
-        parentId: 4,
+        parentId: 2,
       },
       {
         link: '/admin/report/consumption-report',
-        menuId: 9,
+        menuId: 12,
         name: 'Báo cáo nhập xuất',
         isParent: false,
-        parentId: 4,
+        parentId: 2,
       },
       {
         link: '/admin/report/order-report',
-        menuId: 11,
+        menuId: 13,
         name: 'Báo cáo đơn hàng',
         isParent: false,
-        parentId: 4,
+        parentId: 2,
       },
       {
         link: '/admin/warehouse-control/error-report',
-        menuId: 12,
+        menuId: 14,
         name: 'Xác nhận bao lỗi',
         isParent: false,
         parentId: 3,
@@ -100,7 +115,7 @@ export class NavbarComponent implements OnInit {
 
     this.parentMenu = this.menus.filter((m) => m.isParent == true)
 
-    this.username = this.authService.getUser().name;
+    this.username = this.authService.getUser().name
   }
 
   getChildMenu(menuId: number) {
@@ -109,7 +124,7 @@ export class NavbarComponent implements OnInit {
 
   selectMenu(menuId: number) {
     console.log('select', menuId)
-    this.parentMenuSelectId = menuId;
+    this.parentMenuSelectId = menuId
   }
 
   logOut() {
