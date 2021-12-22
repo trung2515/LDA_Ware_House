@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ToastrModule } from 'ngx-toastr'
@@ -11,7 +11,7 @@ import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { TextInputComponent } from './_forms/text-input/text-input.component'
 import { NgxSpinnerModule } from 'ngx-spinner'
 // import { NgxLocalStorageModule } from 'ngx-localstorage'
-import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
   DxButtonModule,
   DxChartModule,
@@ -31,8 +31,8 @@ import {
   DxValidatorModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
-import { QRCodeModule } from 'angularx-qrcode';
-import { SelectOptionComponent } from './_forms/select-option/select-option.component';
+import { QRCodeModule } from 'angularx-qrcode'
+import { SelectOptionComponent } from './_forms/select-option/select-option.component'
 @NgModule({
   declarations: [TextInputComponent, FooterComponent, SelectOptionComponent],
   imports: [
@@ -68,7 +68,7 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     DxValidatorModule,
     DxValidationSummaryModule,
     QRCodeModule,
-    DxToastModule
+    DxToastModule,
     // SampleModule,
   ],
 
@@ -91,27 +91,21 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     NgxLocalStorageModule,
     DxSelectBoxModule,
     DxTextAreaModule,
-    DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
     DxSchedulerModule,
     DxButtonModule,
     DxTabPanelModule,
     DxTreeListModule,
-    // SampleModule,
-    //Component
-
-    // SampleModule,
-    //Component
-
     DxRangeSelectorModule,
     QRCodeModule,
-// SampleModule,
+    // SampleModule,
     //Component
     FooterComponent,
     TextInputComponent,
     SelectOptionComponent,
-    DxToastModule
-  ]
+    DxToastModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

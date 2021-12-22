@@ -1,33 +1,93 @@
 <div class="page-body">
+  <div class="d-flex justify-content-start align-items-center">
     <div class="choose-date">
-      <button class="btn-primary"(click)="convertDataWork()">viewData</button>
-        <label >từ ngày</label>
+        <label >Từ ngày</label>
         <div >
-          <dx-date-box [value]="now" type="date"> </dx-date-box>
+          <dx-date-box [(value)]="fromDate" type="date"  (onValueChanged) ="changeFromDate($event)"> </dx-date-box>
         </div>
-    </div>
-    <div *ngFor="let array of dataWorkConvert | keyvalue;">
+      </div>
+    <div class="choose-date ms-3">
+        <label >Dến ngày</label>
+        <div >
+          <dx-date-box [(value)]="toDate" type="date" (onValueChanged) ="changeToDate($event)"> </dx-date-box>
+        </div>
+      </div>
+  </div>  
+    <div *ngFor="let date of workDates;">
     <div class="pt-5 d-flex justify-content-start align-items-center">
-       <div class="elip me-2"></div> <div>{{array.key}}</div>
+       <div class="elip me-2"></div> <div>{{date.date}}</div>
     </div>
     <hr>
-    <div *ngFor="let item of dataWorkConvert[array.key]" class="d-flex justify-content-start align-items-center">
-      <div class="d-flex justify-content-center align-items-center" style="width: 150px; height: 100px;border: 1px solid #CBD3EE;" >
-       Ca {{item.shift}}
-      </div>
-      <div class=" border-top-white p-2 d-flex justify-content-start" style="width: 100%;height: 100px;background-color: #E9EBF3;">
-        <div class="me-2">
-        <div class="d-flex flex-column align-items-center p-2" style="width:180px ; height:100%; background-color: white;border: 1px solid #CBD3EE;border-radius: 5px;">
-          <div class="p-1" style="background: #E7F0FF;border-radius: 4px;color: #3459E6;font-size:15px;">{{item.task}}</div>
-          <div class="mt-auto" style="font-size:18px">
-            <span>{{item.fromWareHouse}}</span>
-            <img class="p-2" src="../../../../assets/svg/icon-arrow-right-short.svg" alt="">
-            <span>{{item.toWareHouse}}</span>
+    <div *ngFor="let master of getDetail(date.date, '')"  class="d-flex justify-content-start align-items-center">
+      <div  class="d-flex justify-content-center align-items-center master" >
+       {{master.shift}}
+      </div>  
+      <div class="detail p-2 d-flex" >
+        <div  class="  d-flex justify-content-start" *ngFor="let item of getDetail(master.date, master.shift)"(click)="showPopup(master)"  >
+          <div class="me-2">
+          <div   class="d-flex flex-column align-items-center p-2" style="width:200px ; height:100%; background-color: white;border: 1px solid #CBD3EE;border-radius: 5px;">
+            <div class="w-100 d-flex justify-content-start"><div class="p-1 task">{{item.task}}</div></div>
+            <div class="mt-auto w-100 d-flex justify-content-start align-items-center" style="font-size:12px">
+              <span>{{item.fromWareHouse}}</span>
+              <img [ngClass]="item.toWareHouse !==''?'':'opacity-0'" class="p-2" src="../../../../assets/svg/icon-arrow-right-short.svg" alt="">
+              <span>{{item.toWareHouse}}</span>
+            </div>
           </div>
         </div>
-      </div>
+        </div>
       </div>
     </div>
   </div>
-   
+   <!-- -------------------------------------/Popup Detail/-----------------------------------------  -->
+   <dx-popup [width]="1100" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
+      [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="isShowPopup">
+      <div *dxTemplate="let data of 'content'" class="d-flex flex-column">
+        <div style="width:100%" class="p-4">
+          
+          <div class="row d-flex align-items-center m-0 p-3" style="background-color: #EEF1F9">
+            <div class="col-3">
+              <span class="me-3">Ca :</span><span class="fw-700">{{singleWorkDetail.shift}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Ngày : </span><span class="fw-700">{{singleWorkDetail.date}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Công việc :</span><span class="fw-700">{{singleWorkDetail.task}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">User :</span><span class="fw-700">{{singleWorkDetail.user}}</span>
+            </div>
+            <div class="col-12">
+              <br>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Kho bốc :</span><span class="fw-700">{{singleWorkDetail.fromWareHouse}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Thiết bị bốc : </span><span class="fw-700">{{singleWorkDetail.codeEquipmentLoad}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Kho dỡ :</span><span class="fw-700">{{singleWorkDetail.toWareHouse}}</span>
+            </div>
+            <div class="col-3">
+              <span class="me-3">Thiết bị dỡ :</span><span class="fw-700">{{singleWorkDetail.codeEquipmentUnLoad}}</span>
+            </div>
+          </div>
+        
+          <div class="mt-3">
+            <dx-data-grid
+            id="gridContainer"
+            [dataSource]="arrSingleDetail"
+            [showBorders]="true"
+          >
+          <dxi-column dataField="shift" caption="ca">
+            
+          </dxi-column>
+        </dx-data-grid>
+         </div>
+        </div>
+
+      </div>
+
+    </dx-popup>
 </div>

@@ -43,6 +43,7 @@ import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.c
 import { ShiftService } from './pages/shift/services/shift.service'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
+import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -77,7 +78,8 @@ import { OrderComponent } from './pages/order/report/order.component'
     MenuConfirmComponent,
     WareHouseInventoryComponent,
     OrderComponent,
-    ErrorBagComponent
+    ErrorBagComponent,
+    WorkflowManagementComponent
   ],
   imports: [
     CommonModule,

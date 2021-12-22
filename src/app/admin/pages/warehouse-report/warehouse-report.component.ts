@@ -1,8 +1,9 @@
-import { WarehouseReportService } from './warehouse-report.service';
+import { ReportService } from 'src/app/core/services/report.service';
 import { QtyOnBaggingMachine, FilterModel, QtyAlumin50KG } from './models';
 import { Component, OnInit } from '@angular/core';
 import { getDates } from 'src/app/utils/helper';
 import { ExcelService } from 'src/app/core/services/excel.service';
+import Utils from 'src/app/_lib/utils';
 @Component({
   selector: 'app-warehouse-report',
   templateUrl: './warehouse-report.component.html',
@@ -13,8 +14,7 @@ export class WarehouseReportComponent implements OnInit {
   startDate: Date = new Date();
   endDate: Date = new Date();
   qtyOnBaggingMachines: QtyOnBaggingMachine[] = [];
-  qtyAlumin50:  QtyAlumin50KG[] = []
-  qtyOnBaggingMachines_copy: QtyOnBaggingMachine[] = [];
+  qtyAlumin50: QtyAlumin50KG[] = []
 
   filterControl: FilterModel = {
     objDate: {
@@ -29,7 +29,7 @@ export class WarehouseReportComponent implements OnInit {
   disabledDates: Date[] = [];
   constructor(
     private excelService: ExcelService,
-    private warehouseReportService: WarehouseReportService
+    private reportService: ReportService
   ) {
     this.tabInfo = [
       {
@@ -47,9 +47,14 @@ export class WarehouseReportComponent implements OnInit {
     this.getData()
   }
 
-  getData(){
-    this.qtyOnBaggingMachines = this.warehouseReportService.getQtyOnBaggingMachine();
-    this.qtyAlumin50 = this.warehouseReportService.getReport50Kg();
+  getData() {
+    this.reportService.report50kg(Utils.formatDate(this.startDate), Utils.formatDate(this.endDate)).subscribe(data => {
+      this.qtyAlumin50 = data.map(d => new QtyAlumin50KG(d))
+    })
+
+    this.reportService.reportOnMachineBag(Utils.formatDate(this.startDate), Utils.formatDate(this.endDate)).subscribe(data => {
+      this.qtyOnBaggingMachines = data.map(d => new QtyOnBaggingMachine(d))
+    })
   }
 
 

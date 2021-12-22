@@ -100,7 +100,7 @@ export class AddPackagingFiftyComponent implements OnInit {
             productRange: form.product_type,
             packaging: form.bag_type,
             lot: form.consignments,
-            // machines_packaging: '',
+            machines_packaging: '',
             unit: this.packaging_unit,
             wareHouse: form.wareHouse
           };

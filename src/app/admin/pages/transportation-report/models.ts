@@ -20,6 +20,8 @@ export class TransportationReportModel {
   user: string = ''
   sl_by: string = ''
   time: string
+  dv_boc: string = ''
+  dv_do: string = '' 
   constructor(data: TransportInfo) {
     this.product_name = data.nameProduct
     this.product_type = data.idTypeProduct
@@ -38,5 +40,7 @@ export class TransportationReportModel {
     this.ton_number = data.weight
     this.shift = Utils.convertTimeToShift(data.createddate)
     this.time = data.createddate
+    this.dv_boc = data.dvBoc || ''
+    this.dv_do = data.dvDo || ''
   }
 }

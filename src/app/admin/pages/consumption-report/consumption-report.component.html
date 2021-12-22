@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <app-header-report [title_nav]="title_nav"
+  <app-header-report [title_nav]="title_nav" [startDate]="startDate" [endDate]="endDate"
     (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)">
   </app-header-report>
 
@@ -52,6 +52,10 @@
                 </dxi-column>
                 <dxi-column dataField="note" caption="Ghi chú">
                 </dxi-column>
+                <!-- <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
+                <div *dxTemplate="let item of 'time'">
+                  {{item.value | date: 'yyyy-MM-dd HH:mm:ss'}}
+                </div> -->
               </dx-data-grid>
             </div>
           </div>

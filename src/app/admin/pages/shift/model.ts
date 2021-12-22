@@ -35,6 +35,7 @@ export class ShiftDetail {
     lot:string;
     unit:string;
     wareHouse:string;
+    machines_packaging: string;
     constructor(data: ShiftDetailInfo){
         this.id = data.idShiftDetail
         this.option = data.optionName

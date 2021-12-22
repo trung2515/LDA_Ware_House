@@ -2,7 +2,6 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ShiftService } from './../../../admin/pages/shift/services/shift.service';
 import {
   Appointment,
-  MachinesPackaging
 } from './../../../admin/pages/shift/model';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
