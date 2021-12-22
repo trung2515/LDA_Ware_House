@@ -1,19 +1,158 @@
 <div >
   <div class="title">Ca làm việc</div>
-
-
+  <!-- <button class="btn btn-danger ms-auto px-4"  (click)="viewData()">view</button> -->
   <div >
-  
+    <!-- <button (click)="createShift()">view</button> -->
+    <div class="d-flex py-3">
+      <button class="btn btn-primary ms-auto px-4" data-target="#addShift" (click)="popupCreateShift = true">Tạo ca</button>
+    </div>
+    <!-- ----------------------------------/popup create shift/---------------------------------  -->
+    <dx-popup
+    [width]="1024"
+    [height]="512"
+    [showTitle]="true"
+    title="Tạo ca làm việc"
+    shadingColor = 'rgba(0,0,0,0.2)'
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [showCloseButton]="true"
+    container=".dx-viewport"
+    [(visible)]="popupCreateShift"
+    [toolbarItems]="[
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Đóng'
+            },
+            toolbar: 'bottom',
+            onClick: closePop
+          },
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Lưu thay đổi'
+            },
+            toolbar: 'bottom',
+            onClick: createShift
+          }
+        ]"
+  >
+  <div>
+    <div class="row">
+      <div class="col-9 row">
+        <div class="col-6 p-3">
+          <label >Ngày:</label>
+          <dx-date-box [value]="now" type="date" (onValueChanged)="chooseDate($event) "> </dx-date-box>
+        </div>
+        <div class="col-6 p-3">
+          <label >Ca:</label>
+          <dx-select-box placeholder="Chọn ca" displayExpr="name" [(dataSource)]="listShift" (onValueChanged)="chooseShift($event) " ></dx-select-box>
+        </div>
+      </div>
+      <div class="p-3">
+        <dx-data-grid
+        id="gridContainer"
+        [(dataSource)]="newShiftDetail"
+        [showBorders]="true"
+      >
+
+      <dxi-column dataField="option" caption="Option">
+        <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="type" caption="Loại">
+        <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxi-column dataField="product" caption="Sản phẩm" >
+        <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="productRange" caption="Loại sản phẩm">
+        <dxo-lookup [dataSource]="listProductRange" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="packaging" caption="Loại bao">
+        <dxo-lookup [dataSource]="listPackaging" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="lot" caption="Lô">
+        <dxo-lookup [dataSource]="listLot" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="unit" caption="Đơn vị đóng" >
+        <dxo-lookup [dataSource]="listUnit" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="wareHouse" caption="kho" >
+        <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowAdding]="true"
+      [allowDeleting]="true"
+      [useIcons]="true"
+    >
+      <dxo-popup
+        title="Thêm mới option "
+        [showTitle]="true"
+        [width]="671"
+        [height]="549"
+      >
+      </dxo-popup>
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+          <!-- <dxi-item  dataField="option"></dxi-item> -->
+          <dxi-item  dataField="lot"></dxi-item>
+          <dxi-item dataField="product" caption="Sản phẩm" ></dxi-item>
+          <dxi-item dataField="productRange" caption="Loại sản phẩm"></dxi-item>
+          <dxi-item dataField="packaging" caption="Loại bao"></dxi-item>
+          <dxi-item dataField="unit" caption="Đơn vị đóng" ></dxi-item>
+          <dxi-item dataField="wareHouse" caption="kho" ></dxi-item>
+        </dxi-item>
+      </dxo-form>
+    </dxo-editing>
+    </dx-data-grid>
+      </div>
+    </div>
+  </div>
+
+
+  </dx-popup>
     <dx-scheduler [dataSource]="appointments" [views]="['']" currentView="month"
-      [currentDate]="currentDate" [height]="600" [firstDayOfWeek]="1"
-      (onAppointmentFormOpening)="onAppointmentFormOpening($event)">
-      <dxi-resource fieldExpr="shift" label="Ca" [dataSource]="resources">
+      [(currentDate)]="currentDate" [height]="700" [firstDayOfWeek]="1"
+      (onOptionChanged) ="change()"
+      (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
+      appointmentTooltipTemplate="tooltip-template"
+      >
+      <dxi-resource fieldExpr="shift" label="shift" [dataSource]="resources" >
       </dxi-resource>
+      <div class="tool-tip p-3" style="width: 500px;height:180px;" *dxTemplate="let model of 'tooltip-template'">
+        <div>
+          <div class="d-flex justify-content-start align-items-center fw-bold">
+            <div class="elip me-2 "></div> <div>{{model.appointmentData.text}}</div>
+        </div>
+        <div class="d-flex justify-content-start align-items-center mt-2 ">
+          <img class="me-2" src="../../../../assets/svg/calendar.svg" alt="">
+         {{(model.appointmentData.startDate | date: "dd/MM/yyyy")}}
+        </div>
+        <div class="d-flex justify-content-start align-items-center mt-2" *ngFor="let item of getDetail(model.appointmentData.idDetail)">
+          <span class="fw-bold me-2">{{item.option}}</span><span>{{item.product}} - {{item.productRange}} - {{item.packaging}} -- {{item.wareHouse}}</span><span class="ms-2 text-primary">{{item.type}}</span>
+        </div>
+      
+        </div>
+        </div>
+      
     </dx-scheduler>
 
     <dx-popup [width]="988" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
       [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="showPopup">
-      
       <div *dxTemplate="let data of 'content'" class="d-flex flex-column">
         <div style="width:100%" class="p-4">
           <div class="row d-flex align-items-center px-3" style="background-color: #EEF1F9;height: 48px;margin-bottom: 10px;">
@@ -33,7 +172,7 @@
             [dataSource]="shiftDetail"
             [showBorders]="true"
           >
-          
+
           <dxi-column dataField="option" caption="Option">
             <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
             </dxo-lookup>
@@ -42,7 +181,7 @@
             <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="name">
             </dxo-lookup>
           </dxi-column>
-     
+
           <dxi-column dataField="product" caption="Sản phẩm" >
             <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="name">
             </dxo-lookup>
@@ -67,12 +206,13 @@
             <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
             </dxo-lookup>
           </dxi-column>
-        
+
           <dxo-editing
           mode="popup"
           [allowUpdating]="true"
           [allowAdding]="true"
           [allowDeleting]="true"
+          [useIcons]="true"
         >
           <dxo-popup
             title="Thêm mới option "
@@ -92,7 +232,7 @@
               <dxi-item dataField="unit" caption="Đơn vị đóng" ></dxi-item>
               <dxi-item dataField="wareHouse" caption="kho" ></dxi-item>
             </dxi-item>
-          </dxo-form>        
+          </dxo-form>
         </dxo-editing>
         </dx-data-grid>
          </div>
@@ -102,7 +242,7 @@
           <button class="btn btn-light text-dark me-3 " (click)="closePop()">Đóng</button>
           <button class="btn text-white" *ngIf='!showUpdateButton' style="background-color:#3459E6;" (click)="addShiftData()">Lưu thay đổi</button>
           <button class="btn text-white" *ngIf='showUpdateButton' style="background-color:#3459E6;" (click)="updateShiftData()">Lưu thay đổi</button>
-        </div> 
+        </div>
       </div>
 
     </dx-popup>

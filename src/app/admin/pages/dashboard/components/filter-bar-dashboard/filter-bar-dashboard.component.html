@@ -1,90 +1,55 @@
-<p class="title">Thống kê</p>
-<form action="">
-  <div class="product-select">
-    <div class="form-title">
-      <span>{{ productRadio.title }}</span>
-    </div>
-    <div class="form-group-wrap">
-      <div *ngFor="let product of productRadio.data" class="form-group">
-        <input
-          type="radio"
-          [value]="product.value"
-          [name]="product.name"
-          [checked]="product.checked"
-          [id]="product.id"
-          (click)="onRadioChange($event)"
-          class="form-radio"
-        />
-        <label [for]="product.id">{{ product.value }}</label>
-      </div>
+<div class="product-select mb-2">
+  <div class="form-title">
+    <span>{{ productRadio.title }}</span>
+  </div>
+  <div class="form-group-wrap">
+    <div *ngFor="let product of productRadio.data" class="form-group">
+      <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
+        (click)="onRadioChange($event)" class="form-radio" />
+      <label [for]="product.id">{{ product.value }}</label>
     </div>
   </div>
-  <!-- 3 years nearest -->
-  <div class="product-select">
-    <div class="form-title">
-      <span>{{ threeYearNearestList.title }}</span>
-    </div>
-    <div class="form-group-wrap">
-      <div *ngFor="let product of threeYearNearestList.data" class="form-group">
-        <input
-          type="radio"
-          [value]="product.value"
-          [name]="product.name"
-          [checked]="product.checked"
-          [id]="product.id"
-          (click)="onRadioChange($event)"
-          class="form-radio"
-        />
-        <label [for]="product.id">{{ product.value }}</label>
-      </div>
+</div>
+<!-- 3 years nearest -->
+<div class="product-select mb-2">
+  <div class="form-title">
+    <span>{{ threeYearNearestList.title }}</span>
+  </div>
+  <div class="form-group-wrap">
+    <div *ngFor="let product of threeYearNearestList.data" class="form-group">
+      <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
+        (click)="onRadioChange($event)" class="form-radio" />
+      <label [for]="product.id">{{ product.value }}</label>
     </div>
   </div>
-  <!-- 12 months of year -->
-  <div class="product-select months-radio">
-    <div class="form-title">
-      <span>{{ monthList.title }}</span>
-    </div>
-    <div class="form-group-wrap">
-      <div *ngFor="let product of monthList.data" class="form-group">
-        <input
-          type="radio"
-          [value]="product.value"
-          [name]="product.name"
-          [checked]="product.checked"
-          [id]="product.id"
-          class="form-radio"
-          (click)="onRadioChange($event)"
-          (input)="selectMonth($event)"
-        />
-        <label [for]="product.id">{{ product.value }}</label>
-      </div>
+</div>
+<!-- 12 months of year -->
+<div class="product-select months-radio mb-2">
+  <div class="form-title">
+    <span>{{ monthList.title }}</span>
+  </div>
+  <div class="form-group-wrap">
+    <div *ngFor="let product of monthList.data" class="form-group">
+      <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
+        class="form-radio" (click)="onRadioChange($event)" (input)="selectMonth($event)" />
+      <label [for]="product.id">{{ product.value }}</label>
     </div>
   </div>
-  <!-- select range date -->
-  <div class="product-select day-range">
-    <div class="form-title">
-      <span>Ngày</span>
-    </div>
-    <dx-range-selector
-      id="range-selector"
-      [value]="startEndDateOfMonth"
-      title=""
-      [selectedRangeColor]="'#3459e6'"
-      [sliderMarker]="{ color: '#3459e6' }"
-      (onOptionChanged)="onOptionChanged($event)"
-    >
-      <dxo-margin [top]="50"></dxo-margin>
-      <dxo-scale
-        [startValue]="startEndDateOfMonth[0]"
-        [endValue]="startEndDateOfMonth[1]"
-        [minorTickInterval]="1"
-        [tickInterval]="5"
-      >
-        <dxo-minor-tick [visible]="false"></dxo-minor-tick>
-      </dxo-scale>
-    </dx-range-selector>
+</div>
+<!-- select range date -->
+<div class="product-select day-range mb-2">
+  <div class="form-title">
+    <span>Ngày</span>
   </div>
-</form>
+  <dx-range-selector id="range-selector" [value]="startEndDateOfMonth" title="" [selectedRangeColor]="'#3459e6'"
+    [sliderMarker]="{ color: '#3459e6' }" (onOptionChanged)="onOptionChanged($event)">
+    <dxo-margin [top]="50"></dxo-margin>
+    <dxo-scale [startValue]="startEndDateOfMonth[0]" [endValue]="startEndDateOfMonth[1]" [minorTickInterval]="1"
+      [tickInterval]="5">
+      <dxo-minor-tick [visible]="false"></dxo-minor-tick>
+    </dxo-scale>
+  </dx-range-selector>
+</div>
 <!-- inventory of month -->
 <p class="inventory-month-title">
   Tồn kho theo tháng

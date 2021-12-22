@@ -14,7 +14,7 @@ service Account {
 
 service Administrator {
 
-    rpc GetListCodePacket(MasterRequest) returns (CodePacketResponse);
+   
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
     rpc GetListPartner(MasterRequest) returns (PartnerResponse);
@@ -29,10 +29,11 @@ service Administrator {
     rpc GetListTypePartner(MasterRequest) returns (MasterDataResponse);
     rpc GetListUsers(MasterRequest) returns (UserResponse);
     rpc GetListDevices(MasterRequest) returns (DeviceResponse);
+    rpc GetListPosition(MasterRequest) returns (MasterDataResponse);
+    rpc GetListDepartment(MasterRequest) returns (DepartmentResponse);
+    rpc GetListPeople(MasterRequest) returns (PeopleResponse);
 
-    rpc InsertCodePacket(CodePacketInfo) returns (Response);
-    rpc UpdateCodePacket(CodePacketInfo) returns (Response);
-    rpc DeleteCodePacket(CodePacketInfo) returns (Response);
+  
 
     rpc InsertEquipment(EquipmentInfo) returns (Response);
     rpc UpdateEquipment(EquipmentInfo) returns (Response);
@@ -74,18 +75,26 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
-    
+    rpc InsertDepartment(DepartmentInfo) returns (Response);
+    rpc UpdateDepartment(DepartmentInfo) returns (Response);
+    rpc DeleteDepartment(DepartmentInfo) returns (Response);
     //rpc Login(UserInfo) returns (UserReply);
     
 
     rpc InsertDevice(DeviceInfo) returns (Response);
     rpc UpdateDevice(DeviceInfo) returns (Response);
     rpc DeleteDevice(DeviceInfo) returns (Response);
+
+    rpc InsertPeole(PeopleInfo) returns (Response);
+    rpc DeletePeople(PeopleInfo) returns (Response);
+
+
+  
+
 }
 service WareHouse {
    
-   // get all
-    rpc GetListShift(MasterRequest) returns (ShiftResponse);
+    rpc GetListShiftByDate(MasterRequest) returns (ShiftResponse);           // on day
     rpc GetListShiftDetail(MasterRequest) returns (ShiftDetailResponse);     // from date ->  to date 
 
     rpc GetListParcel(MasterRequest) returns (ParcelResponse);               // get all   
@@ -98,11 +107,7 @@ service WareHouse {
 
     rpc NewInsertShift(InsertShiftRequest) returns (Response);
     rpc NewUpdateShift(InsertShiftRequest) returns (Response);
-    rpc DeleteShift(ShiftInfo) returns (Response);
-
-    
-
-   
+    rpc DeleteShift(ShiftInfo) returns (Response); 
 
     rpc InsertParcel(InsertParcelRequest) returns (Response);
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
@@ -111,26 +116,30 @@ service WareHouse {
     rpc InsertTask(InsertTaskRequest) returns (Response);
     rpc UpdateTask(InsertTaskRequest) returns (Response);
     rpc DeleteTask(TaskInfo) returns (Response);
+
+    rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);
     
 }
 service Card
 {
-    rpc GetListCard(MasterRequest) returns (CardResponse); //get all
-    rpc getListCardDetailByCode(MasterRequest) returns (CardDetailResponse); //get by code
-    rpc GetListCardDetail(MasterRequest) returns (CardDetailResponse); // from date -> to date
+  
+    rpc GetListCard(MasterRequest) returns (CardDetailResponse); // from date -> to date
+    rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse); 
+    //rpc InsertCard(InsertCardRequest) returns (Response);
+    rpc UpdateCard50kg(InsertCardRequest) returns (Response); 
+    rpc SetChangeableCard(CardDetailInfo) returns (Response);
+    rpc DeleteCard(CardDetailInfo) returns (Response);
 
-    rpc InsertCard(InsertCardRequest) returns (Response);
-    rpc UpdateCard(InsertCardRequest) returns (Response); 
-    rpc SetChangeableCard(CardInfo) returns (Response);
-    rpc DeleteCard(CardInfo) returns (Response);
+    rpc InsertOrder(OrderInfo) returns (OrderResponse);
+    rpc UpdateOrder(OrderInfo) returns (Response);
+    rpc GetOrderByCode(OrderInfo) returns (OrderResponse);
 
-    rpc GetListRecordDetail(MasterRequest) returns (RecordDetailResponse);
-    rpc InsertRecord (InsertRecordRequest) returns (Response);
-    rpc DeleteRecord (InsertRecordRequest) returns (Response);
+   
 
 }
 
 service Report
 {
-    rpc GetReportVolConsumtion (MasterRequest) returns (ReportVolConsumtionResponse);
+rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
+rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
 }

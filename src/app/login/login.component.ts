@@ -17,7 +17,6 @@ import {
 import { AccountService } from 'src/app/core/services/account.service'
 import { AuthService } from 'src/app/core/services/auth.service'
 
-
 @Component({
   selector: 'app-login',
   styleUrls: ['./login.component.less'],
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private localStorage: LocalStorageService,
     private authService: AuthService,
-    private accountService: AccountService
+    private accountService: AccountService,
   ) {}
 
   ngOnInit(): void {
@@ -65,14 +64,14 @@ export class LoginComponent implements OnInit {
   }
   login() {
     let user: UserInfo = new UserInfo()
-    user.username = this.registerForm.value.username
+    user.user = this.registerForm.value.username
     user.password = this.registerForm.value.password
     console.log('user: ', this.registerForm.value)
     this.accountService
-      .signIn(user.username, user.password)
+      .signIn(user.user, user.password)
       .subscribe((user: any) => {
         this.localStorage.set('roleId', user?.roleId)
-        console.log(user);
+        console.log(user)
         if (user) {
           this.authService.authenticate(user, () => {
             this.router.navigateByUrl('/admin')

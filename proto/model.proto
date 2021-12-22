@@ -10,6 +10,9 @@ message MasterRequest
     string fromDate = 4;
     string toDate = 5;
     string codeCard = 6;
+    string date = 7;
+    int32 userID = 8;
+    string userName = 9;
 }
 enum ResponseState {
   SUCCESS = 0;
@@ -23,6 +26,7 @@ message Response
 
 message CodePacketInfo
 {
+
     string codePacket = 1;
     string unit = 2;
     string nameProductPacket = 3;
@@ -32,8 +36,9 @@ message CodePacketInfo
     int32 id = 7;
     float weight = 8;
     string nameTypePacket = 9;
-}
 
+    
+}
 message CodePacketResponse
 {
     Response response = 1;
@@ -56,8 +61,9 @@ message EquipmentResponse
 message PackingUnitInfo
 {
     int32 idPackingUnit = 1;
-    string namePackingUnit = 2;
-    bool isDeleted = 3;
+    string codePackingUnit = 2;
+    string namePackingUnit = 3;
+    bool isDeleted = 4;
 }
 message PackingUnitResponse
 {
@@ -180,16 +186,15 @@ message ShiftDetailInfo
     string codeTypePacket = 9;
     string nameTypePacket = 10;
     string codeParcel = 11;
-    string nameParcel = 12;
-    string codeWareHouse = 13;
-    string nameWareHouse = 14;
-    int32 idShift = 15;
-    string nameShift = 16;
-    int32 id_packing_unit = 17;
-    string name_packing_unit = 18;
-    string createPerson = 19;
-    string nameCratePerson = 20;
-    string date = 21;
+    string codeWareHouse = 12;
+    string nameWareHouse = 13;
+    int32 idShift = 14;
+    string nameShift = 15;
+    string code_packing_unit = 16;
+    string name_packing_unit = 17;
+    int32 createdPerson = 18;
+    string nameCreatedPerson = 19;
+    string date = 20;
 }
 message ShiftDetailResponse
 {
@@ -202,15 +207,15 @@ message ShiftInfo
     int32 id_shift = 1;
     string date = 2;
     string nameShift = 3;
-    string createPerson = 4;
-    string nameCratePerson = 5;
+    int32 createdPerson = 4;
+    string nameCreatedPerson = 5;
 }
 message InsertShiftRequest
 {
     int32 idShift = 1;
     string date = 2;
     string nameShift = 3;
-    string createPerson = 4;
+    int32 createdPerson = 4;
     repeated ShiftDetailInfo data = 5;
 }
 message ShiftResponse
@@ -220,16 +225,18 @@ message ShiftResponse
 }
 message MasterDataInfo
 {
-  int32 objectId = 1;
+  int32 objectId= 1;
   string objectName = 2;
 
 }
 message ParcelInfo
 {
     int32 idParcel = 1;
-    string codeParcel = 3;
-    string createdPerson = 4;
-    string nameCreatedOPerson = 5;
+    string codeParcel = 2;
+    int32 createdPerson = 3;
+    string nameCreatedPerson = 4;
+    string  createdDate = 5;
+    bool isDeleted = 6;
 }
 
 message ParcelResponse
@@ -250,15 +257,18 @@ message UserResponse {
 }
 
 message UserInfo {
-  int32 userid = 1;
-  string username = 2;
+  int32 ID = 1;
+  string user = 2;
   string password = 3;
-  int32 roleid = 4;
+  int32 role = 4;
   string rolename = 5;
   string createddate = 6;
   string name  = 7;
   string newPassword = 8;
-  string codeStaff = 9;
+  string connecttion  = 9;
+  string des =  10;
+  int32 online = 11;
+  string history = 12;
 }
 
 message DeviceResponse {
@@ -267,11 +277,12 @@ message DeviceResponse {
 }
 
 message DeviceInfo {
-  string name = 1;
-  string mac = 2;
-  string function = 3;
-  int32 id_packing_unit = 4;
-  int32 id = 5;
+  int32 ID  = 1;
+  string device = 2;
+  string password = 3;
+  int32 type = 4;
+  string option = 5;
+  string connecttion = 6;
 }
 
 message UserReply
@@ -282,7 +293,7 @@ message UserReply
 }
 message ParcelDetailInfo
 {
-    int32 idParcelDetail =1 ;
+    int32 idParcelDetail =1;
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
@@ -294,8 +305,8 @@ message ParcelDetailInfo
     int64 quantity = 10;
     string codeParcel = 11;
     int32 idParcel = 12;
-    string createdPerson = 13;
-    string nameCreatedOPerson = 14;
+    int32 createdPerson = 13;
+    string nameCreatedPerson = 14;
     string date = 15;
     
 }
@@ -308,38 +319,22 @@ message InsertParcelRequest
 {
     string codeParcel = 1;
     string name  = 2;
-    string createdPerson = 3;
+    int32 createdPerson = 3;
     repeated ParcelDetailInfo data  = 4;
 }
 
-message CardInfo
-{
-    int64 IdCard = 1;
-    string codeTypeBill = 2;
-    string createdPerson = 3;
-    string createdDate = 4;
-    string codeCard = 5;
-    int32 idShift = 6;
-    bool isChangable = 7;
-    string namePerson = 8;
-    string nameTypeBill = 9;
-    string nameShift = 10;
-    string vehicleNumber = 11;
-    string romooc = 12;
-    string codeOrder = 13;
-    
-}
+
 
 message CardResponse
 {
     Response response = 1;
-    repeated CardInfo data = 2;
+    repeated CardDetailInfo data = 2;
     
 }
 
 message CardDetailInfo
 {
-    int32 idCardDetail = 1;
+    int32 idCard = 1;
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
@@ -347,29 +342,26 @@ message CardDetailInfo
     string codeTypePacket = 6;
     string nameTypePacket = 7;
     string codeParcel = 8;
-    string nameParcel = 9;
-    string codeWareHouse = 10;
-    string nameWareHouse = 11;
-    string codeCard = 12;
-    int64 quantity = 13;
-    string codeReason = 14;
-    string nameReason = 15;
-    int64 weight = 16;
-    int32 idPackingUnit = 17;
-    string namePackingUnit  = 18;
-
-    int64 IdCard = 19;
-    string codeTypeBill = 20;
-    string createdPerson = 21;
-    string createdDate = 22;
-    int32 idShift = 23;
-    bool isChangable = 24;
-    string namePerson = 25;
-    string nameTypeBill = 26;
-    string nameShift = 27;
-    string vehicleNumber = 28;
-    string romooc = 29;
-    string codeOrder = 30;
+    string codeWareHouse = 9;
+    string nameWareHouse = 10;
+    int64 quantity = 11;
+    int64 weight = 12;
+    string codePackingUnit = 13;
+    string namePackingUnit  = 14;
+    string codeTypeBill = 15;
+    string createdPerson = 16;
+    string createdDate = 17;
+    int32 idShift = 18;
+    bool isChangable = 19;
+    string namePerson = 20;
+    string nameTypeBill = 21;
+    string nameShift = 22;
+    string codeOrder = 23;
+    string codeCreatedReason = 24;
+    string nameReason = 25;
+    string codePartner = 26;
+    string namePartner = 27;
+    int32 CountTrip = 28;
 }
 
 message CardDetailResponse
@@ -381,17 +373,18 @@ message CardDetailResponse
 
 message InsertCardRequest
 {
-    CardInfo card = 1;
-    repeated CardDetailInfo cardDetails = 2;
+    string date = 1;
+    string nameShift = 2;
+    repeated CardDetailInfo cardDetails = 3;
 }
 
 message TaskInfo
 {
     int32 idTask = 1;
-    string  date = 2;
+    string  createdDate = 2;
     string nameShift = 3;
-    string createdPerson = 4;
-    string namePreated_person = 5;
+    int32 createdPerson = 4;
+    string nameCreatedPerson = 5;
 }
 
 message TaskDetailInfo
@@ -422,7 +415,7 @@ message TaskDetailInfo
     string  date = 21;
     string nameShift = 22;
     string createdPerson = 23;
-    string namePreated_person = 24;
+    string nameCreatedPerson = 24;
 }
 message InsertTaskRequest
 {
@@ -455,11 +448,11 @@ message RecordDetailInfo
    
     string codeRecord = 10;
     int64 quantity = 11;
-    int32 idPackingUnit = 12;
+    string codePackingUnit = 12;
     string namePackingUnit  = 13;
 
     int64 IdRecord = 14;
-    string createdPerson = 15;
+    int32 createdPerson = 15;
     string createdDate = 16;
     string  shift = 17;
     bool isChangable = 18;
@@ -475,7 +468,7 @@ message RecordDetailResponse
 }
 message Record
 {
-    string createdPerson = 1;
+    int32 createdPerson = 1;
     string createdDate = 2;
     string  shift = 3;
     string codeWareHouse = 4;
@@ -499,7 +492,7 @@ message ReportVolConsumtion
     string nameTypeProduct = 5;
     string codeTypePacket = 6;
     string nameTypePacket = 7;
-    int32 idPackingUnit = 8;
+    string codePackingUnit = 8;
     string namePackingUnit = 9;
     string idCustomer = 10;
     int32 nameCustomer = 11;
@@ -515,4 +508,97 @@ message ReportVolConsumtionResponse
     Response response = 1;
     repeated ReportVolConsumtion data = 2;
 }
+message OrderInfo
+{
+   string codeOrder = 1;
+   string identityDriver = 2;
+   string nameDriver = 3;
+   string roMooc = 4;
+   string vehicleNumber = 5;
+   int32 weightRegistration = 6;
+   int32 weightAllow = 7;
+   string codeTypePacket = 8;
+   int32 quantity = 9;
+   string shippingUnit = 10;
+   int32 class1 = 11;
+   int32 class2 = 12;
+   string codeProduct = 13;
+   string nameProduct = 14;
+   string nameTypePacket = 15;
+}
 
+message DepartmentInfo
+{
+    int32 id_department = 1;
+    string name_department = 2;
+}
+message DepartmentResponse
+{
+    Response response = 1;
+    repeated DepartmentInfo data = 2;
+
+}
+message PeopleInfo
+{
+    string namePeople = 1;
+    int32 idRole = 2;
+    string nameRole = 4 ;
+}
+
+message PeopleResponse
+{
+    Response response = 1;
+    repeated PeopleInfo data = 2;
+}
+message ConfirmProduction1000
+{
+    int64 id_shift_detail = 1;
+    int32 id_equipment  = 2;
+    int32 quantity = 3;
+}
+message ConfirmProduction1000Info
+{
+    repeated ConfirmProduction1000 data = 1;
+}
+
+message OrderResponse
+{
+   OrderInfo order = 1;
+   Response response = 2;
+}
+message TransportInfo
+{
+    string createddate = 1;
+    string codeProduct = 2;
+    int32 idTypeProduct = 3;
+    string codeTypePacket = 4;
+    string codeWork= 5;
+    string codeWareHouseload = 6;
+    string codeWareHouseUnload = 7;
+    string  codeEquipmentLoad = 8;
+    string codeEquipmentUnLoad = 9;
+
+    string nameProduct = 10;
+    string nameTypeProduct = 11;
+    string nameTypePacket = 12;
+    string nameWork = 13;
+    string nameWareHouseLoad = 14;
+    string nameWareHouseUnLoad = 15;
+    string nameEquipmentLoad = 16;
+    string nameEquipmentUnLoad = 17;
+
+    int32 quantity = 18;
+    int32 weight = 19;
+    int32 distance = 20;
+
+    string createdPerson = 21;
+    string nameCreatedPerson = 22;
+    int32 CountTrip = 23;
+}
+message TransportResponse
+{
+     Response response = 1;
+    repeated TransportInfo data = 2;
+}
+
+ 

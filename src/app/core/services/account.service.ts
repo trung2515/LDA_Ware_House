@@ -13,7 +13,7 @@ export class AccountService {
 
   signIn(username: any, password: any) {
     let request = new UserInfo()
-    request.username = username
+    request.user = username
     request.password = password
     return this.accountClient.signIn(request).pipe(
       map((reply: UserReply) => {

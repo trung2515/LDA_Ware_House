@@ -1,0 +1,22 @@
+<img alt="" class="bg_img_login">
+<div class="brand-wrap">
+  <img src="assets/img/lda_icon.png" alt="lda_brand" class="brand">
+  <div class="company-name d-flex flex-column justify-content-center align-items-start">
+    <p>TẬP ĐOÀN CÔNG NGHIỆP THAN - KHOÁNG SẢN VIỆT NAM</p>
+    <p>CÔNG TY TNHH MTV NHÔM LÂM ĐỒNG - TKV</p>
+  </div>
+</div>
+<div class="wrap">
+  <form [formGroup]="registerForm" (ngSubmit)="login()" autocomplete="off" class="login-form">
+    <h2 class="text-center form-title">Đăng nhập</h2>
+    <hr>
+    <span style='color: #696F79;'>Tài khoản</span>
+    <app-text-input formControlName="username" [label]="'username'" [type]="'text'"></app-text-input>
+    <span style='color: #696F79;margin-top:10px;'>Mật khẩu</span>
+    <app-text-input formControlName="password" [label]="'password'" [type]="'password'"></app-text-input>
+    <div class="form-group text-center mt-5">
+      <button class="btn btn-outline-primary mr-2 w-100" type="submit" style='height:48px'>Đăng
+        nhập</button>
+    </div>
+  </form>
+</div>

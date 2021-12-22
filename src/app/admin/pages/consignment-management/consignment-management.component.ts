@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsignmentService } from 'src/app/admin/pages/consignment-management/consignment.service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PercelService } from '../parcel/parcel.service';
 
 @Component({
   selector: 'app-consignment-management',
@@ -91,7 +92,8 @@ export class ConsignmentManagementComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({})
 
 
-  constructor(private consignmentService: ConsignmentService, private formBuilder: FormBuilder) {
+  constructor(private consignmentService: ConsignmentService, 
+    private formBuilder: FormBuilder, private parcelService: PercelService ) {
 
     const that = this;
     that.consignments = consignmentService.getConsignment()
@@ -124,6 +126,9 @@ export class ConsignmentManagementComponent implements OnInit {
   }
   ngOnInit(): void {
     this.ConsignmentWithTimeLine = this.getConsignInThreeMonthRecently(this.consignments)
+    this.parcelService.getListPercel().subscribe(data=>{
+      this.consignments = data.map(d => new ParcelModel(d))
+    })
     this.filterForm = this.formBuilder.group({
       id: [
         "",

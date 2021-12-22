@@ -8,7 +8,7 @@ function generateTranslationReport(): TransportationReportModel[] {
     const now = new Date();
     const strDate = (now.getMonth() + 1) + '/' + (now.getDate() + i) + '/' + now.getFullYear()
     let translationStatistic: TransportationReportModel = {
-      shift: i % 2 === 0 ? 1 : 2,
+      shift: '1',
       date: strDate,
       product_name: 'Alumin ' + (i / 2) + ' tấn',
       product_type: i % 2 === 0 ? 1 : 2,
@@ -21,7 +21,7 @@ function generateTranslationReport(): TransportationReportModel[] {
       bag_number: (312 + i),
       ton_number: (3120000 + i),
       cdo: 12,
-      trips_number: '',
+      trips_number: 0,
       user: i % 2 === 0 ? 'HV Bien' : i % 3 === 0 ? 'HV Bien 1' : 'HV Bien 2',
       sl_by: i === 1 ? 'ca SL 1' : (i === 2 || i === 5) ? 'ca SL 2' : i === 3 ? 'ca SL 3' : i === 4 ? 'SL ngày 30/10' : 'LK tuần 45'
     }

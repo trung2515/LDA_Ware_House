@@ -11,7 +11,7 @@ export class PercelService {
 
     getListPercel() {
         let request: MasterRequest = new MasterRequest()
-        return this.warehouseClient.getListParcel(request).pipe(map(reply => reply.response?.state == ResponseState.SUCCESS ? reply.data?.map(d => new ParcelModel(d)) : []))
+        return this.warehouseClient.getListParcel(request).pipe(map(reply => reply.response?.state == ResponseState.SUCCESS ? reply.data : []))
     }
 
     getListParcelDetail(code_parcel: string) {
