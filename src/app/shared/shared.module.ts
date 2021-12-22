@@ -98,12 +98,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     DxButtonModule,
     DxTabPanelModule,
     DxTreeListModule,
-    // SampleModule,
-    //Component
-
-    // SampleModule,
-    //Component
-
     DxRangeSelectorModule,
     QRCodeModule,
 // SampleModule,

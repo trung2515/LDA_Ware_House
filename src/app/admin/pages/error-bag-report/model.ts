@@ -9,6 +9,7 @@ export class ErrorModel {
   parcel: string
   seri_number: number
   user: string
+  time: string
 
   constructor(data: CardDetailInfo){
     this.error = data.nameReason
@@ -20,5 +21,6 @@ export class ErrorModel {
     this.seri_number = data.seri
     this.user = data.createdPerson
     this.product = data.nameProduct
+    this.time = data.createdDate
   }
 }
