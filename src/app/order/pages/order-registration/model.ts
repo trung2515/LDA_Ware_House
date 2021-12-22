@@ -9,6 +9,7 @@ export class OptionModel {
       data.nameWareHouse ||
       data.namePartner ||
       data.objectName ||
+      data.nameTypeProduct ||
       ''
     this.value =
       data.codeProduct ||
@@ -16,7 +17,8 @@ export class OptionModel {
       data.idTransportationUnit ||
       data.codeWareHouse ||
       data.codePartner ||
-      data.objectName
+      data.objectName ||
+      data.idTypeProduct ||
       ''
   }
 }

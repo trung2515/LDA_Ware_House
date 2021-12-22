@@ -1,4 +1,5 @@
 import {
+  ConfirmProductionResponse,
   OrderInfo,
   OrderReply,
   OrderResponse,
@@ -26,6 +27,7 @@ export class ReportService {
     private reportClient: ReportClient,
     private authService: AuthService,
     private cardClient: CardClient,
+    private warehouseClient: WareHouseClient
   ) { }
   reportInOut(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
@@ -76,13 +78,39 @@ export class ReportService {
     )
   }
 
-  reportErrorBag(fromDate: string, toDate: string){
+  reportErrorBag(fromDate: string, toDate: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.fromDate = '2021-01-01'
+    request.toDate = '2022-12-30'
+    request.userName = this.authService.getUser().user
+    return this.reportClient.getReportError(request).pipe(
+      map((reply: CardDetailResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  report50kg(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
-    return this.reportClient.getReportError(request).pipe(
+    return this.cardClient.getListCar50kg(request).pipe(
       map((reply: CardDetailResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportOnMachineBag(fromDate: string, toDate: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.fromDate = fromDate
+    request.toDate = toDate
+    request.userName = this.authService.getUser().user
+    return this.warehouseClient.getConfirmProduct(request).pipe(
+      map((reply: ConfirmProductionResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),

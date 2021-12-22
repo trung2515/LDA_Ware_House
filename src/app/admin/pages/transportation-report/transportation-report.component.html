@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <app-header-report [title_nav]="title_nav" (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)"
-    [disabledDates]="disabledDates">
+  <app-header-report [title_nav]="title_nav" [startDate]="startDate" [endDate]="endDate"
+    (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)" [disabledDates]="disabledDates">
   </app-header-report>
   <div class="content">
     <dx-tab-panel #tabPanel [dataSource]="tabInfo" [selectedIndex]="0" [loop]="false" [animationEnabled]="true"
@@ -30,8 +30,12 @@
                 <dxi-column dataField="lau_warehouse" caption="Kho bốc">
                 </dxi-column>
                 <dxi-column dataField="unloading_equipment" caption="Thiết bị bốc"></dxi-column>
-                <dxi-column dataField="loading_equipment" caption="Thiết bị dở"></dxi-column>
-                <dxi-column dataField="unloading_warehouse" caption="Kho dở">
+                <dxi-column dataField="dv_boc" caption="Đơn vị bốc">
+                </dxi-column>
+                <dxi-column dataField="loading_equipment" caption="Thiết bị dỡ"></dxi-column>
+                <dxi-column dataField="dv_do" caption="Đơn vị dỡ">
+                </dxi-column>
+                <dxi-column dataField="unloading_warehouse" caption="Kho dỡ">
                 </dxi-column>
                 <dxi-column dataField="bag_number" caption="Số bao">
                 </dxi-column>
@@ -40,7 +44,7 @@
                 </dxi-column>
                 <!-- <dxi-column dataField="trips_number" caption="Số chuyến" alignment="left"></dxi-column> -->
                 <dxi-column dataField="user" caption="User"></dxi-column>
-                <dxi-column dataField="time" caption="Ngay gio" alignment="left" cellTemplate="time"></dxi-column>
+                <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
                 <div *dxTemplate="let item of 'time'">
                   {{item.value | date: 'yyyy-MM-dd HH:mm:ss'}}
                 </div>

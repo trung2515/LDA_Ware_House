@@ -12,6 +12,9 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
 
 @Component({
   selector: 'app-add-packaging-one',
@@ -39,7 +42,9 @@ export class AddPackagingOneComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     shiftService: ShiftService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private wareHouseService: WareHouseService,
+    private authService: AuthService
   ) {
     this.appointments = shiftService.getAppointments();
   }

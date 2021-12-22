@@ -14798,6 +14798,8 @@ export class TransportInfo implements GrpcMessage {
     _instance.createdPerson = _instance.createdPerson || '';
     _instance.nameCreatedPerson = _instance.nameCreatedPerson || '';
     _instance.countTrip = _instance.countTrip || 0;
+    _instance.dvBoc = _instance.dvBoc || '';
+    _instance.dvDo = _instance.dvDo || '';
   }
 
   /**
@@ -14881,6 +14883,12 @@ export class TransportInfo implements GrpcMessage {
           break;
         case 23:
           _instance.countTrip = _reader.readInt32();
+          break;
+        case 25:
+          _instance.dvBoc = _reader.readString();
+          break;
+        case 26:
+          _instance.dvDo = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -14968,6 +14976,12 @@ export class TransportInfo implements GrpcMessage {
     if (_instance.countTrip) {
       _writer.writeInt32(23, _instance.countTrip);
     }
+    if (_instance.dvBoc) {
+      _writer.writeString(25, _instance.dvBoc);
+    }
+    if (_instance.dvDo) {
+      _writer.writeString(26, _instance.dvDo);
+    }
   }
 
   private _createddate?: string;
@@ -14993,6 +15007,8 @@ export class TransportInfo implements GrpcMessage {
   private _createdPerson?: string;
   private _nameCreatedPerson?: string;
   private _countTrip?: number;
+  private _dvBoc?: string;
+  private _dvDo?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -15023,6 +15039,8 @@ export class TransportInfo implements GrpcMessage {
     this.createdPerson = _value.createdPerson;
     this.nameCreatedPerson = _value.nameCreatedPerson;
     this.countTrip = _value.countTrip;
+    this.dvBoc = _value.dvBoc;
+    this.dvDo = _value.dvDo;
     TransportInfo.refineValues(this);
   }
   get createddate(): string | undefined {
@@ -15163,6 +15181,18 @@ export class TransportInfo implements GrpcMessage {
   set countTrip(value: number | undefined) {
     this._countTrip = value;
   }
+  get dvBoc(): string | undefined {
+    return this._dvBoc;
+  }
+  set dvBoc(value: string | undefined) {
+    this._dvBoc = value;
+  }
+  get dvDo(): string | undefined {
+    return this._dvDo;
+  }
+  set dvDo(value: string | undefined) {
+    this._dvDo = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -15201,7 +15231,9 @@ export class TransportInfo implements GrpcMessage {
       distance: this.distance,
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
-      countTrip: this.countTrip
+      countTrip: this.countTrip,
+      dvBoc: this.dvBoc,
+      dvDo: this.dvDo
     };
   }
 
@@ -15244,7 +15276,9 @@ export class TransportInfo implements GrpcMessage {
       distance: this.distance,
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
-      countTrip: this.countTrip
+      countTrip: this.countTrip,
+      dvBoc: this.dvBoc,
+      dvDo: this.dvDo
     };
   }
 }
@@ -15276,6 +15310,8 @@ export module TransportInfo {
     createdPerson?: string;
     nameCreatedPerson?: string;
     countTrip?: number;
+    dvBoc?: string;
+    dvDo?: string;
   }
 
   /**
@@ -15305,6 +15341,8 @@ export module TransportInfo {
     createdPerson?: string;
     nameCreatedPerson?: string;
     countTrip?: number;
+    dvBoc?: string;
+    dvDo?: string;
   }
 }
 

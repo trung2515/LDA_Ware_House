@@ -35,34 +35,9 @@ export class AddPackagingFiftyComponent implements OnInit {
     description: '',
     shiftDetail: []
   };
-  inputs_options: any = [
-    {
-      label: 'Sản phẩm',
-      formControlName: 'product_name',
-      type: 'select',
-      options: ['Alumin 50kg', 'Hydrat 50kg']
-    },
-    {
-      label: 'Loại sản phẩm',
-      formControlName: 'product_type',
-      type: 'select',
-      options: ['Loại 1', 'Loại 2']
-    },
-    {
-      label: 'Loại bao',
-      formControlName: 'bag_type',
-      type: 'select',
-      options: ['Đáy liền', 'Đáy bằng']
-    },
-    { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-    { label: 'Lô', formControlName: 'consignments', type: 'text' },
-    {
-      label: 'Kho',
-      formControlName: 'warehouse',
-      type: 'select',
-      options: ['Kho TT', 'Kho TT 1']
-    }
-  ];
+
+  listProduct:any = []
+  inputs_options: any = [];
   formGroupProduct: any = {};
   constructor(
     private location: Location,
@@ -75,6 +50,36 @@ export class AddPackagingFiftyComponent implements OnInit {
   ngOnInit(): void {
     this.appointments = this.shiftService.getAppointments();
     // this.getData()
+    this.getListProduct()
+
+    this.inputs_options = [
+      {
+        label: 'Sản phẩm',
+        formControlName: 'product_name',
+        type: 'select',
+        options: ['a', 'b']
+      },
+      {
+        label: 'Loại sản phẩm',
+        formControlName: 'product_type',
+        type: 'select',
+        options: ['Loại 1', 'Loại 2']
+      },
+      {
+        label: 'Loại bao',
+        formControlName: 'bag_type',
+        type: 'select',
+        options: ['Đáy liền', 'Đáy bằng']
+      },
+      { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Kho',
+        formControlName: 'warehouse',
+        type: 'select',
+        options: ['Kho TT', 'Kho TT 1']
+      }
+    ];
 
     for (let i = 1; i < 3; i++) {
       this.formGroupProduct['form-' + i] = this.initFormGroup();
@@ -109,6 +114,18 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.appointments[currentIndex].shiftDetail = shiftDetailProducts;
       this.showSuccess('Thêm thành công!');
     }
+  }
+  getListProduct(){
+    this.adminService.getListProduct().subscribe((data:any) => {
+      this.listProduct=data
+      console.log('listProduct ',this.listProduct)
+      this.listProduct.sort((a:any,b:any)=>{
+        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
+      })
+      this.listProduct.forEach((item:any,index:any)=>{
+        item.index=index
+      })
+    })
   }
   isValidForm():Boolean {
     let isValid = true;

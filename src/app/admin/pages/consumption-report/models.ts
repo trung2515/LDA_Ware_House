@@ -1,4 +1,5 @@
 import { CardDetailInfo } from "src/app/core/models/model.pb"
+import Utils from "src/app/_lib/utils"
 
 export class StatisticModel  {
   bag: number = 0
@@ -18,12 +19,13 @@ export class ProductionStatisticalModel {
   consumer_detail: string = 'Miccro'
   trips_number: number | '' = 10
   consignments_number: string = '184'
-  bag_number: number = 312
-  ton_number: number = 312000
+  bag_number: number = 0
+  ton_number: number = 0
   warehouse: string = 'Kho TT'
-  reason: string = 'lỗi khác'
+  reason: string = ''
   user: string = 'HV Biên'
   note: string = ''
+  time: string = ''
   constructor(data: CardDetailInfo){
     this.name = data.nameProduct
     this.date = data.createdDate
@@ -40,5 +42,7 @@ export class ProductionStatisticalModel {
     this.bag_unit = data.namePackingUnit
     this.ballot_type = data.codeTypeBill
     this.ton_number = parseInt(data.quantity) * 1000
+    this.reason = data.nameReason || ''
+    this.time = data.createdDate
   }
 }
