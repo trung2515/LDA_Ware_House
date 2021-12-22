@@ -25,7 +25,6 @@ export interface Resource {
   id: number;
   color: string;
 }
-<<<<<<< HEAD
 export class ShiftDetail {
     id: number;
     option: string ;
@@ -46,26 +45,6 @@ export class ShiftDetail {
         this.unit = data.namePackingUnit
         this.wareHouse = data.nameWareHouse
     }
-=======
-export interface ShiftDetail {
-  id: number;
-  option: string;
-  type: string;
-  product: string;
-  productRange: number;
-  packaging: string;
-  lot: number;
-  unit: string;
-  wareHouse: string;
-  machines_packaging?: MachinesPackaging | '';
-}
-export interface MachinesPackaging {
-  machine_a: number;
-  machine_b: number;
-  machine_c: number;
-  machine_d: number;
-  machine_e: number;
->>>>>>> origin/main
 }
 export interface ShiftMaster {
   id: number;
@@ -86,11 +65,8 @@ export interface Option {
 export interface Lot {
   name: number;
 }
-<<<<<<< HEAD
 export interface ListShift {
     shift : number;
     name : string;
 }
 
-=======
->>>>>>> origin/main
