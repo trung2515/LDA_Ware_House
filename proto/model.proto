@@ -227,7 +227,7 @@ message MasterDataInfo
 {
   int32 objectId= 1;
   string objectName = 2;
-
+  string objectType = 3;
 }
 message ParcelInfo
 {
@@ -363,6 +363,7 @@ message CardDetailInfo
     string codePartner = 27;
     string namePartner = 28;
     int32 CountTrip = 29;
+    int32 seri = 30;
 }
 
 message CardDetailResponse
@@ -376,7 +377,8 @@ message InsertCardRequest
 {
     string date = 1;
     string nameShift = 2;
-    repeated CardDetailInfo cardDetails = 3;
+    string user  = 3;
+    repeated CardDetailInfo cardDetails = 4;
 }
 
 message TaskInfo
@@ -534,6 +536,13 @@ message OrderInfo
    string wareHouse = 21;
    int32 idTypeProduct = 22;
     string nameTypeProdcut = 23;
+     int32 quantity_actual = 24;
+   int32 weight_estimate = 25;
+   int32 weight_actual = 26;
+   string timecreated = 27;
+   string timelastest = 28;
+   int32 status = 29;
+   string code_transport = 30;
 }
 
 message DepartmentInfo
@@ -680,4 +689,42 @@ message TransportationUnitResponse
 {
     repeated TransportationUnitInfo data = 1;
     Response response = 2;
+}
+message QRCodeInfo
+{
+    int32 line = 1;
+    string codeProduct = 2;
+    string nameProduct = 3;
+    int32 idTypeProduct = 4;
+    string nameTypeProduct = 5;
+    string codeIn = 6;
+    string nameTypeIn = 7;
+    string codeParcel = 8;
+    string codeWareHouse = 9;
+    string nameWareHouse = 10;
+    int64 weight = 11;
+    string code = 12;
+    string codePackingUnit = 13;
+    string namePackingUnit  = 14;
+    string codeTypeBill = 15;
+    string userIn = 16;
+    string nameUserIn = 17;
+    string userOut = 18;
+    string nameUserOut = 19;
+    string nameTypeBill = 20;
+    string codeOrder = 21;
+    string codeReason = 22;
+    string nameReason = 23;
+    int32 CountTrip = 24;
+    int32 seri = 25;
+    string timeIn = 26;
+    string timeOut = 27;
+    int32 status= 28;
+    string codeOut = 29;
+    string nameTypeOut = 30;
+}
+message QRCodeResponse
+{
+    Response response = 1;
+    repeated QRCodeInfo data = 2;
 }

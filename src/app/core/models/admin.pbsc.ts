@@ -249,6 +249,27 @@ export class AdministratorClient {
    */
   $raw = {
     /**
+     * Unary RPC for /client.Administrator/GetListMasterData
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.MasterDataResponse>>
+     */
+    getListMasterData: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.MasterDataResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/GetListMasterData',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.MasterDataResponse
+      });
+    },
+    /**
      * Unary RPC for /client.Administrator/GetListEquipment
      *
      * @param requestMessage Request message
@@ -1516,6 +1537,22 @@ export class AdministratorClient {
     private handler: GrpcHandler
   ) {
     this.client = clientFactory.createClient('client.Administrator', settings);
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/GetListMasterData
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.MasterDataResponse>
+   */
+  getListMasterData(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.MasterDataResponse> {
+    return this.$raw
+      .getListMasterData(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
   }
 
   /**
@@ -3640,6 +3677,27 @@ export class ReportClient {
         requestClass: client000.MasterRequest,
         responseClass: client000.CardDetailResponse
       });
+    },
+    /**
+     * Unary RPC for /client.Report/GetReportQRCode
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.QRCodeResponse>>
+     */
+    getReportQRCode: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.QRCodeResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Report/GetReportQRCode',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.QRCodeResponse
+      });
     }
   };
 
@@ -3728,6 +3786,22 @@ export class ReportClient {
   ): Observable<client000.CardDetailResponse> {
     return this.$raw
       .getReportError(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Report/GetReportQRCode
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.QRCodeResponse>
+   */
+  getReportQRCode(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.QRCodeResponse> {
+    return this.$raw
+      .getReportQRCode(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }

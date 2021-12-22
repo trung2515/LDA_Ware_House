@@ -1,3 +1,4 @@
+import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component';
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -76,6 +77,7 @@ import { OrderComponent } from './pages/order/report/order.component'
     MenuConfirmComponent,
     WareHouseInventoryComponent,
     OrderComponent,
+    ErrorBagComponent
   ],
   imports: [
     CommonModule,

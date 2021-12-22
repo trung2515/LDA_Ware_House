@@ -83,6 +83,7 @@ export class ReportService {
     request.userName = this.authService.getUser().user
     return this.reportClient.getReportError(request).pipe(
       map((reply: CardDetailResponse) => {
+        console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )

@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler'
 import { TransportInfo } from 'src/app/core/models/model.pb'
 import Utils from 'src/app/_lib/utils'
 
@@ -18,6 +19,7 @@ export class TransportationReportModel {
   trips_number: number = 0
   user: string = ''
   sl_by: string = ''
+  time: string
   constructor(data: TransportInfo) {
     this.product_name = data.nameProduct
     this.product_type = data.idTypeProduct
@@ -35,5 +37,6 @@ export class TransportationReportModel {
     this.user = data.nameCreatedPerson
     this.ton_number = data.weight
     this.shift = Utils.convertTimeToShift(data.createddate)
+    this.time = data.createddate
   }
 }
