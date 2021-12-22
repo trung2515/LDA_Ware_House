@@ -13,10 +13,59 @@
   margin-top: 32px;
 }
 .shift-option {
-  padding: 0 8px;
+  padding: 8px;
 }
 
-
+/* detail option */
+.detail-shift-option {
+  margin-top: 16px;
+}
+.detail-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-bottom: 1px solid #CACACA;
+}
+.option-shift-info {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+.option-num {
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+}
+.shift-info {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000;
+}
+.shift-info-common {
+  background-color: #EEF1F9;
+  padding: 8px;
+}
+.shift-label {
+  font-weight: 400;
+  font-size: 13px;
+  color: #4E4E4E;
+}
+.shift-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+}
+.machine-qty {
+  margin-top: 16px;
+}
+.machine-label {
+  font-weight: 400;
+  font-size: 15px;
+  color: #4E4E4E;
+}
+.btn-update {
+  margin-left: auto;
+}
 
 /* toast custom */
 ::ng-deep .toast-container .ngx-toastr {

@@ -17,16 +17,17 @@
   color: #979797;
   font-family: "Roboto";
   border-radius: 3px;
-  border: 1px solid #CBD3EE;
+  border: 1px solid #cbd3ee;
   -moz-appearance: none;
   appearance: none;
   -webkit-appearance: none;
-  background: url('../../../../assets/svg/arrow_down.svg') no-repeat right #fff;
+  background: url("../../../../assets/svg/arrow_down.svg") no-repeat right #fff;
   background-size: 28px 18px;
   padding: 10.08px 6px;
+  cursor: pointer;
 }
 .select:after {
-  content: '';
+  content: "";
 }
 .select:focus {
   outline: none;

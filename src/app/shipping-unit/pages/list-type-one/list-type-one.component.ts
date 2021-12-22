@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list-type-one',
@@ -10,8 +11,8 @@ import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
   styleUrls: ['./list-type-one.component.css']
 })
 export class ListTypeOneComponent implements OnInit {
-  title:string = "Danh sách sản lượng ghi nhận đóng bao loại 1 tấn"
-  isEditing:boolean = false
+  title: string = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
+  isEditing: boolean = false;
   now: Date = new Date();
   ca_no_option: string = 'Ca 1';
 
@@ -26,11 +27,22 @@ export class ListTypeOneComponent implements OnInit {
     description: '',
     shiftDetail: []
   };
+  optionEditing: any;
+  optionForm!:FormGroup
+
+  inputs_options: any = [
+    { label: 'Máy A', formControlName: 'machine_a' },
+    { label: 'Máy B', formControlName: 'machine_b' },
+    { label: 'Máy C', formControlName: 'machine_c' },
+    { label: 'Máy D', formControlName: 'machine_d' },
+    { label: 'Máy E', formControlName: 'machine_e' }
+  ];
 
   constructor(
     private location: Location,
     private toastrService: ToastrService,
-    private shiftService: ShiftService
+    private shiftService: ShiftService,
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -39,13 +51,24 @@ export class ListTypeOneComponent implements OnInit {
       this.getCurrentDate(this.now),
       this.getCurrentShift(this.ca_no_option)
     );
+    this.optionForm = this.formBuilder.group({
+      machine_a: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+    });
   }
 
-  onShiftOptionClicked = ()=> {
-    this.title = "Chỉnh sửa thông tin nhập đóng mới (lại)"
-    this.isEditing = true
-    this.showSuccess('shift option clicked')
-  }
+  onShiftOptionClicked = (option: any) => {
+    this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
+    const indexAppointment = this.appointments.findIndex(
+      item => item.id === this.currentAppointment.id
+    );
+    this.optionForm.value.machine_a = option.machines_packaging.machine_a
+    this.optionEditing = { option, indexAppointment };
+    this.isEditing = true;
+  };
   onDateValueChanged(e: any) {
     const _currentAppointment = this.getCurrentAppointment(
       this.getCurrentDate(e.value),

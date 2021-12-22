@@ -76,13 +76,12 @@ export class AddPackagingFiftyComponent implements OnInit {
     this.appointments = this.shiftService.getAppointments();
     // this.getData()
 
-    for (let i = 1; i < 2; i++) {
-      this.formGroupProduct['form' + i] = this.initFormGroup();
+    for (let i = 1; i < 3; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
   }
   onSubmit() {
-    const isValid = this.isValidForm();
-    if (isValid) {
+    if (this.isValidForm()) {
       const currentIndex = this.appointments.findIndex(
         item => item.id === this.currentAppointment.id
       );
@@ -111,9 +110,12 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.showSuccess('Thêm thành công!');
     }
   }
-  isValidForm = () => {
+  isValidForm():Boolean {
+    let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];
+      console.log(form.status);
+
       if (!form.valid) {
         for (const key in form.controls) {
           if (form.controls.hasOwnProperty(key)) {
@@ -121,15 +123,15 @@ export class AddPackagingFiftyComponent implements OnInit {
             control.markAsTouched();
           }
         }
-        return false;
-      }
+        isValid = false;
+      } else isValid = true;
     }
-    return true;
-  };
-  initFormGroup() {
+    return isValid;
+  }
+  initFormGroup(): FormGroup {
     return this.formBuilder.group({
       product_name: ['', [Validators.required]],
-      product_type: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      product_type: ['', [Validators.required]],
       bag_type: ['', [Validators.required]],
       qty: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
       consignments: [

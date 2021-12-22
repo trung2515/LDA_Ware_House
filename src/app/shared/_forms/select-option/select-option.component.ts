@@ -9,7 +9,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 export class SelectOptionComponent implements ControlValueAccessor {
   @Input() options: any[] = [];
   @Input() label!: string;
-  @Input() type = 'text';
+  @Input() type = 'select';
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
   }
