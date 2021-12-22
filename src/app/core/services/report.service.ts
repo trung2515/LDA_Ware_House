@@ -78,8 +78,8 @@ export class ReportService {
 
   reportErrorBag(fromDate: string, toDate: string){
     let request: MasterRequest = new MasterRequest()
-    request.fromDate = fromDate
-    request.toDate = toDate
+    request.fromDate = '2021-01-01'
+    request.toDate = '2022-12-30'
     request.userName = this.authService.getUser().user
     return this.reportClient.getReportError(request).pipe(
       map((reply: CardDetailResponse) => {

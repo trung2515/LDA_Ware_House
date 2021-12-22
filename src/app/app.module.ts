@@ -9,6 +9,7 @@ import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
 import { LoginModule } from './login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
     FormsMineralModule,
     ShippingUnitModule,
     LoginModule,
+    OrderModule
     // GrpcCoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],

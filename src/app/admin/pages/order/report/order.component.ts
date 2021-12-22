@@ -34,7 +34,7 @@ export class OrderComponent implements OnInit {
   }
 
   onStartDateChanged(e: any) {
-    this.startDate = e.value
+    this.startDate = e
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {
@@ -43,7 +43,7 @@ export class OrderComponent implements OnInit {
   }
 
   onEndDateChanged(e: any) {
-    this.endDate = e.value
+    this.endDate = e
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {

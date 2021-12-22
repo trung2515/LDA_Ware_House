@@ -26,6 +26,8 @@ export class OrderRegistrationComponent implements OnInit {
   transport_unit_options: OptionModel[]
   warehouse_options: OptionModel[]
   partner_options: OptionModel[]
+  product_type_options: OptionModel[]
+
   partner_type_options: OptionModel[]
 
   orderFields: any = {}
@@ -50,6 +52,11 @@ export class OrderRegistrationComponent implements OnInit {
       console.log(this.bagging_type_options)
     })
 
+    this.adminService.getListTypeProduct().subscribe((d) => {
+      this.product_type_options = d.map((d) => new OptionModel(d))
+      console.log(this.product_type_options)
+    })
+
     this.adminService.getListTransportUnit().subscribe((d) => {
       this.transport_unit_options = d.map((d) => new OptionModel(d))
       console.log(this.transport_unit_options)
@@ -71,7 +78,7 @@ export class OrderRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.initFilterForm()
-    setTimeout(() => this.initializeForm(), 1000)
+    setTimeout(() => this.initializeForm(), 2000)
   }
   initializeForm() {
     this.orderFields = {
@@ -83,6 +90,13 @@ export class OrderRegistrationComponent implements OnInit {
           controlName: 'code_product',
           type: 'select',
           options: this.product_options,
+        },
+        {
+          caption: 'Loại sản phẩm',
+          label: 'loại sản phẩm',
+          controlName: 'code_product_type',
+          type: 'select',
+          options: this.product_type_options,
         },
         {
           caption: 'Loại bao',
@@ -125,18 +139,18 @@ export class OrderRegistrationComponent implements OnInit {
           type: 'select',
           options: this.partner_type_options,
         },
-        {
-          caption: 'Lớp 1',
-          label: 'Lớp 1',
-          controlName: 'grade_1',
-          type: 'input',
-        },
-        {
-          caption: 'Lớp 2',
-          label: 'Lớp 2',
-          controlName: 'grade_2',
-          type: 'input',
-        },
+        // {
+        //   caption: 'Lớp 1',
+        //   label: 'Lớp 1',
+        //   controlName: 'grade_1',
+        //   type: 'input',
+        // },
+        // {
+        //   caption: 'Lớp 2',
+        //   label: 'Lớp 2',
+        //   controlName: 'grade_2',
+        //   type: 'input',
+        // },
       ],
     }
     this.driverFields = {
@@ -176,7 +190,7 @@ export class OrderRegistrationComponent implements OnInit {
     }
     this.registerForm = this.formBuilder.group({
       identity_card_num: [
-        '241605781',
+        '',
         [
           Validators.required,
           Validators.minLength(9),
@@ -184,35 +198,29 @@ export class OrderRegistrationComponent implements OnInit {
         ],
       ],
       weight_registry: [
-        '111',
+        '',
         [Validators.required, Validators.pattern('^[0-9]*$')],
       ],
-      driver_name: ['Nguyễn Đình Trung', [Validators.required]],
-      net_weight: [
-        '123',
-        [Validators.required, Validators.pattern('^[0-9]*$')],
-      ],
-      ro_mooc_number: ['28C3965', [Validators.required]],
-      number_plate: [
-        '49C5-90653',
-        [Validators.required, Validators.minLength(7)],
-      ],
+      driver_name: ['', [Validators.required]],
+      net_weight: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      ro_mooc_number: ['', [Validators.required]],
+      number_plate: ['', [Validators.required, Validators.minLength(7)]],
       code_product: ['', [Validators.required]],
-      qty: ['1234', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      grade_1: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      grade_2: ['456', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      qty: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      // grade_1: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      // grade_2: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       bagging_type: ['', Validators.required],
       shipping_unit_code: ['', [Validators.required]],
       warehouse_code: ['', [Validators.required]],
       partner_type: ['', [Validators.required]],
       partner_code: ['', [Validators.required]],
+      code_product_type: ['', [Validators.required]],
     })
     this.isSuccessLoading = true
   }
   onSubmit(e: any): void {
     if (!this.registerForm.valid) {
       console.log('fail', this.registerForm.value)
-
       for (const key in this.registerForm.controls) {
         if (this.registerForm.controls.hasOwnProperty(key)) {
           const control: FormControl = <FormControl>(
@@ -222,7 +230,6 @@ export class OrderRegistrationComponent implements OnInit {
         }
       }
     } else {
-      this.order_Code = this.orderService.generateId()
       const newOrder = {
         id: this.orderService.generateId(),
         driverInfo: {
@@ -235,7 +242,7 @@ export class OrderRegistrationComponent implements OnInit {
         },
         orderInfo: {
           code_product: this.registerForm.value.code_product,
-          code_product_type: this.registerForm.value.code_product,
+          code_product_type: this.registerForm.value.code_product_type,
           name: this.registerForm.value.order_name,
           qty: this.registerForm.value.qty,
           grade_1: this.registerForm.value.grade_1,
@@ -257,8 +264,8 @@ export class OrderRegistrationComponent implements OnInit {
       order.weightAllow = newOrder.driverInfo.net_weight
       order.weightRegistration = newOrder.driverInfo.weight_registry
       order.roMooc = newOrder.driverInfo.ro_mooc_number
-      order.class1 = newOrder.orderInfo.grade_1
-      order.class2 = newOrder.orderInfo.grade_2
+      // order.class1 = newOrder.orderInfo.grade_1
+      // order.class2 = newOrder.orderInfo.grade_2
       order.quantity = newOrder.orderInfo.qty
       order.idTransportationUnit = newOrder.orderInfo.shipping_unit_code
       order.codeTypePacket = newOrder.orderInfo.bagging_type
@@ -266,10 +273,9 @@ export class OrderRegistrationComponent implements OnInit {
       order.wareHouse = newOrder.orderInfo.warehouse_code
       order.typeCustomer = newOrder.orderInfo.partner_type
       order.customer = newOrder.orderInfo.partner_code
+      order.idTypeProduct = newOrder.orderInfo.code_product_type
 
       console.log(order)
-
-      
 
       this.order.insertOrder(order).subscribe((reply) => {
         if (reply.response.state == ResponseState.SUCCESS) {
