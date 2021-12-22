@@ -3,7 +3,13 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { AdminService } from 'src/app/core/services/admin.service';
 
 @Component({
   selector: 'app-list-type-one',
@@ -28,7 +34,7 @@ export class ListTypeOneComponent implements OnInit {
     shiftDetail: []
   };
   optionEditing: any;
-  optionForm!:FormGroup
+  optionForm!: FormGroup;
 
   inputs_options: any = [
     { label: 'Máy A', formControlName: 'machine_a' },
@@ -41,11 +47,13 @@ export class ListTypeOneComponent implements OnInit {
   constructor(
     private location: Location,
     private toastrService: ToastrService,
+    private adminService: AdminService,
     private shiftService: ShiftService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    // this.appointments = this.shiftService.getAppointments();
     this.appointments = this.shiftService.getAppointments();
     this.currentAppointment = this.getCurrentAppointment(
       this.getCurrentDate(this.now),
@@ -59,15 +67,39 @@ export class ListTypeOneComponent implements OnInit {
       machine_e: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
+  onUpdateData() {
+    if (!this.optionForm.valid) {
+      for (const key in this.optionForm.controls) {
+        if (this.optionForm.controls.hasOwnProperty(key)) {
+          const control: FormControl = <FormControl>(
+            this.optionForm.controls[key]
+          );
+          control.markAsTouched();
+        }
+      }
+    } else {
+      let rsUpdate: any = {};
+      for (const key in this.optionForm.value) {
+        rsUpdate[key] = Number(this.optionForm.value[key]);
+      }
+      console.log(rsUpdate);
+      this.isEditing = false;
+    }
+  }
 
   onShiftOptionClicked = (option: any) => {
     this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
     const indexAppointment = this.appointments.findIndex(
       item => item.id === this.currentAppointment.id
     );
-    this.optionForm.value.machine_a = option.machines_packaging.machine_a
+
+    // set current value(machine packaging) for input text
+    for (const key in this.optionForm.value) {
+      this.optionForm.get(key).setValue(option.machines_packaging[key]);
+    }
     this.optionEditing = { option, indexAppointment };
     this.isEditing = true;
+    this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
   };
   onDateValueChanged(e: any) {
     const _currentAppointment = this.getCurrentAppointment(
