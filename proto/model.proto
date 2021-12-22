@@ -614,6 +614,9 @@ message TransportInfo
     string createdPerson = 21;
     string nameCreatedPerson = 22;
     int32 CountTrip = 23;
+    
+    string dvBoc = 25;
+    string dvDo = 26;
 }
 message TransportResponse
 {

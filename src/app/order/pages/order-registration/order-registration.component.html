@@ -48,7 +48,7 @@
           <p class="title-done qr-title">Mã QR Code:</p>
           <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
           <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
-          <button (click)="onBackClicked($event)" class="btn-ship btn-done">Xong</button>
+          <button (click)="onBackClicked($event)" class="btn-ship btn-done" type="button">Xong</button>
         </div>
       </div>
       <button *ngIf="!isAddingSuccessful" class="btn-ship btn-order-regis" type="submit">Đăng ký</button>

@@ -44,8 +44,6 @@ export class TransportationReportComponent implements OnInit {
     private toastr: ToastrService,
   ) {
     // this.transportationList = transportationService.getTranslationReport();
-    this.getStartDate = this.getStartDate.bind(this)
-    this.getEndDate = this.getEndDate.bind(this)
 
     // tab 2
     this.detailLoadUnLoadReport = new PivotGridDataSource({
@@ -89,7 +87,7 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Nơi dở',
+          caption: 'Nơi dỡ',
           dataField: 'unloading_warehouse',
           area: 'row',
           width: 70,
@@ -103,7 +101,7 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Thiết bị dở',
+          caption: 'Thiết bị dỡ',
           dataField: 'unloading_equipment',
           area: 'row',
           width: 70,
@@ -141,7 +139,7 @@ export class TransportationReportComponent implements OnInit {
     this.detailUnLoadWDVReport = new PivotGridDataSource({
       fields: [
         {
-          caption: 'Thiết bị dở/chỉ tiêu',
+          caption: 'Thiết bị dỡ/chỉ tiêu',
           dataField: 'unloading_equipment',
           headerFilter: {
             allowSearch: true,
@@ -159,7 +157,7 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Nơi dở',
+          caption: 'Nơi dỡ',
           dataField: 'unloading_warehouse',
           headerFilter: {
             allowSearch: true,
@@ -261,11 +259,11 @@ export class TransportationReportComponent implements OnInit {
       },
       {
         id: 2,
-        tabName: 'Báo các chi tiết bốc - dở sản phẩm theo thiết bị',
+        tabName: 'Báo các chi tiết bốc - dỡ sản phẩm theo thiết bị',
       },
       {
         id: 3,
-        tabName: 'Báo cáo chi tiết dở sản phẩm theo thiết bị',
+        tabName: 'Báo cáo chi tiết dỡ sản phẩm theo thiết bị',
       },
       {
         id: 4,
@@ -292,7 +290,8 @@ export class TransportationReportComponent implements OnInit {
   // handle dx-date-box change event
 
   getStartDate(e: any) {
-    this.startDate = e.value
+    
+    this.startDate = e
     console.log(this.startDate)
 
     if (this.startDate <= this.endDate) {
@@ -303,7 +302,7 @@ export class TransportationReportComponent implements OnInit {
   }
 
   getEndDate(e: any) {
-    this.endDate = e.value
+    this.endDate = e
     // const endDate = this.endDate.getTime()
     // const startDate = this.startDate.getTime()
 

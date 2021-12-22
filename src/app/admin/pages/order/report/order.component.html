@@ -1,12 +1,12 @@
 <div class="wrapper">
-    <app-header-report [title_nav]="'Đơn hàng'" (getStartDate)="onStartDateChanged($event)" 
-    (getEndDate)="onEndDateChanged($event)"
-    >
-    </app-header-report> 
+    <app-header-report [title_nav]="'Đơn hàng'" [startDate]="startDate" [endDate]="endDate" (getStartDate)="onStartDateChanged($event)"
+        (getEndDate)="onEndDateChanged($event)">
+    </app-header-report>
 </div>
 <div class="content">
     <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true">
         <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
         <dxo-export [enabled]="true"></dxo-export>
         <dxo-scrolling mode="standard"></dxo-scrolling>
         <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
@@ -14,10 +14,10 @@
             [showNavigationButtons]="true">
         </dxo-pager>
         <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
-        <dxi-column dataField="orderCode" caption="Mã đơn hàng"></dxi-column>
-        <dxi-column dataField="idCardDriver" caption="CMND Tài xế"></dxi-column>
-        <dxi-column dataField="nameDriver" caption="Tên tài xế"></dxi-column>
-        <dxi-column dataField="vehicleNumber" caption="Bsx">
+        <dxi-column dataField="orderCode" [fixed]="true" fixedPosition="left" caption="Mã đơn hàng"></dxi-column>
+        <dxi-column dataField="idCardDriver" [fixed]="true" fixedPosition="left" caption="CMND Tài xế"></dxi-column>
+        <dxi-column dataField="nameDriver" [fixed]="true" fixedPosition="left" caption="Tên tài xế"></dxi-column>
+        <dxi-column dataField="vehicleNumber" [fixed]="true" fixedPosition="left" caption="Bsx">
         </dxi-column>
         <dxi-column dataField="weightAllow" caption="Trọng tải cho phép"></dxi-column>
         <dxi-column dataField="weightRegister" caption="Trọng tải đăng kiểm"></dxi-column>
@@ -28,6 +28,11 @@
         <dxi-column dataField="romoocNumber" caption="Số romoc"></dxi-column>
         <dxi-column dataField="product" caption="Sản phẩm"></dxi-column>
         <dxi-column dataField="type_packet" caption="Loại bao"></dxi-column>
-        
+        <dxi-column dataField="timecreated" caption="Thời gian bắt đầu"></dxi-column>
+        <dxi-column dataField="timelasted" caption="Thời gian kết thúc"></dxi-column>
+        <dxi-column dataField="quantity_actual" caption="Số lượng thực tế"></dxi-column>
+        <dxi-column dataField="weight_actual" caption="Khối lượng thực tế"></dxi-column>
+        <!-- <dxi-column dataField="weight_estimate" caption="Thời gian"></dxi-column> -->
+
     </dx-data-grid>
 </div>

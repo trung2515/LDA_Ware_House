@@ -1,6 +1,5 @@
 import { FilterModel } from './../warehouse-report/models'
 import { ProductionStatisticalModel } from './models'
-import { ConsumptionReportService } from './consumption.service'
 import { Component, OnInit } from '@angular/core'
 import { getDates } from 'src/app/utils/helper'
 import CustomStore from 'devextreme/data/custom_store'
@@ -40,7 +39,6 @@ export class ConsumptionReportComponent implements OnInit {
 
   constructor(
     private excelService: ExcelService,
-    private consumptionReportService: ConsumptionReportService,
     private reportService: ReportService,
     private toastr: ToastrService,
   ) {}
@@ -259,9 +257,8 @@ export class ConsumptionReportComponent implements OnInit {
     this.pipotParcelReport.reload()
   }
   //handle dx-date-box change event
-  getStartDate(date: Date) {
-    console.log(date);
-    this.startDate = date
+  getStartDate(e: any) {
+    this.startDate = e
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {
@@ -269,14 +266,7 @@ export class ConsumptionReportComponent implements OnInit {
     }
   }
   getEndDate(e: any) {
-    this.endDate = e.value
-    // const endDate = this.endDate.getTime()
-    // const startDate = this.startDate.getTime()
-
-    // this.filterControl.objDate = {
-    //   endDate,
-    //   startDate,
-    // }
+    this.endDate = e
 
     if (this.startDate <= this.endDate) {
       this.getData()
@@ -288,7 +278,6 @@ export class ConsumptionReportComponent implements OnInit {
   getDisabledDates(stopDate: Date) {
     return getDates(stopDate)
   }
-
 
   onExportingGrid(e: any) {
     this.excelService.onExportingExcelGrid(
