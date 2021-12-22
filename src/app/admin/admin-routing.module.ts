@@ -1,4 +1,4 @@
-import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component';
+import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component'
 import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
@@ -95,19 +95,13 @@ const routes: Routes = [
         },
         component: WareHouseInventoryComponent,
       },
-      {
-        path: 'warehouse-report',
-        data: {
-          breadcrumb: 'Báo cáo sản lượng đóng bao',
-        },
-        component: WarehouseReportComponent,
-      },
+
       {
         path: 'error-report',
         data: {
-          breadcrumb: 'Xác nhận bao lỗi'
+          breadcrumb: 'Xác nhận bao lỗi',
         },
-        component: ErrorBagComponent
+        component: ErrorBagComponent,
       },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
@@ -127,6 +121,13 @@ const routes: Routes = [
         component: TransportationReportComponent,
       },
       {
+        path: 'warehouse-report',
+        data: {
+          breadcrumb: 'Báo cáo sản lượng đóng bao',
+        },
+        component: WarehouseReportComponent,
+      },
+      {
         path: 'consumption-report',
         data: {
           breadcrumb: 'Nhập xuất tồn sản phẩm',
@@ -140,7 +141,6 @@ const routes: Routes = [
         },
         component: OrderComponent,
       },
-
     ],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },

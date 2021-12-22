@@ -1,0 +1,10 @@
+<dx-data-grid [dataSource]="dataSource" [showBorders]="true" [columnAutoWidth]="true">
+    <dxo-pager [allowedPageSizes]="[5, 10, 20]"></dxo-pager>
+    <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+    <dxo-paging [enabled]="true" [pageSize]="10"> </dxo-paging>
+    <dxi-column dataField="qrcode" caption="Số seri"></dxi-column>
+    <dxi-column dataField="seri" caption="Số seri"></dxi-column>
+    <div *dxTemplate="let item of 'qrcode'">
+
+    </div>
+</dx-data-grid>

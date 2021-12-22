@@ -62,7 +62,7 @@ export class ConsumptionReportComponent implements OnInit {
       },
       {
         id: 4,
-        tabName: 'Báo cáo Pipot Lo NDM',
+        tabName: 'Báo cáo Pipot Lô NDM',
       },
     ]
 
@@ -156,7 +156,7 @@ export class ConsumptionReportComponent implements OnInit {
         },
         {
           dataField: 'consignments_number',
-          caption: 'Lo',
+          caption: 'Lô',
           area: 'column',
           expanded: true,
         },

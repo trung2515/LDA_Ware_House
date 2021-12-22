@@ -26,7 +26,6 @@ export class OrderComponent implements OnInit {
       .reportOrders(
         Utils.formatDate(this.startDate),
         Utils.formatDate(this.endDate),
-        '1937d998-5fae-11ec-a8fd-0242ac110002',
       )
       .subscribe((data) => {
         if (data.length > 0) this.data = data.map((d) => new OrderModel(d))

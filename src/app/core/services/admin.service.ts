@@ -437,7 +437,6 @@ export class AdminService {
   insertEquipment(nameEquipment: any, type: any) {
     let req: EquipmentInfo = new EquipmentInfo()
     req.nameEquipment = nameEquipment
-    req.type = type
     console.log(req)
     return this.administratorClient.insertEquipment(req).pipe(
       map((reply: Response) => {
@@ -450,7 +449,6 @@ export class AdminService {
     let req: EquipmentInfo = new EquipmentInfo()
     req.idEquipment = idEquipment
     req.nameEquipment = nameEquipment
-    req.type = type
     return this.administratorClient.updateEquipment(req).pipe(
       map((reply: Response) => {
         return reply

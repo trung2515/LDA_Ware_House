@@ -19,7 +19,7 @@ export class OrderModel {
   weight_actual: string
   weight_estimate: string
   quantity_actual: number
-
+  status: string
   constructor(data: OrderInfo) {
     this.idCardDriver = data.identityDriver || ''
     this.nameDriver = data.nameDriver || ''
@@ -38,6 +38,8 @@ export class OrderModel {
     this.timecreated = data.timecreated
     this.timelasted = data.timelastest
     this.weight_actual = data.weightActual.toString()
+    this.quantity_actual = data.quantityActual
     this.weight_estimate = data.weightEstimate.toString()
+    this.status = data.status == 0 ? 'Đang xử lý' : 'Hoàn thành' || ''
   }
 }
