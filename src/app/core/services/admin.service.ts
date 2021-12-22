@@ -1,4 +1,4 @@
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service'
 import { Injectable } from '@angular/core'
 import { identity, Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -36,20 +36,32 @@ import {
   InsertShiftRequest,
   ShiftDetailInfo,
   ShiftInfo,
+  TransportationUnitResponse,
 } from '../models/model.pb'
 @Injectable()
 export class AdminService {
   constructor(
     private administratorClient: AdministratorClient,
     private warehouseClient: WareHouseClient,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
+
+  getListTransportUnit() {
+    let req: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListTransportationUnit(req).pipe(
+      map((reply: TransportationUnitResponse) => {
+        console.log(reply.data)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      }),
+    )
+  }
 
   getListProduct() {
     let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListProduct(req).pipe(
       map((reply: ProductResponse) => {
-        console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
@@ -303,13 +315,13 @@ export class AdminService {
     )
   }
 
-  getMasterData(){
+  getMasterData(type: string) {
     let req: MasterRequest = new MasterRequest()
-    return this.administratorClient.getListTypePartner(req).pipe(
+    return this.administratorClient.getListMasterData(req).pipe(
       map((reply: MasterDataResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
+          return reply.data.filter((d) => d.objectType === type)
         } else return []
       }),
     )
@@ -635,22 +647,10 @@ export class AdminService {
     let req: MasterRequest = new MasterRequest()
     req.fromDate = fromDate
     req.toDate = toDate
-    req.userName = this.authService.getUser().user;
-    console.log(req);
+    req.userName = this.authService.getUser().user
+    console.log(req)
     return this.warehouseClient.getListShiftDetail(req).pipe(
       map((reply: ShiftDetailResponse) => {
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      }),
-    )
-  }
-
-  getListParcel() {
-    let req: MasterRequest = new MasterRequest()
-    return this.warehouseClient.getListParcel(req).pipe(
-      map((reply: ParcelResponse) => {
-        console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []

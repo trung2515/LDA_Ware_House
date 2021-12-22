@@ -11,7 +11,7 @@ import { NgxLocalStorageModule } from 'ngx-localstorage'
 import { TextInputComponent } from './_forms/text-input/text-input.component'
 import { NgxSpinnerModule } from 'ngx-spinner'
 // import { NgxLocalStorageModule } from 'ngx-localstorage'
-import { NgxDropzoneModule } from 'ngx-dropzone'
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import {
   DxButtonModule,
   DxChartModule,
@@ -25,13 +25,14 @@ import {
   DxSelectBoxModule,
   DxTabPanelModule,
   DxTextAreaModule,
+  DxToastModule,
   DxTreeListModule,
   DxValidationSummaryModule,
   DxValidatorModule,
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 import { QRCodeModule } from 'angularx-qrcode';
-import { SelectOptionComponent } from './_forms/select-option/select-option.component'
+import { SelectOptionComponent } from './_forms/select-option/select-option.component';
 @NgModule({
   declarations: [TextInputComponent, FooterComponent, SelectOptionComponent],
   imports: [
@@ -42,7 +43,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
       positionClass: 'toast-bottom-right',
     }),
     TabsModule.forRoot(),
-    FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
@@ -52,7 +52,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     NgxLocalStorageModule.forRoot(),
     NgxDropzoneModule,
     DxPivotGridModule,
-    DxDateBoxModule,
     DxDataGridModule,
     DxChartModule,
     DxSelectBoxModule,
@@ -68,13 +67,13 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     DxRangeSelectorModule,
     DxValidatorModule,
     DxValidationSummaryModule,
-    QRCodeModule
+    QRCodeModule,
+    DxToastModule
     // SampleModule,
   ],
 
   exports: [
     TabsModule,
-    DxRangeSelectorModule,
     FormsModule,
     ReactiveFormsModule,
     ToastrModule,
@@ -107,11 +106,12 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
 
     DxRangeSelectorModule,
     QRCodeModule,
-    // SampleModule,
+// SampleModule,
     //Component
     FooterComponent,
     TextInputComponent,
-    SelectOptionComponent
-  ],
+    SelectOptionComponent,
+    DxToastModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}

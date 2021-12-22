@@ -21,10 +21,11 @@ export class Appointment {
 }
 
 export interface Resource {
-    text: string ;
-    id: number ;
-    color: string;
+  text: string;
+  id: number;
+  color: string;
 }
+<<<<<<< HEAD
 export class ShiftDetail {
     id: number;
     option: string ;
@@ -45,28 +46,51 @@ export class ShiftDetail {
         this.unit = data.namePackingUnit
         this.wareHouse = data.nameWareHouse
     }
+=======
+export interface ShiftDetail {
+  id: number;
+  option: string;
+  type: string;
+  product: string;
+  productRange: number;
+  packaging: string;
+  lot: number;
+  unit: string;
+  wareHouse: string;
+  machines_packaging?: MachinesPackaging | '';
+}
+export interface MachinesPackaging {
+  machine_a: number;
+  machine_b: number;
+  machine_c: number;
+  machine_d: number;
+  machine_e: number;
+>>>>>>> origin/main
 }
 export interface ShiftMaster {
-    id:number;
-    name : string ;
-    shift:number
-    startDate: Date;
-    endDate: Date  ;
-    description:string;
+  id: number;
+  name: string;
+  shift: number;
+  startDate: Date;
+  endDate: Date;
+  description: string;
 }
 export interface Product {
-    name: string;
+  name: string;
 }
 
 export interface Option {
-    value: number;
-    name: string;
+  value: number;
+  name: string;
 }
 export interface Lot {
-    name: number;
+  name: number;
 }
+<<<<<<< HEAD
 export interface ListShift {
     shift : number;
     name : string;
 }
 
+=======
+>>>>>>> origin/main

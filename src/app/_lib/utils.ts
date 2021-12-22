@@ -25,6 +25,18 @@ export default class Utils {
     return [year, month, day].join('-')
   }
 
+  static formatDateTime(date: Date) {
+    var d = date
+    var month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear()
+
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
+
+    return [year, month, day].join('-')
+  }
+
   static convertStringToDate(date: string) {
     return new Date(date)
   }

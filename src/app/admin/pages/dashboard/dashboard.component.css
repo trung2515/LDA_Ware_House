@@ -22,7 +22,7 @@
 
 
 /* tab decoration */
-::ng-deep #tab-panel-dashboard .tab-title:hover p {
+/* ::ng-deep #tab-panel-dashboard .tab-title:hover p {
   color: #3459e6;
 }
 
@@ -37,4 +37,4 @@
 }
 ::ng-deep .dx-tab {
   background-color: #e7f0ff;
-}
+} */

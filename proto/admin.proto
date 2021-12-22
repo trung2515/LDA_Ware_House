@@ -14,6 +14,7 @@ service Account {
 
 service Administrator {
 
+    rpc GetListMasterData(MasterRequest) returns (MasterDataResponse);
    
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
@@ -31,7 +32,7 @@ service Administrator {
     rpc GetListDevices(MasterRequest) returns (DeviceResponse);
     rpc GetListPosition(MasterRequest) returns (MasterDataResponse);
     rpc GetListDepartment(MasterRequest) returns (DepartmentResponse);
-    rpc GetListPeople(MasterRequest) returns (PeopleResponse);
+    rpc GetListReportObject(MasterRequest) returns (ReportObjectResponse);
 
   
 
@@ -85,11 +86,14 @@ service Administrator {
     rpc UpdateDevice(DeviceInfo) returns (Response);
     rpc DeleteDevice(DeviceInfo) returns (Response);
 
-    rpc InsertPeole(PeopleInfo) returns (Response);
-    rpc DeletePeople(PeopleInfo) returns (Response);
+    rpc InsertReportObject(ReportObjectInfo) returns (Response);
+    rpc DeleteReportObject(ReportObjectInfo) returns (Response);
+    rpc UpdateReportObject(ReportObjectInfo) returns (Response);
 
-
-  
+    rpc InsertTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc UpdateTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc DeleteTransportationUnit(TransportationUnitInfo) returns (Response);
+    rpc GetListTransportationUnit(MasterRequest) returns (TransportationUnitResponse);
 
 }
 service WareHouse {
@@ -117,8 +121,8 @@ service WareHouse {
     rpc UpdateTask(InsertTaskRequest) returns (Response);
     rpc DeleteTask(TaskInfo) returns (Response);
 
-    rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);
-    
+    rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
+    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date    
 }
 service Card
 {
@@ -133,6 +137,7 @@ service Card
     rpc InsertOrder(OrderInfo) returns (OrderResponse);
     rpc UpdateOrder(OrderInfo) returns (Response);
     rpc GetOrderByCode(OrderInfo) returns (OrderResponse);
+    
 
    
 
@@ -140,6 +145,10 @@ service Card
 
 service Report
 {
-rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
-rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
+    rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
+    rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
+    rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse); // from date -> to date
+    rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
+    rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
+    rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);
 }

@@ -1,32 +1,18 @@
 <div class="header">
-  <div class="place-bar">
-    <span>Báo cáo</span> / <span>{{ title_nav }}</span>
-  </div>
-  <h2 class="heading">{{ title_nav }}</h2>
+  <h3 class="heading">{{ title_nav }}</h3>
 </div>
-<div class="filter-bar">
+<div class="filter-bar" *ngIf="isFilterDate">
   <div class="start-end-date-wrap">
     <div class="field-value">
       <p>Từ ngày</p>
-      <dx-date-box
-        placeholder="12/1/2021"
-        type="date"
-        id="selected-date-time"
-        [(value)]="startDate"
-        (onValueChanged)="getStartDate($event)"
-      >
+      <dx-date-box  type="date" id="selected-date-time" [(value)]="startDate"
+        (onValueChanged)="onStartDateChange($event)">
       </dx-date-box>
     </div>
     <div class="field-value">
       <p>Đến ngày</p>
-      <dx-date-box
-        placeholder="12/1/2021"
-        type="date"
-        id="selected-date-time"
-        [(value)]="endDate"
-        (onValueChanged)="getEndDate($event)"
-        [disabledDates] ="disabledDates"
-      >
+      <dx-date-box  type="date" id="selected-date-time" [(value)]="endDate"
+        (onValueChanged)="onEndDateChange($event)" [disabledDates]="disabledDates">
       </dx-date-box>
     </div>
   </div>

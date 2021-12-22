@@ -1,5 +1,7 @@
 .wrapper {
-  padding-top: 31px;
+}
+h3{
+  font-size: 18px;
 }
 /* .header{
 
@@ -244,9 +246,4 @@
   width: 8px;
   height: 8px;
   background-image: url('../../../../assets/svg/ellipse-green.svg');
-}
-
-::ng-deep .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
-  background-color: #E7F0FF;
-  color: #3459E6;
 }

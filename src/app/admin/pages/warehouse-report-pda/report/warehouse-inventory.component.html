@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <app-header-report [title_nav]="'Tồn kho'" [isFilterDate]="false"> </app-header-report>
+</div>
+<div class="content">
+  <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true"
+    [columnAutoWidth]="true">
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-scrolling mode="standard"></dxo-scrolling>
+    <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="false"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+    <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+    <dxi-column dataField="product_name" caption="Sản phẩm"></dxi-column>
+    <dxi-column dataField="product_type" caption="Loại san pham"></dxi-column>
+    <dxi-column dataField="package_type_name" caption="Loai bao"></dxi-column>
+    <dxi-column dataField="ballot_name" caption="Lo">
+    </dxi-column>
+    <dxi-column dataField="warehouse" caption="Kho" groupIndex="0"></dxi-column>
+    <dxi-column dataField="quantity" caption="So luong"></dxi-column>
+s  </dx-data-grid>
+</div>

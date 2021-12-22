@@ -1,14 +1,14 @@
 import { SharedModule } from './shared/shared.module';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
-import { ShippingUnitRoutingModule } from './shipping-unit/shipping-unit-routing.module';
 import { LoginModule } from './login/login.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
 
 @NgModule({
   declarations: [
@@ -21,10 +21,14 @@ import { LoginModule } from './login/login.module';
     CoreModule,
     AdminModule,
     FormsMineralModule,
-    ShippingUnitRoutingModule,
+    ShippingUnitModule,
     LoginModule,
     // GrpcCoreModule.forRoot(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
+
 })
 export class AppModule { }

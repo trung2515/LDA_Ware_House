@@ -190,8 +190,8 @@ message ShiftDetailInfo
     string nameWareHouse = 13;
     int32 idShift = 14;
     string nameShift = 15;
-    string code_packing_unit = 16;
-    string name_packing_unit = 17;
+    string codePackingUnit = 16;
+    string namePackingUnit = 17;
     int32 createdPerson = 18;
     string nameCreatedPerson = 19;
     string date = 20;
@@ -227,7 +227,7 @@ message MasterDataInfo
 {
   int32 objectId= 1;
   string objectName = 2;
-
+  string objectType = 3;
 }
 message ParcelInfo
 {
@@ -358,10 +358,12 @@ message CardDetailInfo
     string nameShift = 22;
     string codeOrder = 23;
     string codeCreatedReason = 24;
-    string nameReason = 25;
-    string codePartner = 26;
-    string namePartner = 27;
-    int32 CountTrip = 28;
+    string codeReason = 25;
+    string nameReason = 26;
+    string codePartner = 27;
+    string namePartner = 28;
+    int32 CountTrip = 29;
+    int32 seri = 30;
 }
 
 message CardDetailResponse
@@ -375,7 +377,8 @@ message InsertCardRequest
 {
     string date = 1;
     string nameShift = 2;
-    repeated CardDetailInfo cardDetails = 3;
+    string user  = 3;
+    repeated CardDetailInfo cardDetails = 4;
 }
 
 message TaskInfo
@@ -519,12 +522,27 @@ message OrderInfo
    int32 weightAllow = 7;
    string codeTypePacket = 8;
    int32 quantity = 9;
-   string shippingUnit = 10;
+   int32 idTransportationUnit = 10;
    int32 class1 = 11;
    int32 class2 = 12;
    string codeProduct = 13;
    string nameProduct = 14;
    string nameTypePacket = 15;
+   string nameTransportationUnit = 16;
+   string customer = 17;
+   string nameCustomer = 18;
+   string typeCustomer = 19;
+   string nameTypeCustomer = 20; 
+   string wareHouse = 21;
+   int32 idTypeProduct = 22;
+    string nameTypeProdcut = 23;
+     int32 quantity_actual = 24;
+   int32 weight_estimate = 25;
+   int32 weight_actual = 26;
+   string timecreated = 27;
+   string timelastest = 28;
+   int32 status = 29;
+   string code_transport = 30;
 }
 
 message DepartmentInfo
@@ -538,27 +556,29 @@ message DepartmentResponse
     repeated DepartmentInfo data = 2;
 
 }
-message PeopleInfo
+message ReportObjectInfo
 {
-    string namePeople = 1;
-    int32 idRole = 2;
-    string nameRole = 4 ;
+    string nameObject = 1;
+    int32 idObject = 2;
+    int32 typeObject = 3;
+    string nameTypeObject = 4 ;
 }
 
-message PeopleResponse
+message ReportObjectResponse
 {
     Response response = 1;
-    repeated PeopleInfo data = 2;
+    repeated ReportObjectInfo data = 2;
 }
 message ConfirmProduction1000
 {
     int64 id_shift_detail = 1;
-    int32 id_equipment  = 2;
+    string code_equipment  = 2;
     int32 quantity = 3;
 }
 message ConfirmProduction1000Info
 {
-    repeated ConfirmProduction1000 data = 1;
+    int32 user = 1;
+    repeated ConfirmProduction1000 data = 2;
 }
 
 message OrderResponse
@@ -597,8 +617,114 @@ message TransportInfo
 }
 message TransportResponse
 {
+
+
      Response response = 1;
     repeated TransportInfo data = 2;
 }
 
- 
+
+message ReportInventoryInfo
+{
+    string codeWareHouse = 1;
+    string nameWareHouse = 2;
+    string codeProduct = 3;
+    string nameProduct = 4;
+    int32 idTypeProduct = 5;
+    string nameTypeProduct = 6;
+    string codeTypePacket = 7;
+    string nameTypePacket = 8;
+    string codeParcel = 9;
+    int64 quantity = 10;
+}
+message ReportInventoryResponse
+{
+    Response response = 1;
+    repeated ReportInventoryInfo data = 2;
+}
+message ConfirmProductionDetail
+{
+    
+    int32 idShiftDetail = 1;
+    string optionName = 2;
+    string codeTypeBill = 3;
+    string nameTypeBill = 4;
+    string codeProduct = 5;
+    string nameProduct = 6;
+    int32 idTypeProduct = 7;
+    string nameTypeProduct = 8;
+    string codeTypePacket = 9;
+    string nameTypePacket = 10;
+    string codeParcel = 11;
+    string codeWareHouse = 12;
+    string nameWareHouse = 13;
+    int32 idShift = 14;
+    string nameShift = 15;
+    string codePackingUnit = 16;
+    string namePackingUnit = 17;
+    int32 createdPerson = 18;
+    string nameCreatedPerson = 19;
+    string date = 20;
+    string codeEquipment = 21;
+    int32 quantity = 22;
+}
+message ConfirmProductionResponse
+{
+    Response response = 1;
+    repeated ConfirmProductionDetail data = 2;
+}
+
+message OrderReply
+{
+   repeated OrderInfo orders = 1;
+   Response response = 2;
+}
+
+message  TransportationUnitInfo
+{
+    int32 idTransportationUnit = 1;
+    string nameTransportationUnit = 2;
+}
+message TransportationUnitResponse
+{
+    repeated TransportationUnitInfo data = 1;
+    Response response = 2;
+}
+message QRCodeInfo
+{
+    int32 line = 1;
+    string codeProduct = 2;
+    string nameProduct = 3;
+    int32 idTypeProduct = 4;
+    string nameTypeProduct = 5;
+    string codeIn = 6;
+    string nameTypeIn = 7;
+    string codeParcel = 8;
+    string codeWareHouse = 9;
+    string nameWareHouse = 10;
+    int64 weight = 11;
+    string code = 12;
+    string codePackingUnit = 13;
+    string namePackingUnit  = 14;
+    string codeTypeBill = 15;
+    string userIn = 16;
+    string nameUserIn = 17;
+    string userOut = 18;
+    string nameUserOut = 19;
+    string nameTypeBill = 20;
+    string codeOrder = 21;
+    string codeReason = 22;
+    string nameReason = 23;
+    int32 CountTrip = 24;
+    int32 seri = 25;
+    string timeIn = 26;
+    string timeOut = 27;
+    int32 status= 28;
+    string codeOut = 29;
+    string nameTypeOut = 30;
+}
+message QRCodeResponse
+{
+    Response response = 1;
+    repeated QRCodeInfo data = 2;
+}

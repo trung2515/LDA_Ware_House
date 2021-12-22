@@ -1,7 +1,6 @@
 import { Appointment } from './../model';
 import { Injectable } from '@angular/core';
 
-
 let appointments: Appointment[] = [];
 
 @Injectable({
@@ -9,7 +8,7 @@ let appointments: Appointment[] = [];
 })
 export class ShiftService {
   getAppointments(): Appointment[] {
-    for (var i = 1; i < 20; i++) {
+    for (var i = 0; i < 20; i++) {
       let a = new Date();
       let item: any = {};
       item.id = i;
@@ -28,12 +27,22 @@ export class ShiftService {
           id: 1,
           option: '1',
           type: 'NDL',
-          product: 'Alumin 1 Tấn',
+          product: 'Alumin 1 Tấn' + i,
           productRange: 3,
           packaging: 'Xả đáy',
           lot: 190,
           unit: 'XTRE',
-          wareHouse: 'Kho TT'
+          wareHouse: 'Kho TT',
+          machines_packaging:
+            i % 2 === 0
+              ? {
+                  machine_a: 1,
+                  machine_b: 10,
+                  machine_c: 100,
+                  machine_d: 1000,
+                  machine_e: 10000
+                }
+              : ''
         },
         {
           id: 2,
@@ -44,12 +53,22 @@ export class ShiftService {
           packaging: 'Xả đáy',
           lot: 190,
           unit: 'XTRE',
-          wareHouse: 'Kho TT'
-        },
+          wareHouse: 'Kho TT',
+          machines_packaging:
+            i % 2 === 0
+              ? {
+                  machine_a: 10000,
+                  machine_b: 1000,
+                  machine_c: 100,
+                  machine_d: 10,
+                  machine_e: 1
+                }
+              : ''
+        }
       ];
+
       appointments.push(item);
     }
-    return appointments
+    return appointments;
   }
-
 }

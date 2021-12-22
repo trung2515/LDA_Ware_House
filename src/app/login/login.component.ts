@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     private localStorage: LocalStorageService,
     private authService: AuthService,
     private accountService: AccountService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initializeForm()
@@ -69,12 +69,32 @@ export class LoginComponent implements OnInit {
     console.log('user: ', this.registerForm.value)
     this.accountService
       .signIn(user.user, user.password)
-      .subscribe((user: any) => {
-        this.localStorage.set('roleId', user?.roleId)
+      .subscribe((user: UserInfo) => {
+        this.localStorage.set('roleId', user?.role)
         console.log(user)
         if (user) {
           this.authService.authenticate(user, () => {
-            this.router.navigateByUrl('/admin')
+            console.log()
+            if (user.role == 8) {
+              const routeExist = this.router.config.filter(c => c.path.includes('admin'))
+              if (routeExist.length > 0) {
+                this.router.navigateByUrl('/admin')
+              } else
+                this.toastr.warning('Ban khong co quyen truy cap he thong')
+            } else if (user.role == 22) {
+              const routeExist = this.router.config.filter(c => c.path.includes('order'))
+              if (routeExist.length > 0) {
+                this.router.navigateByUrl('/order')
+              } else
+                this.toastr.warning('Ban khong co quyen truy cap he thong')
+            } else if (user.role == 14 || user.role == 6) {
+              const routeExist = this.router.config.filter(c => c.path.includes('shipper'))
+              if (routeExist.length > 0) {
+                this.router.navigateByUrl('/shipper')
+              } else
+                this.toastr.warning('Ban khong co quyen truy cap he thong')
+            }
+
           })
         } else {
           this.toastr.warning('Bạn không có quyền đăng nhập hệ thống!')

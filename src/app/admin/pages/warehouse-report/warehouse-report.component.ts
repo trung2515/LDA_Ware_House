@@ -1,5 +1,5 @@
 import { WarehouseReportService } from './warehouse-report.service';
-import { QtyOnBaggingMachine, FilterModel } from './models';
+import { QtyOnBaggingMachine, FilterModel, QtyAlumin50KG } from './models';
 import { Component, OnInit } from '@angular/core';
 import { getDates } from 'src/app/utils/helper';
 import { ExcelService } from 'src/app/core/services/excel.service';
@@ -9,10 +9,11 @@ import { ExcelService } from 'src/app/core/services/excel.service';
   styleUrls: ['./warehouse-report.component.css']
 })
 export class WarehouseReportComponent implements OnInit {
-  title_nav = 'Báo cáo số lượng trên máy đóng bao';
+  title_nav = 'Báo cáo sản lượng đóng bao';
   startDate: Date = new Date();
   endDate: Date = new Date();
   qtyOnBaggingMachines: QtyOnBaggingMachine[] = [];
+  qtyAlumin50:  QtyAlumin50KG[] = []
   qtyOnBaggingMachines_copy: QtyOnBaggingMachine[] = [];
 
   filterControl: FilterModel = {
@@ -22,71 +23,36 @@ export class WarehouseReportComponent implements OnInit {
     },
     inputValue: ''
   };
-
+  tabInfo: any
 
 
   disabledDates: Date[] = [];
   constructor(
     private excelService: ExcelService,
-    warehouseReportService: WarehouseReportService
+    private warehouseReportService: WarehouseReportService
   ) {
-    this.getEndDate = this.getEndDate.bind(this);
-    this.getStartDate = this.getStartDate.bind(this);
-    this.qtyOnBaggingMachines = warehouseReportService.getQtyOnBaggingMachine();
-
+    this.tabInfo = [
+      {
+        id: 1,
+        tabName: 'Báo cáo sản lượng đóng bao 1 tấn',
+      },
+      {
+        id: 2,
+        tabName: 'Báo cáo sản lượng đóng bao 50kg',
+      },
+    ]
   }
 
   ngOnInit(): void {
-    this.disabledDates = this.getDisabledDates(this.startDate);
-    this.qtyOnBaggingMachines_copy = [...this.qtyOnBaggingMachines];
+    this.getData()
   }
-  handleFilter = () => {
-    const { objDate, inputValue } = this.filterControl;
-    // filter only date
-    if (objDate.endDate && !inputValue) {
-      if (this.endDate >= this.startDate) {
-        const result = this.qtyOnBaggingMachines.filter((item: any) => {
-          const dateOfItem = item.date.getTime();
-          return (
-            dateOfItem >= objDate.startDate && dateOfItem <= objDate.endDate
-          );
-        });
-        this.qtyOnBaggingMachines_copy = result;
-      }
-    }
-    // filter only product name
-    else if (inputValue && !objDate.endDate) {
-      this.qtyOnBaggingMachines_copy = this.qtyOnBaggingMachines.filter(
-        product => {
-          return (
-            product.product_name
-              .toUpperCase()
-              .indexOf(inputValue.toUpperCase()) !== -1
-          );
-        }
-      );
-    }
-    // filter with both conditions
-    else {
-      const result = this.qtyOnBaggingMachines.filter((product: any) => {
-        const dateOfItem = product.date.getTime();
-        return (
-          dateOfItem >= objDate.startDate &&
-          dateOfItem <= objDate.endDate &&
-          product.product_name
-            .toUpperCase()
-            .indexOf(inputValue.toUpperCase()) !== -1
-        );
-      });
-      this.qtyOnBaggingMachines_copy = result;
-    }
-  };
-  filterWithProductName({ value, keyCode }: any) {
-    this.filterControl.inputValue = value;
-    if (keyCode === 13 && value) {
-      this.handleFilter();
-    }
+
+  getData(){
+    this.qtyOnBaggingMachines = this.warehouseReportService.getQtyOnBaggingMachine();
+    this.qtyAlumin50 = this.warehouseReportService.getReport50Kg();
   }
+
+
   // handle dx-date-box change event
   getStartDate(e: any) {
     this.startDate = e.value;
@@ -102,7 +68,6 @@ export class WarehouseReportComponent implements OnInit {
       startDate,
       endDate
     };
-    this.handleFilter();
   }
   getDisabledDates(stopDate: Date) {
     return getDates(stopDate);

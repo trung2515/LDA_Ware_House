@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <app-header-report [title_nav]="title_nav" [startDate]="startDate" [endDate]="endDate" [getStartDate]="getStartDate"
-    [getEndDate]="getEndDate" [disabledDates]="disabledDates" (onHandleInputChange)="filterWithProductName($event)">
+  <app-header-report [title_nav]="title_nav" (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)"
+    [disabledDates]="disabledDates">
   </app-header-report>
   <div class="content">
     <dx-tab-panel #tabPanel [dataSource]="tabInfo" [selectedIndex]="0" [loop]="false" [animationEnabled]="true"
@@ -15,38 +15,35 @@
               <dx-data-grid id="production_table_1" [dataSource]="transportationList" keyExpr="shift"
                 [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [remoteOperations]="false"
                 [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
-                (onExporting)="onExportingGrid($event)" >
+                (onExporting)="onExportingGrid($event)">
                 <dxo-export [enabled]="true"></dxo-export>
-                <dxo-options ></dxo-options>
+                <dxo-options></dxo-options>
                 <dxo-search-panel [visible]="true"></dxo-search-panel>
                 <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
-                <dxi-column dataField="shift" [fixed]="true" caption="Ca" alignment="left"
-                  ></dxi-column>
-                <dxi-column dataField="date" [fixed]="true" caption="Ngày" >
+                <dxi-column dataField="shift" [fixed]="true" caption="Ca" alignment="left"></dxi-column>
+                <dxi-column dataField="date" [fixed]="true" caption="Ngày">
                 </dxi-column>
-                <dxi-column dataField="product_name" [fixed]="true" caption="Sản phẩm"
-                  ></dxi-column>
-                <dxi-column dataField="product_type" [fixed]="true" caption="Loại sản phẩm"
-                  ></dxi-column>
-                <dxi-column dataField="work" caption="Công việc" ></dxi-column>
-                <dxi-column dataField="lau_warehouse" caption="Kho bốc" >
+                <dxi-column dataField="product_name" [fixed]="true" caption="Sản phẩm"></dxi-column>
+                <dxi-column dataField="product_type" [fixed]="true" caption="Loại sản phẩm"></dxi-column>
+                <dxi-column dataField="work" caption="Công việc"></dxi-column>
+                <dxi-column dataField="lau_warehouse" caption="Kho bốc">
                 </dxi-column>
-                <dxi-column dataField="unloading_equipment" caption="Thiết bị bốc"
-                  ></dxi-column>
-                <dxi-column dataField="loading_equipment" caption="Thiết bị dở"
-                  ></dxi-column>
-                <dxi-column dataField="unloading_warehouse" caption="Kho dở" >
+                <dxi-column dataField="unloading_equipment" caption="Thiết bị bốc"></dxi-column>
+                <dxi-column dataField="loading_equipment" caption="Thiết bị dở"></dxi-column>
+                <dxi-column dataField="unloading_warehouse" caption="Kho dở">
                 </dxi-column>
-                <dxi-column dataField="bag_number" caption="Số bao" >
+                <dxi-column dataField="bag_number" caption="Số bao">
                 </dxi-column>
-                <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"
-                  ></dxi-column>
-                <dxi-column dataField="cdo"  alignment="left" caption="Cung độ">
+                <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"></dxi-column>
+                <dxi-column dataField="cdo" alignment="left" caption="Cung độ">
                 </dxi-column>
-                <dxi-column dataField="trips_number"  caption="Số chuyến"
-                  alignment="left"></dxi-column>
-                <dxi-column dataField="user"  caption="User"></dxi-column>
+                <!-- <dxi-column dataField="trips_number" caption="Số chuyến" alignment="left"></dxi-column> -->
+                <dxi-column dataField="user" caption="User"></dxi-column>
+                <dxi-column dataField="time" caption="Ngay gio" alignment="left" cellTemplate="time"></dxi-column>
+                <div *dxTemplate="let item of 'time'">
+                  {{item.value | date: 'yyyy-MM-dd HH:mm:ss'}}
+                </div>
                 <!-- title header template -->
                 <div class="caption-cus" *dxTemplate="let info of 'titleHeaderTemplate'">
                   <!-- <p style="font-size:16px; color: #3459E6; text-align:center; font-weight: 500;">
@@ -63,8 +60,7 @@
                 <dx-pivot-grid id="pivotgrid-b-d" [allowSortingBySummary]="true" [allowSorting]="true"
                   [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
                   [showRowTotals]="false" [showColumnTotals]="true" (onExporting)="onExportingPivot($event, tabPanel)"
-                  [allowFiltering]="true" [dataSource]="detailLoadUnLoadReport"
-                  >
+                  [allowFiltering]="true" [dataSource]="detailLoadUnLoadReport">
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                   <dxo-export [enabled]="true"></dxo-export>
                   <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="200" [height]="400">
@@ -83,12 +79,10 @@
                   [showRowTotals]="false" [showColumnTotals]="true" (onExporting)="onExportingPivot($event, tabPanel)"
                   [allowFiltering]="true" [dataSource]="detailUnLoadWDVReport">
                   <dxo-export [enabled]="true"></dxo-export>
-
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                   <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
                   </dxo-header-filter>
                   <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
-
                 </dx-pivot-grid>
               </div>
             </div>
