@@ -3741,6 +3741,27 @@ export class ReportClient {
         requestClass: client000.MasterRequest,
         responseClass: client000.QRCodeResponse
       });
+    },
+    /**
+     * Unary RPC for /client.Report/GetQRCodeByOrder
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.QRCodeResponse>>
+     */
+    getQRCodeByOrder: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.QRCodeResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Report/GetQRCodeByOrder',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.QRCodeResponse
+      });
     }
   };
 
@@ -3877,6 +3898,22 @@ export class ReportClient {
   ): Observable<client000.QRCodeResponse> {
     return this.$raw
       .getQRCodeByTransportOut(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Report/GetQRCodeByOrder
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.QRCodeResponse>
+   */
+  getQRCodeByOrder(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.QRCodeResponse> {
+    return this.$raw
+      .getQRCodeByOrder(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }

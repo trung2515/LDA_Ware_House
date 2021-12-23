@@ -135,10 +135,32 @@ export class ReportService {
     )
   }
 
-  reportTransportByCode(code: string) {
+  reportTransportByCodeIn(code: string) {
     let request: MasterRequest = new MasterRequest()
     request.codeTransportIn = code
     return this.reportClient.getQRCodeByTransportIn(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportTransportByCodeOut(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeTransportOut = code
+    return this.reportClient.getQRCodeByTransportOut(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportOrderDetail(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeOrder = code
+    return this.reportClient.getQRCodeByOrder(request).pipe(
       map((reply: QRCodeResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []

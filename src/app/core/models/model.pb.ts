@@ -49,6 +49,7 @@ export class MasterRequest implements GrpcMessage {
     _instance.nameShift = _instance.nameShift || '';
     _instance.codeTransportIn = _instance.codeTransportIn || '';
     _instance.codeTransportOut = _instance.codeTransportOut || '';
+    _instance.codeOrder = _instance.codeOrder || '';
   }
 
   /**
@@ -99,6 +100,9 @@ export class MasterRequest implements GrpcMessage {
           break;
         case 12:
           _instance.codeTransportOut = _reader.readString();
+          break;
+        case 13:
+          _instance.codeOrder = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -153,6 +157,9 @@ export class MasterRequest implements GrpcMessage {
     if (_instance.codeTransportOut) {
       _writer.writeString(12, _instance.codeTransportOut);
     }
+    if (_instance.codeOrder) {
+      _writer.writeString(13, _instance.codeOrder);
+    }
   }
 
   private _idShift?: number;
@@ -167,6 +174,7 @@ export class MasterRequest implements GrpcMessage {
   private _nameShift?: string;
   private _codeTransportIn?: string;
   private _codeTransportOut?: string;
+  private _codeOrder?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -186,6 +194,7 @@ export class MasterRequest implements GrpcMessage {
     this.nameShift = _value.nameShift;
     this.codeTransportIn = _value.codeTransportIn;
     this.codeTransportOut = _value.codeTransportOut;
+    this.codeOrder = _value.codeOrder;
     MasterRequest.refineValues(this);
   }
   get idShift(): number | undefined {
@@ -260,6 +269,12 @@ export class MasterRequest implements GrpcMessage {
   set codeTransportOut(value: string | undefined) {
     this._codeTransportOut = value;
   }
+  get codeOrder(): string | undefined {
+    return this._codeOrder;
+  }
+  set codeOrder(value: string | undefined) {
+    this._codeOrder = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -287,7 +302,8 @@ export class MasterRequest implements GrpcMessage {
       userName: this.userName,
       nameShift: this.nameShift,
       codeTransportIn: this.codeTransportIn,
-      codeTransportOut: this.codeTransportOut
+      codeTransportOut: this.codeTransportOut,
+      codeOrder: this.codeOrder
     };
   }
 
@@ -319,7 +335,8 @@ export class MasterRequest implements GrpcMessage {
       userName: this.userName,
       nameShift: this.nameShift,
       codeTransportIn: this.codeTransportIn,
-      codeTransportOut: this.codeTransportOut
+      codeTransportOut: this.codeTransportOut,
+      codeOrder: this.codeOrder
     };
   }
 }
@@ -340,6 +357,7 @@ export module MasterRequest {
     nameShift?: string;
     codeTransportIn?: string;
     codeTransportOut?: string;
+    codeOrder?: string;
   }
 
   /**
@@ -358,6 +376,7 @@ export module MasterRequest {
     nameShift?: string;
     codeTransportIn?: string;
     codeTransportOut?: string;
+    codeOrder?: string;
   }
 }
 

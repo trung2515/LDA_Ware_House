@@ -1,4 +1,4 @@
-import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component'
+﻿import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component'
 import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'

@@ -16,6 +16,8 @@ message MasterRequest
     string nameShift = 10;
     string codeTransportIn = 11;
     string codeTransportOut = 12;
+    string codeOrder = 13;
+
 }
 enum ResponseState {
   SUCCESS = 0;
@@ -622,7 +624,6 @@ message TransportInfo
     string dvDo = 26;
     string seriIn = 27;
     string seriOut = 28;
-
     string code = 29;
 }
 message TransportResponse

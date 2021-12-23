@@ -59,10 +59,9 @@
                   </p> -->
                 </div>
                 <div *dxTemplate="let cell of 'detail'">
-                  <div class="master-detail-caption">{{
-                    cell.data.date + " " + cell.data.shift
-                    }}</div>
-                  <detail-transport [code]="cell.data.codeTransport"></detail-transport>
+                  <div class="" style="margin: auto; width: 60%;">
+                    <detail-transport [type]="cell.data.work" [code]="cell.data.codeTransport"></detail-transport>
+                  </div>
                 </div>
               </dx-data-grid>
             </div>
