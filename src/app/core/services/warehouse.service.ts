@@ -1,4 +1,4 @@
-import { ParcelDetailResponse } from './../models/model.pb';
+import { ConfirmProduction1000Info, ParcelDetailResponse } from './../models/model.pb';
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { WareHouseClient } from "../models/admin.pbsc";
@@ -37,6 +37,9 @@ export class WareHouseService {
         } else return []
       }),
     )
+  }
+  update1000Kg(data: ConfirmProduction1000Info){
+    return this.warehouseClient.updateConfirmProduct(data);
   }
 
 

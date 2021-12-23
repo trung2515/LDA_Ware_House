@@ -2,6 +2,7 @@
   background-color: #F8F8F9;
 }
 .content {
+  min-height: calc(var(--contentHeight) - 20px);
   background-color:#FFFFFF;
   padding: 28px;
 }

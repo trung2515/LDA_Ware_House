@@ -49,6 +49,8 @@ export class ResearchOrderComponent implements OnInit {
       if(reply.order) {
         this.orderResultSearch= reply.order
         this.hasOrder = true;
+      } else {
+        this.hasOrder = false;
       }
     })
 

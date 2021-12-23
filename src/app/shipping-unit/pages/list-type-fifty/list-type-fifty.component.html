@@ -3,5 +3,35 @@
     (onBackClicked)="onBackClicked()"
     [title]="'Danh sách sản lượng đóng bao loại 50kg'"
   ></app-header-bar>
-  <div class="content mainCol"></div>
+  <div class="content mainCol">
+    <div class="select-group row">
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ngày</label>
+        <dx-date-box
+          [(value)]="now"
+          type="date"
+          (onValueChanged)="onDateValueChanged($event)"
+        ></dx-date-box>
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ca làm việc</label>
+        <dx-select-box
+          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [(value)]="ca_no_option"
+          hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectShiftChange($event)"
+        ></dx-select-box>
+      </div>
+    </div>
+    <div class="list-option-summary">
+      <div class="row">
+        <div class="col-lg-4 col-12 shift-option">
+          <app-option-item>
+
+          </app-option-item>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

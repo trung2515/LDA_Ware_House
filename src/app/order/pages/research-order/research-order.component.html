@@ -27,7 +27,7 @@
       </form>
     </div>
     <div class="search-result-content">
-      <div *ngIf="hasOrder === false" class="result-empty">
+      <div *ngIf="hasOrder === false" class="result-wrap">
         <img class="img-empty" src="assets/img/box-empty.png" alt="box empty" />
         <p class="text-empty">Không có dữ liệu</p>
       </div>
@@ -35,7 +35,7 @@
       <div
         style="top: 140px"
         *ngIf="hasOrder === true"
-        class="result-empty has-result"
+        class="result-wrap has-result"
       >
         <span>Mã đơn hàng:</span>
         <span class="order-code">{{orderResultSearch.codeOrder}}</span>
@@ -110,6 +110,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

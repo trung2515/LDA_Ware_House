@@ -7,23 +7,15 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./text-input.component.css']
 })
 export class TextInputComponent implements ControlValueAccessor, OnInit {
-
   @Input() label!: string;
   @Input() type = 'text';
 
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  writeValue(obj: any): void {
-
-  }
-  registerOnChange(fn: any): void {
-
-  }
-  registerOnTouched(fn: any): void {
-
-  }
+  writeValue(obj: any): void {}
+  registerOnChange(fn: any): void {}
+  registerOnTouched(fn: any): void {}
 }
