@@ -9,7 +9,7 @@
   <dxi-column dataField="seri" caption="Số seri" width="160"></dxi-column>
   <dxi-column dataField="time" caption="Thời gian" [headerFilter]="false"></dxi-column>
   <dxo-summary>
-    <dxi-total-item column="qrcode" summaryType="count"> </dxi-total-item>
+    <dxi-total-item column="qrcode" summaryType="count" displayFormat="Tổng: {0}"> </dxi-total-item>
   </dxo-summary>
   <div *dxTemplate="let item of 'cellQrCode'">
     <qrcode [qrdata]="item.value" [width]="64" [errorCorrectionLevel]="'M'"></qrcode>
