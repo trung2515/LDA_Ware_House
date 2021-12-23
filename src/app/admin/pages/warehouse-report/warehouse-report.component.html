@@ -16,6 +16,7 @@
           <div class="col-12">
             <dx-data-grid id="production_table_" [dataSource]="qtyOnBaggingMachines" keyExpr="id" [showRowLines]="true"
               [showBorders]="true" [columnAutoWidth]="true" (onExporting)="onExportingGrid($event)">
+
               <dxo-search-panel [visible]="true"></dxo-search-panel>
               <dxo-export [enabled]="true"></dxo-export>
               <dxo-scrolling mode="standard"></dxo-scrolling>

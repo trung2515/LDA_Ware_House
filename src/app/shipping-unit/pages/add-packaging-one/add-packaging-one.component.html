@@ -36,7 +36,7 @@
 
     <div class="option-group">
       <div
-        *ngFor="let optionItem of currentAppointment?.shiftDetail"
+        *ngFor="let optionItem of currentAppointment?.shiftDetail; let i = index"
         class="option-item"
       >
         <div class="option-head">
@@ -63,7 +63,7 @@
         </div>
         <!-- form -->
         <form
-          [formGroup]="getFormGroup(optionItem.option)"
+        [formGroup]="getForm(i)"
           class="form-info-group row"
         >
           <div *ngFor="let input of inputs_options" class="col-12 col-lg-3 form-item">
