@@ -94,6 +94,10 @@ td {
   text-align: center;
 } */
 
+* {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
 .page-body{
     padding-left: 96px;
     padding-right: 96px;
@@ -105,7 +109,7 @@ td {
     counter-reset: step;
     /* padding: 0; */
   }
-  
+
   .progressbar li {
     float: left;
     list-style: none;
@@ -141,14 +145,14 @@ td {
   .progressbar li.complete:after {
     background: #3459E6;
   }
-  
+
   .progressbar li.active:before,
   .progressbar li.complete:before {
     background: #3459E6;
     border-color: #3459E6;
     color: #fff;
   }
-  
+
   .progressbar li.active {
     color: #3459E6;
     font-weight: 700;
@@ -156,7 +160,7 @@ td {
   .progressbar li:first-child:after {
     content: none;
   }
-  
+
   .progressbar li.complete {
     color: #333;
     font-weight: 700;
@@ -191,7 +195,7 @@ td {
     background-color: #3459E6;
     color: white;
   }
-  
+
   .title-header-left{
   font-style: normal;
   font-weight: normal;
@@ -203,7 +207,7 @@ td {
   letter-spacing: -0.045em;
   }
   .title-header-right{
-   
+
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
@@ -230,12 +234,12 @@ td {
   .poiter{
     cursor: pointer;
   }
-  
+
   #contentToConvert {
     width: 1190px;
     height: 1684px;
     background: #fff;
-  } 
+  }
 .card-pdfview{
     background-color: #E5E5E5;
     font-family: 'Times New Roman', Times, serif;
@@ -249,26 +253,26 @@ table {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   table thead th {
     font-size: 25px !important;
     letter-spacing: -0.045em;
     text-transform: capitalize;
     font-weight: 700 !important;
   }
-  
+
   tr th,
   td {
     padding: 0;
     border: 0.5px solid #191919;
     text-align: center;
-  } 
+  }
   #contentToConvert {
     width: 1190px;
     height: 1684px;
     background: #fff;
   }
-  
+
 #contentToConvert {
   width: 1190px;
   height: 1684px;
