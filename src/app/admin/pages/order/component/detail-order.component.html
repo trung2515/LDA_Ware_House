@@ -1,13 +1,14 @@
-<dx-data-grid [dataSource]="dataSource" [showBorders]="true" [showRowLines]="true" [columnAutoWidth]="true"
+<dx-data-grid [dataSource]="dataSource" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
   [remoteOperations]="false" [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
-  [columnAutoWidth]="true">
+  [showBorders]="true">
   <dxo-pager [allowedPageSizes]="[5, 10, 20]"></dxo-pager>
   <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
   <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
   <dxi-column caption="STT" cellTemplate="cellSTT" width="80"></dxi-column>
-  <dxi-column dataField="qrcode" width="120" alignment="center" caption="QRCode" cellTemplate="cellQrCode"></dxi-column>
+  <dxi-column dataField="qrcode" width="120" [allowFiltering]="false" alignment="center" caption="QRCode"
+    cellTemplate="cellQrCode"></dxi-column>
   <dxi-column dataField="seri" caption="Số seri" width="160"></dxi-column>
-  <dxi-column dataField="time" caption="Thời gian" [headerFilter]="false"></dxi-column>
+  <dxi-column dataField="time" caption="Thời gian" [allowFiltering]="false"></dxi-column>
   <dxo-summary>
     <dxi-total-item column="qrcode" summaryType="count" displayFormat="Tổng: {0}"> </dxi-total-item>
   </dxo-summary>

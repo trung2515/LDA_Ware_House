@@ -233,6 +233,10 @@ message MasterDataInfo
   int32 objectId= 1;
   string objectName = 2;
   string objectType = 3;
+  string objectCode = 4;
+  string objectCate = 5;
+  string nameCate = 6;
+  
 }
 message ParcelInfo
 {
@@ -369,6 +373,7 @@ message CardDetailInfo
     string namePartner = 28;
     int32 CountTrip = 29;
     int32 seri = 30;
+    int32 distance = 31;
 }
 
 message CardDetailResponse

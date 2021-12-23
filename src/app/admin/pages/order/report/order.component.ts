@@ -13,6 +13,8 @@ export class OrderComponent implements OnInit {
   data: OrderModel[] = []
   startDate = new Date()
   endDate = new Date()
+  selectOrder: string
+  popupVisible: boolean = false
   constructor(
     private reportService: ReportService,
     private toastr: ToastrService,
@@ -30,6 +32,11 @@ export class OrderComponent implements OnInit {
       .subscribe((data) => {
         if (data.length > 0) this.data = data.map((d) => new OrderModel(d))
       })
+  }
+
+  openPopup(orderCode: string){
+      this.popupVisible = true;
+    this.selectOrder = orderCode
   }
 
   onStartDateChanged(e: any) {

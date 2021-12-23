@@ -45,7 +45,7 @@ export class AdminService {
     private warehouseClient: WareHouseClient,
     private authService: AuthService,
   ) {}
-
+    
   getListTransportUnit() {
     let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTransportationUnit(req).pipe(
