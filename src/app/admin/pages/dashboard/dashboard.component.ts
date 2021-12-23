@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
         productArr = data.map((d) => new Product(d))
         for (var i = 0; i < productArr.length; i++) {
           if (
-            this.dataSource.filter((d) => (d.name = productArr[i].name))
+            this.dataSource.filter((d) => (d.name == productArr[i].name && d.date == productArr[i].date))
               .length == 0
           ) {
             let product: Product = productArr[i];

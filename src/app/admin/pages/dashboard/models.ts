@@ -27,6 +27,10 @@ export class Product {
 export class BarCharDateModel {
   day: string;
   tons: number;
+  constructor(data: Product){
+    this.day = data.date
+    this.tons = data.packaging_qty
+  }
 }
 export class TypeMachineModel {
   value: string;

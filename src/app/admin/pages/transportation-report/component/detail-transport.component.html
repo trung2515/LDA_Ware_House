@@ -1,9 +1,8 @@
 <dx-data-grid [dataSource]="dataSource" [showBorders]="true" [showRowLines]="true" [columnAutoWidth]="true"
   [remoteOperations]="false" [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
   [columnAutoWidth]="true">
-  <dxo-pager [allowedPageSizes]="[5, 10, 20]"></dxo-pager>
   <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
-  <dxo-paging [enabled]="true" [pageSize]="10"> </dxo-paging>
+  <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
   <dxi-column caption="STT" cellTemplate="cellSTT" width="80"></dxi-column>
   <dxi-column dataField="code" width="120" alignment="center" caption="QRCode" cellTemplate="cellQrCode"></dxi-column>
   <dxi-column dataField="seri" caption="Số seri" width="160"></dxi-column>

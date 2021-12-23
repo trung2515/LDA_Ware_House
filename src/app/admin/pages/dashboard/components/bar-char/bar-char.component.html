@@ -1,9 +1,9 @@
-<dx-chart [id]="chartID" [dataSource]="dataSource" palette="soft">
+<dx-chart [id]="chartID" [dataSource]="products" palette="soft">
   <dxi-series
-    valueField="tons"
+    valueField="packaging_qty"
     [name]="configChart.chartLegend"
     [color]="configChart.color"
-    argumentField="day"
+    argumentField="date"
     type="bar"
     barWidth="14"
   >

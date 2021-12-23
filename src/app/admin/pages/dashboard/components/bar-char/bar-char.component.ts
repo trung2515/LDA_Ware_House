@@ -63,9 +63,11 @@ export class BarCharComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.configChart.chartLegend.toUpperCase();
-    this.loadDataSources(this.filterControl);
+    // this.loadDataSources(this.filterControl);
+
   }
   loadDataSources(filterControl: any): void {
+    console.log('load datasource');
     const _products = this.products.filter(product => {
       const startDateFilter = new Date(
         filterControl.month +
