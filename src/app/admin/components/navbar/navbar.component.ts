@@ -41,13 +41,13 @@ export class NavbarComponent implements OnInit {
       //   isParent: true,
       //   parentId: -1,
       // },
-      // {
-      //   link: '/forms/tool-page',
-      //   menuId: 5,
-      //   name: 'Tạo biên bản',
-      //   isParent: true,
-      //   parentId: -1,
-      // },
+      {
+        link: '/forms/tool-page',
+        menuId: 5,
+        name: 'Tạo biên bản',
+        isParent: true,
+        parentId: -1,
+      },
       {
         link: '/admin/configuration',
         menuId: 6,

@@ -9,16 +9,24 @@ import { DetailTransportInfo } from '../models'
 })
 export class DetailTransportComponent implements OnInit {
   @Input() code: string
+  @Input() type: string
   dataSource: DetailTransportInfo[] = []
   ngOnInit(): void {
     this.getData()
   }
 
-  constructor(private reportService: ReportService) {}
+  constructor(private reportService: ReportService) { }
 
   getData() {
-    this.reportService.reportTransportByCode(this.code).subscribe((data) => {
-      this.dataSource = data.map((d) => new DetailTransportInfo(d))
-    })
+    if (this.type == 'VCLK' || this.type.includes('N')) {
+      this.reportService.reportTransportByCodeIn(this.code).subscribe((data) => {
+        this.dataSource = data.map((d) => new DetailTransportInfo(d))
+      })
+    } else {
+      this.reportService.reportTransportByCodeOut(this.code).subscribe((data) => {
+        this.dataSource = data.map((d) => new DetailTransportInfo(d))
+      })
+    }
+
   }
 }

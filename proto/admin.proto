@@ -15,7 +15,7 @@ service Account {
 service Administrator {
 
     rpc GetListMasterData(MasterRequest) returns (MasterDataResponse);
-   
+
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
     rpc GetListPartner(MasterRequest) returns (PartnerResponse);
@@ -153,9 +153,10 @@ service Report
     rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);// from date -> to date
     rpc GetQRCodeByTransportIn(MasterRequest) returns (QRCodeResponse);
     rpc GetQRCodeByTransportOut(MasterRequest) returns (QRCodeResponse);
+    rpc GetQRCodeByOrder(MasterRequest) returns (QRCodeResponse);
 }
 
-service RecordConfirm 
+service RecordConfirm
 {
     rpc GetListProduct(MasterRequest) returns (ProductResponse);          //get all
     rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);   //get all

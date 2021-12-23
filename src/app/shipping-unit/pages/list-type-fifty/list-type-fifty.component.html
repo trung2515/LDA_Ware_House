@@ -26,9 +26,15 @@
     </div>
     <div class="list-option-summary">
       <div class="row">
-        <div class="col-lg-4 col-12 shift-option">
-          <app-option-item>
-
+        <div
+          *ngFor="let option of currentAppointment.shiftDetail"
+          class="col-lg-4 col-12 shift-option"
+        >
+          <app-option-item
+            [objItem]="option"
+            [creator]="currentAppointment.text"
+            (onClickItem)="onShiftOptionClicked($event)"
+          >
           </app-option-item>
         </div>
       </div>

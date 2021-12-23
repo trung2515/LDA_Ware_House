@@ -1,5 +1,7 @@
 
-  
+  *{
+    font-family: 'Times New Roman', Times, serif !important;
+  }
 
 
   .poiter{
@@ -13,20 +15,20 @@ table {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   table thead th {
     font-size: 25px !important;
     letter-spacing: -0.045em;
     text-transform: capitalize;
     font-weight: 700 !important;
   }
-  
+
   tr th,
   td {
     padding: 0;
     border: 0.5px solid #191919;
     text-align: center;
-  } 
+  }
   #contentToConvert {
     width: 1190px;
     height: 1684px;

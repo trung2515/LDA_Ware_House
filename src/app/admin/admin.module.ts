@@ -44,6 +44,7 @@ import { ShiftService } from './pages/shift/services/shift.service'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
 import { DetailTransportComponent } from './pages/transportation-report/component/detail-transport.component';
+import { DetailOrderComponent } from './pages/order/component/detail-order.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -79,7 +80,8 @@ import { DetailTransportComponent } from './pages/transportation-report/componen
     WareHouseInventoryComponent,
     OrderComponent,
     ErrorBagComponent,
-    DetailTransportComponent
+    DetailTransportComponent,
+    DetailOrderComponent
   ],
   imports: [
     CommonModule,
@@ -91,4 +93,4 @@ import { DetailTransportComponent } from './pages/transportation-report/componen
   ],
   providers: [ShiftService],
 })
-export class AdminModule {}
+export class AdminModule { }

@@ -8,7 +8,7 @@
         alt="edit"
         class="btn-edit"
       />
-      <img src="assets/svg/delete.svg" alt="edit" class="btn-delete" />
+      <img *ngIf="visibleBtnDelete" src="assets/svg/delete.svg" alt="edit" class="btn-delete" />
     </div>
   </div>
   <div class="item-content">

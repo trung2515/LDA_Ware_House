@@ -126,8 +126,19 @@ export class ReportService {
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
-    console.log(request)
+    // console.log(request)
     return this.reportClient.getReportQRCode(request).pipe(
+      map((reply: QRCodeResponse) => {
+        // console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportTransportByCodeIn(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeTransportIn = code
+    return this.reportClient.getQRCodeByTransportIn(request).pipe(
       map((reply: QRCodeResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
@@ -135,10 +146,21 @@ export class ReportService {
     )
   }
 
-  reportTransportByCode(code: string) {
+  reportTransportByCodeOut(code: string) {
     let request: MasterRequest = new MasterRequest()
-    request.codeTransportIn = code
-    return this.reportClient.getQRCodeByTransportIn(request).pipe(
+    request.codeTransportOut = code
+    return this.reportClient.getQRCodeByTransportOut(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportOrderDetail(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeOrder = code
+    return this.reportClient.getQRCodeByOrder(request).pipe(
       map((reply: QRCodeResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []

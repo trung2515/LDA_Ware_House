@@ -39,6 +39,7 @@ export class ListTypeFiftyComponent implements OnInit {
       this.getCurrentShift(this.ca_no_option)
     );
   }
+  onShiftOptionClicked(e:any) {}
   onDateValueChanged(e: any) {
     // const _currentAppointment = this.getCurrentAppointment(
     //   this.getCurrentDate(e.value),

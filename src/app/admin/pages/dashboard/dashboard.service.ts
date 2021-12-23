@@ -1,11 +1,6 @@
-import { Product, TypeMachineModel } from './models';
+import { Product } from './models';
 import { Injectable } from '@angular/core';
 
-let typeOfMachines: TypeMachineModel[] = [
-  { value: 'palang', name: 'Palang' },
-  { value: 'cautientuan', name: 'Cầu tiến tuấn' },
-  { value: 'xenangvuontre', name: 'Xe nâng vườn tre' }
-];
 let productListInfo: any = [];
 
 function GenerateProductList(): Product[] {
@@ -60,8 +55,5 @@ export class DashboardService {
       productListInfo.push(rs);
     }
     return productListInfo;
-  }
-  getTypeMachines() {
-    return typeOfMachines;
   }
 }
