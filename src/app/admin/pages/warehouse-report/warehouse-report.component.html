@@ -8,7 +8,7 @@
     [swipeEnabled]="false">
     <div class="text-center align-center" *dxTemplate="let tabTitle of 'title'"
       [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id">
-      <h6>{{ tabTitle.tabName }}</h6>
+      <p>{{ tabTitle.tabName }}</p>
     </div>
     <div *dxTemplate="let tabPanel of 'item'">
       <div class="tabpanel-item">
@@ -57,7 +57,6 @@
                 [showNavigationButtons]="true">
               </dxo-pager>
               <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
-
               <dxi-column dataField="ca" caption="Ca"></dxi-column>
               <dxi-column dataField="date" caption="Ngày"></dxi-column>
               <dxi-column dataField="product_name" caption="Sản phẩm">
@@ -69,7 +68,7 @@
               </dxi-column>
               <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
               <dxi-column dataField="weight" caption="Số tấn"></dxi-column>
-              <dxi-column dataField="warehouse" caption="Kho"></dxi-column>
+              <dxi-column data9Field="warehouse" caption="Kho"></dxi-column>
               <dxi-column dataField="username" caption="Tên tài khoản">
               </dxi-column>
               <!-- title header template -->

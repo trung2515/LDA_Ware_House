@@ -43,6 +43,8 @@ import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.c
 import { ShiftService } from './pages/shift/services/shift.service'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
+import { DetailTransportComponent } from './pages/transportation-report/component/detail-transport.component';
+import { DetailOrderComponent } from './pages/order/component/detail-order.component';
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { WorkflowManagementComponent } from './pages/workflow-management/workflo
     WareHouseInventoryComponent,
     OrderComponent,
     ErrorBagComponent,
+    DetailTransportComponent,
+    DetailOrderComponent,
     WorkflowManagementComponent
   ],
   imports: [
@@ -90,4 +94,4 @@ import { WorkflowManagementComponent } from './pages/workflow-management/workflo
   ],
   providers: [ShiftService],
 })
-export class AdminModule {}
+export class AdminModule { }

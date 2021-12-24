@@ -13,6 +13,11 @@ message MasterRequest
     string date = 7;
     int32 userID = 8;
     string userName = 9;
+    string nameShift = 10;
+    string codeTransportIn = 11;
+    string codeTransportOut = 12;
+    string codeOrder = 13;
+
 }
 enum ResponseState {
   SUCCESS = 0;
@@ -37,7 +42,7 @@ message CodePacketInfo
     float weight = 8;
     string nameTypePacket = 9;
 
-
+    
 }
 message CodePacketResponse
 {
@@ -48,10 +53,10 @@ message EquipmentInfo
 {
     int32 idEquipment = 1;
     string nameEquipment = 2;
-    int32 type = 3 ;
-    string typeName = 4;
+    string codeEquipment = 3 ;
+    bool isMachingPacking = 4;
     bool isDeleted = 5;
-
+   
 }
 message EquipmentResponse
 {
@@ -145,10 +150,10 @@ message TypeProductResponse
     Response response = 1;
     repeated TypeProductInfo data = 2;
 }
-message WareHouseInfo
+message WareHouseInfo 
 {
     int32 idWareHouse = 1;
-
+  
     string nameWareHouse = 2;
     float capacity = 3;
     bool isDeleted = 4;
@@ -174,7 +179,7 @@ message WorkResponse
 
 message ShiftDetailInfo
 {
-
+    
     int32 idShiftDetail = 1;
     string optionName = 2;
     string codeTypeBill = 3;
@@ -308,7 +313,7 @@ message ParcelDetailInfo
     int32 createdPerson = 13;
     string nameCreatedPerson = 14;
     string date = 15;
-
+    
 }
 message ParcelDetailResponse
 {
@@ -329,7 +334,7 @@ message CardResponse
 {
     Response response = 1;
     repeated CardDetailInfo data = 2;
-
+    
 }
 
 message CardDetailInfo
@@ -448,7 +453,7 @@ message RecordDetailInfo
     string nameTypePacket = 7;
     string codeParcel = 8;
     string nameParcel = 9;
-
+   
     string codeRecord = 10;
     int64 quantity = 11;
     string codePackingUnit = 12;
@@ -532,7 +537,7 @@ message OrderInfo
    string customer = 17;
    string nameCustomer = 18;
    string typeCustomer = 19;
-   string nameTypeCustomer = 20;
+   string nameTypeCustomer = 20; 
    string wareHouse = 21;
    int32 idTypeProduct = 22;
     string nameTypeProdcut = 23;
@@ -556,7 +561,7 @@ message DepartmentResponse
     repeated DepartmentInfo data = 2;
 
 }
-message ReportObjectInfo
+message RecordObjectInfo
 {
     string nameObject = 1;
     int32 idObject = 2;
@@ -564,10 +569,10 @@ message ReportObjectInfo
     string nameTypeObject = 4 ;
 }
 
-message ReportObjectResponse
+message RecordObjectResponse
 {
     Response response = 1;
-    repeated ReportObjectInfo data = 2;
+    repeated RecordObjectInfo data = 2;
 }
 message ConfirmProduction1000
 {
@@ -614,14 +619,15 @@ message TransportInfo
     string createdPerson = 21;
     string nameCreatedPerson = 22;
     int32 CountTrip = 23;
-    
+
     string dvBoc = 25;
     string dvDo = 26;
+    string seriIn = 27;
+    string seriOut = 28;
+    string code = 29;
 }
 message TransportResponse
 {
-
-
      Response response = 1;
     repeated TransportInfo data = 2;
 }
@@ -647,6 +653,7 @@ message ReportInventoryResponse
 }
 message ConfirmProductionDetail
 {
+    
     int32 idShiftDetail = 1;
     string optionName = 2;
     string codeTypeBill = 3;

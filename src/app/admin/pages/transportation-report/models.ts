@@ -1,6 +1,7 @@
 import { ThrowStmt } from '@angular/compiler'
-import { TransportInfo } from 'src/app/core/models/model.pb'
+import { CardDetailInfo, QRCodeInfo, TransportInfo } from 'src/app/core/models/model.pb'
 import Utils from 'src/app/_lib/utils'
+import { threadId } from 'worker_threads'
 
 export class TransportationReportModel {
   shift: string = ''
@@ -21,7 +22,11 @@ export class TransportationReportModel {
   sl_by: string = ''
   time: string
   dv_boc: string = ''
-  dv_do: string = '' 
+  dv_do: string = ''
+  seriIn: string
+  seriOut: string
+  codeTransport: string = ''
+
   constructor(data: TransportInfo) {
     this.product_name = data.nameProduct
     this.product_type = data.idTypeProduct
@@ -42,5 +47,26 @@ export class TransportationReportModel {
     this.time = data.createddate
     this.dv_boc = data.dvBoc || ''
     this.dv_do = data.dvDo || ''
+    this.seriIn = data.seriIn
+    this.seriOut = data.seriOut
+    this.codeTransport = data.code
+  }
+}
+
+
+export class DetailTransportInfo {
+  product_name: string
+  product_type: string
+  seri: number
+  user: string
+  code: string
+  time: string
+  constructor(data: QRCodeInfo) {
+    this.product_name = data.nameProduct
+    this.product_type = data.nameTypeProduct
+    this.seri = data.seri
+    this.user = data.nameUserIn
+    this.code = data.code
+    this.time = (data.code.includes('N') || data.code == 'VCLK') ? data.timeIn : data.timeOut
   }
 }

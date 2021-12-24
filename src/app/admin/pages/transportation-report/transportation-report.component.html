@@ -12,12 +12,13 @@
         <div class="tabpanel-item">
           <div class="row p-1" *ngIf="tabPanel.id === 1">
             <div class="col-12">
-              <dx-data-grid id="production_table_1" [dataSource]="transportationList" keyExpr="shift"
+              <dx-data-grid id="production_table_1" [dataSource]="transportationList" keyExpr="codeTransport"
                 [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [remoteOperations]="false"
                 [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
                 (onExporting)="onExportingGrid($event)">
                 <dxo-export [enabled]="true"></dxo-export>
                 <dxo-options></dxo-options>
+                <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
                 <dxo-search-panel [visible]="true"></dxo-search-panel>
                 <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
@@ -42,6 +43,9 @@
                 <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"></dxi-column>
                 <dxi-column dataField="cdo" alignment="left" caption="Cung độ">
                 </dxi-column>
+                <!-- <dxi-column dataField="seriIn" caption="Seri In"></dxi-column>
+                <dxi-column dataField="seriOut" caption="Seri Out"></dxi-column> -->
+
                 <!-- <dxi-column dataField="trips_number" caption="Số chuyến" alignment="left"></dxi-column> -->
                 <dxi-column dataField="user" caption="User"></dxi-column>
                 <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
@@ -53,6 +57,11 @@
                   <!-- <p style="font-size:16px; color: #3459E6; text-align:center; font-weight: 500;">
                     {{ info.column.caption }}
                   </p> -->
+                </div>
+                <div *dxTemplate="let cell of 'detail'">
+                  <div class="" style="margin: auto; width: 60%;">
+                    <detail-transport [type]="cell.data.work" [code]="cell.data.codeTransport"></detail-transport>
+                  </div>
                 </div>
               </dx-data-grid>
             </div>

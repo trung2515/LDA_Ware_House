@@ -1,4 +1,4 @@
-import { OrderInfo } from 'src/app/core/models/model.pb'
+import { OrderInfo, QRCodeInfo } from 'src/app/core/models/model.pb'
 
 export class OrderModel {
   idCardDriver: string
@@ -19,7 +19,7 @@ export class OrderModel {
   weight_actual: string
   weight_estimate: string
   quantity_actual: number
-
+  status: string
   constructor(data: OrderInfo) {
     this.idCardDriver = data.identityDriver || ''
     this.nameDriver = data.nameDriver || ''
@@ -38,6 +38,19 @@ export class OrderModel {
     this.timecreated = data.timecreated
     this.timelasted = data.timelastest
     this.weight_actual = data.weightActual.toString()
+    this.quantity_actual = data.quantityActual
     this.weight_estimate = data.weightEstimate.toString()
+    this.status = data.status == 0 ? 'Đang xử lý' : 'Hoàn thành' || ''
+  }
+}
+
+export class OrderDetailModel {
+  qrcode: string
+  seri: number
+  time: string
+  constructor(data: QRCodeInfo) {
+    this.qrcode = data.code
+    this.seri = data.seri
+    this.time = data.timeOut
   }
 }

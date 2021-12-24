@@ -1,5 +1,5 @@
 <div class="card-pdfview">
-  
+
     <div class="d-flex bg-white justify-content-center text-dark">
       <div class="d-flex preview justify-content-center">
         <div class="cover">
@@ -26,10 +26,10 @@
             <div class="d-flex flex-column align-items-center justify-content-center py-5 ">
               <span class="form-name-title text-center fs-2 fw-bold"> {{ dataBinding.title }}</span>
                  <span  *ngFor="let product of suggest">{{product.product}}</span>
-            </div>         
+            </div>
               <div *ngIf="minuteType==4">
                   <div>
-                    <div class="text-indent"> 
+                    <div class="text-indent">
                       Căn cứ Quyết định số {{decision}} của TGĐ Công ty TNHH MTV nhôm Lâm Đồng - TKV về việc ban hành Quy định và quy trình xử lý sản phẩm lỗi và hạn mức quản lý tỷ lệ sản phẩm lỗi.
                     </div>
                     <div class="text-indent">
@@ -39,7 +39,7 @@
               </div>
             <!-- ---------------------------------------/table/--------------------------- -->
             <div class="pt-4">
-              <table-minutes 
+              <table-minutes
               [minuteType]="minuteType"
               [request]="request"
               [decision]="decision"
@@ -53,23 +53,23 @@
                         <div class="col-3 text-center d-flex flex-column">
                             <span>NGUỜI LẬP</span>
                             <div style="height: 150px;"></div>
-                            <span >tên người lập</span>
+                            <span >Tên người lập</span>
                         </div>
-                    
+
                         <div class="col-3 text-center d-flex flex-column">
                             <span>P.KTTC</span>
                             <div style="height: 150px;"></div>
                             <span >Đại diện p.kttc</span>
                         </div>
-                   
-                 
+
+
                         <div class="col-3 text-center d-flex flex-column">
                             <span>NGUỜI LẬP</span>
                             <div style="height: 150px;"></div>
                             <span >Đại diện P. Chủ Quản</span>
                         </div>
-                   
-                  
+
+
                         <div class="col-3 text-center d-flex flex-column">
                             <span>PHÓ GIÁM ĐỐC</span>
                             <div style="height: 150px;"></div>

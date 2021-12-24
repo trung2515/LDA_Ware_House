@@ -3,6 +3,7 @@ import {
   OrderInfo,
   OrderReply,
   OrderResponse,
+  QRCodeResponse,
   ReportInventoryResponse,
 } from './../models/model.pb'
 import { Injectable } from '@angular/core'
@@ -27,8 +28,8 @@ export class ReportService {
     private reportClient: ReportClient,
     private authService: AuthService,
     private cardClient: CardClient,
-    private warehouseClient: WareHouseClient
-  ) { }
+    private warehouseClient: WareHouseClient,
+  ) {}
   reportInOut(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
@@ -42,11 +43,13 @@ export class ReportService {
       }),
     )
   }
+
   reportTransport(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = 'stvg'
+    console.log(request)
     return this.reportClient.getReportTransport(request).pipe(
       map((reply: TransportResponse) => {
         console.log(reply.data)
@@ -66,13 +69,14 @@ export class ReportService {
     )
   }
 
-  reportOrders(fromDate: string, toDate: string, orderCode: string) {
+  reportOrders(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
     return this.reportClient.getReportOrder(request).pipe(
       map((reply: OrderReply) => {
+        console.log(reply.orders)
         return reply.response.state == ResponseState.SUCCESS ? reply.orders : []
       }),
     )
@@ -111,6 +115,53 @@ export class ReportService {
     request.userName = this.authService.getUser().user
     return this.warehouseClient.getConfirmProduct(request).pipe(
       map((reply: ConfirmProductionResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportQrCode(fromDate: string, toDate: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.fromDate = fromDate
+    request.toDate = toDate
+    request.userName = this.authService.getUser().user
+    console.log(request)
+    return this.reportClient.getReportQRCode(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportTransportByCodeIn(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeTransportIn = code
+    return this.reportClient.getQRCodeByTransportIn(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportTransportByCodeOut(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeTransportOut = code
+    return this.reportClient.getQRCodeByTransportOut(request).pipe(
+      map((reply: QRCodeResponse) => {
+        console.log(reply.data)
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }),
+    )
+  }
+
+  reportOrderDetail(code: string) {
+    let request: MasterRequest = new MasterRequest()
+    request.codeOrder = code
+    return this.reportClient.getQRCodeByOrder(request).pipe(
+      map((reply: QRCodeResponse) => {
         console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),

@@ -1,3 +1,6 @@
+import { QRCodeInfo, ReportInventoryInfo } from "src/app/core/models/model.pb";
+import Utils from "src/app/_lib/utils";
+
 export class Product {
   id: string;
   name: string;
@@ -15,6 +18,11 @@ export class Product {
     cautientuan: number;
     xenangvuontre: number;
   };
+
+  constructor(data: QRCodeInfo){
+    this.date = Utils.formatDateV1(new Date(data.timeIn))
+    this.name = data.nameProduct
+  }
 }
 export class BarCharDateModel {
   day: string;
@@ -26,7 +34,13 @@ export class TypeMachineModel {
 }
 export class InventoryFLMonthModel {
   name: string;
-  total: number;
+  total: string;
+  store: string;
+  constructor(data: ReportInventoryInfo){
+    this.name = data.nameProduct
+    this.total = data.quantity
+    this.store = data.nameWareHouse
+  }
 }
 export class FilterControllerModel {
   product_name: string;

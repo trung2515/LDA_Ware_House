@@ -10,29 +10,35 @@
         <dxo-export [enabled]="true"></dxo-export>
         <dxo-scrolling mode="standard"></dxo-scrolling>
         <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
-        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="false"
+        <dxo-pager [showPageSizeSelector]="true" [showInfo]="false"
             [showNavigationButtons]="true">
         </dxo-pager>
+        <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
         <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
         <dxi-column dataField="orderCode" [fixed]="true" fixedPosition="left" caption="Mã đơn hàng"></dxi-column>
         <dxi-column dataField="idCardDriver" [fixed]="true" fixedPosition="left" caption="CMND Tài xế"></dxi-column>
         <dxi-column dataField="nameDriver" [fixed]="true" fixedPosition="left" caption="Tên tài xế"></dxi-column>
-        <dxi-column dataField="vehicleNumber" [fixed]="true" fixedPosition="left" caption="Bsx">
+        <dxi-column dataField="vehicleNumber" [fixed]="true" fixedPosition="left" caption="Biển số xe">
         </dxi-column>
         <dxi-column dataField="weightAllow" caption="Trọng tải cho phép"></dxi-column>
         <dxi-column dataField="weightRegister" caption="Trọng tải đăng kiểm"></dxi-column>
-        <dxi-column dataField="lop1" caption="Lớp 1"></dxi-column>
-        <dxi-column dataField="lop2" caption="Lớp 2"></dxi-column>
+        <!-- <dxi-column dataField="lop1" caption="Lớp 1"></dxi-column>
+        <dxi-column dataField="lop2" caption="Lớp 2"></dxi-column> -->
         <dxi-column dataField="dvvc" caption="DVVC"></dxi-column>
-        <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
         <dxi-column dataField="romoocNumber" caption="Số romoc"></dxi-column>
         <dxi-column dataField="product" caption="Sản phẩm"></dxi-column>
         <dxi-column dataField="type_packet" caption="Loại bao"></dxi-column>
+        <dxi-column dataField="quantity" caption="Số lượng đăng kí"></dxi-column>
+        <dxi-column dataField="quantity_actual" caption="Số lượng xuất kho thực tế"></dxi-column>
+        <dxi-column dataField="weight_actual" caption="Khối lượng xuất kho thực tế"></dxi-column>
         <dxi-column dataField="timecreated" caption="Thời gian bắt đầu"></dxi-column>
         <dxi-column dataField="timelasted" caption="Thời gian kết thúc"></dxi-column>
-        <dxi-column dataField="quantity_actual" caption="Số lượng thực tế"></dxi-column>
-        <dxi-column dataField="weight_actual" caption="Khối lượng thực tế"></dxi-column>
+        <dxi-column dataField="status" caption="Trạng thái"></dxi-column>
         <!-- <dxi-column dataField="weight_estimate" caption="Thời gian"></dxi-column> -->
-
+        <div *dxTemplate="let cell of 'detail'">
+          <div class="" style="margin: auto; width: 60%;">
+            <detail-order [code]="cell.data.orderCode"></detail-order>
+          </div>
+        </div>
     </dx-data-grid>
 </div>
