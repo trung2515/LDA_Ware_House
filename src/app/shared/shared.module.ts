@@ -29,6 +29,7 @@ import {
   DxTreeListModule,
   DxValidationSummaryModule,
   DxValidatorModule,
+  
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 import { QRCodeModule } from 'angularx-qrcode'
@@ -91,7 +92,6 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     NgxLocalStorageModule,
     DxSelectBoxModule,
     DxTextAreaModule,
-    DxDateBoxModule,
     DxFormModule,
     DxPopupModule,
     DxSchedulerModule,

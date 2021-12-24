@@ -6073,6 +6073,9 @@ export class MasterDataInfo implements GrpcMessage {
     _instance.objectId = _instance.objectId || 0;
     _instance.objectName = _instance.objectName || '';
     _instance.objectType = _instance.objectType || '';
+    _instance.objectCode = _instance.objectCode || '';
+    _instance.objectCate = _instance.objectCate || '';
+    _instance.nameCate = _instance.nameCate || '';
   }
 
   /**
@@ -6096,6 +6099,15 @@ export class MasterDataInfo implements GrpcMessage {
           break;
         case 3:
           _instance.objectType = _reader.readString();
+          break;
+        case 4:
+          _instance.objectCode = _reader.readString();
+          break;
+        case 5:
+          _instance.objectCate = _reader.readString();
+          break;
+        case 6:
+          _instance.nameCate = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -6123,11 +6135,23 @@ export class MasterDataInfo implements GrpcMessage {
     if (_instance.objectType) {
       _writer.writeString(3, _instance.objectType);
     }
+    if (_instance.objectCode) {
+      _writer.writeString(4, _instance.objectCode);
+    }
+    if (_instance.objectCate) {
+      _writer.writeString(5, _instance.objectCate);
+    }
+    if (_instance.nameCate) {
+      _writer.writeString(6, _instance.nameCate);
+    }
   }
 
   private _objectId?: number;
   private _objectName?: string;
   private _objectType?: string;
+  private _objectCode?: string;
+  private _objectCate?: string;
+  private _nameCate?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -6138,6 +6162,9 @@ export class MasterDataInfo implements GrpcMessage {
     this.objectId = _value.objectId;
     this.objectName = _value.objectName;
     this.objectType = _value.objectType;
+    this.objectCode = _value.objectCode;
+    this.objectCate = _value.objectCate;
+    this.nameCate = _value.nameCate;
     MasterDataInfo.refineValues(this);
   }
   get objectId(): number | undefined {
@@ -6158,6 +6185,24 @@ export class MasterDataInfo implements GrpcMessage {
   set objectType(value: string | undefined) {
     this._objectType = value;
   }
+  get objectCode(): string | undefined {
+    return this._objectCode;
+  }
+  set objectCode(value: string | undefined) {
+    this._objectCode = value;
+  }
+  get objectCate(): string | undefined {
+    return this._objectCate;
+  }
+  set objectCate(value: string | undefined) {
+    this._objectCate = value;
+  }
+  get nameCate(): string | undefined {
+    return this._nameCate;
+  }
+  set nameCate(value: string | undefined) {
+    this._nameCate = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -6176,7 +6221,10 @@ export class MasterDataInfo implements GrpcMessage {
     return {
       objectId: this.objectId,
       objectName: this.objectName,
-      objectType: this.objectType
+      objectType: this.objectType,
+      objectCode: this.objectCode,
+      objectCate: this.objectCate,
+      nameCate: this.nameCate
     };
   }
 
@@ -6199,7 +6247,10 @@ export class MasterDataInfo implements GrpcMessage {
     return {
       objectId: this.objectId,
       objectName: this.objectName,
-      objectType: this.objectType
+      objectType: this.objectType,
+      objectCode: this.objectCode,
+      objectCate: this.objectCate,
+      nameCate: this.nameCate
     };
   }
 }
@@ -6211,6 +6262,9 @@ export module MasterDataInfo {
     objectId?: number;
     objectName?: string;
     objectType?: string;
+    objectCode?: string;
+    objectCate?: string;
+    nameCate?: string;
   }
 
   /**
@@ -6220,6 +6274,9 @@ export module MasterDataInfo {
     objectId?: number;
     objectName?: string;
     objectType?: string;
+    objectCode?: string;
+    objectCate?: string;
+    nameCate?: string;
   }
 }
 
@@ -8916,6 +8973,7 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.namePartner = _instance.namePartner || '';
     _instance.countTrip = _instance.countTrip || 0;
     _instance.seri = _instance.seri || 0;
+    _instance.distance = _instance.distance || 0;
   }
 
   /**
@@ -9020,6 +9078,9 @@ export class CardDetailInfo implements GrpcMessage {
           break;
         case 30:
           _instance.seri = _reader.readInt32();
+          break;
+        case 31:
+          _instance.distance = _reader.readInt32();
           break;
         default:
           _reader.skipField();
@@ -9128,6 +9189,9 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.seri) {
       _writer.writeInt32(30, _instance.seri);
     }
+    if (_instance.distance) {
+      _writer.writeInt32(31, _instance.distance);
+    }
   }
 
   private _idCard?: number;
@@ -9160,6 +9224,7 @@ export class CardDetailInfo implements GrpcMessage {
   private _namePartner?: string;
   private _countTrip?: number;
   private _seri?: number;
+  private _distance?: number;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9197,6 +9262,7 @@ export class CardDetailInfo implements GrpcMessage {
     this.namePartner = _value.namePartner;
     this.countTrip = _value.countTrip;
     this.seri = _value.seri;
+    this.distance = _value.distance;
     CardDetailInfo.refineValues(this);
   }
   get idCard(): number | undefined {
@@ -9379,6 +9445,12 @@ export class CardDetailInfo implements GrpcMessage {
   set seri(value: number | undefined) {
     this._seri = value;
   }
+  get distance(): number | undefined {
+    return this._distance;
+  }
+  set distance(value: number | undefined) {
+    this._distance = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -9424,7 +9496,8 @@ export class CardDetailInfo implements GrpcMessage {
       codePartner: this.codePartner,
       namePartner: this.namePartner,
       countTrip: this.countTrip,
-      seri: this.seri
+      seri: this.seri,
+      distance: this.distance
     };
   }
 
@@ -9474,7 +9547,8 @@ export class CardDetailInfo implements GrpcMessage {
       codePartner: this.codePartner,
       namePartner: this.namePartner,
       countTrip: this.countTrip,
-      seri: this.seri
+      seri: this.seri,
+      distance: this.distance
     };
   }
 }
@@ -9513,6 +9587,7 @@ export module CardDetailInfo {
     namePartner?: string;
     countTrip?: number;
     seri?: number;
+    distance?: number;
   }
 
   /**
@@ -9549,6 +9624,7 @@ export module CardDetailInfo {
     namePartner?: string;
     countTrip?: number;
     seri?: number;
+    distance?: number;
   }
 }
 

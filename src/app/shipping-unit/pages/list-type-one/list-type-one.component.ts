@@ -31,7 +31,9 @@ export class ListTypeOneComponent implements OnInit {
     startDate: undefined,
     endDate: undefined,
     description: '',
-    shiftDetail: []
+    shiftDetail: [],
+    idDetail: 0
+
   };
   optionEditing: any;
   optionForm!: FormGroup;

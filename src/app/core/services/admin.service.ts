@@ -44,7 +44,7 @@ export class AdminService {
     private administratorClient: AdministratorClient,
     private warehouseClient: WareHouseClient,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   getListTransportUnit() {
     let req: MasterRequest = new MasterRequest()
@@ -593,6 +593,15 @@ export class AdminService {
     )
   }
 
+  getListMasterData() {
+    let request: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListMasterData(request).pipe(
+      map((reply) => {
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }
+      ));
+  }
+
   // getListShift() {
   //   let req: MasterRequest = new MasterRequest()
   //   return this.warehouseClient.getListShiftByDate(req).pipe(
@@ -619,7 +628,8 @@ export class AdminService {
 
     req.data = arrOption.map((item: any) => new ShiftDetailInfo(item))
     console.log(req.data)
-    return of(req.data)
+    // return of(req.data)
+    return this.warehouseClient.newInsertShift(req)
   }
 
   newUpdateShift(idShift: any, arrOption: any) {

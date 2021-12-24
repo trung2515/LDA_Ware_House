@@ -45,6 +45,7 @@ import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report
 import { OrderComponent } from './pages/order/report/order.component'
 import { DetailTransportComponent } from './pages/transportation-report/component/detail-transport.component';
 import { DetailOrderComponent } from './pages/order/component/detail-order.component';
+import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -81,12 +82,12 @@ import { DetailOrderComponent } from './pages/order/component/detail-order.compo
     OrderComponent,
     ErrorBagComponent,
     DetailTransportComponent,
-    DetailOrderComponent
+    DetailOrderComponent,
+    WorkflowManagementComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

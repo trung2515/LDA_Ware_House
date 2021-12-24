@@ -51,6 +51,6 @@ export class OrderDetailModel {
   constructor(data: QRCodeInfo) {
     this.qrcode = data.code
     this.seri = data.seri
-    this.time = data.timeOut
+    this.time = data.timeIn || data.timeOut
   }
 }

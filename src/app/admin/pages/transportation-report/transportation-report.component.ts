@@ -19,8 +19,9 @@ import Utils from 'src/app/_lib/utils'
 export class TransportationReportComponent implements OnInit {
   allowSearch: boolean = false
   title_nav = 'Báo cáo vận chuyển'
-  startDate: Date = new Date()
-  endDate: Date = new Date()
+  now = new Date()
+  startDate: Date
+  endDate: Date
   tabInfo: any[] = []
   detailLoadUnLoadReport: any = {}
   detailUnLoadWDVReport: any = {}
@@ -249,6 +250,8 @@ export class TransportationReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.startDate = new Date(this.now.getFullYear(), this.now.getMonth() - 1, this.now.getDate())
+    this.endDate = this.now
     console.log(Utils.formatDate(new Date()));
 
     this.getData()
@@ -281,7 +284,7 @@ export class TransportationReportComponent implements OnInit {
         Utils.formatDate(this.endDate),
       )
       .subscribe((data) => {
-        this.transportationList = data.map(
+        this.transportationList = data.filter(d => d.quantity > 0).map(
           (d) => new TransportationReportModel(d),
         )
         // console.log(this.transportationList);

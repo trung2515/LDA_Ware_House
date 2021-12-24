@@ -37,7 +37,7 @@ export class AddPackagingFiftyComponent implements OnInit {
   warehouseList: WareHouseModel[] = []
 
   appointments: Appointment[] = [];
-  currentAppointment: Appointment = {
+  currentAppointment: any = {
     id: 0,
     text: '',
     shift: 0,

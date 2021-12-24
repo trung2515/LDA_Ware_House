@@ -1,9 +1,10 @@
-import { ConfirmProduction1000Info, ParcelDetailResponse } from './../models/model.pb';
+import { ConfirmProduction1000Info, InsertParcelRequest, ParcelDetailInfo, ParcelDetailResponse } from './../models/model.pb';
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { WareHouseClient } from "../models/admin.pbsc";
 import { MasterRequest, ParcelResponse, ResponseState } from "../models/model.pb"
 import { AuthService } from "./auth.service";
+import { ParcelDetailModel, ParcelModel } from 'src/app/admin/pages/consignment-management/models';
 
 @Injectable()
 export class WareHouseService {
@@ -38,9 +39,39 @@ export class WareHouseService {
       }),
     )
   }
-  update1000Kg(data: ConfirmProduction1000Info){
+  update1000Kg(data: ConfirmProduction1000Info) {
     return this.warehouseClient.updateConfirmProduct(data);
   }
 
 
+  insertParcel(data: ParcelModel, detail: ParcelDetailModel[]) {
+    let request: InsertParcelRequest = new InsertParcelRequest();
+    request.codeParcel = data.name
+    request.createdPerson = data.createdBy
+    detail.map(d => {
+      let parcelDetail = new ParcelDetailInfo();
+      parcelDetail.codeParcel = data.name
+      parcelDetail.codeProduct = d.code_product
+      parcelDetail.codeTypePacket = d.code_bag
+      parcelDetail.idTypeProduct = d.code_product_type
+      request.data.push(parcelDetail);
+    })
+    return this.warehouseClient.insertParcel(request);
+  }
+
+  updateParcel(data: ParcelModel, detail: ParcelDetailModel[]) {
+    let request: InsertParcelRequest = new InsertParcelRequest();
+    request.codeParcel = data.name
+    request.createdPerson = data.createdBy
+    detail.map(d => {
+      let parcelDetail = new ParcelDetailInfo();
+      parcelDetail.codeParcel = data.name
+      parcelDetail.codeProduct = d.code_product
+      parcelDetail.codeTypePacket = d.code_bag
+      parcelDetail.idTypeProduct = d.code_product_type
+      request.data.push(parcelDetail);
+    })
+    console.log(request);
+    return this.warehouseClient.updateParcel(request);
+  }
 }

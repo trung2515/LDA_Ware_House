@@ -1,4 +1,4 @@
-﻿import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component'
+import { ErrorBagComponent } from './pages/error-bag-report/report/error-bag.component'
 import { MenuConfirmComponent } from '../shipping-unit/pages/menu-confirm/menu.component'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
@@ -27,6 +27,7 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
+import {WorkflowManagementComponent} from './pages/workflow-management/workflow-management.component'
 
 ReasonComponent
 JobComponent
@@ -89,17 +90,17 @@ const routes: Routes = [
         component: ConsignmentManagementComponent,
       },
       {
-        path: 'warehouse-inventory',
+        path: 'work-management',
         data: {
-          breadcrumb: 'Tồn kho',
+          breadcrumb: 'Quản lí công việc'
         },
-        component: WareHouseInventoryComponent,
+        component: WorkflowManagementComponent
       },
 
       {
         path: 'error-report',
         data: {
-          breadcrumb: 'Xác nhận bao lỗi',
+          breadcrumb: 'Báo cáo bao lỗi',
         },
         component: ErrorBagComponent,
       },

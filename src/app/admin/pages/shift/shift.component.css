@@ -21,3 +21,27 @@ thead th {
   background-color: #E7F0FF;
   color: #3459E6;
 }
+label{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #6B6B6B;
+  }
+  .tool-tip{
+    width: 500px;
+    height: 185px;
+  }
+  .elip{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #01A15E;
+  }
+  ::ng-deep .dx-scheduler-appointment{
+    color: black !important;
+    font-weight:500;
+  }
