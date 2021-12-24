@@ -222,7 +222,7 @@ export class ToolPageComponent implements OnInit {
     let newSender: any = this.surrogateSender.slice(i, i + 1)
     console.log(newSender)
     newSender[0].name = e.value.name
-    console.log(newSender)
+     console.log(newSender)
     this.surrogateSender.splice(i, 1, newSender[0])
     console.log(this.surrogateSender)
   }
