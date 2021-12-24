@@ -55,20 +55,20 @@ export class NavbarComponent implements OnInit {
         isParent: true,
         parentId: -1,
       },
-      // {
-      //   link: '/admin/warehouse-control/shift',
-      //   menuId: 7,
-      //   name: 'Ca làm việc',
-      //   isParent: false,
-      //   parentId: 3,
-      // },
-      // {
-      //   link: '/admin/warehouse-control/parcel',
-      //   menuId: 8,
-      //   name: 'Quản lý lô hàng',
-      //   isParent: false,
-      //   parentId: 3,
-      // },
+      {
+        link: '/admin/warehouse-control/shift',
+        menuId: 7,
+        name: 'Ca làm việc',
+        isParent: false,
+        parentId: 3,
+      },
+      {
+        link: '/admin/warehouse-control/parcel',
+        menuId: 8,
+        name: 'Quản lý lô hàng',
+        isParent: false,
+        parentId: 3,
+      },
       {
         link: '/admin/report/warehouse-report',
         menuId: 9,
@@ -107,7 +107,7 @@ export class NavbarComponent implements OnInit {
       {
         link: '/admin/warehouse-control/error-report',
         menuId: 14,
-        name: 'Xác nhận bao lỗi',
+        name: 'Báo cáo bao lỗi',
         isParent: false,
         parentId: 3,
       },

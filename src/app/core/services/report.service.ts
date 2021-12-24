@@ -29,7 +29,7 @@ export class ReportService {
     private authService: AuthService,
     private cardClient: CardClient,
     private warehouseClient: WareHouseClient,
-  ) {}
+  ) { }
   reportInOut(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
@@ -77,15 +77,15 @@ export class ReportService {
     return this.reportClient.getReportOrder(request).pipe(
       map((reply: OrderReply) => {
         console.log(reply.orders)
-        return reply.response.state == ResponseState.SUCCESS ? reply.orders : []
+        return reply.response.state == ResponseState.SUCCESS ? reply.orders.filter(o => o.quantityActual != 0) : []
       }),
     )
   }
 
   reportErrorBag(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
-    request.fromDate = '2021-01-01'
-    request.toDate = '2022-12-30'
+    request.fromDate = fromDate
+    request.toDate = toDate
     request.userName = this.authService.getUser().user
     return this.reportClient.getReportError(request).pipe(
       map((reply: CardDetailResponse) => {
@@ -126,10 +126,10 @@ export class ReportService {
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
-    console.log(request)
+    // console.log(request)
     return this.reportClient.getReportQRCode(request).pipe(
       map((reply: QRCodeResponse) => {
-        console.log(reply.data)
+        // console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )

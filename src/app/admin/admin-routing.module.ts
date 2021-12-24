@@ -100,7 +100,7 @@ const routes: Routes = [
       {
         path: 'error-report',
         data: {
-          breadcrumb: 'Xác nhận bao lỗi',
+          breadcrumb: 'Báo cáo bao lỗi',
         },
         component: ErrorBagComponent,
       },

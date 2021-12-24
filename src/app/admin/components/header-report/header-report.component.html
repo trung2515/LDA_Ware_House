@@ -5,14 +5,14 @@
   <div class="start-end-date-wrap">
     <div class="field-value">
       <p>Từ ngày</p>
-      <dx-date-box  type="date" id="selected-date-time" [(value)]="startDate"
-        (onValueChanged)="onStartDateChange($event)">
+      <dx-date-box type="date" id="selected-date-time" [(value)]="startDate"
+        (onValueChanged)="onStartDateChange($event)" displayFormat="dd/MM/yyyy">
       </dx-date-box>
     </div>
     <div class="field-value">
       <p>Đến ngày</p>
-      <dx-date-box  type="date" id="selected-date-time" [(value)]="endDate"
-        (onValueChanged)="onEndDateChange($event)" [disabledDates]="disabledDates">
+      <dx-date-box type="date" id="selected-date-time" [(value)]="endDate" (onValueChanged)="onEndDateChange($event)"
+        [disabledDates]="disabledDates" displayFormat="dd/MM/yyyy">
       </dx-date-box>
     </div>
   </div>

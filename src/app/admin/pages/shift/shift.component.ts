@@ -19,7 +19,8 @@ import {
   Product,
   Lot,
   Option,
-  ListShift
+  ListShift,
+  optionApoiment
 } from './model';
 import { Any } from '@ngx-grpc/well-known-types';
 import { ShiftService } from './services/shift.service';
@@ -39,20 +40,24 @@ export class ShiftComponent implements OnInit {
     private shiftService: ShiftService,
     private authService: AuthService,
     private toastr: ToastrService
-  ) {}
-  ngOnInit(): void {
-    this.getData();
-  }
-
-  now: Date = new Date();
-  currentDate: Date = new Date();
-  showPopup: boolean = false;
-  starDateScheduler: Date = new Date();
-  popupCreateShift: boolean = false;
-  appointments: Appointment[] = [];
-  shiftDetails: ShiftDetail[] = [];
-  newShiftDetail: ShiftDetail[] = [];
-  shiftMaster: ShiftMaster = {
+    ) {}
+    ngOnInit(): void {
+      this.getData();
+    }
+    
+    now: Date = new Date();
+    fromDate:string = [this.now.getFullYear() , this.now.getMonth()+1, this.now.getDate()-1].join(',')
+    currentDate: Date = new Date();
+    showPopup: boolean = false;
+    starDateScheduler: Date = new Date();
+    popupCreateShift: boolean = false;
+    appointments: Appointment[] = [];
+    shiftDetails: ShiftDetail[] = [];
+    newShiftDetail: ShiftDetail[] = [];
+    showUpdateButton: boolean = false;
+    startDate: Date;
+    shiftSelect: any;
+    shiftMaster: ShiftMaster = {
     id: 1,
     name: '',
     shift: 0,
@@ -129,12 +134,20 @@ export class ShiftComponent implements OnInit {
     console.log(rs);
     return rs;
   }
-  viewData() {
-    console.log(this.authService.getUser().user);
+  changeFromDate(e:any){
+    let d = new Date(e.value)
+    let day = ''+d.getDate()
+    let month = '' +(d.getMonth()+1)
+    let year = d.getFullYear()
+    if(day.length < 2){month = '0'+day}
+    if(month.length < 2){month = '0'+month}
+    this.fromDate = [year , month, day].join(',')
+    this.getData()
+    
   }
-  showUpdateButton: boolean = false;
-  startDate: Date;
-  shiftSelect: any;
+  viewData() {
+    console.log(this.authService.getUser().user,this.newShiftDetail);
+  }
   chooseDate(data: any) {
     this.startDate = data.value;
     console.log(this.startDate);
@@ -143,29 +156,16 @@ export class ShiftComponent implements OnInit {
     this.shiftSelect = data.value.shift;
     console.log(this.shiftSelect);
   }
-  change() {
-    console.log(this.currentDate);
-  }
   createShift = () => {
-    // let childApoinment = this.appointments.filter((element:any)=> element.startDate.getDate() == this.startDate.getDate() && element.startDate.getMonth()==this.startDate.getMonth() && element.startDate.getFullYear()==this.startDate.getFullYear())
-    let newApointment: any = {};
-    newApointment.nameShift = `CA ${this.shiftSelect}`;
-    newApointment.date = this.startDate;
-    newApointment.nameCreatedPerson = this.authService.getUser().user;
-    newApointment.data = [];
-
-    let object = new Appointment(newApointment);
-    this.appointments.push(object);
-    console.log('new', this.newShiftDetail);
-    for (var i = 0; i < this.newShiftDetail.length; i++) {
-      this.newShiftDetail[i].option = `Option ${this.newShiftDetail.length}`;
-      this.shiftDetails.push(this.newShiftDetail[i]);
-      this.newShiftDetail = [];
-    }
-
+    let options:any=[]
+    let option = new optionApoiment(this.newShiftDetail[0])
+    options.push(option)
+    this.adminService.newInsertShift(this.startDate,this.shiftSelect, this.authService.getUser().user,options)
+    .subscribe(data => {console.log(data)})
+    this.getData()
+    this.newShiftDetail = []
     this.popupCreateShift = false;
-    // console.log('poinment',this.appointments)
-    // console.log('detail',this.shiftDetails)
+ 
   };
 
   onAppointmentFormOpening(data: any) {

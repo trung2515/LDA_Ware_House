@@ -2,6 +2,13 @@
   background-color: #F8F8F9;
 }
 .content {
+  min-height: calc(var(--contentHeight) - 20px);
   background-color:#FFFFFF;
   padding: 28px;
+}
+.list-option-summary {
+  margin-top: 20px;
+}
+.shift-option {
+  margin-top: 24px;
 }

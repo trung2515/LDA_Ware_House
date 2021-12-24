@@ -70,4 +70,24 @@ export interface ListShift {
     shift : number;
     name : string;
 }
+export class optionApoiment {
+  // optionName : string;
+  codeTypeBill : string;
+  nameProduct : string;
+  nameTypeProduct : string;
+  nameTypePacket : string;
+  codeParcel : number;
+  namePackingUnit : string;
+  nameWareHouse : string;
+  constructor(data:any){
+    // this.optionName = data.option
+    this.codeTypeBill = data.type
+    this.nameProduct = data.product
+    this.nameTypeProduct = data.productRange
+    this.nameTypePacket = data.packaging
+    this.codeParcel = data.lot
+    this.namePackingUnit = data.unit
+    this.nameWareHouse = data.wareHouse
+  }
+}
 

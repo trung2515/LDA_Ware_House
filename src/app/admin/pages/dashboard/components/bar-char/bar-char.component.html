@@ -1,9 +1,9 @@
-<dx-chart [id]="chartID" [dataSource]="dataSource" palette="soft">
+<dx-chart [id]="chartID" [dataSource]="products" palette="soft">
   <dxi-series
-    valueField="tons"
+    [valueField]="configChart.dataField"
     [name]="configChart.chartLegend"
     [color]="configChart.color"
-    argumentField="day"
+    [argumentField]="configChart.argumentField"
     type="bar"
     barWidth="14"
   >
@@ -20,7 +20,7 @@
     markerSize="18"
   ></dxo-legend>
   <dxo-title
-    [text]="filterControl.product_name"
+    [text]="configChart.product_name"
     [font]="configChart.fontTitle"
     verticalAlignment="top"
     horizontalAlignment="right"
@@ -33,4 +33,4 @@
   >
   </dxo-tooltip>
 </dx-chart>
-<p class="total-consume-packaging">{{sumSomething}}</p>
+<p class="total-consume-packaging">Tổng sản lượng {{sumSomething}}</p>

@@ -8,13 +8,16 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 export class OptionItemComponent implements OnInit {
   @Output() onClickItem = new EventEmitter();
   @Input() objItem:any = []
+  @Input() creator:string ="trung"
+
+  @Input() visibleBtnDelete: boolean = true
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onClick(e:any): void {
-    this.onClickItem.emit(e);
+    this.onClickItem.emit(this.objItem)
   }
 
 }

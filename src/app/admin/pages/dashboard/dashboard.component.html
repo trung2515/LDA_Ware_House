@@ -1,41 +1,65 @@
 <div class="d-flex justify-content-between pb-3">
   <div class="filter-bar pr-2">
-    <app-filter-bar-dashboard [products]="dataSource" [filterControl]="filterController"
-      (onFilterChanges)="onFilterChange($event)" (onRadioChanges)="onRadioFilterChange($event)">
+    <app-filter-bar-dashboard
+      [products]="dataSource"
+      [filterControl]="filterController"
+      (onFilterChanges)="onFilterChange($event)"
+      (onRadioChanges)="onRadioFilterChange($event)"
+    >
     </app-filter-bar-dashboard>
   </div>
   <div class="content">
-    <dx-tab-panel id="tab-panel-dashboard" #tabPanel 
-    [dataSource]="tabInfo" [selectedIndex]="0" [loop]="false"
-      [animationEnabled]="true" [swipeEnabled]="false" 
-      [hoverStateEnabled]="true" [animationEnabled]="true"
-      [focusStateEnabled]="false">
-      <div *dxTemplate="let tabTitle of 'title'" [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id">
+    <dx-tab-panel
+      id="tab-panel-dashboard"
+      #tabPanel
+      [dataSource]="tabInfo"
+      [selectedIndex]="0"
+      [loop]="false"
+      [animationEnabled]="true"
+      [swipeEnabled]="false"
+      [hoverStateEnabled]="true"
+      [animationEnabled]="true"
+      [focusStateEnabled]="false"
+    >
+      <div
+        *dxTemplate="let tabTitle of 'title'"
+        [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id"
+      >
         <p>{{ tabTitle.tabName }}</p>
       </div>
       <div *dxTemplate="let tabPanel of 'item'">
         <div *ngIf="tabPanel.id === 1" class="tab-1">
           <!-- statics qty pakaging -->
           <div class="chart-container">
-            <app-bar-char chartID="chart-db" [products]="dataSource" [configChart]="configChart"
-              [filterControl]="filterController"></app-bar-char>
+            <app-bar-char
+              chartID="chart-db"
+              [products]="dataSource"
+              [configChart]="configChartDB"
+            ></app-bar-char>
           </div>
           <!-- tieu thu -->
           <div class="chart-container">
-            <app-bar-char chartID="chart-tt" [products]="dataSource" [configChart]="configChartDB"
-              [filterControl]="filterController"></app-bar-char>
+            <app-bar-char
+              chartID="chart-tt"
+              [products]="dataSource"
+              [configChart]="configChartTT"
+            ></app-bar-char>
           </div>
         </div>
         <div *ngIf="tabPanel.id === 2" class="tab-2">
           <div class="chart-container">
-            <app-line-char [typeOfMachines]="typeMachines" title="Thống kê sản lượng đóng bao"
-              [configChart]="configCommon" idChartLine="lineChart-db" [filterControl]="filterController"
-              [products]="dataSource" [typeMachines]="typeMachines"></app-line-char>
+            <app-line-char
+              [configChart]="configLineChartDB"
+              idChartLine="lineChart-db"
+              [products]="dataSource_transportation"
+            ></app-line-char>
           </div>
           <div class="chart-container">
-            <app-line-char [typeOfMachines]="typeMachines" title="Thống kê sản lượng tiêu thụ"
-              [configChart]="configCommon" idChartLine="lineChart-tt" [filterControl]="filterController"
-              [products]="dataSource" [typeMachines]="typeMachines"></app-line-char>
+            <app-line-char
+              [configChart]="configLineChartTT"
+              idChartLine="lineChart-tt"
+              [products]="dataSource_transportation"
+            ></app-line-char>
           </div>
         </div>
       </div>

@@ -33,42 +33,60 @@
         >
           <app-option-item
             [objItem]="option"
-            (onClickItem)="onShiftOptionClicked()"
+            [creator]="currentAppointment.text"
+            (onClickItem)="onShiftOptionClicked($event)"
+            [visibleBtnDelete]="false"
           ></app-option-item>
         </div>
       </div>
     </div>
-    <div class="detail-shift-option">
+    <div *ngIf="isEditing" class="detail-shift-option">
       <div class="detail-title">
         Số lượng máy đóng bao
       </div>
       <div class="option-shift-info">
-        <span class="option-num">Option: 1</span>
-        <span class="shift-info"> Alumin 1 tấn - Loại 1 - Đáy bằng  </span>
+        <span class="option-num"
+          >Option {{ optionEditing.option.option }}:</span
+        >
+        <span class="shift-info"
+          >{{ optionEditing.option.product }}- Loại
+          {{ optionEditing.option.productRange }} -
+          {{ optionEditing.option.packaging }}
+        </span>
         <app-option-status></app-option-status>
       </div>
       <div class="row shift-info-common">
         <div class="col-lg-4">
           <div class="shift-label">Lô</div>
-          <div class="shift-value">189</div>
+          <div class="shift-value">{{ optionEditing.option.lot }}</div>
         </div>
         <div class="col-lg-4">
           <div class="shift-label">Kho</div>
-          <div class="shift-value">Kho TT</div>
+          <div class="shift-value">{{ optionEditing.option.wareHouse }}</div>
         </div>
         <div class="col-lg-4">
           <div class="shift-label">Đơn vị đóng</div>
-          <div class="shift-value">VTRE</div>
+          <div class="shift-value">{{ optionEditing.option.unit }}</div>
         </div>
       </div>
-      <div class="row machine-qty">
-        <div class="col-lg-3">
-          <div class="machine-label">Máy A:</div>
+      <form [formGroup]="optionForm" class="row machine-qty">
+        <div
+          *ngFor="let input of inputs_options"
+          class="col-12 col-lg-3 machine-item"
+        >
+          <div class="machine-label">{{ input.label + ":" }}</div>
           <div class="machine-control-qty">
-            input
+            <app-text-input
+              [formControlName]="input.formControlName"
+              [label]="input.label"
+              type="text"
+            ></app-text-input>
           </div>
         </div>
-      </div>
+      </form>
+      <button (click)="onUpdateData()" class="btn-ship btn-update">
+        Cập nhật
+      </button>
     </div>
   </div>
 </div>

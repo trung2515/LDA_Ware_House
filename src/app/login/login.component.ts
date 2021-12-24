@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         if (user) {
           this.authService.authenticate(user, () => {
             console.log()
-            if (user.role == 8) {
+            if (user.role == 8 || user.role == 14) {
               const routeExist = this.router.config.filter(c => c.path.includes('admin'))
               if (routeExist.length > 0) {
                 this.router.navigateByUrl('/admin')
@@ -87,10 +87,10 @@ export class LoginComponent implements OnInit {
                 this.router.navigateByUrl('/order')
               } else
                 this.toastr.warning('Ban khong co quyen truy cap he thong')
-            } else if (user.role == 14 || user.role == 6) {
+            } else if (user.role == 6) {
               const routeExist = this.router.config.filter(c => c.path.includes('shipper'))
               if (routeExist.length > 0) {
-                this.router.navigateByUrl('/shipper')
+                this.router.navigateByUrl('/production-confirm')
               } else
                 this.toastr.warning('Ban khong co quyen truy cap he thong')
             }

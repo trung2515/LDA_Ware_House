@@ -40,6 +40,7 @@
         ]"
   >
   <div>
+    <button class="btn btn-primary"(click)="viewData()">view</button>
     <div class="row">
       <div class="col-9 row">
         <div class="col-6 p-3">
@@ -58,15 +59,11 @@
         [showBorders]="true"
       >
 
-      <dxi-column dataField="option" caption="Option">
-        <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
-        </dxo-lookup>
-      </dxi-column>
-      <dxi-column dataField="type" caption="Loại">
+      <dxi-column dataField="option" caption="Option"></dxi-column>
+      <dxi-column dataField="type" caption="Loại phiếu">
         <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="name">
         </dxo-lookup>
       </dxi-column>
-
       <dxi-column dataField="product" caption="Sản phẩm" >
         <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="name">
         </dxo-lookup>
@@ -109,7 +106,9 @@
       <dxo-form>
         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
           <!-- <dxi-item  dataField="option"></dxi-item> -->
-          <dxi-item  dataField="lot"></dxi-item>
+          <dxi-item dataField="lot"></dxi-item>
+          
+          <dxi-item dataField="type" caption="Loại phiếu" ></dxi-item>
           <dxi-item dataField="product" caption="Sản phẩm" ></dxi-item>
           <dxi-item dataField="productRange" caption="Loại sản phẩm"></dxi-item>
           <dxi-item dataField="packaging" caption="Loại bao"></dxi-item>
@@ -127,7 +126,7 @@
   </dx-popup>
     <dx-scheduler [dataSource]="appointments" [views]="['']" currentView="month"
       [(currentDate)]="currentDate" [height]="700" [firstDayOfWeek]="1"
-      (onOptionChanged) ="change()"
+      (onOptionChanged) ="changeFromDate($event)"
       (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
       appointmentTooltipTemplate="tooltip-template"
       >

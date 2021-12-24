@@ -14,14 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'forms',
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./forms-mineral/forms-mineral.module').then(
         m => m.FormsMineralModule
       )
   },
   {
-    path: 'shipper',
+    path: 'production-confirm',
     loadChildren: () =>
       import('./shipping-unit/shipping-unit.module').then(
         m => m.ShippingUnitModule

@@ -11,13 +11,18 @@ import { OrderModel } from '../model'
 })
 export class OrderComponent implements OnInit {
   data: OrderModel[] = []
-  startDate = new Date()
-  endDate = new Date()
+  now = new Date()
+  startDate: Date
+  endDate: Date
+  selectOrder: string
+  popupVisible: boolean = false
   constructor(
     private reportService: ReportService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
   ngOnInit() {
+    this.startDate = new Date(this.now.getFullYear(), this.now.getMonth() - 1, this.now.getDate())
+    this.endDate = this.now
     this.getData()
   }
 
@@ -30,6 +35,11 @@ export class OrderComponent implements OnInit {
       .subscribe((data) => {
         if (data.length > 0) this.data = data.map((d) => new OrderModel(d))
       })
+  }
+
+  openPopup(orderCode: string) {
+    this.popupVisible = true;
+    this.selectOrder = orderCode
   }
 
   onStartDateChanged(e: any) {

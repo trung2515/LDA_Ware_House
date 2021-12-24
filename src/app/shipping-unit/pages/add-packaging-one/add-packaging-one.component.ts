@@ -1,16 +1,20 @@
-import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-import { ShiftService } from './../../../admin/pages/shift/services/shift.service';
-import {
-  Appointment,
-} from './../../../admin/pages/shift/model';
+import { ToastrService } from 'ngx-toastr';
+
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
+import { ShippingUnitService } from '../../services/shipping-unit-service.service';
+import { AdminService } from 'src/app/core/services/admin.service';
+import Utils from 'src/app/_lib/utils';
+import { Appointment } from '../model';
 
 @Component({
   selector: 'app-add-packaging-one',
@@ -22,8 +26,7 @@ export class AddPackagingOneComponent implements OnInit {
   now: Date = new Date();
   ca_no_option: string = 'Ca 1';
   appointments: Appointment[] = [];
-  qtyMachinesPackaging_1: FormGroup;
-  qtyMachinesPackaging_2: FormGroup;
+  formGroupProduct: any = {};
 
   message = 'Không có thông tin ca làm việc';
 
@@ -37,11 +40,11 @@ export class AddPackagingOneComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
-    shiftService: ShiftService,
-    private toastrService: ToastrService
-  ) {
-    this.appointments = shiftService.getAppointments();
-  }
+    private toastrService: ToastrService,
+    private wareHouseService: WareHouseService,
+    private shippingUnitService: ShippingUnitService,
+    private adminService: AdminService
+  ) {}
 
   currentAppointment: Appointment = {
     id: 0,
@@ -50,52 +53,37 @@ export class AddPackagingOneComponent implements OnInit {
     startDate: undefined,
     endDate: undefined,
     description: '',
-    idDetail: 0,
     shiftDetail: []
   };
 
   ngOnInit(): void {
+    this.appointments = this.shippingUnitService.getAppointments();
+
     this.currentAppointment = this.getCurrentAppointment(
       this.getCurrentDate(this.now),
       this.getCurrentShift(this.ca_no_option)
     );
-    this.qtyMachinesPackaging_1 = this.formBuilder.group({
-      machine_a: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]]
-    });
-    this.qtyMachinesPackaging_2 = this.formBuilder.group({
-      machine_a: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['111', [Validators.required, Validators.pattern('^[0-9]*$')]]
-    });
+
+    for (let i = 0; i < this.currentAppointment.shiftDetail.length; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
+    }
+
+    this.setOptionShiftValue();
   }
+
+  setOptionShiftValue = () => {
+    for (const shiftDetail of this.currentAppointment.shiftDetail) {
+      for (const key in shiftDetail.machines_packaging) {
+        for (const _key of this.getKeyForm()) {
+          let form = this.formGroupProduct[_key];
+          form.get(key).setValue(shiftDetail.machines_packaging[key]);
+        }
+      }
+    }
+  };
+
   onSubmit(e: any) {
-    if (
-      !this.qtyMachinesPackaging_1.valid ||
-      !this.qtyMachinesPackaging_2.valid
-    ) {
-      for (const key in this.qtyMachinesPackaging_1.controls) {
-        if (this.qtyMachinesPackaging_1.controls.hasOwnProperty(key)) {
-          const control: FormControl = <FormControl>(
-            this.qtyMachinesPackaging_1.controls[key]
-          );
-          control.markAsTouched();
-        }
-      }
-      for (const key in this.qtyMachinesPackaging_2.controls) {
-        if (this.qtyMachinesPackaging_2.controls.hasOwnProperty(key)) {
-          const control: FormControl = <FormControl>(
-            this.qtyMachinesPackaging_2.controls[key]
-          );
-          control.markAsTouched();
-        }
-      }
-    } else {
+    if (this.isValidForm()) {
       // find index currentAppointment in appointment list
       const indexOfItem = this.appointments.findIndex(
         item => item.id === this.currentAppointment.id
@@ -109,32 +97,63 @@ export class AddPackagingOneComponent implements OnInit {
         // this.showError('đã tôn tại, Mở popup xác nhận đê');
         this.popupVisible = true;
       } else {
-        this.handleAddNewShiftDetail(indexOfItem)
+        this.handleAddNewShiftDetail(indexOfItem);
         this.showSuccess('Thêm mới thành công');
       }
     }
   }
   handleAddNewShiftDetail(index: number) {
-    this.setNewAppointment(
-      this.currentAppointment.shiftDetail[0],
-      this.qtyMachinesPackaging_1
-    );
-    this.setNewAppointment(
-      this.currentAppointment.shiftDetail[1],
-      this.qtyMachinesPackaging_2
-    );
+    for (let i = 0; i < this.getKeyForm().length; i++) {
+      const form = this.formGroupProduct[this.getKeyForm()[i]];
 
+      this.setNewAppointment(this.currentAppointment.shiftDetail[i], form);
+    }
     this.appointments[index] = { ...this.currentAppointment };
   }
-  setNewAppointment(shift: any, qty_th: any) {
-    shift.machines_packaging = {
-      machine_a: Number(qty_th.value.machine_a),
-      machine_b: Number(qty_th.value.machine_b),
-      machine_c: Number(qty_th.value.machine_c),
-      machine_d: Number(qty_th.value.machine_d),
-      machine_e: Number(qty_th.value.machine_e)
-    };
+  setNewAppointment(shift: any, form: any) {
+    for (const key in shift.machines_packaging) {
+      shift.machines_packaging[key] = Number(form.value[key]);
+    }
   }
+  isValidForm(): Boolean {
+    let isValid = true;
+    for (const key of this.getKeyForm()) {
+      const form = this.formGroupProduct[key];
+
+      if (!form.valid) {
+        for (const key in form.controls) {
+          if (form.controls.hasOwnProperty(key)) {
+            const control: FormControl = <FormControl>form.controls[key];
+            control.markAsTouched();
+          }
+        }
+        isValid = false;
+      } else isValid = true;
+    }
+    return isValid;
+  }
+  initFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      machine_a: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+    });
+  }
+  getForm(i: number) {
+    return this.formGroupProduct['form-' + i];
+  }
+  getKeyForm() {
+    let result = [];
+    for (const key in this.formGroupProduct) {
+      if (Object.prototype.hasOwnProperty.call(this.formGroupProduct, key)) {
+        result.push(key);
+      }
+    }
+    return result;
+  }
+
   onDateValueChanged(e: any) {
     const _currentAppointment = this.getCurrentAppointment(
       this.getCurrentDate(e.value),
@@ -160,11 +179,6 @@ export class AddPackagingOneComponent implements OnInit {
 
   onBackClicked() {
     this.location.back();
-  }
-  getFormGroup(option: any) {
-    if (option == 1) {
-      return this.qtyMachinesPackaging_1;
-    } else return this.qtyMachinesPackaging_2;
   }
   getCurrentAppointment(date: string, ca_no?: number) {
     return this.appointments.find(appointment => {
@@ -204,9 +218,9 @@ export class AddPackagingOneComponent implements OnInit {
     const indexOfItem = this.appointments.findIndex(
       item => item.id === this.currentAppointment.id
     );
-    this.handleAddNewShiftDetail(indexOfItem)
+    this.handleAddNewShiftDetail(indexOfItem);
 
-    this.showSuccess('Thay đổi thành công!')
+    this.showSuccess('Thay đổi thành công!');
     this.popupVisible = false;
   };
   onClosePopup = () => {

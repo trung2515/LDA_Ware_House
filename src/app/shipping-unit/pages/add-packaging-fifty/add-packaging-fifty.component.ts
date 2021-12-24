@@ -35,34 +35,9 @@ export class AddPackagingFiftyComponent implements OnInit {
     description: '',
     shiftDetail: []
   };
-  inputs_options: any = [
-    {
-      label: 'Sản phẩm',
-      formControlName: 'product_name',
-      type: 'select',
-      options: ['Alumin 50kg', 'Hydrat 50kg']
-    },
-    {
-      label: 'Loại sản phẩm',
-      formControlName: 'product_type',
-      type: 'select',
-      options: ['Loại 1', 'Loại 2']
-    },
-    {
-      label: 'Loại bao',
-      formControlName: 'bag_type',
-      type: 'select',
-      options: ['Đáy liền', 'Đáy bằng']
-    },
-    { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-    { label: 'Lô', formControlName: 'consignments', type: 'text' },
-    {
-      label: 'Kho',
-      formControlName: 'warehouse',
-      type: 'select',
-      options: ['Kho TT', 'Kho TT 1']
-    }
-  ];
+
+  listProduct:any = []
+  inputs_options: any = [];
   formGroupProduct: any = {};
   constructor(
     private location: Location,
@@ -75,14 +50,43 @@ export class AddPackagingFiftyComponent implements OnInit {
   ngOnInit(): void {
     this.appointments = this.shiftService.getAppointments();
     // this.getData()
+    this.getListProduct()
 
-    for (let i = 1; i < 2; i++) {
-      this.formGroupProduct['form' + i] = this.initFormGroup();
+    this.inputs_options = [
+      {
+        label: 'Sản phẩm',
+        formControlName: 'product_name',
+        type: 'select',
+        options: ['a', 'b']
+      },
+      {
+        label: 'Loại sản phẩm',
+        formControlName: 'product_type',
+        type: 'select',
+        options: ['Loại 1', 'Loại 2']
+      },
+      {
+        label: 'Loại bao',
+        formControlName: 'bag_type',
+        type: 'select',
+        options: ['Đáy liền', 'Đáy bằng']
+      },
+      { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Kho',
+        formControlName: 'warehouse',
+        type: 'select',
+        options: ['Kho TT', 'Kho TT 1']
+      }
+    ];
+
+    for (let i = 1; i < 3; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
   }
   onSubmit() {
-    const isValid = this.isValidForm();
-    if (isValid) {
+    if (this.isValidForm()) {
       const currentIndex = this.appointments.findIndex(
         item => item.id === this.currentAppointment.id
       );
@@ -111,9 +115,24 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.showSuccess('Thêm thành công!');
     }
   }
-  isValidForm = () => {
+  getListProduct(){
+    this.adminService.getListProduct().subscribe((data:any) => {
+      this.listProduct=data
+      console.log('listProduct ',this.listProduct)
+      this.listProduct.sort((a:any,b:any)=>{
+        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
+      })
+      this.listProduct.forEach((item:any,index:any)=>{
+        item.index=index
+      })
+    })
+  }
+  isValidForm():Boolean {
+    let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];
+      console.log(form.status);
+
       if (!form.valid) {
         for (const key in form.controls) {
           if (form.controls.hasOwnProperty(key)) {
@@ -121,15 +140,15 @@ export class AddPackagingFiftyComponent implements OnInit {
             control.markAsTouched();
           }
         }
-        return false;
-      }
+        isValid = false;
+      } else isValid = true;
     }
-    return true;
-  };
-  initFormGroup() {
+    return isValid;
+  }
+  initFormGroup(): FormGroup {
     return this.formBuilder.group({
       product_name: ['', [Validators.required]],
-      product_type: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      product_type: ['', [Validators.required]],
       bag_type: ['', [Validators.required]],
       qty: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
       consignments: [
