@@ -29,20 +29,17 @@ export class ListTypeFiftyComponent implements OnInit {
   appointments: Appointment[] = [];
   popupVisible: boolean = false;
 
-<<<<<<< HEAD
   isUpdating: Boolean = false;
   currentAppointment: Appointment = {
-=======
-  currentAppointment: any = {
->>>>>>> origin/main
     id: 0,
     text: '',
     shift: 0,
     startDate: undefined,
     endDate: undefined,
     description: '',
+    idDetail: 0,
     shiftDetail: []
-  };
+  }
   optionSelected: any;
   productList: ProductOptionModel[] = [];
   typeProductList: TypeProductModel[] = [];
