@@ -160,7 +160,8 @@ export class ShiftComponent implements OnInit {
     let options:any=[]
     let option = new optionApoiment(this.newShiftDetail[0])
     options.push(option)
-    this.adminService.newInsertShift(this.startDate,this.shiftSelect, this.authService.getUser().user,options).subscribe(data => {})
+    this.adminService.newInsertShift(this.startDate,this.shiftSelect, this.authService.getUser().user,options)
+    .subscribe(data => {console.log(data)})
     this.getData()
     this.newShiftDetail = []
     this.popupCreateShift = false;
