@@ -40,24 +40,24 @@ export class ShiftComponent implements OnInit {
     private shiftService: ShiftService,
     private authService: AuthService,
     private toastr: ToastrService
-    ) {}
-    ngOnInit(): void {
-      this.getData();
-    }
-    
-    now: Date = new Date();
-    fromDate:string = [this.now.getFullYear() , this.now.getMonth()+1, this.now.getDate()-1].join(',')
-    currentDate: Date = new Date();
-    showPopup: boolean = false;
-    starDateScheduler: Date = new Date();
-    popupCreateShift: boolean = false;
-    appointments: Appointment[] = [];
-    shiftDetails: ShiftDetail[] = [];
-    newShiftDetail: ShiftDetail[] = [];
-    showUpdateButton: boolean = false;
-    startDate: Date;
-    shiftSelect: any;
-    shiftMaster: ShiftMaster = {
+  ) { }
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  now: Date = new Date();
+  fromDate: string = [this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDate() - 1].join(',')
+  currentDate: Date = new Date();
+  showPopup: boolean = false;
+  starDateScheduler: Date = new Date();
+  popupCreateShift: boolean = false;
+  appointments: Appointment[] = [];
+  shiftDetails: ShiftDetail[] = [];
+  newShiftDetail: ShiftDetail[] = [];
+  showUpdateButton: boolean = false;
+  startDate: Date;
+  shiftSelect: any;
+  shiftMaster: ShiftMaster = {
     id: 1,
     name: '',
     shift: 0,
@@ -134,19 +134,19 @@ export class ShiftComponent implements OnInit {
     console.log(rs);
     return rs;
   }
-  changeFromDate(e:any){
+  changeFromDate(e: any) {
     let d = new Date(e.value)
-    let day = ''+d.getDate()
-    let month = '' +(d.getMonth()+1)
+    let day = '' + d.getDate()
+    let month = '' + (d.getMonth() + 1)
     let year = d.getFullYear()
-    if(day.length < 2){month = '0'+day}
-    if(month.length < 2){month = '0'+month}
-    this.fromDate = [year , month, day].join(',')
+    if (day.length < 2) { month = '0' + day }
+    if (month.length < 2) { month = '0' + month }
+    this.fromDate = [year, month, day].join(',')
     this.getData()
-    
+
   }
   viewData() {
-    console.log(this.authService.getUser().user,this.newShiftDetail);
+    console.log(this.authService.getUser().user, this.newShiftDetail);
   }
   chooseDate(data: any) {
     this.startDate = data.value;
@@ -157,15 +157,15 @@ export class ShiftComponent implements OnInit {
     console.log(this.shiftSelect);
   }
   createShift = () => {
-    let options:any=[]
+    let options: any = []
     let option = new optionApoiment(this.newShiftDetail[0])
     options.push(option)
-    this.adminService.newInsertShift(this.startDate,this.shiftSelect, this.authService.getUser().user,options)
-    .subscribe(data => {console.log(data)})
+    this.adminService.newInsertShift(this.startDate, this.shiftSelect, this.authService.getUser().user, options)
+      .subscribe(data => { console.log(data) })
     this.getData()
     this.newShiftDetail = []
     this.popupCreateShift = false;
- 
+
   };
 
   onAppointmentFormOpening(data: any) {
@@ -197,11 +197,11 @@ export class ShiftComponent implements OnInit {
         for (var i = 0; i < this.appointments.length; i++) {
           if (
             this.appointments[i].startDate.getDate() ==
-              data.appointmentData.startDate.getDate() &&
+            data.appointmentData.startDate.getDate() &&
             this.appointments[i].startDate.getMonth() ==
-              data.appointmentData.startDate.getMonth() &&
+            data.appointmentData.startDate.getMonth() &&
             this.appointments[i].startDate.getFullYear() ==
-              data.appointmentData.startDate.getFullYear()
+            data.appointmentData.startDate.getFullYear()
           ) {
             checkShift++;
           }

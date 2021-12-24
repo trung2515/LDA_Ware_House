@@ -89,7 +89,7 @@
             <input type="text" class="form-control" placeholder="Nhập ghi chú" [(ngModel)]="suggest[i].quantityNote" />
           </div>
         </div>
-       
+
       </div>
       <div class="d-flex">
         <div class="ms-auto addSurrogate" (click)="addSuggest()">
@@ -255,12 +255,12 @@
     <div  *ngIf="selectType !== 3">
     <page-minutes
       [checkMinute]="checkMinuteType"
-      [data]="dataSelect"  
+      [data]="dataSelect"
       [totalAllQuantity]="totalAllQuantity"
-      [totalAllMass]="totalAllMass" 
-      [binding]="dataBinding" 
+      [totalAllMass]="totalAllMass"
+      [binding]="dataBinding"
       [surrogateReceiver]="surrogateReceiver"
-      [surrogateSender]="surrogateSender" 
+      [surrogateSender]="surrogateSender"
       [suggest]="suggest"
       [switchInternal]="switchInternal"
       [request]="request"
@@ -269,7 +269,7 @@
     </div>
       <page-minutes-suggest *ngIf="selectType == 3"
       [checkMinute]="checkMinuteType"
-      [binding]="dataBinding" 
+      [binding]="dataBinding"
       [suggest]="suggest"
       [request]="request"
       [decision]="decision"
