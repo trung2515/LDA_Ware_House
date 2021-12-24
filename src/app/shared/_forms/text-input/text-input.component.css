@@ -9,18 +9,3 @@
 .form-control:focus {
   box-shadow: none;
 }
-
-.select {
-  position: relative;
-  width: 100%;
-  height: 46px;
-  font-size: 15px;
-  color: #979797;
-  font-family: "Roboto";
-}
-.select:after {
-  content: '';
-}
-.select:focus {
-  outline: none;
-}

@@ -1,5 +1,6 @@
 .select-wrap {
   position: relative;
+  margin-bottom: 16px;
 }
 .invalid-feedback {
   position: absolute;

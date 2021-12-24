@@ -49,7 +49,7 @@ export class ListTypeOneComponent implements OnInit {
     private toastrService: ToastrService,
     private adminService: AdminService,
     private shiftService: ShiftService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +87,7 @@ export class ListTypeOneComponent implements OnInit {
       this.appointments[this.optionEditing.indexAppointment].shiftDetail[
         this.optionEditing.indexOption
       ].machines_packaging = rsUpdate;
-      this.showSuccess('Sửa thành công')
+      this.showSuccess('Sửa thành công');
       this.isEditing = false;
     }
   }
@@ -161,6 +161,8 @@ export class ListTypeOneComponent implements OnInit {
     });
   }
   onBackClicked() {
-    this.location.back();
+    if (this.isEditing) {
+      this.isEditing = false;
+    } else this.location.back();
   }
 }

@@ -11,6 +11,12 @@ import { Appointment, ShiftDetail } from 'src/app/admin/pages/shift/model';
 import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
 import { AdminService } from 'src/app/core/services/admin.service';
 import Utils from 'src/app/_lib/utils';
+import {
+  ProductOptionModel,
+  TypePacketModel,
+  TypeProductModel,
+  WareHouseModel
+} from '../model';
 
 @Component({
   selector: 'app-add-packaging-fifty',
@@ -25,6 +31,11 @@ export class AddPackagingFiftyComponent implements OnInit {
   packaging_units: any = ['VTRE', 'VTR'];
   packaging_unit = 'VTRE';
 
+  productList: ProductOptionModel[] = [];
+  typeProductList: TypeProductModel[] = [];
+  typePacketList: TypePacketModel[] = [];
+  warehouseList: WareHouseModel[] = []
+
   appointments: Appointment[] = [];
   currentAppointment: Appointment = {
     id: 0,
@@ -36,7 +47,7 @@ export class AddPackagingFiftyComponent implements OnInit {
     shiftDetail: []
   };
 
-  listProduct:any = []
+  listProduct: any = [];
   inputs_options: any = [];
   formGroupProduct: any = {};
   constructor(
@@ -49,27 +60,56 @@ export class AddPackagingFiftyComponent implements OnInit {
 
   ngOnInit(): void {
     this.appointments = this.shiftService.getAppointments();
-    // this.getData()
-    this.getListProduct()
+    this.getData();
+    this.getListProduct();
 
+    for (let i = 1; i < 3; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
+    }
+  }
+  getData() {
+    // this.adminService
+    //   .getListShiftDetail('2021-12-01', Utils.formatDate(new Date()))
+    //   .subscribe(data => {
+    //     this.appointments = data.map(d => new Appointment(d));
+    //     this.appointments.sort((a, b) => a.shift - b.shift);
+    //   });
+    this.adminService.getListProduct().subscribe(data => {
+      this.productList = data.map(d => new ProductOptionModel(d));
+      this.setOptionList();
+    });
+    this.adminService.getListTypeProduct().subscribe(data => {
+      this.typeProductList = data.map(d => new TypeProductModel(d));
+      this.setOptionList();
+    });
+    this.adminService.getListTypePacket().subscribe(data => {
+      this.typePacketList = data.map(d => new TypePacketModel(d));
+      this.setOptionList();
+    });
+    this.adminService.getListWareHouse().subscribe(data => {
+      this.warehouseList =  data.map(d => new WareHouseModel(d))
+      this.setOptionList();
+    })
+  }
+  setOptionList() {
     this.inputs_options = [
       {
         label: 'Sản phẩm',
         formControlName: 'product_name',
         type: 'select',
-        options: ['a', 'b']
+        options:this.productList
       },
       {
         label: 'Loại sản phẩm',
         formControlName: 'product_type',
         type: 'select',
-        options: ['Loại 1', 'Loại 2']
+        options: this.typeProductList
       },
       {
         label: 'Loại bao',
         formControlName: 'bag_type',
         type: 'select',
-        options: ['Đáy liền', 'Đáy bằng']
+        options: this.typePacketList
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
       { label: 'Lô', formControlName: 'consignments', type: 'text' },
@@ -77,61 +117,62 @@ export class AddPackagingFiftyComponent implements OnInit {
         label: 'Kho',
         formControlName: 'warehouse',
         type: 'select',
-        options: ['Kho TT', 'Kho TT 1']
+        options: this.warehouseList
       }
     ];
-
-    for (let i = 1; i < 3; i++) {
-      this.formGroupProduct['form-' + i] = this.initFormGroup();
-    }
   }
   onSubmit() {
     if (this.isValidForm()) {
       const currentIndex = this.appointments.findIndex(
         item => item.id === this.currentAppointment.id
       );
-      const shiftDetailProducts = [...this.currentAppointment.shiftDetail];
+      let shiftDetailProducts = [...this.currentAppointment.shiftDetail];
 
       if (shiftDetailProducts) {
         for (const key of this.getKeyForm()) {
           const form = this.formGroupProduct[key].value;
+          console.log(form);
 
           let _shiftDetail: ShiftDetail = {
             id: shiftDetailProducts.length + 1,
             option: (shiftDetailProducts.length + 1).toString(),
             type: this.ballot_type === 'Nhập đóng mới' ? 'NDM' : 'NDL',
-            product: form.product_name,
-            productRange: form.product_type,
-            packaging: form.bag_type,
+            product: form.product_name.split(':')[1],
+            productRange: form.product_type.split(':')[1],
+            packaging: form.bag_type.split(':')[1],
             lot: form.consignments,
             machines_packaging: '',
             unit: this.packaging_unit,
-            wareHouse: form.wareHouse
+            wareHouse: form.warehouse.split(':')[1]
           };
+          console.log(_shiftDetail);
+
           shiftDetailProducts.push(_shiftDetail);
         }
       }
+
       this.appointments[currentIndex].shiftDetail = shiftDetailProducts;
       this.showSuccess('Thêm thành công!');
     }
   }
-  getListProduct(){
-    this.adminService.getListProduct().subscribe((data:any) => {
-      this.listProduct=data
-      console.log('listProduct ',this.listProduct)
-      this.listProduct.sort((a:any,b:any)=>{
-        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
-      })
-      this.listProduct.forEach((item:any,index:any)=>{
-        item.index=index
-      })
-    })
+  getListProduct() {
+    this.adminService.getListProduct().subscribe((data: any) => {
+      this.listProduct = data;
+      console.log('listProduct ', this.listProduct);
+      this.listProduct.sort((a: any, b: any) => {
+        return a.nameProduct
+          .toLowerCase()
+          .localeCompare(b.nameProduct.toLowerCase());
+      });
+      this.listProduct.forEach((item: any, index: any) => {
+        item.index = index;
+      });
+    });
   }
-  isValidForm():Boolean {
+  isValidForm(): Boolean {
     let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];
-      console.log(form.status);
 
       if (!form.valid) {
         for (const key in form.controls) {
@@ -157,14 +198,6 @@ export class AddPackagingFiftyComponent implements OnInit {
       ],
       warehouse: ['', [Validators.required]]
     });
-  }
-  getData() {
-    this.adminService
-      .getListShiftDetail('2021-12-01', Utils.formatDate(new Date()))
-      .subscribe(data => {
-        this.appointments = data.map(d => new Appointment(d));
-        this.appointments.sort((a, b) => a.shift - b.shift);
-      });
   }
   addNewForm() {
     const sumForm = this.getKeyForm().length;

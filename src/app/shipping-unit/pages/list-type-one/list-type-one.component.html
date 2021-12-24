@@ -4,7 +4,11 @@
     [title]="title"
   ></app-header-bar>
   <div class="content mainCol">
+
     <div class="select-group row">
+      <div *ngIf="isEditing" class="detail-title shift-title">
+        Ca làm việc
+      </div>
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ngày</label>
         <dx-date-box

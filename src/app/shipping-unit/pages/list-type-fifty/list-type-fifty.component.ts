@@ -1,9 +1,21 @@
-import { FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/admin/pages/shift/model';
 import { ToastrService } from 'ngx-toastr';
 import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
+import { AdminService } from 'src/app/core/services/admin.service';
+import {
+  ProductOptionModel,
+  TypePacketModel,
+  TypeProductModel,
+  WareHouseModel
+} from '../model';
 
 @Component({
   selector: 'app-list-type-fifty',
@@ -11,10 +23,13 @@ import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
   styleUrls: ['./list-type-fifty.component.css']
 })
 export class ListTypeFiftyComponent implements OnInit {
+  title: String = 'Danh sách sản lượng đóng bao loại 50kg';
   now: Date = new Date();
   ca_no_option: string = 'Ca 1';
   appointments: Appointment[] = [];
+  popupVisible: boolean = false;
 
+  isUpdating: Boolean = false;
   currentAppointment: Appointment = {
     id: 0,
     text: '',
@@ -24,22 +39,101 @@ export class ListTypeFiftyComponent implements OnInit {
     description: '',
     shiftDetail: []
   };
-  optionEditing: any;
-  optionForm!: FormGroup;
+  optionSelected: any;
+  productList: ProductOptionModel[] = [];
+  typeProductList: TypeProductModel[] = [];
+  typePacketList: TypePacketModel[] = [];
+  warehouseList: WareHouseModel[] = [];
+
+  inputs_options: any = [];
+  formGroupProduct: any = {};
   constructor(
     private location: Location,
     private toastrService: ToastrService,
-    private shiftService: ShiftService
+    private shiftService: ShiftService,
+    private formBuilder: FormBuilder,
+    private adminService: AdminService
   ) {}
 
   ngOnInit(): void {
+    this.getData();
     this.appointments = this.shiftService.getAppointments();
     this.currentAppointment = this.getCurrentAppointment(
       this.getCurrentDate(this.now),
       this.getCurrentShift(this.ca_no_option)
     );
   }
-  onShiftOptionClicked(e:any) {}
+  getData() {
+    this.adminService.getListProduct().subscribe(data => {
+      this.productList = data.map(d => new ProductOptionModel(d));
+      this.setListOption();
+    });
+    this.adminService.getListTypeProduct().subscribe(data => {
+      this.typeProductList = data.map(d => new TypeProductModel(d));
+      this.setListOption();
+    });
+    this.adminService.getListTypePacket().subscribe(data => {
+      this.typePacketList = data.map(d => new TypePacketModel(d));
+      this.setListOption();
+    });
+    this.adminService.getListWareHouse().subscribe(data => {
+      this.warehouseList = data.map(d => new WareHouseModel(d));
+      this.setListOption();
+    });
+  }
+  setListOption() {
+    this.inputs_options = [
+      {
+        label: 'Sản phẩm',
+        formControlName: 'product_name',
+        type: 'select',
+        options: this.productList
+      },
+      {
+        label: 'Loại sản phẩm',
+        formControlName: 'product_type',
+        type: 'select',
+        options: this.typeProductList
+      },
+      {
+        label: 'Loại bao',
+        formControlName: 'bag_type',
+        type: 'select',
+        options: this.typePacketList
+      },
+      { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Kho',
+        formControlName: 'warehouse',
+        type: 'select',
+        options: this.warehouseList
+      }
+    ];
+  }
+  onUpdateData() {
+    if (this.isValidForm()) {
+      this.isUpdating = false;
+    }
+  }
+  onOptionEditClicked(option: any) {
+    for (let i = 1; i <= 1; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
+    }
+    this.isUpdating = true;
+  }
+  onClosePopup = () => {
+    this.popupVisible = false;
+  };
+  onConfirm = () => {
+    this.popupVisible = true;
+    console.table(this.optionSelected);
+  };
+  onOptionDeleteClicked(option: any) {
+    this.popupVisible = true;
+    console.log(option);
+    this.optionSelected = option;
+  }
   onDateValueChanged(e: any) {
     // const _currentAppointment = this.getCurrentAppointment(
     //   this.getCurrentDate(e.value),
@@ -77,7 +171,69 @@ export class ListTypeFiftyComponent implements OnInit {
   getCurrentShift(ca_option: string) {
     return Number(ca_option.split(' ')[1]);
   }
+  addNewForm() {
+    const sumForm = this.getKeyForm().length;
+    const form = this.initFormGroup();
+    this.formGroupProduct['form' + (sumForm + 1)] = form;
+  }
+  isValidForm(): Boolean {
+    let isValid = true;
+    for (const key of this.getKeyForm()) {
+      const form = this.formGroupProduct[key];
+
+      if (!form.valid) {
+        for (const key in form.controls) {
+          if (form.controls.hasOwnProperty(key)) {
+            const control: FormControl = <FormControl>form.controls[key];
+            control.markAsTouched();
+          }
+        }
+        isValid = false;
+      } else isValid = true;
+    }
+    return isValid;
+  }
+  getKeyForm() {
+    let result = [];
+    for (const key in this.formGroupProduct) {
+      if (Object.prototype.hasOwnProperty.call(this.formGroupProduct, key)) {
+        result.push(key);
+      }
+    }
+    return result;
+  }
+  initFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      product_name: ['', [Validators.required]],
+      product_type: ['', [Validators.required]],
+      bag_type: ['', [Validators.required]],
+      qty: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      consignments: [
+        '321',
+        [Validators.required, Validators.pattern('^[0-9]*$')]
+      ],
+      warehouse: ['', [Validators.required]]
+    });
+  }
+  showError(msg: string) {
+    this.toastrService.error(msg, '', {
+      timeOut: 3000,
+      closeButton: true,
+      enableHtml: true
+    });
+  }
+  showSuccess(msg: string) {
+    this.toastrService.error(msg, '', {
+      timeOut: 3000,
+      closeButton: true,
+      enableHtml: true
+    });
+  }
   onBackClicked() {
-    this.location.back();
+    if (this.isUpdating) {
+      this.isUpdating = false;
+    } else {
+      this.location.back();
+    }
   }
 }

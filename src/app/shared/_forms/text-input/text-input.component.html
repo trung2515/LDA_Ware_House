@@ -10,14 +10,14 @@
   />
 
   <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback">
-    Please enter {{ label }}
+    Vui lòng nhập {{ label }}
   </div>
   <div *ngIf="ngControl.control?.errors?.minlength" class="invalid-feedback">
     {{ label }} must be at least
     {{ (ngControl.control?.errors?.minlength)["requiredLength"] }}
   </div>
   <div *ngIf="ngControl.control?.errors?.pattern" class="invalid-feedback">
-    {{ label }} is a number
+    {{ label }} là số
   </div>
   <div *ngIf="ngControl.control?.errors?.maxlength" class="invalid-feedback">
     {{ label }} must be at most

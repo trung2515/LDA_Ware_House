@@ -5,11 +5,11 @@
     [formControl]="ngControl.control"
   >
     <option value="">Chọn {{ label }}</option>
-    <option *ngFor="let option of options" [ngValue]="option.value"
+    <option *ngFor="let option of options" [ngValue]="option.code+':'+option.name"
       >{{ option.name }}</option
     >
   </select>
   <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback">
-    Please enter {{ label }}
+    Vui lòng nhập {{ label }}
   </div>
 </div>

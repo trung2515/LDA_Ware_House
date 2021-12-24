@@ -1,4 +1,10 @@
-import { ShiftDetailInfo } from 'src/app/core/models/model.pb';
+import {
+  ProductInfo,
+  ShiftDetailInfo,
+  TypePacketInfo,
+  TypeProductInfo,
+  WareHouseInfo
+} from 'src/app/core/models/model.pb';
 
 export class Appointment {
   id: number;
@@ -70,4 +76,37 @@ export interface DataTableMinute {
   quantityPac: number;
   mass: number;
   wareHouse: string;
+}
+
+export class ProductOptionModel {
+  name: string;
+  code: string;
+  constructor(data: ProductInfo) {
+    this.name = data.nameProduct;
+    this.code = data.codeProduct;
+  }
+}
+export class TypeProductModel {
+  name: string;
+  code: number;
+  constructor(data: TypeProductInfo) {
+    this.name = data.nameTypeProduct;
+    this.code = data.idTypeProduct;
+  }
+}
+export class TypePacketModel {
+  name: string;
+  code: string;
+  constructor(data: TypePacketInfo) {
+    this.name = data.nameTypePacket;
+    this.code = data.codeTypePacket;
+  }
+}
+export class WareHouseModel {
+  name: string;
+  code: string;
+  constructor(data:WareHouseInfo){
+    this.name = data.nameWareHouse
+    this.code = data.codeWareHouse
+  }
 }
