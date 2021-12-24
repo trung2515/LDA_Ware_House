@@ -44,8 +44,8 @@ export class AdminService {
     private administratorClient: AdministratorClient,
     private warehouseClient: WareHouseClient,
     private authService: AuthService,
-  ) {}
-    
+  ) { }
+
   getListTransportUnit() {
     let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTransportationUnit(req).pipe(
@@ -591,6 +591,15 @@ export class AdminService {
         return reply
       }),
     )
+  }
+
+  getListMasterData() {
+    let request: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListMasterData(request).pipe(
+      map((reply) => {
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }
+      ));
   }
 
   // getListShift() {

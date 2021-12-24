@@ -25,9 +25,9 @@
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center py-5 ">
               <span class="form-name-title text-center fs-2 fw-bold"> {{ dataBinding.title }}</span>
-                 <span  *ngFor="let product of suggest">{{product.product}}</span>
+                 <span  *ngFor="let item of subTitle">{{item.titleProduct}}</span>
             </div>
-              <div *ngIf="minuteType==4">
+              <div >
                   <div>
                     <div class="text-indent">
                       Căn cứ Quyết định số {{decision}} của TGĐ Công ty TNHH MTV nhôm Lâm Đồng - TKV về việc ban hành Quy định và quy trình xử lý sản phẩm lỗi và hạn mức quản lý tỷ lệ sản phẩm lỗi.
