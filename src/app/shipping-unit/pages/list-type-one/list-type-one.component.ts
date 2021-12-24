@@ -49,7 +49,7 @@ export class ListTypeOneComponent implements OnInit {
     private toastrService: ToastrService,
     private adminService: AdminService,
     private shiftService: ShiftService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +82,12 @@ export class ListTypeOneComponent implements OnInit {
       for (const key in this.optionForm.value) {
         rsUpdate[key] = Number(this.optionForm.value[key]);
       }
-      console.log(rsUpdate);
+      // console.log(rsUpdate);
+      // this.optionEditing.option.machines_packaging = rsUpdate;
+      this.appointments[this.optionEditing.indexAppointment].shiftDetail[
+        this.optionEditing.indexOption
+      ].machines_packaging = rsUpdate;
+      this.showSuccess('Sửa thành công')
       this.isEditing = false;
     }
   }
@@ -92,12 +97,15 @@ export class ListTypeOneComponent implements OnInit {
     const indexAppointment = this.appointments.findIndex(
       item => item.id === this.currentAppointment.id
     );
+    const indexOption = this.currentAppointment.shiftDetail.findIndex(
+      item => item.id === option.id
+    );
 
     // set current value(machine packaging) for input text
     for (const key in this.optionForm.value) {
       this.optionForm.get(key).setValue(option.machines_packaging[key]);
     }
-    this.optionEditing = { option, indexAppointment };
+    this.optionEditing = { option, indexAppointment, indexOption };
     this.isEditing = true;
     this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
   };

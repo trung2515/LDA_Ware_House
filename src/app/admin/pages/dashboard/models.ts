@@ -8,16 +8,8 @@ export class Product {
   packaging_qty: number;
   amountConsumption: number;
   inventory_qty: number;
-  machines_packaging: {
-    palang: number;
-    cautientuan: number;
-    xenangvuontre: number;
-  };
-  machines_consumption: {
-    palang: number;
-    cautientuan: number;
-    xenangvuontre: number;
-  };
+  machines_packaging: any;
+  machines_consumption: any
 
   constructor(data: QRCodeInfo){
     this.date = Utils.formatDateV1(new Date(data.timeIn))
@@ -32,8 +24,8 @@ export class BarCharDateModel {
     this.tons = data.packaging_qty
   }
 }
-export class TypeMachineModel {
-  value: string;
+export class TransportationEquipment {
+  fieldCode: string | number;
   name: string;
 }
 export class InventoryFLMonthModel {

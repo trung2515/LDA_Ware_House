@@ -249,6 +249,8 @@ export class TransportationReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(Utils.formatDate(new Date()));
+
     this.getData()
     // this.transportationList_copy = [...this.transportationList]
     this.disabledDates = this.getDisabledDates(this.startDate)
@@ -290,7 +292,7 @@ export class TransportationReportComponent implements OnInit {
   // handle dx-date-box change event
 
   getStartDate(e: any) {
-    
+
     this.startDate = e
     console.log(this.startDate)
 

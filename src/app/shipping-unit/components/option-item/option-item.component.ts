@@ -9,6 +9,8 @@ export class OptionItemComponent implements OnInit {
   @Output() onClickItem = new EventEmitter();
   @Input() objItem:any = []
   @Input() creator:string ="trung"
+
+  @Input() visibleBtnDelete: boolean = true
   constructor() { }
 
   ngOnInit(): void {

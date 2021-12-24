@@ -3,11 +3,11 @@
     class="chart-line"
     [id]="idChartLine"
     palette="Green"
-    [dataSource]="dataSource"
+    [dataSource]="products"
   >
     <dxi-series
-      *ngFor="let machine of typeOfMachines"
-      [valueField]="machine.value"
+      *ngFor="let machine of configChart.series"
+      [valueField]="machine.fieldCode"
       [name]="machine.name"
     >
     </dxi-series>
@@ -23,7 +23,7 @@
     </dxo-common-series-settings>
 
     <dxo-title
-      [text]="title"
+      [text]="configChart.title"
       [font]="configChart.fontTitle"
       verticalAlignment="top"
       horizontalAlignment="left"
@@ -33,5 +33,5 @@
       [border]="configChart.borderTooltip"
     ></dxo-tooltip>
   </dx-chart>
-  <span>{{ filterControl.product_name }}</span>
+  <span>{{ configChart.product_name }}</span>
 </div>

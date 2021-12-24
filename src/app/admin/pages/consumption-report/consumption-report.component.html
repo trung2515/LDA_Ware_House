@@ -64,9 +64,10 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridNXSP" [allowSortingBySummary]="true" [allowSorting]="true"
-                [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [showRowTotals]="false"
-                [showColumnTotals]="true" [allowFiltering]="true" (onExporting)="onExportingPivot($event, tabPanel)"
-                [dataSource]="detailInputOutputReport" searchExpr="name">
+                [texts]="{ grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputOutputReport"
+                searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                 <dxo-export [enabled]="true"></dxo-export>
                 <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
@@ -80,10 +81,10 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridNXTSM" [allowSortingBySummary]="true" [allowSorting]="true"
-                [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [showRowTotals]="false"
-                [showColumnTotals]="true" [allowFiltering]="true" [allowExpandAll]="true"
-                [dataSource]="detailImExInventoryReport" (onExporting)="onExportingPivot($event, tabPanel)"
-                searchExpr="name">
+                [texts]="{grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                [allowExpandAll]="true" [dataSource]="detailImExInventoryReport"
+                (onExporting)="onExportingPivot($event, tabPanel)" searchExpr="name">
                 <dxo-export [enabled]="true"></dxo-export>
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                 <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
@@ -97,9 +98,9 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridParcel" [allowSortingBySummary]="true" [allowSorting]="true"
-                [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [showRowTotals]="false"
-                [showColumnTotals]="true" [allowFiltering]="true" (onExporting)="onExportingPivot($event, tabPanel)"
-                [dataSource]="pipotParcelReport" searchExpr="name">
+                [texts]="{grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="pipotParcelReport" searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                 <dxo-export [enabled]="true"></dxo-export>
                 <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">

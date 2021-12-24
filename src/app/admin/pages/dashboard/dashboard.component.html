@@ -34,8 +34,7 @@
             <app-bar-char
               chartID="chart-db"
               [products]="dataSource"
-              [configChart]="configChart"
-              [filterControl]="filterController"
+              [configChart]="configChartDB"
             ></app-bar-char>
           </div>
           <!-- tieu thu -->
@@ -43,32 +42,23 @@
             <app-bar-char
               chartID="chart-tt"
               [products]="dataSource"
-              [configChart]="configChartDB"
-              [filterControl]="filterController"
+              [configChart]="configChartTT"
             ></app-bar-char>
           </div>
         </div>
         <div *ngIf="tabPanel.id === 2" class="tab-2">
           <div class="chart-container">
             <app-line-char
-              [typeOfMachines]="typeMachines"
-              title="Thống kê sản lượng đóng bao"
-              [configChart]="configCommon"
+              [configChart]="configLineChartDB"
               idChartLine="lineChart-db"
-              [filterControl]="filterController"
-              [products]="dataSource"
-              [typeMachines]="typeMachines"
+              [products]="dataSource_transportation"
             ></app-line-char>
           </div>
           <div class="chart-container">
             <app-line-char
-              [typeOfMachines]="typeMachines"
-              title="Thống kê sản lượng tiêu thụ"
-              [configChart]="configCommon"
+              [configChart]="configLineChartTT"
               idChartLine="lineChart-tt"
-              [filterControl]="filterController"
-              [products]="dataSource"
-              [typeMachines]="typeMachines"
+              [products]="dataSource_transportation"
             ></app-line-char>
           </div>
         </div>

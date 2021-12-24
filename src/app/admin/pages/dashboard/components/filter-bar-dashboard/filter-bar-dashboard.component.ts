@@ -85,7 +85,7 @@ export class FilterBarDashboardComponent implements OnInit {
       })
     this.getDatesOfMonths(this.currentMonth, this.currentYear)
     this.reportService.reportWarehouse().subscribe((d) => {
-      
+
       this.inventoryMonths = d.map((d) => new InventoryFLMonthModel(d))
     })
     // this.inventoryMonths = this.getInventoryMonth(
@@ -109,6 +109,7 @@ export class FilterBarDashboardComponent implements OnInit {
     this.onFilterChanges.emit(e.value)
   }
   onRadioChange(e: any) {
+
     const param: paramChangeModel = {
       value: e.target.value,
       name: e.target.name,
@@ -145,7 +146,6 @@ export class FilterBarDashboardComponent implements OnInit {
   // }
 
   selectMonth(e: any): void {
-    e.preventDefault()
     this.currentMonth = e.target.value
     this.getDatesOfMonths(this.currentMonth, this.currentYear)
   }

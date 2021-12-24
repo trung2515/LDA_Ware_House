@@ -126,10 +126,10 @@ export class ReportService {
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
-    console.log(request)
+    // console.log(request)
     return this.reportClient.getReportQRCode(request).pipe(
       map((reply: QRCodeResponse) => {
-        console.log(reply.data)
+        // console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )
