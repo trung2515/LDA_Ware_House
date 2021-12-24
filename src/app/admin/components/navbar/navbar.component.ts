@@ -107,7 +107,7 @@ export class NavbarComponent implements OnInit {
       {
         link: '/admin/warehouse-control/error-report',
         menuId: 14,
-        name: 'Xác nhận bao lỗi',
+        name: 'Báo cáo bao lỗi',
         isParent: false,
         parentId: 3,
       },
