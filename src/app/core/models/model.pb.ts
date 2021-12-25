@@ -8974,6 +8974,9 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.countTrip = _instance.countTrip || 0;
     _instance.seri = _instance.seri || 0;
     _instance.distance = _instance.distance || 0;
+    _instance.timereport = _instance.timereport || '';
+    _instance.nameCustomer = _instance.nameCustomer || '';
+    _instance.customerInternal = _instance.customerInternal || '';
   }
 
   /**
@@ -9081,6 +9084,15 @@ export class CardDetailInfo implements GrpcMessage {
           break;
         case 31:
           _instance.distance = _reader.readInt32();
+          break;
+        case 32:
+          _instance.timereport = _reader.readString();
+          break;
+        case 33:
+          _instance.nameCustomer = _reader.readString();
+          break;
+        case 34:
+          _instance.customerInternal = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -9192,6 +9204,15 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.distance) {
       _writer.writeInt32(31, _instance.distance);
     }
+    if (_instance.timereport) {
+      _writer.writeString(32, _instance.timereport);
+    }
+    if (_instance.nameCustomer) {
+      _writer.writeString(33, _instance.nameCustomer);
+    }
+    if (_instance.customerInternal) {
+      _writer.writeString(34, _instance.customerInternal);
+    }
   }
 
   private _idCard?: number;
@@ -9225,6 +9246,9 @@ export class CardDetailInfo implements GrpcMessage {
   private _countTrip?: number;
   private _seri?: number;
   private _distance?: number;
+  private _timereport?: string;
+  private _nameCustomer?: string;
+  private _customerInternal?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9263,6 +9287,9 @@ export class CardDetailInfo implements GrpcMessage {
     this.countTrip = _value.countTrip;
     this.seri = _value.seri;
     this.distance = _value.distance;
+    this.timereport = _value.timereport;
+    this.nameCustomer = _value.nameCustomer;
+    this.customerInternal = _value.customerInternal;
     CardDetailInfo.refineValues(this);
   }
   get idCard(): number | undefined {
@@ -9451,6 +9478,24 @@ export class CardDetailInfo implements GrpcMessage {
   set distance(value: number | undefined) {
     this._distance = value;
   }
+  get timereport(): string | undefined {
+    return this._timereport;
+  }
+  set timereport(value: string | undefined) {
+    this._timereport = value;
+  }
+  get nameCustomer(): string | undefined {
+    return this._nameCustomer;
+  }
+  set nameCustomer(value: string | undefined) {
+    this._nameCustomer = value;
+  }
+  get customerInternal(): string | undefined {
+    return this._customerInternal;
+  }
+  set customerInternal(value: string | undefined) {
+    this._customerInternal = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -9497,7 +9542,10 @@ export class CardDetailInfo implements GrpcMessage {
       namePartner: this.namePartner,
       countTrip: this.countTrip,
       seri: this.seri,
-      distance: this.distance
+      distance: this.distance,
+      timereport: this.timereport,
+      nameCustomer: this.nameCustomer,
+      customerInternal: this.customerInternal
     };
   }
 
@@ -9548,7 +9596,10 @@ export class CardDetailInfo implements GrpcMessage {
       namePartner: this.namePartner,
       countTrip: this.countTrip,
       seri: this.seri,
-      distance: this.distance
+      distance: this.distance,
+      timereport: this.timereport,
+      nameCustomer: this.nameCustomer,
+      customerInternal: this.customerInternal
     };
   }
 }
@@ -9588,6 +9639,9 @@ export module CardDetailInfo {
     countTrip?: number;
     seri?: number;
     distance?: number;
+    timereport?: string;
+    nameCustomer?: string;
+    customerInternal?: string;
   }
 
   /**
@@ -9625,6 +9679,9 @@ export module CardDetailInfo {
     countTrip?: number;
     seri?: number;
     distance?: number;
+    timereport?: string;
+    nameCustomer?: string;
+    customerInternal?: string;
   }
 }
 
