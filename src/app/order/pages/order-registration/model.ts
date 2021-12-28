@@ -17,6 +17,7 @@ export class OptionModel {
       data.idTransportationUnit ||
       data.codeWareHouse ||
       data.codePartner ||
+      data.objectCode ||
       data.objectName ||
       data.idTypeProduct ||
       ''

@@ -48,6 +48,7 @@ export class OrderDetailModel {
   qrcode: string
   seri: number
   time: string
+  
   constructor(data: QRCodeInfo) {
     this.qrcode = data.code
     this.seri = data.seri

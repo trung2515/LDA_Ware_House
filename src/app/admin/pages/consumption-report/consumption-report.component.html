@@ -63,11 +63,10 @@
         <div *ngIf="tabPanel.id === 2">
           <div class="row p-1">
             <div class="col-12">
-              <dx-pivot-grid id="pivotgridNXSP" [allowSortingBySummary]="true" [allowSorting]="true"
+              <dx-pivot-grid id="pivotgridNSP" [allowSortingBySummary]="true" [allowSorting]="true"
                 [texts]="{ grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
-                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputOutputReport"
-                searchExpr="name">
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputN" searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                 <dxo-export [enabled]="true"></dxo-export>
                 <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
@@ -76,12 +75,27 @@
               </dx-pivot-grid>
             </div>
           </div>
+          <div class="row p-1">
+            <div class="col-12">
+              <dx-pivot-grid id="pivotgridXSP" [allowSortingBySummary]="true" [allowSorting]="true"
+                [texts]="{ grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputX" searchExpr="name">
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
+                </dxo-header-filter>
+                <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
+              </dx-pivot-grid>
+            </div>
+
+          </div>
         </div>
         <div *ngIf="tabPanel.id === 3">
           <div class="row p-1">
             <div class="col-12">
-              <dx-pivot-grid id="pivotgridNXTSM" [allowSortingBySummary]="true" [allowSorting]="true"
-                [texts]="{grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+              <dx-pivot-grid id="pivotgridNXTSM" [allowSortingBySummary]="false" [allowSorting]="true"
+                [texts]="{'grandTotal': 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="false"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                 [allowExpandAll]="true" [dataSource]="detailImExInventoryReport"
                 (onExporting)="onExportingPivot($event, tabPanel)" searchExpr="name">

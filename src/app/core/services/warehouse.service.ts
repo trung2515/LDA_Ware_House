@@ -12,7 +12,7 @@ export class WareHouseService {
     private warehouseClient: WareHouseClient,
     private authService: AuthService
   ) { }
-  getListParcel(fromDate: string, toDate: string) {
+  getListParcel(fromDate: string = '2021-01-01', toDate: string = new Date(Date.now()).toString()) {
     let req: MasterRequest = new MasterRequest()
     req.fromDate = fromDate
     req.toDate = toDate

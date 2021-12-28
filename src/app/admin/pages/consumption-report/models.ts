@@ -1,17 +1,17 @@
 import { CardDetailInfo } from "src/app/core/models/model.pb"
 import Utils from "src/app/_lib/utils"
 
-export class StatisticModel  {
+export class StatisticModel {
   bag: number = 0
   ton: number = 0
 }
 export class ProductionStatisticalModel {
   shiftID: string = ''
   date: string = '21/10/2021'
-  name: string =  'Alumin 1 tấn'
-  type_product: number =  1
+  name: string = 'Alumin 1 tấn'
+  type_product: number = 1
   type_bag: string = ''
-  name_kttc: string = 'Tên KTTC'
+  name_kttc: string = ''
   bag_unit: string = 'Nung'
   mineral_type: string = 'N'
   ballot_type: string = 'NDM'//loại phiếu
@@ -26,12 +26,13 @@ export class ProductionStatisticalModel {
   user: string = 'HV Biên'
   note: string = ''
   time: string = ''
-
-  constructor(data: CardDetailInfo){
+  typeIn: string = ''
+  typeOut: string = ''
+  index: string = '0'
+  constructor(data: CardDetailInfo) {
     this.name = data.nameProduct
     this.date = data.createdDate
     this.consumer = data.namePartner
-    this.consumer_detail = ''
     this.warehouse = data.nameWareHouse || ''
     this.trips_number = data.countTrip || 0
     this.user = data.createdPerson || ''
@@ -47,5 +48,7 @@ export class ProductionStatisticalModel {
     this.time = data.createdDate
     this.consumer = data.nameCustomer || ''
     this.consumer_detail = data.customerInternal || ''
+    this.typeIn = data.codeTypeBill.includes('N') ? '2. Nhập' : (data.codeTypeBill.includes('X') ? '3. Xuất' : data.codeTypeBill.includes('D') ? '1. Tồn đầu' : data.codeTypeBill.includes('C') ? '4. Tồn cuối' : '')
+    this.index = data.codeTypeBill.includes('N') ? '2' : (data.codeTypeBill.includes('X') ? '3' : (data.codeTypeBill.includes('TD') ? '1' : '4'))
   }
 }

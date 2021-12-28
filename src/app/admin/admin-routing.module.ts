@@ -27,7 +27,7 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
-import {WorkflowManagementComponent} from './pages/workflow-management/workflow-management.component'
+import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component'
 
 ReasonComponent
 JobComponent
@@ -104,6 +104,13 @@ const routes: Routes = [
         },
         component: ErrorBagComponent,
       },
+      {
+        path: 'warehouse-inventory',
+        data: {
+          breadcrumb: 'Báo cáo tồn kho'
+        },
+        component: WareHouseInventoryComponent
+      },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
   },
@@ -151,4 +158,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
