@@ -43,7 +43,7 @@ export class PageMinutesComponent implements OnInit, OnChanges {
   dataSelectExport:any = []
   dataSelectTask:any = []
   convertObject(data: any) {
-    // console.log(data.selectedRowKeys)
+    console.log('dt',data)
     this.dataSelectConvert = []
     if (data != null) {
       for (var i = 0; i < data.selectedRowKeys.length; i++) {
@@ -82,8 +82,12 @@ export class PageMinutesComponent implements OnInit, OnChanges {
         })
       }
       if(this.minuteType==2){
-        this.dataSelectTask = this.dataSelect.filter((element:any) => element.taskType == 1)
-        this.dataSelectExport = this.dataSelect.filter((element:any) => element.taskType == 2)
+        this.dataSelectTask = data.selectedRowsData.filter((element:any) => element.taskType !== 'XTT')
+        this.dataSelectExport = data.selectedRowsData.filter((element:any) => element.taskType == 'XTT')
+      }
+      if(this.minuteType==3){
+        this.dataSelect = data.selectedRowsData
+       
       }
       // console.log(this.dataSelect)
     }

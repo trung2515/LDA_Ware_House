@@ -43,11 +43,11 @@
     <thead>
       <tr>
         <th class="text-center align-center">TT</th>
-        <th class="text-left   align-center " style="width:250px"><span class="ms-3">Nội Dung ThựcHiện</span></th>
+        <th class="text-left   align-center " style="width:220px"><span class="ms-3">Nội Dung ThựcHiện</span></th>
         <th class="text-center align-center" style="width:120px">Tên Phương Tiện Bốc Xếp</th>
         <th class="text-center align-center" style="width:120px">Số lượng (bao/tấn)</th>
         <th class="text-center align-center" style="text-transform: none;width:120px">Chi Tiết Cung Độ (m)</th>
-        <th class="text-center align-center"  style="width:100px">Kho</th>
+        <th class="text-center align-center"  style="width:150px">Kho</th>
         <th class="text-center align-center" >Ghi chú</th>
       </tr>
 
@@ -61,11 +61,11 @@
       <tr class="text-center ms-3" *ngFor="let item of dataSelectTask; let i = index">
         <td>{{i+1}}</td>
         <td class="text-left"><span class="ms-3">{{item.task}}</span></td>
-        <td>{{item.porterTool}}</td>
-        <td>{{item.quantity}}</td>
+        <td>{{item.loadTool}}</td>
+        <td>{{item.quantity * item.mass}}</td>
         <td>{{item.distance}}</td>
-        <td>{{item.wareHouse}}</td>
-        <td>#</td>
+        <td>{{item.loadWareHouse}}</td>
+        <td>{{item.note}}</td>
       </tr>
       <tr *ngIf="dataSelectExport.length > 0" style="font-weight: 700;">
         <td>{{dataSelectTask.length > 0?"II":"I"}}</td>
@@ -74,11 +74,11 @@
       <tr class="text-center" *ngFor="let item of dataSelectExport; let i = index">
         <td>{{i+1}}</td>
         <td class="text-left"><span class="ms-3">{{item.task}}</span></td>
-        <td>{{item.porterTool}}</td>
-        <td>{{item.quantity}}</td>
+        <td>{{item.loadTool}}</td>
+        <td>{{item.quantity * item.mass}}</td>
         <td>{{item.distance}}</td>
         <td>{{item.wareHouse}}</td>
-        <td>#</td>
+        <td>{{item.note}}</td>
       </tr>
     </tbody>
   </table>
@@ -101,8 +101,8 @@
           <td class="text-left"><span class="ms-3">{{item.lot}}</span></td>
           <td>{{item.seri}}</td>
           <td>{{item.errorCause}}</td>
-          <td>{{item.packaging}}</td>
-          <td>#</td>
+          <td>{{item.packagingType}}</td>
+          <td>{{item.note}}</td>
         </tr>
       </tbody>
     </table>
@@ -132,7 +132,7 @@
           <td>{{item.quantity}}</td>
           <td>{{item.quantityConfirm}}</td>
           <td>{{item.quantityBill}}</td>
-          <td>#</td>
+          <td>{{item.note}}</td>
         </tr>
       </tbody>
     </table>

@@ -1,98 +1,4 @@
-/* .badge-left {
-  width: 420px;
-}
-.badge-right {
-  width: 550px;
-}
-.company-name-title {
-  font-size: 25px;
-  font-family: 'Times New Roman', Times, serif;
-  letter-spacing: -0.045em;
-  margin: 0;
-}
-.dapartment-name-title {
-  font-size: 25px;
-  font-weight: 600;
-  font-family: 'Times New Roman', Times, serif;
-  text-decoration: underline;
-  margin: 0;
-}
 
-.form-name-title {
-  width: 650px;
-  font-size: 32px;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-}
-
-.cover {
-  border: 0.5px solid #191919;
-  background: #fff;
-}
-
-#contentToConvert {
-  width: 1190px;
-  height: 1684px;
-  background: #fff;
-}
-
-.preview {
-  width: 100vw;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background: #f3f3f3;
-}
-
-.sub-title {
-  font-size: 25px;
-  font-weight: 700;
-}
-
-* {
-  font-family: 'Times New Roman', Times, serif;
-}
-
-h6 {
-  font-size: 26px;
-}
-
-.content {
-  text-align: justify;
-}
-
-.text-bold {
-  font-weight: 700;
-  font-size: 26px;
-}
-
-.sign-region {
-  height: 240px;
-  width: 500px;
-}
-.sign-key {
-  width: 500px;
-}
-table {
-  background-color: #fff;
-  font-size: 25px !important;
-  letter-spacing: -0.045em !important;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-table thead th {
-  font-size: 25px !important;
-  letter-spacing: -0.045em;
-  text-transform: capitalize;
-}
-
-tr th,
-td {
-  padding: 0;
-  border: 0.5px solid #191919;
-  text-align: center;
-} */
 
 
 .progressbar {
@@ -322,4 +228,11 @@ letter-spacing: -0.045em;
 }
 input{
   box-shadow: none!important;
+}
+.name-minute{
+  font-family: 'roboto';
+  color: #1a1a1a;
+}
+.fw-700{
+  font-weight: 700;
 }
