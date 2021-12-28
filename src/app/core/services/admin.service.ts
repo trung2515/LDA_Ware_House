@@ -618,25 +618,22 @@ export class AdminService {
     date: any,
     nameShift: any,
     createPerson: any,
-    arrOption: any,
+    arrOption: ShiftDetailInfo[],
   ): Observable<any> {
     let req: InsertShiftRequest = new InsertShiftRequest()
     req.date = date
     req.nameShift = nameShift
     req.createdPerson = createPerson
-    req.data = []
-
-    req.data = arrOption.map((item: any) => new ShiftDetailInfo(item))
+    req.data = arrOption
     console.log(req.data)
-    // return of(req.data)
     return this.warehouseClient.newInsertShift(req)
   }
 
-  newUpdateShift(idShift: any, arrOption: any) {
+  newUpdateShift(idShift: any, arrOption: ShiftDetailInfo[]) {
     let req: InsertShiftRequest = new InsertShiftRequest()
     req.idShift = idShift
     req.data = []
-    req.data = arrOption.map((item: any) => new ShiftDetailInfo(item))
+    req.data = arrOption
     console.log(req.data)
     return of(req.data)
   }

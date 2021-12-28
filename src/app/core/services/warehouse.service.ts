@@ -5,6 +5,7 @@ import { WareHouseClient } from "../models/admin.pbsc";
 import { MasterRequest, ParcelResponse, ResponseState } from "../models/model.pb"
 import { AuthService } from "./auth.service";
 import { ParcelDetailModel, ParcelModel } from 'src/app/admin/pages/consignment-management/models';
+import Utils from 'src/app/_lib/utils';
 
 @Injectable()
 export class WareHouseService {
@@ -12,10 +13,12 @@ export class WareHouseService {
     private warehouseClient: WareHouseClient,
     private authService: AuthService
   ) { }
-  getListParcel(fromDate: string = '2021-01-01', toDate: string = new Date(Date.now()).toString()) {
+  getListParcel(fromDate: string = '2021-01-01', toDate: string = '') {
     let req: MasterRequest = new MasterRequest()
     req.fromDate = fromDate
-    req.toDate = toDate
+    if (toDate != '')
+      req.toDate = toDate
+    else req.toDate = Utils.formatDate(new Date(Date.now()))
     console.log(req)
     return this.warehouseClient.getListParcel(req).pipe(
       map((reply: ParcelResponse) => {

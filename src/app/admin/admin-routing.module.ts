@@ -69,6 +69,14 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'work-management',
+    data: {
+      breadcrumb: 'Quản lí công việc'
+    },
+    component: AdminLayoutComponent,
+    children: [{ path: '', component: WorkflowManagementComponent }],
+  },
+  {
     path: 'warehouse-control',
     data: {
       breadcrumb: 'Quản lý kho',
@@ -81,6 +89,7 @@ const routes: Routes = [
           breadcrumb: 'Ca làm việc',
         },
         component: ShiftComponent,
+
       },
       {
         path: 'parcel',
@@ -89,13 +98,7 @@ const routes: Routes = [
         },
         component: ConsignmentManagementComponent,
       },
-      {
-        path: 'work-management',
-        data: {
-          breadcrumb: 'Quản lí công việc'
-        },
-        component: WorkflowManagementComponent
-      },
+
 
       {
         path: 'error-report',
