@@ -160,6 +160,7 @@ export class ReportService {
   reportOrderDetail(code: string) {
     let request: MasterRequest = new MasterRequest()
     request.codeOrder = code
+    console.log(request)
     return this.reportClient.getQRCodeByOrder(request).pipe(
       map((reply: QRCodeResponse) => {
         console.log(reply.data)

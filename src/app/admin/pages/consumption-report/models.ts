@@ -26,11 +26,12 @@ export class ProductionStatisticalModel {
   user: string = 'HV Biên'
   note: string = ''
   time: string = ''
+
   constructor(data: CardDetailInfo){
     this.name = data.nameProduct
     this.date = data.createdDate
     this.consumer = data.namePartner
-    this.consumer_detail = '' 
+    this.consumer_detail = ''
     this.warehouse = data.nameWareHouse || ''
     this.trips_number = data.countTrip || 0
     this.user = data.createdPerson || ''
@@ -44,5 +45,7 @@ export class ProductionStatisticalModel {
     this.ton_number = parseInt(data.quantity) * 1000
     this.reason = data.nameReason || ''
     this.time = data.createdDate
+    this.consumer = data.nameCustomer || ''
+    this.consumer_detail = data.customerInternal || ''
   }
 }

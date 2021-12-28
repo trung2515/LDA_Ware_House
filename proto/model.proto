@@ -42,7 +42,7 @@ message CodePacketInfo
     float weight = 8;
     string nameTypePacket = 9;
 
-    
+
 }
 message CodePacketResponse
 {
@@ -56,7 +56,7 @@ message EquipmentInfo
     string codeEquipment = 3 ;
     bool isMachingPacking = 4;
     bool isDeleted = 5;
-   
+
 }
 message EquipmentResponse
 {
@@ -150,10 +150,10 @@ message TypeProductResponse
     Response response = 1;
     repeated TypeProductInfo data = 2;
 }
-message WareHouseInfo 
+message WareHouseInfo
 {
     int32 idWareHouse = 1;
-  
+
     string nameWareHouse = 2;
     float capacity = 3;
     bool isDeleted = 4;
@@ -179,7 +179,7 @@ message WorkResponse
 
 message ShiftDetailInfo
 {
-    
+
     int32 idShiftDetail = 1;
     string optionName = 2;
     string codeTypeBill = 3;
@@ -236,7 +236,7 @@ message MasterDataInfo
   string objectCode = 4;
   string objectCate = 5;
   string nameCate = 6;
-  
+
 }
 message ParcelInfo
 {
@@ -317,7 +317,7 @@ message ParcelDetailInfo
     int32 createdPerson = 13;
     string nameCreatedPerson = 14;
     string date = 15;
-    
+
 }
 message ParcelDetailResponse
 {
@@ -338,7 +338,7 @@ message CardResponse
 {
     Response response = 1;
     repeated CardDetailInfo data = 2;
-    
+
 }
 
 message CardDetailInfo
@@ -374,6 +374,9 @@ message CardDetailInfo
     int32 CountTrip = 29;
     int32 seri = 30;
     int32 distance = 31;
+    string timereport = 32;
+    string nameCustomer = 33;
+    string customerInternal = 34;
 }
 
 message CardDetailResponse
@@ -458,7 +461,7 @@ message RecordDetailInfo
     string nameTypePacket = 7;
     string codeParcel = 8;
     string nameParcel = 9;
-   
+
     string codeRecord = 10;
     int64 quantity = 11;
     string codePackingUnit = 12;
@@ -542,7 +545,7 @@ message OrderInfo
    string customer = 17;
    string nameCustomer = 18;
    string typeCustomer = 19;
-   string nameTypeCustomer = 20; 
+   string nameTypeCustomer = 20;
    string wareHouse = 21;
    int32 idTypeProduct = 22;
     string nameTypeProdcut = 23;
@@ -658,7 +661,7 @@ message ReportInventoryResponse
 }
 message ConfirmProductionDetail
 {
-    
+
     int32 idShiftDetail = 1;
     string optionName = 2;
     string codeTypeBill = 3;
