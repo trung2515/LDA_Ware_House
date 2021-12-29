@@ -109,8 +109,9 @@ export class AddPackagingFiftyComponent implements OnInit {
             wareHouse: form.wareHouse,
             idMaster: 0,
             shift: 1,
-            date: '2021-12-11'
-
+            date: '2021-12-11',
+            nameShift: 'CA 1',
+            type_bag :'',
           };
           shiftDetailProducts.push(_shiftDetail);
         }

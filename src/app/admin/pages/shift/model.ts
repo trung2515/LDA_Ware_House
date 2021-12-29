@@ -39,18 +39,22 @@ export class ShiftDetail {
   idMaster: number
   shift: number
   date: string
+  nameShift: string
+  type_bag: string
   constructor(data: ShiftDetailInfo) {
     this.id = data.idShiftDetail
     this.idMaster = data.idShift
     this.option = data.optionName
-    this.type = data.nameTypePacket
-    this.product = data.nameProduct
+    this.type = data.codeTypeBill
+    this.type_bag = data.codeTypePacket
+    this.product = data.codeProduct
     this.productRange = data.idTypeProduct
     this.lot = data.codeParcel
-    this.unit = data.namePackingUnit
-    this.wareHouse = data.nameWareHouse
+    this.unit = data.codePackingUnit
+    this.wareHouse = data.codeWareHouse
     this.shift = data.idShift
     this.date = data.date
+    this.nameShift = data.nameShift
   }
 }
 export interface ShiftMaster {
