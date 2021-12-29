@@ -1,9 +1,8 @@
 <div class="wrapper">
   <app-header-report [title_nav]="'Tồn kho'" [isFilterDate]="false"> </app-header-report>
 </div>
-<div class="content">
-  <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true"
-    [columnAutoWidth]="true">
+<div class="content mb-5">
+  <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true">
     <dxo-search-panel [visible]="true"></dxo-search-panel>
     <dxo-export [enabled]="true"></dxo-export>
     <dxo-scrolling mode="standard"></dxo-scrolling>
@@ -19,5 +18,8 @@
     </dxi-column>
     <dxi-column dataField="warehouse" caption="Kho" groupIndex="0"></dxi-column>
     <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
-s  </dx-data-grid>
+    <dxo-summary>
+      <dxi-total-item column="quantity" summaryType="sum" displayFormat="Tổng cộng: {0}"> </dxi-total-item>
+    </dxo-summary>
+  </dx-data-grid>
 </div>

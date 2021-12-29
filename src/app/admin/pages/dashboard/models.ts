@@ -1,25 +1,28 @@
-import { QRCodeInfo, ReportInventoryInfo } from "src/app/core/models/model.pb";
+import { CardDetailInfo, QRCodeInfo, ReportInventoryInfo } from "src/app/core/models/model.pb";
 import Utils from "src/app/_lib/utils";
 
 export class Product {
   id: string;
   name: string;
   date: string;
-  packaging_qty: number;
+  packaging_qty: number = 0;
   amountConsumption: number;
-  inventory_qty: number;
+  inventory_qty: number = 0;
   machines_packaging: any;
   machines_consumption: any
+  code_type_bill: string
 
-  constructor(data: QRCodeInfo){
-    this.date = Utils.formatDateV1(new Date(data.timeIn))
+  constructor(data: CardDetailInfo) {
+    this.date = Utils.formatDateV1(new Date(data.createdDate))
     this.name = data.nameProduct
+    this.inventory_qty = parseInt(data.quantity)
+    this.code_type_bill = data.codeTypeBill.includes('N') ? 'N' : 'X'
   }
 }
 export class BarCharDateModel {
   day: string;
   tons: number;
-  constructor(data: Product){
+  constructor(data: Product) {
     this.day = data.date
     this.tons = data.packaging_qty
   }
@@ -30,12 +33,11 @@ export class TransportationEquipment {
 }
 export class InventoryFLMonthModel {
   name: string;
-  total: string;
-  store: string;
-  constructor(data: ReportInventoryInfo){
+  total: number = 0;
+  type: number;
+  constructor(data: ReportInventoryInfo) {
     this.name = data.nameProduct
-    this.total = data.quantity
-    this.store = data.nameWareHouse
+    this.type = data.idTypeProduct
   }
 }
 export class FilterControllerModel {

@@ -31,7 +31,7 @@ export class ProductionStatisticalModel {
   index: string = '0'
   constructor(data: CardDetailInfo) {
     this.name = data.nameProduct
-    this.date = data.createdDate
+    this.date = Utils.formatDateV1(new Date(data.createdDate))
     this.consumer = data.namePartner
     this.warehouse = data.nameWareHouse || ''
     this.trips_number = data.countTrip || 0
@@ -46,8 +46,8 @@ export class ProductionStatisticalModel {
     this.ton_number = parseInt(data.quantity) * 1000
     this.reason = data.nameReason || ''
     this.time = data.createdDate
-    this.consumer = data.nameCustomer || ''
-    this.consumer_detail = data.customerInternal || ''
+    this.consumer = (!data.codeTypeBill.includes('N') ? data.nameCustomer : '') || ''
+    this.consumer_detail = (!data.codeTypeBill.includes('N') ? data.customerInternal : '') || ''
     this.typeIn = data.codeTypeBill.includes('N') ? '2. Nhập' : (data.codeTypeBill.includes('X') ? '3. Xuất' : data.codeTypeBill.includes('D') ? '1. Tồn đầu' : data.codeTypeBill.includes('C') ? '4. Tồn cuối' : '')
     this.index = data.codeTypeBill.includes('N') ? '2' : (data.codeTypeBill.includes('X') ? '3' : (data.codeTypeBill.includes('TD') ? '1' : '4'))
   }

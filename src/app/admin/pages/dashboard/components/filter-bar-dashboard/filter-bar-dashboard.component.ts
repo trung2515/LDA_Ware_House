@@ -32,7 +32,7 @@ class RadioModel {
 })
 export class FilterBarDashboardComponent implements OnInit {
   @Input() monthList1: RadioModel = { title: '', data: [] }
-  @Input() products: Product[] = []
+  // @Input() products: Product[] = []
 
   @Output() onFilterChanges = new EventEmitter()
   @Output() onRadioChanges = new EventEmitter()
@@ -72,10 +72,10 @@ export class FilterBarDashboardComponent implements OnInit {
     },
   }
 
-  constructor(private reportService: ReportService) {}
+  constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
-    ;(this.threeYearNearestList = {
+    ; (this.threeYearNearestList = {
       title: 'Năm',
       data: this.getThreeYearsNearest(),
     }),
@@ -85,24 +85,25 @@ export class FilterBarDashboardComponent implements OnInit {
       })
     this.getDatesOfMonths(this.currentMonth, this.currentYear)
     this.reportService.reportWarehouse().subscribe((d) => {
-
-      this.inventoryMonths = d.map((d) => new InventoryFLMonthModel(d))
+      d.forEach(d => {
+        if (this.inventoryMonths.filter(i => i.name == d.nameProduct
+          && i.type == d.idTypeProduct).length == 0) {
+          let inv = new InventoryFLMonthModel(d);
+          this.inventoryMonths.push(inv)
+        }
+        this.inventorySum += parseInt(d.quantity)
+        if (this.inventoryMonths.filter(i => i.name == d.nameProduct
+          && i.type == d.idTypeProduct).length > 0) {
+          console.log('update total' + d.nameProduct + ' ' + d.quantity);
+          for (var i = 0; i < this.inventoryMonths.length; i++) {
+            if (this.inventoryMonths[i].name == d.nameProduct && this.inventoryMonths[i].type == d.idTypeProduct)
+              this.inventoryMonths[i].total += parseInt(d.quantity)
+          }
+        }
+      })
     })
-    // this.inventoryMonths = this.getInventoryMonth(
-    //   Number(this.filterControl.month)
-    // );
-
-    this.inventorySum = this.getTotalInventoryFlMonth(
-      Number(this.filterControl.month),
-    )
   }
   ngOnChanges(change: SimpleChanges): void {
-    // this.inventoryMonths = this.getInventoryMonth(
-    //   Number(this.filterControl.month)
-    // );
-    this.inventorySum = this.getTotalInventoryFlMonth(
-      Number(this.filterControl.month),
-    )
   }
 
   onOptionChanged(e: any) {
@@ -116,13 +117,13 @@ export class FilterBarDashboardComponent implements OnInit {
     }
     this.onRadioChanges.emit(param)
   }
-  getTotalInventoryFlMonth(month: number): number {
-    return this.products.reduce((sum, item) => {
-      if (month === new Date(item.date).getMonth() + 1) {
-        return sum + item.inventory_qty
-      } else return sum
-    }, 0)
-  }
+  // getTotalInventoryFlMonth(month: number): number {
+  //   return this.products.reduce((sum, item) => {
+  //     if (month === new Date(item.date).getMonth() + 1) {
+  //       return sum + item.inventory_qty
+  //     } else return sum
+  //   }, 0)
+  // }
   // getInventoryMonth(month: number) {
   //   let results: any = [];
   //   this.productRadio.data.forEach(element => {

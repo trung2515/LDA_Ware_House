@@ -88,12 +88,12 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'row',
           expanded: true,
         },
-        {
-          dataField: 'name_kttc',
-          caption: 'Tên KHTT',
-          area: 'row',
-          expanded: true,
-        },
+        // {
+        //   dataField: 'name_kttc',
+        //   caption: 'Tên KHTT',
+        //   area: 'row',
+        //   expanded: true,
+        // },
         {
           dataField: 'type_bag',
           caption: 'Loại bao',
@@ -118,7 +118,7 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'data',
         },
         {
-          caption: 'Số tấn',
+          caption: 'Khối lượng (Kg)',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -142,12 +142,12 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'row',
           expanded: true,
         },
-        {
-          dataField: 'name_kttc',
-          caption: 'Tên KHTT',
-          area: 'row',
-          expanded: true,
-        },
+        // {
+        //   dataField: 'name_kttc',
+        //   caption: 'Tên ',
+        //   area: 'row',
+        //   expanded: true,
+        // },
         {
           dataField: 'type_bag',
           caption: 'Loại bao',
@@ -172,7 +172,7 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'data',
         },
         {
-          caption: 'Số tấn',
+          caption: 'Khối lượng (Kg)',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -245,12 +245,12 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'row',
           expanded: true,
         },
-        {
-          dataField: 'name_kttc',
-          caption: 'Tên KHTT',
-          area: 'row',
-          expanded: true,
-        },
+        // {
+        //   dataField: 'name_kttc',
+        //   caption: 'Tên KHTT',
+        //   area: 'row',
+        //   expanded: true,
+        // },
         {
           dataField: 'type_bag',
           caption: 'Loại bao',
@@ -276,7 +276,7 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'data',
         },
         {
-          caption: 'Số tấn',
+          caption: 'Khối lượng (Kg)',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',

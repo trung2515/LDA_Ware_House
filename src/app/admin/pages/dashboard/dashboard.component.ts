@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
 
   // bar chart
   dataSource: Product[] = [];
+  dataSourceN: Product[] = [];
+  dataSourceX: Product[] = [];
+
   dataSource_transportation: Product[] = [];
   transportationEquipments: TransportationEquipment[] = [
     { name: 'Palang', fieldCode: 'palang' },
@@ -72,7 +75,7 @@ export class DashboardComponent implements OnInit {
     chartLegend: 'Thống kê sản lượng đóng bao',
     dataField: 'packaging_qty',
     argumentField: 'date',
-    title:"Thống kê sản lượng đóng bao",
+    title: "Thống kê sản lượng đóng bao",
     series: this.transportationEquipments
   };
   configLineChartTT: any = {
@@ -141,28 +144,48 @@ export class DashboardComponent implements OnInit {
 
   getData() {
     this.reportService
-      .reportQrCode(this.getStartDate(), this.getEndDate())
+      .reportInOut(this.getStartDate(), this.getEndDate())
       .subscribe(data => {
-        let totalProduct: number = 0;
         let productArr: Product[] = [];
         productArr = data.map(d => new Product(d));
-        console.log(data.filter(d => d.codeIn.includes('VCLK')));
-        for (var i = 0; i < productArr.length; i++) {
-          if (
-            this.dataSource.filter(
-              d => d.name == productArr[i].name && d.date == productArr[i].date
-            ).length == 0
-          ) {
-            let product: Product = productArr[i];
 
-            product.packaging_qty = productArr.filter(
-              p => (p.name = productArr[i].name)
-            ).length;
+        // console.log(data.filter(d => d.codeIn.includes('VCLK')));
+        //   for (var i = 0; i < productArr.length; i++) {
+        // this.dataSource = productArr;
+        console.log(this.dataSource)
+        for (var i = 0; i < productArr.length; i++) {
+          let product: Product = productArr[i];
+          // console.log(product);
+          if (this.dataSource.filter(d => d.name == product.name && d.date == product.date).length == 0)
             this.dataSource.push(product);
-          }
+
         }
+
+        for (var i = 0; i < this.dataSource.length; i++) {
+          this.dataSource[i].packaging_qty = 0;
+          productArr.forEach(
+            p => {
+              if (p.name == this.dataSource[i].name && p.date == this.dataSource[i].date && p.code_type_bill == this.dataSource[i].code_type_bill) {
+                console.log('sum' + p.inventory_qty);
+                this.dataSource[i].packaging_qty += p.inventory_qty || 0
+              }
+            }
+          );
+        }
+
+        this.dataSourceN = this.dataSource.filter(d => d.code_type_bill == 'N')
+        this.dataSourceX = this.dataSource.filter(d => d.code_type_bill == 'X')
+
+
+        console.log(this.dataSource)
+
+
+
+
+
       });
   }
+
 
   onFilterChange(changeValue: any) {
     this.filterController = {

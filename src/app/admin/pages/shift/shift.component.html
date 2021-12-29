@@ -59,17 +59,19 @@
         <div class="row">
           <div class="col-6 p-3">
             <label>Ngày:</label>
-            <dx-date-box [disabled]="isDisabled" [value]="selectDate" type="date" (onValueChanged)="selectDateChanged($event)">
+            <dx-date-box [disabled]="isDisabled" [value]="selectDate" type="date"
+              (onValueChanged)="selectDateChanged($event)">
             </dx-date-box>
           </div>
           <div class="col-6 p-3">
             <label>Ca:</label>
-            <dx-select-box [disabled]="isDisabled" placeholder="Chọn ca" [(value)]="selectShift"  (onValueChanged)="selectShiftChanged($event)" displayExpr="name" valueExpr="name"
+            <dx-select-box [disabled]="isDisabled" placeholder="Chọn ca" [(value)]="selectShift"
+              (onValueChanged)="selectShiftChanged($event)" displayExpr="name" valueExpr="name"
               [dataSource]="listShift"></dx-select-box>
           </div>
           <div class="p-3">
             <dx-data-grid #detailGrid id="gridContainer" [(dataSource)]="shiftDetail" [showBorders]="true">
-              <dxi-column dataField="option" caption="Option">
+              <dxi-column dataField="option" caption="Option" [formItem]="{}">
                 <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
               </dxi-column>

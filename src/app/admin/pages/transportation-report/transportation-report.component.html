@@ -39,7 +39,7 @@
                 </dxi-column>
                 <dxi-column dataField="bag_number" caption="Số bao">
                 </dxi-column>
-                <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"></dxi-column>
+                <dxi-column dataField="ton_number" caption="Khối lượng (kg)" alignment="left"></dxi-column>
                 <dxi-column dataField="cdo" alignment="left" caption="Cung độ">
                 </dxi-column>
                 <!-- <dxo-summary>
@@ -49,10 +49,10 @@
                 <dxi-column dataField="seriOut" caption="Seri Out"></dxi-column> -->
 
                 <!-- <dxi-column dataField="trips_number" caption="Số chuyến" alignment="left"></dxi-column> -->
-                <dxi-column dataField="user" caption="User"></dxi-column>
+                <dxi-column dataField="user" caption="Tên tài khoản"></dxi-column>
                 <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
                 <div *dxTemplate="let item of 'time'">
-                  {{ item.value | date: "yyyy-MM-dd HH:mm:ss" }}
+                  {{ item.value | date: "dd/MM/yyyy HH:mm:ss" }}
                 </div>
                 <!-- title header template -->
                 <div class="caption-cus" *dxTemplate="let info of 'titleHeaderTemplate'">

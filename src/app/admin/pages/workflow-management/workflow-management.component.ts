@@ -55,10 +55,10 @@ export class WorkflowManagementComponent implements OnInit {
   getDetail(date: string, shift: string) {
     if (shift == null || shift == '') {
       const master = this.dataWork.filter(w => w.date == date).sort((a, b) => a.shift.localeCompare(b.shift))
-
       return master
     } else {
       const detail = this.workDetail.filter(w => w.date == date && w.shift == shift);
+      console.log(detail)
       return detail
     }
   }
