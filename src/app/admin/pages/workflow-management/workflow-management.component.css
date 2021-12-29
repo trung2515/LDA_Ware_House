@@ -54,3 +54,13 @@ background: #3459E6;
     color: #3459E6;
     font-size:15px;
 }
+table, th, td {
+    border: 1px solid #EBEBEB;
+  }
+.table-tatol{
+      background-color: #EEF1F9;
+      font-weight: 700;
+}
+.table-tatol  th ,td {
+    border:none
+}
