@@ -36,7 +36,7 @@ export class AddPackagingFiftyComponent implements OnInit {
     shiftDetail: []
   };
 
-  listProduct:any = []
+  listProduct: any = []
   inputs_options: any = [];
   formGroupProduct: any = {};
   constructor(
@@ -45,7 +45,7 @@ export class AddPackagingFiftyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private adminService: AdminService,
     private shiftService: ShiftService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.appointments = this.shiftService.getAppointments();
@@ -106,7 +106,12 @@ export class AddPackagingFiftyComponent implements OnInit {
             lot: form.consignments,
             machines_packaging: '',
             unit: this.packaging_unit,
-            wareHouse: form.wareHouse
+            wareHouse: form.wareHouse,
+            idMaster: 0,
+            shift: 1,
+            date: '2021-12-11',
+            nameShift: 'CA 1',
+            type_bag :'',
           };
           shiftDetailProducts.push(_shiftDetail);
         }
@@ -115,19 +120,19 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.showSuccess('Thêm thành công!');
     }
   }
-  getListProduct(){
-    this.adminService.getListProduct().subscribe((data:any) => {
-      this.listProduct=data
-      console.log('listProduct ',this.listProduct)
-      this.listProduct.sort((a:any,b:any)=>{
+  getListProduct() {
+    this.adminService.getListProduct().subscribe((data: any) => {
+      this.listProduct = data
+      console.log('listProduct ', this.listProduct)
+      this.listProduct.sort((a: any, b: any) => {
         return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
       })
-      this.listProduct.forEach((item:any,index:any)=>{
-        item.index=index
+      this.listProduct.forEach((item: any, index: any) => {
+        item.index = index
       })
     })
   }
-  isValidForm():Boolean {
+  isValidForm(): Boolean {
     let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];

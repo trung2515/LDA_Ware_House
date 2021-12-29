@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service'
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
   parentMenuSelectId: number = 0
   username: string = ''
   ngOnInit(): void {
@@ -34,13 +34,13 @@ export class NavbarComponent implements OnInit {
         isParent: true,
         parentId: 0,
       },
-      // {
-      //   link: '/admin/warehouse-operation',
-      //   menuId: 4,
-      //   name: 'Vận hành kho',
-      //   isParent: true,
-      //   parentId: -1,
-      // },
+      {
+        link: '/admin/work-management',
+        menuId: 4,
+        name: 'Vận hành kho',
+        isParent: true,
+        parentId: -1,
+      },
       {
         link: '/forms/tool-page',
         menuId: 5,

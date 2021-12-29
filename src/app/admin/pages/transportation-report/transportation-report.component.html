@@ -42,6 +42,9 @@
                 <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"></dxi-column>
                 <dxi-column dataField="cdo" alignment="left" caption="Cung độ">
                 </dxi-column>
+                <!-- <dxo-summary>
+                  <dxi-total-item column="bag_number" summaryType="sum" displayFormat="Tổng: {0}"> </dxi-total-item>
+              </dxo-summary> -->
                 <!-- <dxi-column dataField="seriIn" caption="Seri In"></dxi-column>
                 <dxi-column dataField="seriOut" caption="Seri Out"></dxi-column> -->
 
@@ -71,9 +74,9 @@
               <div class="col-12">
                 <dx-pivot-grid id="pivotgrid-b-d" [allowSortingBySummary]="true" [allowSorting]="true"
                   [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
-                  [texts]="{grandTotal: 'Tổng cộng'}"
-                  [showRowTotals]="false" [showColumnTotals]="true" (onExporting)="onExportingPivot($event, tabPanel)"
-                  [allowFiltering]="true" [dataSource]="detailLoadUnLoadReport">
+                  [texts]="{grandTotal: 'Tổng cộng'}" [showRowTotals]="false" [showColumnTotals]="true"
+                  (onExporting)="onExportingPivot($event, tabPanel)" [allowFiltering]="true"
+                  [dataSource]="detailLoadUnLoadReport">
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
                   <dxo-export [enabled]="true"></dxo-export>
                   <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="200" [height]="400">
@@ -88,8 +91,8 @@
           <div *ngIf="tabPanel.id === 3" id="pivotgrid-d-dv">
             <div class="row p-1">
               <div class="col-12">
-                <dx-pivot-grid id="pivotgrid-d-dv" [texts]="{grandTotal: 'Tổng cộng'}" [allowSortingBySummary]="true" [allowSorting]="true"
-                  [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
+                <dx-pivot-grid id="pivotgrid-d-dv" [texts]="{grandTotal: 'Tổng cộng'}" [allowSortingBySummary]="true"
+                  [allowSorting]="true" [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
                   [showRowTotals]="false" [showColumnTotals]="true" (onExporting)="onExportingPivot($event, tabPanel)"
                   [allowFiltering]="true" [dataSource]="detailUnLoadWDVReport">
                   <dxo-export [enabled]="true"></dxo-export>
@@ -106,8 +109,8 @@
           <div *ngIf="tabPanel.id === 4" id="pivotgrid-b-dv">
             <div class="row p-1">
               <div class="col-12">
-                <dx-pivot-grid id="pivotgrid-b-dv" [texts]="{grandTotal: 'Tổng cộng'}" [allowSortingBySummary]="true" [allowSorting]="true"
-                  [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
+                <dx-pivot-grid id="pivotgrid-b-dv" [texts]="{grandTotal: 'Tổng cộng'}" [allowSortingBySummary]="true"
+                  [allowSorting]="true" [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
                   [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                   (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailLoadWDVReport">
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>

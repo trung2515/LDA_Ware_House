@@ -1,5 +1,11 @@
-<nav class="navbar navbar-expand-sm fixed-top p-0 bg-primary" style=" height: 64px;">
-  <div class="container-fluid d-flex">
+<nav class="navbar navbar-expand-lg fixed-top p-0 bg-primary" style=" height: 64px;">
+  <!-- <a class="navbar-brand" href="#">
+    Navbar</a> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container-fluid d-flex collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li *ngFor="let menu of parentMenu" class="nav-item dropdown">
         <a *ngIf="menu.parentId == -1" class="nav-link" [routerLink]="menu.link" aria-haspopup="true"

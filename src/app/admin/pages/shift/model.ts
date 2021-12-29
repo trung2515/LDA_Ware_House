@@ -2,22 +2,22 @@ import { ShiftDetailInfo, ShiftInfo } from "src/app/core/models/model.pb";
 import { ClassificationTypeNames } from "typescript";
 
 export class Appointment {
-    id:number;
-    text : string ;
-    shift: number ;
-    startDate: Date;
-    endDate: Date  ;
-    description:string;
-    idDetail: number
-    shiftDetail: ShiftDetail[]
-    constructor(data: ShiftDetailInfo){
-        this.text = data.nameShift + ' ' + data.nameCreatedPerson
-        this.startDate = new Date(data.date)
-        this.endDate = new Date(data.date)
-        this.shift = parseInt(data.nameShift.toLowerCase().replace('ca', '').trim())
-        this.idDetail = data.idShiftDetail
-        this.id = data.idShift
-    }
+  id: number;
+  text: string;
+  shift: number;
+  startDate: Date;
+  endDate: Date;
+  description: string;
+  idDetail: number
+  shiftDetail: ShiftDetail[]
+  constructor(data: ShiftDetailInfo) {
+    this.text = data.nameShift + ' ' + data.nameCreatedPerson
+    this.startDate = new Date(data.date)
+    this.endDate = new Date(data.date)
+    this.shift = parseInt(data.nameShift.toLowerCase().replace('ca', '').trim())
+    this.idDetail = data.idShiftDetail
+    this.id = data.idShift
+  }
 }
 
 export interface Resource {
@@ -26,26 +26,36 @@ export interface Resource {
   color: string;
 }
 export class ShiftDetail {
-    id: number;
-    option: string ;
-    type: string;
-    product: string;
-    productRange:string;
-    packaging:string;
-    lot:string;
-    unit:string;
-    wareHouse:string;
-    machines_packaging: string;
-    constructor(data: ShiftDetailInfo){
-        this.id = data.idShiftDetail
-        this.option = data.optionName
-        this.type = data.nameTypePacket
-        this.product = data.nameProduct
-        this.productRange = data.nameTypeProduct
-        this.lot = data.codeParcel
-        this.unit = data.namePackingUnit
-        this.wareHouse = data.nameWareHouse
-    }
+  id: number;
+  option: string;
+  type: string;
+  product: string;
+  productRange: number;
+  packaging: string;
+  lot: string;
+  unit: string;
+  wareHouse: string;
+  machines_packaging: string;
+  idMaster: number
+  shift: number
+  date: string
+  nameShift: string
+  type_bag: string
+  constructor(data: ShiftDetailInfo) {
+    this.id = data.idShiftDetail
+    this.idMaster = data.idShift
+    this.option = data.optionName
+    this.type = data.codeTypeBill
+    this.type_bag = data.codeTypePacket
+    this.product = data.codeProduct
+    this.productRange = data.idTypeProduct
+    this.lot = data.codeParcel
+    this.unit = data.codePackingUnit
+    this.wareHouse = data.codeWareHouse
+    this.shift = data.idShift
+    this.date = data.date
+    this.nameShift = data.nameShift
+  }
 }
 export interface ShiftMaster {
   id: number;
@@ -67,19 +77,19 @@ export interface Lot {
   name: number;
 }
 export interface ListShift {
-    shift : number;
-    name : string;
+  shift: number;
+  name: string;
 }
 export class optionApoiment {
   // optionName : string;
-  codeTypeBill : string;
-  nameProduct : string;
-  nameTypeProduct : string;
-  nameTypePacket : string;
-  codeParcel : number;
-  namePackingUnit : string;
-  nameWareHouse : string;
-  constructor(data:any){
+  codeTypeBill: string;
+  nameProduct: string;
+  nameTypeProduct: string;
+  nameTypePacket: string;
+  codeParcel: number;
+  namePackingUnit: string;
+  nameWareHouse: string;
+  constructor(data: any) {
     // this.optionName = data.option
     this.codeTypeBill = data.type
     this.nameProduct = data.product
