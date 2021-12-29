@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -22,6 +22,9 @@ import { Appointment } from '../model';
   styleUrls: ['./add-packaging-one.component.css']
 })
 export class AddPackagingOneComponent implements OnInit {
+  @ViewChild('dxSelectShift')
+  dxSelectShift: any;
+
   popupVisible: boolean = false;
   now: Date = new Date();
   ca_no_option: string = 'Ca 1';
@@ -57,6 +60,7 @@ export class AddPackagingOneComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.getData();
     this.appointments = this.shippingUnitService.getAppointments();
 
     this.currentAppointment = this.getCurrentAppointment(
@@ -68,9 +72,26 @@ export class AddPackagingOneComponent implements OnInit {
       this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
 
-    this.setOptionShiftValue();
+    // this.setOptionShiftValue(this.dxSelectShift);
+    console.log();
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    console.log('element ',this.dxSelectShift);
+    this.dxSelectShift.instance.option('ca 1', '1')
   }
 
+  set_ca_no_option() {
+    this.ca_no_option = 'Ca 3'
+  }
+  getData() {
+    this.adminService
+      .getListShiftDetail('2021/12/25', '2021/12/27')
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
   setOptionShiftValue = () => {
     for (const shiftDetail of this.currentAppointment.shiftDetail) {
       for (const key in shiftDetail.machines_packaging) {

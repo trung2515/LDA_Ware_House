@@ -5,7 +5,7 @@
     [formControl]="ngControl.control"
   >
     <option value="">Chọn {{ label }}</option>
-    <option *ngFor="let option of options" [ngValue]="option.code+':'+option.name"
+    <option *ngFor="let option of options" [ngValue]="option.code"
       >{{ option.name }}</option
     >
   </select>
