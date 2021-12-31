@@ -1,7 +1,5 @@
 .brand-wrap {
-  position: fixed;
-  top: 46px;
-  left: 52px;
+  // position: fixed;
   display: flex;
 }
 .brand-wrap .brand {
@@ -12,18 +10,16 @@
   margin-left: 24px;
   user-select: none;
 }
-.brand-wrap .company-name p {
+.company-name .title-name {
   text-align: center;
   font-family: Roboto, sans-serif;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.02);
-}
-.brand-wrap .company-name p:first-child {
   color: #418bca;
   margin-bottom: 8px;
   font-size: 18px;
   font-weight: 500;
 }
-.brand-wrap .company-name p:last-child {
+.company-name .sub-title-name {
   color: #9f221e;
   font-size: 24px;
   font-weight: 700;
@@ -32,7 +28,7 @@
 .wrap {
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
 }
@@ -57,40 +53,59 @@
 }
 .login-form {
   background-color: #fff;
-  flex-basis: 500px;
-  padding:60px 50px;
+  padding: 60px 50px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.06);
   border-radius: 3px;
+  width: 500px;
 }
 .wrap button {
   font-size: 16px;
-  background-color: #3459E6;
+  background-color: #fff;
+  border-color: #3459e6;
+  color: #3459e6;
+}
+.wrap button:hover {
+  background-color: #3459e6;
   color: #fff;
 }
-.wrap button:hover{
-  background-color: #fff;
-  color: #3459E6;
+
+.name {
+  color: #3459e6;
+  font-size: 24px;
 }
 
 // mobile
 @media only screen and (max-width: 37.5rem) {
   .bg_img_login {
-    display: none;
+    // display: none;
   }
-  .brand-wrap {
-    top: 100px;
-    left: 0;
-    right: 0;
-    justify-content: center;
-}
+
   .company-name {
     display: none!important;
   }
   .login-form {
     box-shadow: none;
     padding: 0 16px;
+    width: 320px;
   }
   .form-control {
     font-size: 0.875rem;
+  }
+  .company-name .title-name {
+    font-size: 18px;
+    display: none;
+
+  }
+
+  .company-name .sub-title-name {
+    font-size: 14px;
+    display: none;
+
+  }
+
+
+  .name {
+    color: #3459e6;
+    font-size: 18px;
   }
 }

@@ -33,6 +33,7 @@ img.btn-edit {
   font-weight: 500;
   line-height: 24px;
   color: #000000;
+  text-transform: capitalize;
 }
 .option-info {
   background-color: #eef1f9;

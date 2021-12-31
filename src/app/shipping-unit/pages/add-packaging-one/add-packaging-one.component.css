@@ -239,7 +239,9 @@
   content: " ";
   border-bottom: 1px dashed #aeafb0;
 }
-.option-item {
+.option-item:last-of-type .horizontal-line {
+  display: none;
+
 }
 .option-title {
   margin-bottom: 0;

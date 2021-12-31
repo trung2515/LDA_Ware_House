@@ -264,7 +264,7 @@ export class TransportationReportComponent implements OnInit {
       },
       {
         id: 2,
-        tabName: 'Báo các chi tiết bốc - dỡ sản phẩm theo thiết bị',
+        tabName: 'Báo cáo chi tiết bốc - dỡ sản phẩm theo thiết bị',
       },
       {
         id: 3,

@@ -1258,90 +1258,6 @@ export class AdministratorClient {
       });
     },
     /**
-     * Unary RPC for /client.Administrator/InsertMaster
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    insertMaster: (
-      requestData: client000.MasterDataInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Administrator/InsertMaster',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterDataInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.Administrator/UpdateMaster
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    updateMaster: (
-      requestData: client000.MasterDataInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Administrator/UpdateMaster',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterDataInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.Administrator/SetDeletedMaster
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    setDeletedMaster: (
-      requestData: client000.MasterDataInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Administrator/SetDeletedMaster',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterDataInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.Administrator/GetListMaster
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    getListMaster: (
-      requestData: client000.MasterDataInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Administrator/GetListMaster',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterDataInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
      * Unary RPC for /client.Administrator/InsertDevice
      *
      * @param requestMessage Request message
@@ -1549,6 +1465,90 @@ export class AdministratorClient {
         requestMetadata,
         requestClass: client000.MasterRequest,
         responseClass: client000.TransportationUnitResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/InsertMaster
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertMaster: (
+      requestData: client000.MasterDataInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/InsertMaster',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterDataInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/UpdateMaster
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    updateMaster: (
+      requestData: client000.MasterDataInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/UpdateMaster',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterDataInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/SetDeletedMaster
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    setDeletedMaster: (
+      requestData: client000.MasterDataInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/SetDeletedMaster',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterDataInfo,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Administrator/GetListMaster
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.MasterDataResponse>>
+     */
+    getListMaster: (
+      requestData: client000.MasterDataInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.MasterDataResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Administrator/GetListMaster',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterDataInfo,
+        responseClass: client000.MasterDataResponse
       });
     }
   };
@@ -2330,70 +2330,6 @@ export class AdministratorClient {
   }
 
   /**
-   * Unary RPC for /client.Administrator/InsertMaster
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  insertMaster(
-    requestData: client000.MasterDataInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .insertMaster(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.Administrator/UpdateMaster
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  updateMaster(
-    requestData: client000.MasterDataInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .updateMaster(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.Administrator/SetDeletedMaster
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  setDeletedMaster(
-    requestData: client000.MasterDataInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .setDeletedMaster(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.Administrator/GetListMaster
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  getListMaster(
-    requestData: client000.MasterDataInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .getListMaster(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
    * Unary RPC for /client.Administrator/InsertDevice
    *
    * @param requestMessage Request message
@@ -2550,6 +2486,70 @@ export class AdministratorClient {
   ): Observable<client000.TransportationUnitResponse> {
     return this.$raw
       .getListTransportationUnit(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/InsertMaster
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertMaster(
+    requestData: client000.MasterDataInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertMaster(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/UpdateMaster
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  updateMaster(
+    requestData: client000.MasterDataInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .updateMaster(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/SetDeletedMaster
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  setDeletedMaster(
+    requestData: client000.MasterDataInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .setDeletedMaster(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Administrator/GetListMaster
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.MasterDataResponse>
+   */
+  getListMaster(
+    requestData: client000.MasterDataInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.MasterDataResponse> {
+    return this.$raw
+      .getListMaster(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }

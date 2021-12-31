@@ -236,6 +236,7 @@ message MasterDataInfo
   string objectCode = 4;
   string objectCate = 5;
   string nameCate = 6;
+  bool isDeleted = 7;
   
 }
 message ParcelInfo
@@ -374,6 +375,9 @@ message CardDetailInfo
     int32 CountTrip = 29;
     int32 seri = 30;
     int32 distance = 31;
+    string timereport = 32;
+    string nameCustomer = 33;
+    string customerInternal = 34;
 }
 
 message CardDetailResponse
@@ -736,6 +740,16 @@ message QRCodeInfo
     int32 status= 28;
     string codeOut = 29;
     string nameTypeOut = 30;
+    string userReport = 31;
+    string timeReport = 32;
+    string codeTypePacket = 33;
+    string nameTypePacket = 34;
+    int64 ID = 35;
+    string user = 36;
+    string transportIn = 37;
+    string transportOut = 38;
+
+
 }
 message QRCodeResponse
 {

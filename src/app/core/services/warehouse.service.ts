@@ -1,10 +1,11 @@
-import { ConfirmProduction1000Info, InsertParcelRequest, ParcelDetailInfo, ParcelDetailResponse } from './../models/model.pb';
+import { ConfirmProduction1000Info, InsertParcelRequest, ParcelDetailInfo, ParcelDetailResponse, ConfirmProductionResponse } from './../models/model.pb';
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { WareHouseClient } from "../models/admin.pbsc";
 import { MasterRequest, ParcelResponse, ResponseState } from "../models/model.pb"
 import { AuthService } from "./auth.service";
 import { ParcelDetailModel, ParcelModel } from 'src/app/admin/pages/consignment-management/models';
+import Utils from 'src/app/_lib/utils';
 
 @Injectable()
 export class WareHouseService {
@@ -12,10 +13,12 @@ export class WareHouseService {
     private warehouseClient: WareHouseClient,
     private authService: AuthService
   ) { }
-  getListParcel(fromDate: string, toDate: string) {
+  getListParcel(fromDate: string = '2021-01-01', toDate: string = '') {
     let req: MasterRequest = new MasterRequest()
     req.fromDate = fromDate
-    req.toDate = toDate
+    if (toDate != '')
+      req.toDate = toDate
+    else req.toDate = Utils.formatDate(new Date(Date.now()))
     console.log(req)
     return this.warehouseClient.getListParcel(req).pipe(
       map((reply: ParcelResponse) => {
@@ -41,6 +44,17 @@ export class WareHouseService {
   }
   update1000Kg(data: ConfirmProduction1000Info) {
     return this.warehouseClient.updateConfirmProduct(data);
+  }
+  getConfirmProduct(date:any) {
+    let req: MasterRequest = new MasterRequest()
+    req.date =date
+
+    return this.warehouseClient.getConfirmProduct(req).pipe(
+      map((reply:ConfirmProductionResponse) => {
+        console.log(reply);
+        return reply.data
+      })
+    )
   }
 
 

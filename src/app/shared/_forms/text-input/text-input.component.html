@@ -13,14 +13,14 @@
     Vui lòng nhập {{ label }}
   </div>
   <div *ngIf="ngControl.control?.errors?.minlength" class="invalid-feedback">
-    {{ label }} must be at least
-    {{ (ngControl.control?.errors?.minlength)["requiredLength"] }}
+    {{ label }} ít nhất
+    {{ (ngControl.control?.errors?.minlength)["requiredLength"] }} kí tự
   </div>
   <div *ngIf="ngControl.control?.errors?.pattern" class="invalid-feedback">
     {{ label }} là số
   </div>
   <div *ngIf="ngControl.control?.errors?.maxlength" class="invalid-feedback">
-    {{ label }} must be at most
+    {{ label }} ít nhất
     {{ (ngControl.control?.errors?.maxlength)["requiredLength"] }}
   </div>
   <div *ngIf="ngControl.control?.errors?.isMatching" class="invalid-feedback">

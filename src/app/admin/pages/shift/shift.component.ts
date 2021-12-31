@@ -1,14 +1,15 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
+import { OptionModel } from 'src/app/order/pages/order-registration/model';
+import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib';
 import { AdminService } from 'src/app/core/services/admin.service';
-
-import Query from 'devextreme/data/query';
-import Form from 'devextreme/ui/form';
 import {
   ProductInfo,
   Response,
   ResponseState,
-  ShiftInfo
+  ShiftDetailInfo,
+  ShiftInfo,
+  TypeBillInfo
 } from 'src/app/core/models/model.pb';
 import { forkJoin, of } from 'rxjs';
 import {
@@ -18,17 +19,14 @@ import {
   ShiftMaster,
   Product,
   Lot,
-  Option,
   ListShift,
   optionApoiment
 } from './model';
-import { Any } from '@ngx-grpc/well-known-types';
 import { ShiftService } from './services/shift.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ignoreElements } from 'rxjs/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import Utils from 'src/app/_lib/utils';
 import { ToastrService } from 'ngx-toastr';
+import { DxDataGridComponent, DxDateBoxComponent, DxSelectBoxComponent } from 'devextreme-angular';
 @Component({
   selector: 'app-shift',
   templateUrl: './shift.component.html',
@@ -39,24 +37,27 @@ export class ShiftComponent implements OnInit {
     private adminService: AdminService,
     private shiftService: ShiftService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private warehouseService: WareHouseService
   ) { }
   ngOnInit(): void {
+    this.initFilter();
     this.getData();
   }
-
-  now: Date = new Date();
-  fromDate: string = [this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDate() - 1].join(',')
+  @ViewChild('detailGrid') detailGrid!: DxDataGridComponent
+  isDisabled: boolean = false
+  selectShift: string = 'CA 1'
+  selectDate: Date = new Date();
   currentDate: Date = new Date();
+
   showPopup: boolean = false;
   starDateScheduler: Date = new Date();
   popupCreateShift: boolean = false;
   appointments: Appointment[] = [];
   shiftDetails: ShiftDetail[] = [];
-  newShiftDetail: ShiftDetail[] = [];
   showUpdateButton: boolean = false;
   startDate: Date;
-  shiftSelect: any;
+  shiftSelect: string = 'CA 1';
   shiftMaster: ShiftMaster = {
     id: 1,
     name: '',
@@ -65,33 +66,35 @@ export class ShiftComponent implements OnInit {
     endDate: new Date(),
     description: ''
   };
+  currentConsignment: Appointment
   shiftDetail: ShiftDetail[] = [];
 
-  listProduct: Product[] = [
-    { name: 'Alumin 1 Tấn' },
-    { name: 'Alumin 2 Tấn' },
-    { name: 'Alumin 3 Tấn' },
-    { name: 'Alumin 4 Tấn' }
+  listProduct: OptionModel[] = [];
+  listOptions: OptionModel[] = [
+    new OptionModel({ objectCode: 'Option 1', objectName: 'Option 1' }),
+    new OptionModel({ objectCode: 'Option 2', objectName: 'Option 2' }),
+    new OptionModel({ objectCode: 'Option 3', objectName: 'Option 3' }),
+    new OptionModel({ objectCode: 'Option 4', objectName: 'Option 4' }),
+    new OptionModel({ objectCode: 'Option 5', objectName: 'Option 5' }),
   ];
-  listOptions: Option[] = [
-    { value: 1, name: 'option 1' },
-    { value: 2, name: 'option 2' }
+
+  listShift: OptionModel[] = [
+    new OptionModel({ objectCode: 1, objectName: 'CA 1' }),
+    new OptionModel({ objectCode: 2, objectName: 'CA 2' }),
+    new OptionModel({ objectCode: 3, objectName: 'CA 3' })
+
   ];
-  listShift: ListShift[] = [
-    { shift: 1, name: 'CA 1' },
-    { shift: 2, name: 'CA 2' },
-    { shift: 3, name: 'CA 3' }
+  listProductRange: OptionModel[] = [
+    new OptionModel({ objectCode: 1, objectName: 'Loại 1' }),
+    new OptionModel({ objectCode: 2, objectName: 'Loại 2' }),
+    new OptionModel({ objectCode: 3, objectName: 'Loại 3' }),
   ];
-  listProductRange: Product[] = [
-    { name: 'Loại 1' },
-    { name: 'Loại 2' },
-    { name: 'Loại 3' }
-  ];
-  listPackaging: Product[] = [{ name: 'Xả đáy' }];
-  listType: Product[] = [{ name: 'NDL' }, { name: 'NDM' }];
-  listUnit: Product[] = [{ name: 'NUNG' }, { name: 'XTRE' }];
-  listWareHouse: Product[] = [{ name: 'Kho TT' }];
-  listLot: Lot[] = [{ name: 189 }, { name: 190 }, { name: 200 }, { name: 201 }];
+  listPackaging: OptionModel[] = [];
+  listPackagingUnit: OptionModel[] = [];
+  listType: OptionModel[] = [];
+  listUnit: OptionModel[] = [];
+  listWareHouse: OptionModel[] = [];
+  listLot: OptionModel[] = [];
   resources: Resource[] = [
     {
       text: 'CA 1',
@@ -109,76 +112,70 @@ export class ShiftComponent implements OnInit {
       color: '#F6D2B3'
     }
   ];
-  getData() {
-    this.adminService
-      .getListShiftDetail('2021,11,05', Utils.formatDate(this.now))
-      .subscribe(data => {
-        console.log(data);
-        for (var i = 0; i < data.length; i++) {
-          const appointment = new Appointment(data[i]);
-          const detail = new ShiftDetail(data[i]);
-          if (
-            this.appointments.filter(a => a.id === appointment.id).length == 0
-          ) {
-            this.appointments.push(appointment);
-          }
-          this.shiftDetails.push(detail);
-        }
-        console.log('apoinmment', this.appointments);
-        console.log('detail', this.shiftDetails);
-      });
+
+  titlePopup: string = ''
+  popupVisible: boolean
+  selectIdShift: number
+  selectionDate: Date
+  selectionShift: string
+
+  selectDateChanged(e: any) {
+    this.selectionDate = e.value
   }
-  getDetail(idDetail: number) {
-    console.log(idDetail);
-    const rs = this.shiftDetails.filter(d => d.id == idDetail && d.id != 0);
-    console.log(rs);
-    return rs;
+  selectShiftChanged(e: any) {
+    this.selectionShift = e.value
   }
-  changeFromDate(e: any) {
-    let d = new Date(e.value)
-    let day = '' + d.getDate()
-    let month = '' + (d.getMonth() + 1)
-    let year = d.getFullYear()
-    if (day.length < 2) { month = '0' + day }
-    if (month.length < 2) { month = '0' + month }
-    this.fromDate = [year, month, day].join(',')
-    this.getData()
+  initFilter() {
+    this.adminService.getListTypeBill().subscribe(d => {
+      this.listType = d.filter((t: TypeBillInfo) => { return t.codeTypeBill == 'NDM' || t.codeTypeBill == 'NDL' }).map((t: any) => new OptionModel(t));
+    })
+
+    this.adminService.getListWareHouse().subscribe(d => {
+      this.listWareHouse = d.map((m: any) => new OptionModel(m))
+    })
+
+
+    forkJoin([
+      this.adminService.getListTypePacket(),
+      this.adminService.getListPackingUnit(),
+      this.adminService.getListTypeProduct(),
+      this.adminService.getListProduct(),
+      this.warehouseService.getListParcel(),
+      this.adminService.getListMasterData()])
+      .subscribe(([
+        packet_types,
+        packaging_units,
+        product_types,
+        products,
+        parcels,
+        masterdata]) => {
+
+        this.listProductRange = product_types.map((p: any) => new OptionModel(p));
+        this.listProduct = products.map((p: any) => new OptionModel(p))
+        this.listLot = parcels.map((p: any) => new OptionModel(p));
+        this.listPackaging = packet_types.map((m) => new OptionModel(m))
+        this.listUnit = packaging_units.map((pk: any) => new OptionModel(pk))
+        console.log(this.listPackaging);
+      })
+  }
+  onClickSave = () => {
+    this.detailGrid.instance.saveEditData();
+  }
+  onClickCancel = () => {
+    this.detailGrid.instance.cancelEditData();
 
   }
-  viewData() {
-    console.log(this.authService.getUser().user, this.newShiftDetail);
-  }
-  chooseDate(data: any) {
-    this.startDate = data.value;
-    console.log(this.startDate);
-  }
-  chooseShift(data: any) {
-    this.shiftSelect = data.value.shift;
-    console.log(this.shiftSelect);
-  }
-  createShift = () => {
-    let options: any = []
-    let option = new optionApoiment(this.newShiftDetail[0])
-    options.push(option)
-    this.adminService.newInsertShift(this.startDate, this.shiftSelect, this.authService.getUser().user, options)
-      .subscribe(data => { console.log(data) })
-    this.getData()
-    this.newShiftDetail = []
-    this.popupCreateShift = false;
-
-  };
-
-  onAppointmentFormOpening(data: any) {
-    console.log(data);
-    data.cancel = true;
-    // (this.authService.getUser().role == 14)
-    if (data) {
-      this.showPopup = true;
+  showDetailShift(data: any) {
+    this.popupVisible = true;
+    if (data != null) {
+      this.isDisabled = true
+      this.titlePopup = 'Chi tiết ca làm việc'
       let newStartDate = new Date(data.appointmentData.startDate);
       let newEndDate = new Date(data.appointmentData.startDate);
       console.log('form', data);
+      this.selectIdShift = data.appointmentData.id;
+
       if (data.appointmentData.id) {
-        this.showUpdateButton = true;
         newStartDate.setHours(data.appointmentData.shift);
         newEndDate.setHours(data.appointmentData.shift + 1);
         this.shiftMaster = {
@@ -189,155 +186,114 @@ export class ShiftComponent implements OnInit {
           endDate: newEndDate,
           description: data.appointmentData.description
         };
-        this.shiftDetail = data.appointmentData.shiftDetail;
-        console.log(this.shiftDetail);
-      } else {
-        let checkShift = 1;
-        data.showUpdateButton = false;
-        for (var i = 0; i < this.appointments.length; i++) {
-          if (
-            this.appointments[i].startDate.getDate() ==
-            data.appointmentData.startDate.getDate() &&
-            this.appointments[i].startDate.getMonth() ==
-            data.appointmentData.startDate.getMonth() &&
-            this.appointments[i].startDate.getFullYear() ==
-            data.appointmentData.startDate.getFullYear()
-          ) {
-            checkShift++;
-          }
-        }
-        newStartDate.setHours(checkShift);
-        newEndDate.setHours(checkShift + 1);
-        this.shiftMaster = {
-          id: 1,
-          name: this.authService.getUser().name,
-          shift: checkShift,
-          startDate: newStartDate,
-          endDate: newEndDate,
-          description: data.appointmentData.description
-        };
-        this.shiftDetail = [];
+        console.log(data.appointmentData.shiftDetail);
+        this.shiftDetail = this.shiftDetails.filter(s => s.idMaster == data.appointmentData.id);
+        this.selectShift = 'CA ' + data.appointmentData.shift;
+        this.selectDate = new Date(data.appointmentData.startDate)
+        console.log(this.shiftDetail)
+        console.log(this.selectShift)
       }
+    } else {
+      this.isDisabled = false
+      this.shiftDetail = []
+      this.selectShift = 'CA 1'
+      this.titlePopup = 'Tạo ca làm việc mới'
     }
   }
-  updateShiftData() {
-    // let newAppointments: Appointment = {
-    //   id: this.shiftMaster.id,
-    //   shift: this.shiftMaster.shift,
-    //   text: this.shiftMaster.name,
-    //   startDate: this.shiftMaster.startDate,
-    //   endDate: this.shiftMaster.endDate,
-    //   description: this.shiftMaster.description,
-    //   // shiftDetail: this.shiftDetail,
-    // }
-    // let item = this.appointments.find(
-    //   (element) => element.id == newAppointments.id,
-    // )
-    // this.appointments = this.appointments.filter((element) => element !== item)
-    // this.appointments.push(newAppointments)
-    // this.showPopup = false
+  getData() {
+    console.log(this.currentDate)
+    let month = this.currentDate.getMonth();
+    let year = this.currentDate.getFullYear();
+    let toDate = Utils.formatDate(new Date(year, month + 1, 0))
+    let fromDate = Utils.formatDate(new Date(year, month, 1))
+    console.log(fromDate, toDate)
+    this.adminService
+      .getListShiftDetail(fromDate, toDate)
+      .subscribe(data => {
+        console.log(data);
+        this.shiftDetails = []
+        for (var i = 0; i < data.length; i++) {
+          const appointment = new Appointment(data[i]);
+          const detail = new ShiftDetail(data[i]);
+          if (
+            this.appointments.filter(a => a.id === appointment.id).length == 0
+          ) {
+            this.appointments.push(appointment);
+          }
+          this.shiftDetails.push(detail);
+        }
+      });
+  }
+  getDetail(idDetail: number) {
+    const rs = this.shiftDetails.filter(d => d.id == idDetail && d.id != 0);
+    return rs;
   }
 
-  addShiftData() {
-    // let idMax = 0
-    // for (var i = 0; i < this.appointments.length; i++) {
-    //   idMax = this.appointments[i].id > idMax ? this.appointments[i].id : idMax
-    // }
-    // let newShift: Appointment = {
-    //   id: idMax + 1,
-    //   shift: this.shiftMaster.shift,
-    //   text: this.shiftMaster.name,
-    //   startDate: this.shiftMaster.startDate,
-    //   endDate: this.shiftMaster.endDate,
-    //   description: this.shiftMaster.description,
-    //   // shiftDetail: this.shiftDetail,
-    // }
-    // this.appointments.push(newShift)
-    // // console.log('newShift', newShift)
-    // // console.log('apointment', this.appointments)
-    // this.showPopup = false
+
+  SaveShift = () => {
+    console.log('save shift')
+    console.log(this.shiftDetail)
+    console.log(this.selectionDate)
+    console.log(this.selectionShift)
+    console.log(this.selectIdShift)
+    let nameShift = this.selectionShift;
+    let date = Utils.formatDate(this.selectionDate);
+    console.log('save shift', nameShift)
+    console.log('save shift', date)
+
+    let shiftDetailInfo: ShiftDetailInfo[] = []
+    this.shiftDetail.forEach(s => {
+      let data: ShiftDetailInfo = new ShiftDetailInfo();
+      data.codeParcel = s.lot
+      data.codeProduct = s.product
+      data.codeTypeBill = s.type
+      data.codeTypePacket = s.type_bag
+      data.codeWareHouse = s.wareHouse
+      data.idTypeProduct = s.productRange
+      data.codePackingUnit = s.unit
+      data.optionName = s.option
+      shiftDetailInfo = [...shiftDetailInfo, data]
+    })
+    let countShiftDetail: number = this.shiftDetails.filter(s => this.selectShift == s.nameShift && Utils.formatDate(this.selectDate) == s.date).length;
+    console.log(countShiftDetail);
+    if (countShiftDetail > 0 && this.selectIdShift > 0) {
+      console.log('update', this.selectIdShift)
+      this.adminService.newUpdateShift(this.selectIdShift, shiftDetailInfo)
+        .subscribe(reply => {
+          console.log(reply)
+          if (reply.state == ResponseState.SUCCESS) {
+            this.toastr.success(reply.message)
+            this.popupVisible = false
+            this.getData()
+          } else {
+            this.toastr.warning(reply.message)
+          }
+        });
+    } else {
+      console.log('new')
+      this.adminService.newInsertShift(date, nameShift, this.authService.getUser().id, shiftDetailInfo)
+        .subscribe(reply => {
+          if (reply.state == ResponseState.SUCCESS) {
+            this.toastr.success(reply.message)
+            this.popupVisible = false
+            this.getData()
+          } else {
+            this.toastr.warning(reply.message)
+          }
+        });
+    }
+  };
+
+  onAppointmentFormOpening(data: any) {
+    console.log('click', data.appointmentData);
+    data.cancel = true;
+    if (this.appointments.filter(a => a.id == data.appointmentData.id).length > 0) {
+      this.showDetailShift(data)
+    }
   }
 
   closePop = () => {
-    this.popupCreateShift = false;
+    this.popupVisible = false;
   };
 
-  // -----------------------------------------------------add Shift---------------------------------------
 }
-
-// appointments: Appointment[] = [
-//   {
-//     id: 1,
-//     text: 'Phan Đình Trung',
-//     shift: 1,
-//     startDate: new Date('Tue Nov 02 2021 1:00:00 GMT+0700'),
-//     endDate: new Date('Tue Nov 02 2021 11:00:00 GMT+0700'),
-//     description: 'test',
-//     shiftDetail: [
-//       {
-//         id: 1,
-//         option: 'option 1',
-//         type: 'NDL',
-//         product: 'Alumin 1 Tấn',
-//         productRange: 2,
-//         packaging: 'Xả đáy',
-//         lot: 189,
-//         unit: 'NUNG',
-//         wareHouse: 'Kho TT'
-//       },
-//       {
-//         id: 2,
-//         option: 'option 2',
-//         type: 'NDM',
-//         product: 'Alumin 3 Tấn',
-//         productRange: 3,
-//         packaging: 'Xả đáy',
-//         lot: 190,
-//         unit: 'XTRE',
-//         wareHouse: 'Kho TT'
-//       }
-//     ]
-//   },
-//   {
-//     id: 2,
-//     text: 'Tống Trần Hiếu',
-//     shift: 2,
-//     startDate: new Date('Tue Nov 02 2021 2:00:00 GMT+0700'),
-//     endDate: new Date('Tue Nov 02 2021 17:00:00 GMT+0700'),
-//     description: 'test',
-//     shiftDetail: [
-//       {
-//         id: 1,
-//         option: 'option 2',
-//         type: 'NDL',
-//         product: 'Alumin 1 Tấn',
-//         productRange: 3,
-//         packaging: 'Xả đáy',
-//         lot: 190,
-//         unit: 'XTRE',
-//         wareHouse: 'Kho TT'
-//       }
-//     ]
-//   },
-//   {
-//     id: 3,
-//     text: 'trung hiếu',
-//     shift: 1,
-//     startDate: new Date('Wed Nov 03 2021  1:00:00 GMT+0700'),
-//     endDate: new Date('Wed Nov 03 2021 11:00:00 GMT+0700'),
-//     description: 'test',
-//     shiftDetail: [
-//       {
-//         id: 1,
-//         option: 'option 2',
-//         type: 'NDL',
-//         product: 'Alumin 1 Tấn',
-//         productRange: 3,
-//         packaging: 'Xả đáy',
-//         lot: 190,
-//         unit: 'XTRE',
-//         wareHouse: 'Kho TT'
-//       }
-//     ]
-//   }
-// ];

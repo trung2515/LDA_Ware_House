@@ -38,15 +38,42 @@ export class ListTypeFiftyComponent implements OnInit {
     endDate: undefined,
     description: '',
     idDetail: 0,
-    shiftDetail: []
-  }
+    shiftDetail: [],
+}
   optionSelected: any;
   productList: ProductOptionModel[] = [];
   typeProductList: TypeProductModel[] = [];
   typePacketList: TypePacketModel[] = [];
   warehouseList: WareHouseModel[] = [];
 
-  inputs_options: any = [];
+  inputs_options: any = [
+    {
+      label: 'Sản phẩm',
+      formControlName: 'product_name',
+      type: 'select',
+      options: this.productList
+    },
+    {
+      label: 'Loại sản phẩm',
+      formControlName: 'product_type',
+      type: 'select',
+      options: this.typeProductList
+    },
+    {
+      label: 'Loại bao',
+      formControlName: 'bag_type',
+      type: 'select',
+      options: this.typePacketList
+    },
+    { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+    { label: 'Lô', formControlName: 'consignments', type: 'text' },
+    {
+      label: 'Kho',
+      formControlName: 'warehouse',
+      type: 'select',
+      options: this.warehouseList
+    }
+  ];
   formGroupProduct: any = {};
   constructor(
     private location: Location,
@@ -64,54 +91,55 @@ export class ListTypeFiftyComponent implements OnInit {
       this.getCurrentShift(this.ca_no_option)
     );
   }
-  getData() {
+  async getData() {
     this.adminService.getListProduct().subscribe(data => {
       this.productList = data.map(d => new ProductOptionModel(d));
-      this.setListOption();
+      // this.setListOption();
     });
     this.adminService.getListTypeProduct().subscribe(data => {
       this.typeProductList = data.map(d => new TypeProductModel(d));
-      this.setListOption();
+      // this.setListOption();
     });
     this.adminService.getListTypePacket().subscribe(data => {
       this.typePacketList = data.map(d => new TypePacketModel(d));
-      this.setListOption();
+      // this.setListOption();
     });
     this.adminService.getListWareHouse().subscribe(data => {
       this.warehouseList = data.map(d => new WareHouseModel(d));
-      this.setListOption();
+      // this.setListOption();
     });
   }
-  setListOption() {
-    this.inputs_options = [
-      {
-        label: 'Sản phẩm',
-        formControlName: 'product_name',
-        type: 'select',
-        options: this.productList
-      },
-      {
-        label: 'Loại sản phẩm',
-        formControlName: 'product_type',
-        type: 'select',
-        options: this.typeProductList
-      },
-      {
-        label: 'Loại bao',
-        formControlName: 'bag_type',
-        type: 'select',
-        options: this.typePacketList
-      },
-      { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-      { label: 'Lô', formControlName: 'consignments', type: 'text' },
-      {
-        label: 'Kho',
-        formControlName: 'warehouse',
-        type: 'select',
-        options: this.warehouseList
-      }
-    ];
-  }
+
+  // setListOption() {
+  //   this.inputs_options = [
+  //     {
+  //       label: 'Sản phẩm',
+  //       formControlName: 'product_name',
+  //       type: 'select',
+  //       options: this.productList
+  //     },
+  //     {
+  //       label: 'Loại sản phẩm',
+  //       formControlName: 'product_type',
+  //       type: 'select',
+  //       options: this.typeProductList
+  //     },
+  //     {
+  //       label: 'Loại bao',
+  //       formControlName: 'bag_type',
+  //       type: 'select',
+  //       options: this.typePacketList
+  //     },
+  //     { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+  //     { label: 'Lô', formControlName: 'consignments', type: 'text' },
+  //     {
+  //       label: 'Kho',
+  //       formControlName: 'warehouse',
+  //       type: 'select',
+  //       options: this.warehouseList
+  //     }
+  //   ];
+  // }
   onUpdateData() {
     if (this.isValidForm()) {
       this.isUpdating = false;

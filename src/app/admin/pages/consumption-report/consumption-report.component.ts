@@ -1,3 +1,5 @@
+import { filter } from 'rxjs/operators';
+import { CardDetailInfo } from 'src/app/core/models/model.pb';
 import { FilterModel } from './../warehouse-report/models'
 import { ProductionStatisticalModel } from './models'
 import { Component, OnInit } from '@angular/core'
@@ -9,6 +11,7 @@ import { ExcelService } from 'src/app/core/services/excel.service'
 import { ReportService } from 'src/app/core/services/report.service'
 import Utils from 'src/app/_lib/utils'
 import { ToastrService } from 'ngx-toastr'
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 @Component({
   selector: 'app-consumption-report',
@@ -20,7 +23,6 @@ export class ConsumptionReportComponent implements OnInit {
   endDate: Date = new Date()
   tabCaptions: any[] = []
   statistics: ProductionStatisticalModel[] = []
-  statistics_copy: ProductionStatisticalModel[] = []
   disabledDates: Date[] = []
   title_nav: string = 'Nhập xuất tồn sản phẩm'
 
@@ -37,11 +39,16 @@ export class ConsumptionReportComponent implements OnInit {
     inputValue: '',
   }
 
+  detailInputN: any;
+  detailInputX: any;
+
+  rawData: ProductionStatisticalModel[] = [];
+
   constructor(
     private excelService: ExcelService,
     private reportService: ReportService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.getEndDate = this.getEndDate.bind(this)
@@ -66,12 +73,11 @@ export class ConsumptionReportComponent implements OnInit {
       },
     ]
 
-    // this.statistics = this.consumptionReportService.getProductionStatistics()
 
     this.disabledDates = this.getDisabledDates(this.startDate)
 
     // get fields, store of dx-pivot-table
-    this.detailInputOutputReport = new PivotGridDataSource({
+    this.detailInputN = new PivotGridDataSource({
       fields: [
         {
           dataField: 'name',
@@ -101,7 +107,7 @@ export class ConsumptionReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Loại phiếu',
+          caption: 'Phiếu',
           dataField: 'ballot_type',
           area: 'column',
         },
@@ -112,7 +118,7 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'data',
         },
         {
-          caption: 'Số tấn',
+          caption: 'Khối lượng (Kg)',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -120,7 +126,61 @@ export class ConsumptionReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.statistics_copy.filter((s) => s.ballot_type != 'VCLK')
+          return this.rawData.filter(s => s.ballot_type.includes('N'))
+        },
+      }),
+    })
+
+    this.detailInputX = new PivotGridDataSource({
+      fields: [
+        {
+          dataField: 'name',
+          caption: 'Tên Sản phẩm',
+          headerFilter: {
+            allowSearch: true,
+          },
+          area: 'row',
+          expanded: true,
+        },
+        {
+          dataField: 'name_kttc',
+          caption: 'Tên KHTT',
+          area: 'row',
+          expanded: true,
+        },
+        {
+          dataField: 'type_bag',
+          caption: 'Loại bao',
+          area: 'row',
+          expanded: true,
+        },
+        {
+          dataField: 'type_product',
+          caption: 'Loại sản phẩm',
+          area: 'row',
+          expanded: true,
+        },
+        {
+          caption: 'Phiếu',
+          dataField: 'ballot_type',
+          area: 'column',
+        },
+        {
+          caption: 'Số bao',
+          dataField: 'bag_number',
+          summaryType: 'sum',
+          area: 'data',
+        },
+        {
+          caption: 'Khối lượng (Kg)',
+          dataField: 'ton_number',
+          summaryType: 'sum',
+          area: 'data',
+        },
+      ],
+      store: new CustomStore({
+        load: (LoadOptions) => {
+          return this.rawData.filter(s => s.ballot_type.includes('X'))
         },
       }),
     })
@@ -169,7 +229,7 @@ export class ConsumptionReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.statistics_copy.filter((s) => s.ballot_type == 'NDM')
+          return this.rawData.filter((s) => s.ballot_type == 'NDM')
         },
       }),
     })
@@ -204,11 +264,11 @@ export class ConsumptionReportComponent implements OnInit {
           expanded: true,
         },
         {
-          caption: 'Xuất, tồn',
-          dataField: 'mineral_type',
+          caption: 'Nhập, Xuất, Tồn',
+          dataField: 'typeIn',
           area: 'column',
+          sortOrder: 'asc'
         },
-
         {
           caption: 'Số bao',
           dataField: 'bag_number',
@@ -216,7 +276,7 @@ export class ConsumptionReportComponent implements OnInit {
           area: 'data',
         },
         {
-          caption: 'Số tấn',
+          caption: 'Khối lượng (Kg)',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -225,11 +285,12 @@ export class ConsumptionReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.statistics_copy
+          return this.rawData;
         },
       }),
     })
   }
+
 
   getData() {
     this.reportService
@@ -238,8 +299,8 @@ export class ConsumptionReportComponent implements OnInit {
         Utils.formatDate(this.endDate),
       )
       .subscribe((data) => {
-        this.statistics = data.map((d) => new ProductionStatisticalModel(d))
-        this.statistics_copy = [...this.statistics]
+        this.rawData = data.map((d) => new ProductionStatisticalModel(d))
+        this.statistics = this.rawData.filter(d => !d.ballot_type.toLowerCase().includes('t'));
         this.loadPivotGrid()
       })
   }
@@ -252,7 +313,8 @@ export class ConsumptionReportComponent implements OnInit {
   //   }
   // }
   loadPivotGrid = (): void => {
-    this.detailInputOutputReport.reload()
+    this.detailInputN.reload()
+    this.detailInputX.reload()
     this.detailImExInventoryReport.reload()
     this.pipotParcelReport.reload()
   }

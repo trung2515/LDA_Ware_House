@@ -27,7 +27,7 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { OrderRegistrationComponent } from '../order/pages/order-registration/order-registration.component'
 import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report/warehouse-inventory.component'
 import { OrderComponent } from './pages/order/report/order.component'
-import {WorkflowManagementComponent} from './pages/workflow-management/workflow-management.component'
+import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component'
 
 ReasonComponent
 JobComponent
@@ -69,6 +69,14 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'work-management',
+    data: {
+      breadcrumb: 'Quản lí công việc'
+    },
+    component: AdminLayoutComponent,
+    children: [{ path: '', component: WorkflowManagementComponent }],
+  },
+  {
     path: 'warehouse-control',
     data: {
       breadcrumb: 'Quản lý kho',
@@ -81,6 +89,7 @@ const routes: Routes = [
           breadcrumb: 'Ca làm việc',
         },
         component: ShiftComponent,
+
       },
       {
         path: 'parcel',
@@ -89,13 +98,7 @@ const routes: Routes = [
         },
         component: ConsignmentManagementComponent,
       },
-      {
-        path: 'work-management',
-        data: {
-          breadcrumb: 'Quản lí công việc'
-        },
-        component: WorkflowManagementComponent
-      },
+
 
       {
         path: 'error-report',
@@ -103,6 +106,13 @@ const routes: Routes = [
           breadcrumb: 'Báo cáo bao lỗi',
         },
         component: ErrorBagComponent,
+      },
+      {
+        path: 'warehouse-inventory',
+        data: {
+          breadcrumb: 'Báo cáo tồn kho'
+        },
+        component: WareHouseInventoryComponent
       },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
@@ -151,4 +161,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

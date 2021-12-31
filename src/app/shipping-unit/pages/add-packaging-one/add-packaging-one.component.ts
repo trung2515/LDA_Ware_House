@@ -1,3 +1,8 @@
+import {
+  ConfirmProduction1000,
+  ResponseState
+} from './../../../core/models/model.pb';
+import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
 import { ToastrService } from 'ngx-toastr';
 
 import { Location } from '@angular/common';
@@ -10,11 +15,9 @@ import {
 } from '@angular/forms';
 import { WareHouseService } from 'src/app/core/services/warehouse.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
 import { ShippingUnitService } from '../../services/shipping-unit-service.service';
 import { AdminService } from 'src/app/core/services/admin.service';
-import Utils from 'src/app/_lib/utils';
-import { Appointment } from '../model';
+import { ShiftDetail } from '../model';
 
 @Component({
   selector: 'app-add-packaging-one',
@@ -26,10 +29,11 @@ export class AddPackagingOneComponent implements OnInit {
   dxSelectShift: any;
 
   popupVisible: boolean = false;
-  now: Date = new Date();
+  now: Date = new Date('2022/01/01');
   ca_no_option: string = 'Ca 1';
-  appointments: Appointment[] = [];
+  aShiftList: ShiftDetail[] = [];
   formGroupProduct: any = {};
+
 
   message = 'Không có thông tin ca làm việc';
 
@@ -46,90 +50,102 @@ export class AddPackagingOneComponent implements OnInit {
     private toastrService: ToastrService,
     private wareHouseService: WareHouseService,
     private shippingUnitService: ShippingUnitService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private warehouseService: WareHouseService,
+    private authService: AuthService
   ) {}
-
-  currentAppointment: Appointment = {
-    id: 0,
-    text: '',
-    shift: 0,
-    startDate: undefined,
-    endDate: undefined,
-    description: '',
-    shiftDetail: []
-  };
 
   ngOnInit(): void {
     this.getData();
-    this.appointments = this.shippingUnitService.getAppointments();
-
-    this.currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(this.ca_no_option)
-    );
-
-    for (let i = 0; i < this.currentAppointment.shiftDetail.length; i++) {
-      this.formGroupProduct['form-' + i] = this.initFormGroup();
-    }
-
-    // this.setOptionShiftValue(this.dxSelectShift);
-    console.log();
-  }
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    console.log('element ',this.dxSelectShift);
-    this.dxSelectShift.instance.option('ca 1', '1')
   }
 
-  set_ca_no_option() {
-    this.ca_no_option = 'Ca 3'
-  }
   getData() {
     this.adminService
-      .getListShiftDetail('2021/12/25', '2021/12/27')
+      .getListShiftDetail(
+        this.getCurrentDate(this.now),
+        this.getCurrentDate(this.now)
+      )
       .subscribe(data => {
-        console.log(data);
+        let currentShifts = [];
+        for (const _data of data) {
+          currentShifts.push(new ShiftDetail(_data));
+        }
+        const selectShift = currentShifts.filter(item => {
+          return item.shift.toLowerCase() == this.ca_no_option.toLowerCase();
+        });
+        if (selectShift.length > 0) {
+          currentShifts = selectShift.sort(
+            (a, b) =>
+              parseInt(a.option.split(' ')[1]) -
+              parseInt(b.option.split(' ')[1])
+          );
+          this.aShiftList = currentShifts;
+        } else {
+          this.showError('Chưa có dữ liệu ca làm việc này!');
+        }
+        this.generationForm();
       });
   }
-  setOptionShiftValue = () => {
-    for (const shiftDetail of this.currentAppointment.shiftDetail) {
-      for (const key in shiftDetail.machines_packaging) {
-        for (const _key of this.getKeyForm()) {
-          let form = this.formGroupProduct[_key];
-          form.get(key).setValue(shiftDetail.machines_packaging[key]);
-        }
-      }
+  generationForm() {
+    for (let i = 0; i < this.aShiftList.length; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
-  };
+  }
+  // setOptionShiftValue = () => {
+  // for (const shiftDetail of this.currentAppointment.shiftDetail) {
+  //   for (const key in shiftDetail.machines_packaging) {
+  //     for (const _key of this.getKeyForm()) {
+  //       let form = this.formGroupProduct[_key];
+  //       form.get(key).setValue(shiftDetail.machines_packaging[key]);
+  //     }
+  //   }
+  // }
+  // };
 
   onSubmit(e: any) {
     if (this.isValidForm()) {
-      // find index currentAppointment in appointment list
-      const indexOfItem = this.appointments.findIndex(
-        item => item.id === this.currentAppointment.id
-      );
+      let dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
+      let machine_list: ConfirmProduction1000[] = [];
 
-      // check this shift is had machineF
-      if (
-        this.currentAppointment.shiftDetail[0].machines_packaging !== '' ||
-        this.currentAppointment.shiftDetail[1].machines_packaging !== ''
-      ) {
-        // this.showError('đã tôn tại, Mở popup xác nhận đê');
-        this.popupVisible = true;
-      } else {
-        this.handleAddNewShiftDetail(indexOfItem);
-        this.showSuccess('Thêm mới thành công');
+      for (let i = 0; i < this.getKeyForm().length; i++) {
+        const form = this.formGroupProduct[this.getKeyForm()[i]].value;
+        for (const key in form) {
+          let machine: ConfirmProduction1000 = new ConfirmProduction1000();
+          machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
+          machine.codeEquipment = key.split("_")[1];
+          machine.quantity = form[key];
+
+          machine_list.push(machine);
+        }
       }
-    }
-  }
-  handleAddNewShiftDetail(index: number) {
-    for (let i = 0; i < this.getKeyForm().length; i++) {
-      const form = this.formGroupProduct[this.getKeyForm()[i]];
+      dataInput.user = this.authService.getUser().id;
+      dataInput.data = machine_list
+      console.log(machine_list);
 
-      this.setNewAppointment(this.currentAppointment.shiftDetail[i], form);
+      this.warehouseService.update1000Kg(dataInput).subscribe(reply => {
+        if (reply.state == ResponseState.SUCCESS) {
+          this.showSuccess('Thêm mới thành công');
+        } else {
+          this.showWarn(reply.message);
+        }
+      });
+
+      // find index currentAppointment in appointment list
+      // const indexOfItem = this.aShiftList.findIndex(
+      //   item => item.id === this.currentAppointment.id
+      // );
+      // check this shift is had machineF
+      // if (
+      //   this.currentAppointment.shiftDetail[0].machines_packaging !== '' ||
+      //   this.currentAppointment.shiftDetail[1].machines_packaging !== ''
+      // ) {
+      //   // this.showError('đã tôn tại, Mở popup xác nhận đê');
+      //   this.popupVisible = true;
+      // } else {
+      //   this.handleAddNewShiftDetail(indexOfItem);
+      //   this.showSuccess('Thêm mới thành công');
+      // }
     }
-    this.appointments[index] = { ...this.currentAppointment };
   }
   setNewAppointment(shift: any, form: any) {
     for (const key in shift.machines_packaging) {
@@ -155,11 +171,17 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_a: ['2', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['22', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: [
+        '2222',
+        [Validators.required, Validators.pattern('^[0-9]*$')]
+      ],
+      machine_e: [
+        '22222',
+        [Validators.required, Validators.pattern('^[0-9]*$')]
+      ]
     });
   }
   getForm(i: number) {
@@ -176,37 +198,14 @@ export class AddPackagingOneComponent implements OnInit {
   }
 
   onDateValueChanged(e: any) {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(e.value),
-      this.getCurrentShift(this.ca_no_option)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca làm việc này!');
-    }
+    this.getData();
   }
   onSelectCaChange = (e: any) => {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(e.selectedItem)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca làm việc này!');
-    }
+    this.getData();
   };
 
   onBackClicked() {
     this.location.back();
-  }
-  getCurrentAppointment(date: string, ca_no?: number) {
-    return this.appointments.find(appointment => {
-      const { startDate, shift } = appointment;
-      const currentDate = this.getCurrentDate(startDate);
-      return currentDate === date && shift === ca_no;
-    });
   }
   getCurrentDate(date: Date): string {
     return (
@@ -214,12 +213,11 @@ export class AddPackagingOneComponent implements OnInit {
     );
   }
   getCurrentDateDMY(date: Date): string {
+    console.log('dateeeee  ',date);
+
     return (
       date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     );
-  }
-  getCurrentShift(ca_option: string) {
-    return Number(ca_option.split(' ')[1]);
   }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
@@ -235,11 +233,18 @@ export class AddPackagingOneComponent implements OnInit {
       enableHtml: true
     });
   }
+  showWarn(msg: string) {
+    this.toastrService.warning(msg, '', {
+      timeOut: 3000,
+      closeButton: true,
+      enableHtml: true
+    });
+  }
   onConfirm = () => {
-    const indexOfItem = this.appointments.findIndex(
-      item => item.id === this.currentAppointment.id
-    );
-    this.handleAddNewShiftDetail(indexOfItem);
+    // const indexOfItem = this.aShiftList.findIndex(
+    //   item => item.id === this.currentAppointment.id
+    // );
+    // this.handleAddNewShiftDetail(indexOfItem);
 
     this.showSuccess('Thay đổi thành công!');
     this.popupVisible = false;

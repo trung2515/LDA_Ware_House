@@ -34,10 +34,17 @@ export class PageMinutesSuggestComponent implements OnInit, OnChanges {
   dataSelect:any = [];
   dataSelectExport:any = []
   dataSelectTask:any = []
+  subTitle:any =[]
+
     convertSuggest(data:any){
+ 
     for( var i = 0 ; i < data.length ; i++){
-      this.suggest[i].product =` ${data[i].product}/bao L${data[i].productType} `
-      this.suggest[i].productName =` ${data[i].product}/bao L${data[i].productType} (${data[i].packaging}) `
+      let item:any = {}
+      item.titleProduct =` ${data[i].product}/bao L${data[i].productType} `
+      item.titleProductName =` ${data[i].product} (${data[i].packaging}) `
+      this.subTitle.push(item)
+      // console.log('sub',this.subTitle);
+      
     }
   }
 

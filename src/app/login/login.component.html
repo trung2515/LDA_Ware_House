@@ -1,22 +1,29 @@
-<img alt="" class="bg_img_login">
-<div class="brand-wrap">
-  <img src="assets/img/lda_icon.png" alt="lda_brand" class="brand">
-  <div class="company-name d-flex flex-column justify-content-center align-items-start">
-    <p>TẬP ĐOÀN CÔNG NGHIỆP THAN - KHOÁNG SẢN VIỆT NAM</p>
-    <p>CÔNG TY TNHH MTV NHÔM LÂM ĐỒNG - TKV</p>
-  </div>
-</div>
-<div class="wrap">
-  <form [formGroup]="registerForm" (ngSubmit)="login()" autocomplete="off" class="login-form">
-    <h2 class="text-center form-title">Đăng nhập</h2>
-    <hr>
-    <span style='color: #696F79;'>Tài khoản</span>
-    <app-text-input formControlName="username" [label]="'username'" [type]="'text'"></app-text-input>
-    <span style='color: #696F79;margin-top:10px;'>Mật khẩu</span>
-    <app-text-input formControlName="password" [label]="'password'" [type]="'password'"></app-text-input>
-    <div class="form-group text-center mt-5">
-      <button class="btn btn-outline-primary mr-2 w-100" type="submit" style='height:48px'>Đăng
-        nhập</button>
+<div class="bg_img_login">
+  <div class="d-flex justify-content-between align-items-start p-4 h-20">
+    <div class="d-flex justify-content-center align-items-start">
+      <img class="logo-lda pr-2" src="assets/img/lda_icon.png" height="50" alt="lda_brand">
+      <div class="company-name d-flex flex-column align-items-start">
+        <p class="title-name">TẬP ĐOÀN CÔNG NGHIỆP THAN - KHOÁNG SẢN VIỆT NAM</p>
+        <p class="sub-title-name">CÔNG TY TNHH MTV NHÔM LÂM ĐỒNG - TKV</p>
+      </div>
     </div>
-  </form>
+    <div class="right">
+      <img class="logo-estec" height="50" src="assets/img/logo_estec.png">
+    </div>
+  </div>
+  <div class="wrap d-flex flex-column">
+    <h3 class="name pb-3" style="">PHẦN MỀM QUẢN LÝ KHO ALUMIN</h3>
+    <form [formGroup]="registerForm" (ngSubmit)="login()" autocomplete="off" class="login-form p-3">
+      <h2 class="text-center form-title">Đăng nhập</h2>
+      <hr>
+      <span style='color: #696F79;'>Tài khoản</span>
+      <app-text-input formControlName="username" [label]="'username'" [type]="'text'"></app-text-input>
+      <span style='color: #696F79;margin-top:10px;'>Mật khẩu</span>
+      <app-text-input formControlName="password" [label]="'password'" [type]="'password'"></app-text-input>
+      <div class="form-group text-center mt-5">
+        <button class="btn btn-outline-primary mr-2 w-100" type="submit" style='height:48px'>Đăng
+          nhập</button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -6076,6 +6076,7 @@ export class MasterDataInfo implements GrpcMessage {
     _instance.objectCode = _instance.objectCode || '';
     _instance.objectCate = _instance.objectCate || '';
     _instance.nameCate = _instance.nameCate || '';
+    _instance.isDeleted = _instance.isDeleted || false;
   }
 
   /**
@@ -6108,6 +6109,9 @@ export class MasterDataInfo implements GrpcMessage {
           break;
         case 6:
           _instance.nameCate = _reader.readString();
+          break;
+        case 7:
+          _instance.isDeleted = _reader.readBool();
           break;
         default:
           _reader.skipField();
@@ -6144,6 +6148,9 @@ export class MasterDataInfo implements GrpcMessage {
     if (_instance.nameCate) {
       _writer.writeString(6, _instance.nameCate);
     }
+    if (_instance.isDeleted) {
+      _writer.writeBool(7, _instance.isDeleted);
+    }
   }
 
   private _objectId?: number;
@@ -6152,6 +6159,7 @@ export class MasterDataInfo implements GrpcMessage {
   private _objectCode?: string;
   private _objectCate?: string;
   private _nameCate?: string;
+  private _isDeleted?: boolean;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -6165,6 +6173,7 @@ export class MasterDataInfo implements GrpcMessage {
     this.objectCode = _value.objectCode;
     this.objectCate = _value.objectCate;
     this.nameCate = _value.nameCate;
+    this.isDeleted = _value.isDeleted;
     MasterDataInfo.refineValues(this);
   }
   get objectId(): number | undefined {
@@ -6203,6 +6212,12 @@ export class MasterDataInfo implements GrpcMessage {
   set nameCate(value: string | undefined) {
     this._nameCate = value;
   }
+  get isDeleted(): boolean | undefined {
+    return this._isDeleted;
+  }
+  set isDeleted(value: boolean | undefined) {
+    this._isDeleted = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -6224,7 +6239,8 @@ export class MasterDataInfo implements GrpcMessage {
       objectType: this.objectType,
       objectCode: this.objectCode,
       objectCate: this.objectCate,
-      nameCate: this.nameCate
+      nameCate: this.nameCate,
+      isDeleted: this.isDeleted
     };
   }
 
@@ -6250,7 +6266,8 @@ export class MasterDataInfo implements GrpcMessage {
       objectType: this.objectType,
       objectCode: this.objectCode,
       objectCate: this.objectCate,
-      nameCate: this.nameCate
+      nameCate: this.nameCate,
+      isDeleted: this.isDeleted
     };
   }
 }
@@ -6265,6 +6282,7 @@ export module MasterDataInfo {
     objectCode?: string;
     objectCate?: string;
     nameCate?: string;
+    isDeleted?: boolean;
   }
 
   /**
@@ -6277,6 +6295,7 @@ export module MasterDataInfo {
     objectCode?: string;
     objectCate?: string;
     nameCate?: string;
+    isDeleted?: boolean;
   }
 }
 
@@ -8974,6 +8993,9 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.countTrip = _instance.countTrip || 0;
     _instance.seri = _instance.seri || 0;
     _instance.distance = _instance.distance || 0;
+    _instance.timereport = _instance.timereport || '';
+    _instance.nameCustomer = _instance.nameCustomer || '';
+    _instance.customerInternal = _instance.customerInternal || '';
   }
 
   /**
@@ -9081,6 +9103,15 @@ export class CardDetailInfo implements GrpcMessage {
           break;
         case 31:
           _instance.distance = _reader.readInt32();
+          break;
+        case 32:
+          _instance.timereport = _reader.readString();
+          break;
+        case 33:
+          _instance.nameCustomer = _reader.readString();
+          break;
+        case 34:
+          _instance.customerInternal = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -9192,6 +9223,15 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.distance) {
       _writer.writeInt32(31, _instance.distance);
     }
+    if (_instance.timereport) {
+      _writer.writeString(32, _instance.timereport);
+    }
+    if (_instance.nameCustomer) {
+      _writer.writeString(33, _instance.nameCustomer);
+    }
+    if (_instance.customerInternal) {
+      _writer.writeString(34, _instance.customerInternal);
+    }
   }
 
   private _idCard?: number;
@@ -9225,6 +9265,9 @@ export class CardDetailInfo implements GrpcMessage {
   private _countTrip?: number;
   private _seri?: number;
   private _distance?: number;
+  private _timereport?: string;
+  private _nameCustomer?: string;
+  private _customerInternal?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9263,6 +9306,9 @@ export class CardDetailInfo implements GrpcMessage {
     this.countTrip = _value.countTrip;
     this.seri = _value.seri;
     this.distance = _value.distance;
+    this.timereport = _value.timereport;
+    this.nameCustomer = _value.nameCustomer;
+    this.customerInternal = _value.customerInternal;
     CardDetailInfo.refineValues(this);
   }
   get idCard(): number | undefined {
@@ -9451,6 +9497,24 @@ export class CardDetailInfo implements GrpcMessage {
   set distance(value: number | undefined) {
     this._distance = value;
   }
+  get timereport(): string | undefined {
+    return this._timereport;
+  }
+  set timereport(value: string | undefined) {
+    this._timereport = value;
+  }
+  get nameCustomer(): string | undefined {
+    return this._nameCustomer;
+  }
+  set nameCustomer(value: string | undefined) {
+    this._nameCustomer = value;
+  }
+  get customerInternal(): string | undefined {
+    return this._customerInternal;
+  }
+  set customerInternal(value: string | undefined) {
+    this._customerInternal = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -9497,7 +9561,10 @@ export class CardDetailInfo implements GrpcMessage {
       namePartner: this.namePartner,
       countTrip: this.countTrip,
       seri: this.seri,
-      distance: this.distance
+      distance: this.distance,
+      timereport: this.timereport,
+      nameCustomer: this.nameCustomer,
+      customerInternal: this.customerInternal
     };
   }
 
@@ -9548,7 +9615,10 @@ export class CardDetailInfo implements GrpcMessage {
       namePartner: this.namePartner,
       countTrip: this.countTrip,
       seri: this.seri,
-      distance: this.distance
+      distance: this.distance,
+      timereport: this.timereport,
+      nameCustomer: this.nameCustomer,
+      customerInternal: this.customerInternal
     };
   }
 }
@@ -9588,6 +9658,9 @@ export module CardDetailInfo {
     countTrip?: number;
     seri?: number;
     distance?: number;
+    timereport?: string;
+    nameCustomer?: string;
+    customerInternal?: string;
   }
 
   /**
@@ -9625,6 +9698,9 @@ export module CardDetailInfo {
     countTrip?: number;
     seri?: number;
     distance?: number;
+    timereport?: string;
+    nameCustomer?: string;
+    customerInternal?: string;
   }
 }
 
@@ -17481,6 +17557,14 @@ export class QRCodeInfo implements GrpcMessage {
     _instance.status = _instance.status || 0;
     _instance.codeOut = _instance.codeOut || '';
     _instance.nameTypeOut = _instance.nameTypeOut || '';
+    _instance.userReport = _instance.userReport || '';
+    _instance.timeReport = _instance.timeReport || '';
+    _instance.codeTypePacket = _instance.codeTypePacket || '';
+    _instance.nameTypePacket = _instance.nameTypePacket || '';
+    _instance.id = _instance.id || '0';
+    _instance.user = _instance.user || '';
+    _instance.transportIn = _instance.transportIn || '';
+    _instance.transportOut = _instance.transportOut || '';
   }
 
   /**
@@ -17586,6 +17670,30 @@ export class QRCodeInfo implements GrpcMessage {
         case 30:
           _instance.nameTypeOut = _reader.readString();
           break;
+        case 31:
+          _instance.userReport = _reader.readString();
+          break;
+        case 32:
+          _instance.timeReport = _reader.readString();
+          break;
+        case 33:
+          _instance.codeTypePacket = _reader.readString();
+          break;
+        case 34:
+          _instance.nameTypePacket = _reader.readString();
+          break;
+        case 35:
+          _instance.id = _reader.readInt64String();
+          break;
+        case 36:
+          _instance.user = _reader.readString();
+          break;
+        case 37:
+          _instance.transportIn = _reader.readString();
+          break;
+        case 38:
+          _instance.transportOut = _reader.readString();
+          break;
         default:
           _reader.skipField();
       }
@@ -17690,6 +17798,30 @@ export class QRCodeInfo implements GrpcMessage {
     if (_instance.nameTypeOut) {
       _writer.writeString(30, _instance.nameTypeOut);
     }
+    if (_instance.userReport) {
+      _writer.writeString(31, _instance.userReport);
+    }
+    if (_instance.timeReport) {
+      _writer.writeString(32, _instance.timeReport);
+    }
+    if (_instance.codeTypePacket) {
+      _writer.writeString(33, _instance.codeTypePacket);
+    }
+    if (_instance.nameTypePacket) {
+      _writer.writeString(34, _instance.nameTypePacket);
+    }
+    if (_instance.id) {
+      _writer.writeInt64String(35, _instance.id);
+    }
+    if (_instance.user) {
+      _writer.writeString(36, _instance.user);
+    }
+    if (_instance.transportIn) {
+      _writer.writeString(37, _instance.transportIn);
+    }
+    if (_instance.transportOut) {
+      _writer.writeString(38, _instance.transportOut);
+    }
   }
 
   private _line?: number;
@@ -17722,6 +17854,14 @@ export class QRCodeInfo implements GrpcMessage {
   private _status?: number;
   private _codeOut?: string;
   private _nameTypeOut?: string;
+  private _userReport?: string;
+  private _timeReport?: string;
+  private _codeTypePacket?: string;
+  private _nameTypePacket?: string;
+  private _id?: string;
+  private _user?: string;
+  private _transportIn?: string;
+  private _transportOut?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -17759,6 +17899,14 @@ export class QRCodeInfo implements GrpcMessage {
     this.status = _value.status;
     this.codeOut = _value.codeOut;
     this.nameTypeOut = _value.nameTypeOut;
+    this.userReport = _value.userReport;
+    this.timeReport = _value.timeReport;
+    this.codeTypePacket = _value.codeTypePacket;
+    this.nameTypePacket = _value.nameTypePacket;
+    this.id = _value.id;
+    this.user = _value.user;
+    this.transportIn = _value.transportIn;
+    this.transportOut = _value.transportOut;
     QRCodeInfo.refineValues(this);
   }
   get line(): number | undefined {
@@ -17941,6 +18089,54 @@ export class QRCodeInfo implements GrpcMessage {
   set nameTypeOut(value: string | undefined) {
     this._nameTypeOut = value;
   }
+  get userReport(): string | undefined {
+    return this._userReport;
+  }
+  set userReport(value: string | undefined) {
+    this._userReport = value;
+  }
+  get timeReport(): string | undefined {
+    return this._timeReport;
+  }
+  set timeReport(value: string | undefined) {
+    this._timeReport = value;
+  }
+  get codeTypePacket(): string | undefined {
+    return this._codeTypePacket;
+  }
+  set codeTypePacket(value: string | undefined) {
+    this._codeTypePacket = value;
+  }
+  get nameTypePacket(): string | undefined {
+    return this._nameTypePacket;
+  }
+  set nameTypePacket(value: string | undefined) {
+    this._nameTypePacket = value;
+  }
+  get id(): string | undefined {
+    return this._id;
+  }
+  set id(value: string | undefined) {
+    this._id = value;
+  }
+  get user(): string | undefined {
+    return this._user;
+  }
+  set user(value: string | undefined) {
+    this._user = value;
+  }
+  get transportIn(): string | undefined {
+    return this._transportIn;
+  }
+  set transportIn(value: string | undefined) {
+    this._transportIn = value;
+  }
+  get transportOut(): string | undefined {
+    return this._transportOut;
+  }
+  set transportOut(value: string | undefined) {
+    this._transportOut = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -17986,7 +18182,15 @@ export class QRCodeInfo implements GrpcMessage {
       timeOut: this.timeOut,
       status: this.status,
       codeOut: this.codeOut,
-      nameTypeOut: this.nameTypeOut
+      nameTypeOut: this.nameTypeOut,
+      userReport: this.userReport,
+      timeReport: this.timeReport,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      id: this.id,
+      user: this.user,
+      transportIn: this.transportIn,
+      transportOut: this.transportOut
     };
   }
 
@@ -18036,7 +18240,15 @@ export class QRCodeInfo implements GrpcMessage {
       timeOut: this.timeOut,
       status: this.status,
       codeOut: this.codeOut,
-      nameTypeOut: this.nameTypeOut
+      nameTypeOut: this.nameTypeOut,
+      userReport: this.userReport,
+      timeReport: this.timeReport,
+      codeTypePacket: this.codeTypePacket,
+      nameTypePacket: this.nameTypePacket,
+      id: this.id,
+      user: this.user,
+      transportIn: this.transportIn,
+      transportOut: this.transportOut
     };
   }
 }
@@ -18075,6 +18287,14 @@ export module QRCodeInfo {
     status?: number;
     codeOut?: string;
     nameTypeOut?: string;
+    userReport?: string;
+    timeReport?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    id?: string;
+    user?: string;
+    transportIn?: string;
+    transportOut?: string;
   }
 
   /**
@@ -18111,6 +18331,14 @@ export module QRCodeInfo {
     status?: number;
     codeOut?: string;
     nameTypeOut?: string;
+    userReport?: string;
+    timeReport?: string;
+    codeTypePacket?: string;
+    nameTypePacket?: string;
+    id?: string;
+    user?: string;
+    transportIn?: string;
+    transportOut?: string;
   }
 }
 

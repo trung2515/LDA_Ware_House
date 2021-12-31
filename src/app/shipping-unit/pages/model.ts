@@ -6,25 +6,38 @@ import {
   WareHouseInfo
 } from 'src/app/core/models/model.pb';
 
-export class Appointment {
+export class ShiftDetail {
   id: number;
-  text: string;
-  shift: number;
+  idShiftDetail: number
+  shift: string;
   startDate: Date;
   endDate: Date;
   description: string;
-  shiftDetail: ShiftDetail[];
+  idParcel: string
+  ballot_type: string
+  warehouse: string
+  option: string
+  nameProduct: string
+  typeProduct: string
+  typePacket: string
+  packingUnit: string
+  creator: string
+
   constructor(data: ShiftDetailInfo) {
-    // this.text = data.nameShift
-    this.text = data.nameShift + ' ' + data.nameCreatedPerson;
+    this.id = data.idShift
+    this.idShiftDetail = data.idShiftDetail
+    this.shift = data.nameShift
     this.startDate = new Date(data.date);
     this.endDate = new Date(data.date);
-    this.shift = parseInt(
-      data.nameShift
-        .toLowerCase()
-        .replace('ca', '')
-        .trim()
-    );
+    this.idParcel = data.codeParcel
+    this.ballot_type = data.nameTypeBill
+    this.warehouse = data.codeWareHouse
+    this.option = data.optionName
+    this.nameProduct = data.nameProduct
+    this.typeProduct = data.nameTypeProduct
+    this.typePacket = data.nameTypePacket
+    this.packingUnit = data.namePackingUnit
+    this.creator =  data.nameCreatedPerson
   }
 }
 
@@ -32,18 +45,6 @@ export class Resource {
   text: string;
   id: number;
   color: string;
-}
-export class ShiftDetail {
-  id: number;
-  option: string;
-  type: string;
-  product: string;
-  productRange: number;
-  packaging: string;
-  lot: number;
-  unit: string;
-  wareHouse: string;
-  machines_packaging?: MachinesPackaging | '' | any;
 }
 export class MachinesPackaging {
   machine_a: number;

@@ -16,7 +16,7 @@ export class OrderModel {
   orderCode: string
   timecreated: string
   timelasted: string
-  weight_actual: string
+  weight_actual: string = ''
   weight_estimate: string
   quantity_actual: number
   status: string
@@ -37,7 +37,7 @@ export class OrderModel {
     this.orderCode = data.codeOrder || ''
     this.timecreated = data.timecreated
     this.timelasted = data.timelastest
-    this.weight_actual = data.weightActual.toString()
+    // this.weight_actual =  data.weightActual.toString()
     this.quantity_actual = data.quantityActual
     this.weight_estimate = data.weightEstimate.toString()
     this.status = data.status == 0 ? 'Đang xử lý' : 'Hoàn thành' || ''
@@ -48,6 +48,7 @@ export class OrderDetailModel {
   qrcode: string
   seri: number
   time: string
+  
   constructor(data: QRCodeInfo) {
     this.qrcode = data.code
     this.seri = data.seri

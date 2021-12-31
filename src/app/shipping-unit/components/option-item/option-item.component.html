@@ -20,59 +20,38 @@
 
   <div *ngIf="type === '1000kg'" class="item-content">
     <div class="option-title">
-      Option {{ objItem.option }}: {{ objItem.product }} - Loại
-      {{ objItem.productRange }} - {{ objItem.packaging }}
+      {{ objItem.option }}: {{ objItem.nameProduct }} -
+      {{ objItem.typeProduct }} - {{ objItem.typePacket }}
     </div>
     <div class="row option-info">
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Lô</div>
-        <div class="shift-value">{{ objItem.lot }}</div>
+        <div class="shift-value">{{ objItem.idParcel }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Kho</div>
-        <div class="shift-value">{{ objItem.wareHouse }}</div>
+        <div class="shift-value">{{ objItem.warehouse }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Đơn vị đóng</div>
-        <div class="shift-value">{{ objItem.unit }}</div>
+        <div class="shift-value">{{ objItem.packagingUnit }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">TK nhập số</div>
         <div class="shift-value">{{ creator }}</div>
       </div>
     </div>
-    <div class="row machine-list">
-      <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy A:</div>
+
+    <div  class="row machine-list">
+      <div *ngFor="let machine of objItem.machine_list" class="col-6 col-lg-6 machine-item">
+        <div class="machine-label">Máy {{machine.code}}:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_a }}
+          {{ machine.qty }}
         </div>
       </div>
-      <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy B:</div>
-        <div class="machine-value">
-          {{ objItem.machines_packaging.machine_b }}
-        </div>
-      </div>
-      <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy C:</div>
-        <div class="machine-value">
-          {{ objItem.machines_packaging.machine_c }}
-        </div>
-      </div>
-      <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy D:</div>
-        <div class="machine-value">
-          {{ objItem.machines_packaging.machine_d }}
-        </div>
-      </div>
-      <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy E:</div>
-        <div class="machine-value">
-          {{ objItem.machines_packaging.machine_e }}
-        </div>
-      </div>
+
     </div>
+
   </div>
 
   <div *ngIf="type === '50kg'" class="item-content">
@@ -83,7 +62,7 @@
     <div class="row option-info">
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Đơn vị đóng</div>
-        <div class="shift-value">{{ objItem.unit }}</div>
+        <div class="shift-value">{{ objItem.packingUnit }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Người lập phiếu</div>
@@ -91,9 +70,10 @@
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Kho</div>
-        <div class="shift-value">{{ objItem.wareHouse }}</div>
+        <div class="shift-value">{{ objItem.warehouse }}</div>
       </div>
     </div>
+<!--
     <div class="row machine-list">
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Sản phẩm:</div>
@@ -132,5 +112,9 @@
         </div>
       </div>
     </div>
+     -->
+    get machine packaging: idUser, idShift, idShiftDetail
+
   </div>
+
 </div>
