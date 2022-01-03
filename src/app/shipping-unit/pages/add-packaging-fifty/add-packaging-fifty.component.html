@@ -13,6 +13,7 @@
           [(value)]="now"
           type="date"
           (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"
         ></dx-date-box>
       </div>
       <div class="select-group col-12 col-lg-3">
@@ -24,6 +25,7 @@
           hoverStateEnabled="false"
           placeholder="Chọn ca làm việc"
           (onSelectionChanged)="onSelectShiftChange($event)"
+
         ></dx-select-box>
       </div>
       <div class="select-group col-12 col-lg-3">
@@ -76,7 +78,6 @@
               <app-select-option
                 [formControlName]="input.formControlName"
                 [label]="input.label"
-                [type]="'select'"
                 [options]="input.options"
               ></app-select-option>
             </div>

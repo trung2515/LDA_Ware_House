@@ -10,7 +10,6 @@ import {
   Validators
 } from '@angular/forms';
 import { AdminService } from 'src/app/core/services/admin.service';
-import { ShiftDetail } from '../model';
 import {
   InputOptionModel,
   MachineModel,
@@ -33,7 +32,7 @@ export class ListTypeOneComponent implements OnInit {
   title: string = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
   isEditing: boolean = false;
   now: Date = new Date('2022/01/01');
-  ca_no_option: string = 'Ca 2';
+  ca_no_option: string = 'Ca 1';
 
   aOptionShiftList: OptionDetail[] = [];
   optionEditing: any;
@@ -59,13 +58,11 @@ export class ListTypeOneComponent implements OnInit {
     this.wareHouseService
       .getConfirmProduct(this.getCurrentDate(this.now))
       .subscribe(data => {
-        // console.log('data: ',data);
 
-        let currentShifts = [];
+        let currentShifts:ProductConfirm[] = [];
         for (const _data of data) {
           currentShifts.push(new ProductConfirm(_data));
         }
-        // console.log(currentShifts);
 
         const selectShift = currentShifts.filter(item => {
           return (
@@ -187,6 +184,7 @@ export class ListTypeOneComponent implements OnInit {
         if (reply.state == ResponseState.SUCCESS) {
           this.showSuccess('Sửa thành công');
           this.isEditing = false;
+          this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
         } else {
           this.showError(reply.message);
         }
@@ -195,15 +193,6 @@ export class ListTypeOneComponent implements OnInit {
   }
 
   onShiftOptionClicked = (option: any) => {
-    this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
-
-    // const indexAppointment = this.appointments.findIndex(
-    //   item => item.id === this.currentAppointment.id
-    // );
-    // const indexOption = this.currentAppointment.shiftDetail.findIndex(
-    //   item => item.id === option.id
-    // );
-
     this.optionEditing = option;
     this.initForm(option.machine_list);
 
@@ -215,7 +204,7 @@ export class ListTypeOneComponent implements OnInit {
     }
 
     this.isEditing = true;
-    this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
+    this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
   };
   onDateValueChanged(e: any) {
     this.getData();
@@ -259,6 +248,8 @@ export class ListTypeOneComponent implements OnInit {
   onBackClicked() {
     if (this.isEditing) {
       this.isEditing = false;
+      this.inputs_options = [];
+      this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
     } else this.location.back();
   }
 }

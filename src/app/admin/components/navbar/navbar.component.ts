@@ -1,6 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChange } from '@angular/core'
 import { AuthService } from 'src/app/core/services/auth.service'
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -26,7 +25,6 @@ export class NavbarComponent implements OnInit {
         isParent: true,
         parentId: 0,
       },
-
       {
         link: '/admin/warehouse-control',
         menuId: 3,
@@ -93,7 +91,7 @@ export class NavbarComponent implements OnInit {
       {
         link: '/admin/report/consumption-report',
         menuId: 12,
-        name: 'Báo cáo nhập xuất',
+        name: 'Báo cáo nhập xuất tồn sản phẩm',
         isParent: false,
         parentId: 2,
       },
@@ -105,11 +103,11 @@ export class NavbarComponent implements OnInit {
         parentId: 2,
       },
       {
-        link: '/admin/warehouse-control/error-report',
+        link: '/admin/report/error-report',
         menuId: 14,
         name: 'Báo cáo bao lỗi',
         isParent: false,
-        parentId: 3,
+        parentId: 2,
       },
     ]
 

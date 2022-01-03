@@ -1,3 +1,4 @@
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -34,46 +35,41 @@ export class AddPackagingFiftyComponent implements OnInit {
   productList: ProductOptionModel[] = [];
   typeProductList: TypeProductModel[] = [];
   typePacketList: TypePacketModel[] = [];
-  warehouseList: WareHouseModel[] = []
-
-  appointments: Appointment[] = [];
-  currentAppointment: any = {
-    id: 0,
-    text: '',
-    shift: 0,
-    startDate: undefined,
-    endDate: undefined,
-    description: '',
-    shiftDetail: []
-  };
-
-  listProduct: any = []
+  warehouseList: WareHouseModel[] = [];
+  listProduct: any = [];
   inputs_options: any = [];
   formGroupProduct: any = {};
+
+  cardListDetail: any = [];
+
   constructor(
     private location: Location,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
     private adminService: AdminService,
-    private shiftService: ShiftService
-  ) { }
+    private shiftService: ShiftService,
+    private warehouseService: WareHouseService
+  ) {}
 
   ngOnInit(): void {
-    this.appointments = this.shiftService.getAppointments();
     this.getData();
-    this.getListProduct();
+    this.getDataSelect();
 
-    for (let i = 1; i < 3; i++) {
+    for (let i = 1; i < 2; i++) {
       this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
   }
   getData() {
-    // this.adminService
-    //   .getListShiftDetail('2021-12-01', Utils.formatDate(new Date()))
-    //   .subscribe(data => {
-    //     this.appointments = data.map(d => new Appointment(d));
-    //     this.appointments.sort((a, b) => a.shift - b.shift);
-    //   });
+    this.warehouseService
+      .getListCar50kg(
+        this.getCurrentDate(this.now),
+        this.getCurrentDate(this.now)
+      )
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+  getDataSelect() {
     this.adminService.getListProduct().subscribe(data => {
       this.productList = data.map(d => new ProductOptionModel(d));
       this.setOptionList();
@@ -87,9 +83,9 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.setOptionList();
     });
     this.adminService.getListWareHouse().subscribe(data => {
-      this.warehouseList =  data.map(d => new WareHouseModel(d))
+      this.warehouseList = data.map(d => new WareHouseModel(d));
       this.setOptionList();
-    })
+    });
   }
   setOptionList() {
     this.inputs_options = [
@@ -97,7 +93,7 @@ export class AddPackagingFiftyComponent implements OnInit {
         label: 'Sản phẩm',
         formControlName: 'product_name',
         type: 'select',
-        options:this.productList
+        options: this.productList
       },
       {
         label: 'Loại sản phẩm',
@@ -123,60 +119,20 @@ export class AddPackagingFiftyComponent implements OnInit {
   }
   onSubmit() {
     if (this.isValidForm()) {
-      const currentIndex = this.appointments.findIndex(
-        item => item.id === this.currentAppointment.id
-      );
-      let shiftDetailProducts = [...this.currentAppointment.shiftDetail];
+      for (const key in this.formGroupProduct) {
+        if (Object.prototype.hasOwnProperty.call(this.formGroupProduct, key)) {
+          const element = this.formGroupProduct[key].value;
+          console.log(element);
 
-      if (shiftDetailProducts) {
-        for (const key of this.getKeyForm()) {
-          const form = this.formGroupProduct[key].value;
-          console.log(form);
-
-          let _shiftDetail: ShiftDetail = {
-            id: shiftDetailProducts.length + 1,
-            option: (shiftDetailProducts.length + 1).toString(),
-            type: this.ballot_type === 'Nhập đóng mới' ? 'NDM' : 'NDL',
-            product: form.product_name.split(':')[1],
-            productRange: form.product_type.split(':')[1],
-            packaging: form.bag_type.split(':')[1],
-            lot: form.consignments,
-            machines_packaging: '',
-            unit: this.packaging_unit,
-            wareHouse: form.wareHouse,
-            idMaster: 0,
-            shift: 1,
-            date: '2021-12-11',
-            nameShift: 'CA 1',
-            type_bag :'',
-          };
-          console.log(_shiftDetail);
-
-          shiftDetailProducts.push(_shiftDetail);
         }
       }
-
-      this.appointments[currentIndex].shiftDetail = shiftDetailProducts;
       this.showSuccess('Thêm thành công!');
     }
-  }
-  getListProduct() {
-    this.adminService.getListProduct().subscribe((data: any) => {
-      this.listProduct = data
-      console.log('listProduct ', this.listProduct)
-      this.listProduct.sort((a: any, b: any) => {
-        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
-      })
-      this.listProduct.forEach((item: any, index: any) => {
-        item.index = index
-      })
-    })
   }
   isValidForm(): Boolean {
     let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];
-
       if (!form.valid) {
         for (const key in form.controls) {
           if (form.controls.hasOwnProperty(key)) {
@@ -218,36 +174,31 @@ export class AddPackagingFiftyComponent implements OnInit {
     return result;
   }
   onDateValueChanged(e: any) {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(e.value),
-      this.getCurrentShift(this.ca_no_option)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca này!');
-    }
+    this.getData();
+    // const _currentAppointment = this.getCurrentAppointment(
+    //   this.getCurrentDate(e.value),
+    //   this.getCurrentShift(this.ca_no_option)
+    // );
+    // if (_currentAppointment) {
+    //   this.currentAppointment = _currentAppointment;
+    // } else {
+    //   this.showError('Chưa có dữ liệu ca này!');
+    // }
   }
   onSelectShiftChange = (e: any) => {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(e.selectedItem)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca làm việc này!');
-    }
+    this.getData();
+    // const _currentAppointment = this.getCurrentAppointment(
+    //   this.getCurrentDate(this.now),
+    //   this.getCurrentShift(e.selectedItem)
+    // );
+    // if (_currentAppointment) {
+    //   this.currentAppointment = _currentAppointment;
+    // } else {
+    //   this.showError('Chưa có dữ liệu ca làm việc này!');
+    // }
   };
   getCurrentShift(ca_option: string) {
     return Number(ca_option.split(' ')[1]);
-  }
-  getCurrentAppointment(date: string, ca_no?: number) {
-    return this.appointments.find(appointment => {
-      const { startDate, shift } = appointment;
-      const currentDate = this.getCurrentDate(startDate);
-      return currentDate === date && shift === ca_no;
-    });
   }
   getCurrentDate(date: Date): string {
     return (

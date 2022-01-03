@@ -99,14 +99,6 @@ const routes: Routes = [
         component: ConsignmentManagementComponent,
       },
 
-
-      {
-        path: 'error-report',
-        data: {
-          breadcrumb: 'Báo cáo bao lỗi',
-        },
-        component: ErrorBagComponent,
-      },
       {
         path: 'warehouse-inventory',
         data: {
@@ -124,6 +116,13 @@ const routes: Routes = [
     },
     component: AdminLayoutComponent,
     children: [
+      {
+        path: 'error-report',
+        data: {
+          breadcrumb: 'Báo cáo bao lỗi',
+        },
+        component: ErrorBagComponent,
+      },
       {
         path: 'transportation-report',
         data: {

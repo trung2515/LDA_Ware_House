@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -12,7 +13,9 @@ export class OptionItemComponent implements OnInit {
   @Input() creator: string = 'trung';
   @Input() type: '1000kg' | '50kg' = '1000kg';
   @Input() visibleBtnDelete: boolean = true;
-  constructor() {}
+  constructor() {
+
+  }
 
   ngOnInit(): void {}
 

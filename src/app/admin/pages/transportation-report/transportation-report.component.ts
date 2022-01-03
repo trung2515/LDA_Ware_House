@@ -108,22 +108,26 @@ export class TransportationReportComponent implements OnInit {
           width: 70,
           expanded: true,
         },
-
+        {
+          caption: 'ngày',
+          dataField: 'date',
+          area: 'column',
+          expanded: true
+        },
         {
           caption: 'ca',
           dataField: 'shift',
           area: 'column',
+          expanded: true
         },
-
         {
           caption: 'Bao',
           dataField: 'bag_number',
           summaryType: 'sum',
           area: 'data',
         },
-
         {
-          caption: 'Tấn',
+          caption: 'Kg',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -167,11 +171,17 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
+          caption: 'ngày',
+          dataField: 'date',
+          area: 'column',
+          expanded: true
+        },
+        {
           caption: 'ca',
           dataField: 'shift',
           area: 'column',
+          expanded: true
         },
-
         {
           caption: 'Bao',
           dataField: 'bag_number',
@@ -180,7 +190,7 @@ export class TransportationReportComponent implements OnInit {
         },
 
         {
-          caption: 'Tấn',
+          caption: 'Kg',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',
@@ -223,9 +233,16 @@ export class TransportationReportComponent implements OnInit {
           expanded: true,
         },
         {
+          caption: 'ngày',
+          dataField: 'date',
+          area: 'column',
+          expanded: true
+        },
+        {
           caption: 'ca',
           dataField: 'shift',
           area: 'column',
+          expanded: true
         },
         {
           caption: 'Bao',
@@ -235,7 +252,7 @@ export class TransportationReportComponent implements OnInit {
         },
 
         {
-          caption: 'Tấn',
+          caption: 'Kg',
           dataField: 'ton_number',
           summaryType: 'sum',
           area: 'data',

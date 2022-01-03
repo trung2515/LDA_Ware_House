@@ -1,8 +1,7 @@
-import { ProductInfo, ResponseState } from './../../../core/models/model.pb';
+import {  ResponseState } from './../../../core/models/model.pb';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { WareHouseService } from './../../../core/services/warehouse.service';
 import { AdminService } from 'src/app/core/services/admin.service';
-import { tryEqualsArr } from './../../../utils/helper';
 import { InputProductModel, OptionModel, ParcelDetailModel, ParcelModel } from './models';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsignmentService } from 'src/app/admin/pages/consignment-management/consignment.service';
@@ -165,7 +164,7 @@ export class ConsignmentManagementComponent implements OnInit {
 
   getData(year: number, month: number) {
     var date = new Date(year, month, 1)
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+    var firstDay = new Date(2021, 10, 1)
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
     this.warehouseService.getListParcel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
       this.consignments = data.map(d => new ParcelModel(d))

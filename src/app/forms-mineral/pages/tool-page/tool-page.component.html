@@ -24,7 +24,7 @@
     </div>
     <!-- ---------------step2---------------- -->
     <div class="container " style="padding: 30px 120px;" *ngIf="step == 2">
-      
+
       <div  class="row " *ngIf="selectType == 1 || selectType == 2">
         <div class="col-6">
           <div>Ca:</div>
@@ -40,7 +40,7 @@
 
         <div class="py-4">
           <dx-data-grid (onSelectionChanged)="selectionChanged($event)" [columnAutoWidth]="true"
-            [dataSource]="dataTableMinuteFilter" [showBorders]="true">
+            [dataSource]="dataTableMinuteFilter" noDataText="Không có dữ liệu" [showBorders]="true">
             <dxi-column *ngFor="let item of header" dataField="{{ item.source }}" caption="{{ item.caption }}"></dxi-column>
             <!-- <dxi-column dataField="product" caption="sản phẩm"></dxi-column> -->
             <dxo-selection mode="multiple"></dxo-selection>

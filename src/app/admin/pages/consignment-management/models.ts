@@ -23,12 +23,14 @@ export class ParcelModel {
   createdBy: number = 0
   createdPerson: string = ''
   products: ParcelDetailModel[] = []
+  quantity: number = 0
   constructor(data: ParcelInfo = new ParcelInfo()) {
     this.id = data.idParcel || 0
     this.name = data.codeParcel || ''
     this.date = data.createdDate || ''
     this.createdPerson = data.nameCreatedPerson || ''
     this.createdBy = data.createdPerson
+    this.quantity = 0
   }
 }
 

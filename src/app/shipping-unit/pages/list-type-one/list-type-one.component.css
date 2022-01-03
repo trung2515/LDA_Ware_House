@@ -129,3 +129,13 @@
   background-color: #3459e6;
   color: #fff;
 }
+
+@media screen  and (max-width: 37.5rem){
+  .detail-title,
+  .detail-title.shift-title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+
+}

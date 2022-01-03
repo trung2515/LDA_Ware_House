@@ -9,7 +9,7 @@
         class="btn-edit"
       />
       <img
-      (click)="onDeleteClick($event)"
+        (click)="onDeleteClick($event)"
         *ngIf="visibleBtnDelete"
         src="assets/svg/delete.svg"
         alt="edit"
@@ -42,16 +42,17 @@
       </div>
     </div>
 
-    <div  class="row machine-list">
-      <div *ngFor="let machine of objItem.machine_list" class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy {{machine.code}}:</div>
+    <div class="row machine-list">
+      <div
+        *ngFor="let machine of objItem.machine_list"
+        class="col-6 col-lg-6 machine-item"
+      >
+        <div class="machine-label">Máy {{ machine.code }}:</div>
         <div class="machine-value">
           {{ machine.qty }}
         </div>
       </div>
-
     </div>
-
   </div>
 
   <div *ngIf="type === '50kg'" class="item-content">
@@ -73,48 +74,44 @@
         <div class="shift-value">{{ objItem.warehouse }}</div>
       </div>
     </div>
-<!--
+
     <div class="row machine-list">
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Sản phẩm:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_a }}
+          Alumin 50kg
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Loại sản phẩm:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_b }}
+          Loại 1
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Loại bao:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_c }}
+          Đáy liền
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Lô</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_d }}
+          121
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Số lượng:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_e }}
+          123
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Số tấn:</div>
         <div class="machine-value">
-          {{ objItem.machines_packaging.machine_e }}
+          2
         </div>
       </div>
     </div>
-     -->
-    get machine packaging: idUser, idShift, idShiftDetail
-
   </div>
-
 </div>

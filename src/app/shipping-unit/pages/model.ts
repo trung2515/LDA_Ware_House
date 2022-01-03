@@ -1,4 +1,5 @@
 import {
+  CardDetailInfo,
   ProductInfo,
   ShiftDetailInfo,
   TypePacketInfo,
@@ -40,7 +41,27 @@ export class ShiftDetail {
     this.creator =  data.nameCreatedPerson
   }
 }
-
+export class CardBag50kg {
+  date: string
+  shift: string
+  type_ballot: string
+  packing_unit: string
+  product_name: string
+  type_product: string
+  type_packing: string
+  qty: string
+  parcel: string
+  warehouse: string
+  constructor(data:CardDetailInfo ) {
+    this.shift =  data.nameShift
+    this.type_ballot = data.codeTypeBill
+    this.packing_unit =  data.namePackingUnit
+    this.type_packing =  data.nameTypePacket
+    this.qty = data.quantity
+    this.parcel =  data.codeParcel
+    this.warehouse = data.nameWareHouse
+  }
+}
 export class Resource {
   text: string;
   id: number;

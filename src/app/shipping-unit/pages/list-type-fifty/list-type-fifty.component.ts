@@ -1,3 +1,4 @@
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
 import {
   FormBuilder,
   FormControl,
@@ -38,8 +39,8 @@ export class ListTypeFiftyComponent implements OnInit {
     endDate: undefined,
     description: '',
     idDetail: 0,
-    shiftDetail: [],
-}
+    shiftDetail: []
+  };
   optionSelected: any;
   productList: ProductOptionModel[] = [];
   typeProductList: TypeProductModel[] = [];
@@ -80,68 +81,81 @@ export class ListTypeFiftyComponent implements OnInit {
     private toastrService: ToastrService,
     private shiftService: ShiftService,
     private formBuilder: FormBuilder,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private warehouseService: WareHouseService
   ) {}
 
   ngOnInit(): void {
     this.getData();
-    this.appointments = this.shiftService.getAppointments();
-    this.currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(this.ca_no_option)
-    );
+    this.getDateSelectOption();
+    // this.appointments = this.shiftService.getAppointments();
+    // this.currentAppointment = this.getCurrentAppointment(
+    //   this.getCurrentDate(this.now),
+    //   this.getCurrentShift(this.ca_no_option)
+    // );
   }
-  async getData() {
+  getData() {
+    // this.warehouseService.getListCar50kg().subscribe(data=> {
+    //   console.log('50kg ',data);
+    // })
+    this.warehouseService
+      .getListCard(this.getCurrentDate(this.now), this.getCurrentDate(this.now))
+      .subscribe(data => {
+        console.log('card:  ', data);
+      });
+  }
+  getDateSelectOption() {
     this.adminService.getListProduct().subscribe(data => {
       this.productList = data.map(d => new ProductOptionModel(d));
-      // this.setListOption();
+      this.setListOption();
     });
     this.adminService.getListTypeProduct().subscribe(data => {
       this.typeProductList = data.map(d => new TypeProductModel(d));
-      // this.setListOption();
+      this.setListOption();
     });
     this.adminService.getListTypePacket().subscribe(data => {
       this.typePacketList = data.map(d => new TypePacketModel(d));
-      // this.setListOption();
+      this.setListOption();
     });
     this.adminService.getListWareHouse().subscribe(data => {
       this.warehouseList = data.map(d => new WareHouseModel(d));
-      // this.setListOption();
+      this.setListOption();
     });
   }
 
-  // setListOption() {
-  //   this.inputs_options = [
-  //     {
-  //       label: 'Sản phẩm',
-  //       formControlName: 'product_name',
-  //       type: 'select',
-  //       options: this.productList
-  //     },
-  //     {
-  //       label: 'Loại sản phẩm',
-  //       formControlName: 'product_type',
-  //       type: 'select',
-  //       options: this.typeProductList
-  //     },
-  //     {
-  //       label: 'Loại bao',
-  //       formControlName: 'bag_type',
-  //       type: 'select',
-  //       options: this.typePacketList
-  //     },
-  //     { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-  //     { label: 'Lô', formControlName: 'consignments', type: 'text' },
-  //     {
-  //       label: 'Kho',
-  //       formControlName: 'warehouse',
-  //       type: 'select',
-  //       options: this.warehouseList
-  //     }
-  //   ];
-  // }
+  setListOption() {
+    this.inputs_options = [
+      {
+        label: 'Sản phẩm',
+        formControlName: 'product_name',
+        type: 'select',
+        options: this.productList
+      },
+      {
+        label: 'Loại sản phẩm',
+        formControlName: 'product_type',
+        type: 'select',
+        options: this.typeProductList
+      },
+      {
+        label: 'Loại bao',
+        formControlName: 'bag_type',
+        type: 'select',
+        options: this.typePacketList
+      },
+      { label: 'Số lượng', formControlName: 'qty', type: 'text' },
+      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Kho',
+        formControlName: 'warehouse',
+        type: 'select',
+        options: this.warehouseList
+      }
+    ];
+  }
   onUpdateData() {
     if (this.isValidForm()) {
+      this.showSuccess('Cập nhật thành công');
       this.isUpdating = false;
     }
   }
@@ -164,6 +178,7 @@ export class ListTypeFiftyComponent implements OnInit {
     this.optionSelected = option;
   }
   onDateValueChanged(e: any) {
+    this.getData();
     // const _currentAppointment = this.getCurrentAppointment(
     //   this.getCurrentDate(e.value),
     //   this.getCurrentShift(this.ca_no_option)
@@ -175,6 +190,8 @@ export class ListTypeFiftyComponent implements OnInit {
     // }
   }
   onSelectShiftChange = (e: any) => {
+    this.getData();
+
     // const _currentAppointment = this.getCurrentAppointment(
     //   this.getCurrentDate(this.now),
     //   this.getCurrentShift(e.selectedItem)
@@ -252,7 +269,7 @@ export class ListTypeFiftyComponent implements OnInit {
     });
   }
   showSuccess(msg: string) {
-    this.toastrService.error(msg, '', {
+    this.toastrService.success(msg, '', {
       timeOut: 3000,
       closeButton: true,
       enableHtml: true

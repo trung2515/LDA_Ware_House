@@ -26,6 +26,7 @@ export class TransportationReportModel {
   seriIn: string
   seriOut: string
   codeTransport: string = ''
+  shift_by_date: string = ''
 
   constructor(data: TransportInfo) {
     this.product_name = data.nameProduct
@@ -35,7 +36,7 @@ export class TransportationReportModel {
     this.lau_warehouse = data.nameWareHouseUnLoad || ''
     this.unloading_equipment = data.codeEquipmentUnLoad || ''
     this.loading_equipment = data.codeEquipmentLoad || ''
-    this.date = Utils.formatDate(new Date(data.createddate))
+    this.date = Utils.formatDateV1(new Date(data.createddate))
     this.trips_number = data.countTrip
     this.lau_warehouse = data.codeWareHouseload || ''
     this.unloading_warehouse = data.codeWareHouseUnload
@@ -50,6 +51,7 @@ export class TransportationReportModel {
     this.seriIn = data.seriIn
     this.seriOut = data.seriOut
     this.codeTransport = data.code
+    this.shift_by_date = Utils.convertTimeToShift(data.createddate) + ' ' + Utils.formatDateV1(new Date(data.createddate))
   }
 }
 

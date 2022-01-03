@@ -6,7 +6,7 @@ import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
 import { ToastrService } from 'ngx-toastr';
 
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -25,15 +25,11 @@ import { ShiftDetail } from '../model';
   styleUrls: ['./add-packaging-one.component.css']
 })
 export class AddPackagingOneComponent implements OnInit {
-  @ViewChild('dxSelectShift')
-  dxSelectShift: any;
-
   popupVisible: boolean = false;
   now: Date = new Date('2022/01/01');
   ca_no_option: string = 'Ca 1';
   aShiftList: ShiftDetail[] = [];
   formGroupProduct: any = {};
-
 
   message = 'Không có thông tin ca làm việc';
 
@@ -112,14 +108,14 @@ export class AddPackagingOneComponent implements OnInit {
         for (const key in form) {
           let machine: ConfirmProduction1000 = new ConfirmProduction1000();
           machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
-          machine.codeEquipment = key.split("_")[1];
+          machine.codeEquipment = key.split('_')[1];
           machine.quantity = form[key];
 
           machine_list.push(machine);
         }
       }
       dataInput.user = this.authService.getUser().id;
-      dataInput.data = machine_list
+      dataInput.data = machine_list;
       console.log(machine_list);
 
       this.warehouseService.update1000Kg(dataInput).subscribe(reply => {
@@ -129,22 +125,6 @@ export class AddPackagingOneComponent implements OnInit {
           this.showWarn(reply.message);
         }
       });
-
-      // find index currentAppointment in appointment list
-      // const indexOfItem = this.aShiftList.findIndex(
-      //   item => item.id === this.currentAppointment.id
-      // );
-      // check this shift is had machineF
-      // if (
-      //   this.currentAppointment.shiftDetail[0].machines_packaging !== '' ||
-      //   this.currentAppointment.shiftDetail[1].machines_packaging !== ''
-      // ) {
-      //   // this.showError('đã tôn tại, Mở popup xác nhận đê');
-      //   this.popupVisible = true;
-      // } else {
-      //   this.handleAddNewShiftDetail(indexOfItem);
-      //   this.showSuccess('Thêm mới thành công');
-      // }
     }
   }
   setNewAppointment(shift: any, form: any) {
@@ -171,17 +151,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['2', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_a: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]],
       machine_b: ['22', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: [
-        '2222',
-        [Validators.required, Validators.pattern('^[0-9]*$')]
-      ],
-      machine_e: [
-        '22222',
-        [Validators.required, Validators.pattern('^[0-9]*$')]
-      ]
+      machine_c: ['2', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['22', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {
@@ -213,7 +187,7 @@ export class AddPackagingOneComponent implements OnInit {
     );
   }
   getCurrentDateDMY(date: Date): string {
-    console.log('dateeeee  ',date);
+    console.log('dateeeee  ', date);
 
     return (
       date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()

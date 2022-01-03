@@ -99,4 +99,8 @@ p.confirm-msg {
     margin-top: 24px;
     width: 100%;
   }
+
+  ::ng-deep .shift-option .option-title {
+    display: none;
+  }
 }

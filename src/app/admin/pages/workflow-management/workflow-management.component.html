@@ -1,113 +1,122 @@
 <div class="page-body">
   <div class="d-flex justify-content-start align-items-center">
     <div class="choose-date">
-        <label >Từ ngày</label>
-        <div >
-          <dx-date-box [value]="fromDate" type="date"  (onValueChanged) ="changeFromDate($event)"> </dx-date-box>
-        </div>
+      <label>Từ ngày</label>
+      <div>
+        <dx-date-box [value]="fromDate" type="date" (onValueChanged)="changeFromDate($event)"> </dx-date-box>
       </div>
+    </div>
     <div class="choose-date ms-3">
-        <label >Dến ngày</label>
-        <div >
-          <dx-date-box [(value)]="toDate" type="date" (onValueChanged) ="changeToDate($event)"> </dx-date-box>
-        </div>
+      <label>Dến ngày</label>
+      <div>
+        <dx-date-box [(value)]="toDate" type="date" (onValueChanged)="changeToDate($event)"> </dx-date-box>
       </div>
-  </div>  
-    <div *ngFor="let date of workDates;">
+    </div>
+  </div>
+  <div *ngFor="let date of workDates;">
     <div class="pt-5 d-flex justify-content-start align-items-center">
-       <div class="elip me-2"></div> <div>{{date.date}}</div>
+      <div class="elip me-2"></div>
+      <div>{{date.date}}</div>
     </div>
     <hr>
-    <div *ngFor="let master of getDetail(date.date, '')"  class="d-flex justify-content-start align-items-center">
-      <div  class="d-flex justify-content-center align-items-center master" >
-       {{master.shift}}
-      </div>  
-      <div class="detail p-2 d-flex" >
-        <div  class="  d-flex justify-content-start" *ngFor="let item of getDetail(master.date, master.shift)"(click)="showPopup(master)"  >
+    <div *ngFor="let master of getDetail(date.date, '')" class="d-flex justify-content-start align-items-center">
+      <div class="d-flex justify-content-center align-items-center master">
+        {{master.shift}}
+      </div>
+      <div class="detail p-2 d-flex">
+        <div class="  d-flex justify-content-start" *ngFor="let item of getDetail(master.date, master.shift)"
+          (click)="showPopup(master)">
           <div class="me-2">
-          <div   class="d-flex flex-column align-items-center p-2" style="width:200px ; height:100%; background-color: white;border: 1px solid #CBD3EE;border-radius: 5px;">
-            <div class="w-100 d-flex justify-content-start"><div class="p-1 task">{{item.task}}</div></div>
-            <div class="mt-auto w-100 d-flex justify-content-start align-items-center" style="font-size:12px">
-              <span>{{item.fromWareHouse}}</span>
-              <img [ngClass]="item.toWareHouse !==''?'':'opacity-0'" class="p-2" src="../../../../assets/svg/icon-arrow-right-short.svg" alt="">
-              <span>{{item.toWareHouse}}</span>
+            <div class="d-flex flex-column align-items-center p-2"
+              style="width:200px ; height:100%; background-color: white;border: 1px solid #CBD3EE;border-radius: 5px;">
+              <div class="w-100 d-flex justify-content-start" style="font-size:13px">
+                <div class="p-1 task">{{item.task}}</div>
+              </div>
+              <div class="w-100 d-flex pt-2" style="font-size:13px">
+                <p class="pr-1">{{item.codeProduct}} -</p>
+                <p class="pr-1">{{item.codeBag}}:</p>
+                <p>{{item.quantity}}</p>
+              </div>
+              <div class="w-100 d-flex align-items-center" style="font-size:13px">
+                <p>{{item.fromWareHouse}}</p>
+                <img [ngClass]="item.toWareHouse !==''?'':'opacity-0'" src="../../../../assets/svg/icon-arrow-right-short.svg" alt="">
+                <p>{{item.toWareHouse}}</p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
   </div>
-   <!-- -------------------------------------/Popup Detail/-----------------------------------------  -->
-   <dx-popup [width]="1100" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
-      [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="isShowPopup"
-    >
-      <div *dxTemplate="let data of 'content'" class="d-flex flex-column" >
-        <div style="width:100%" class="p-4" >
-          
-          <div class="row d-flex align-items-center m-0 p-3" style="background-color: #EEF1F9">
-            <div class="col-3">
-              <span class="me-3">Ca :</span><span class="fw-700">{{singleWorkDetail.shift}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Ngày : </span><span class="fw-700">{{singleWorkDetail.date}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Công việc :</span><span class="fw-700">{{singleWorkDetail.task}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">User :</span><span class="fw-700">{{singleWorkDetail.user}}</span>
-            </div>
-            <div class="col-12">
-              <br>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Kho bốc :</span><span class="fw-700">{{singleWorkDetail.fromWareHouse}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Thiết bị bốc : </span><span class="fw-700">{{singleWorkDetail.codeEquipmentLoad}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Kho dỡ :</span><span class="fw-700">{{singleWorkDetail.toWareHouse}}</span>
-            </div>
-            <div class="col-3">
-              <span class="me-3">Thiết bị dỡ :</span><span class="fw-700">{{singleWorkDetail.codeEquipmentUnLoad}}</span>
-            </div>
+  <!-- -------------------------------------/Popup Detail/-----------------------------------------  -->
+  <dx-popup [width]="1100" [height]="475" [showTitle]="true" title="Chi tiết ca làm việc" [dragEnabled]="false"
+    [closeOnOutsideClick]="true" [showCloseButton]="true" container=".dx-viewport" [(visible)]="isShowPopup">
+    <div *dxTemplate="let data of 'content'" class="d-flex flex-column">
+      <div style="width:100%" class="p-4">
+
+        <div class="row d-flex align-items-center m-0 p-3" style="background-color: #EEF1F9">
+          <div class="col-3">
+            <span class="me-3">Ca :</span><span class="fw-700">{{singleWorkDetail.shift}}</span>
           </div>
-        
-          <div class="mt-3">
-  
-        <table class="table table-boder">
-          <thead>
-          <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Sản phẩm</th>
-            <th scope="col">Loại sản phẩm</th>
-            <th scope="col">Loại bao</th>
-            <th scope="col">Số bao</th>
-            <th scope="col">Số tấn</th>
-            <th scope="col">Cung độ</th>
-          </tr>
-        </thead>
-        <tbody> 
-          <tr *ngFor="let item of arrSingleWorkDetail;let i = index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{item.productName}}</td>
-            <td>{{item.productType}}</td>
-            <td>{{item.packagingType}}</td>
-            <td>{{item.quantity}}</td>
-            <td>{{item.quantity * item.weight}}</td>
-            <td>{{item.distance}}</td>
-          </tr>
-        </tbody>
-        </table>
-         </div>
-         <div class="d-flex mt-5"> 
-          <button class="btn btn-light ms-auto" (click)="closePop()">Đóng</button>
-        </div>
+          <div class="col-3">
+            <span class="me-3">Ngày : </span><span class="fw-700">{{singleWorkDetail.date | date: 'dd/MM/yyy'}}</span>
+          </div>
+          <div class="col-3">
+            <span class="me-3">Công việc :</span><span class="fw-700">{{singleWorkDetail.task}}</span>
+          </div>
+          <div class="col-3">
+            <span class="me-3">User :</span><span class="fw-700">{{singleWorkDetail.user}}</span>
+          </div>
+          <div class="col-12">
+            <br>
+          </div>
+          <div class="col-3">
+            <span class="me-3">Kho bốc :</span><span class="fw-700">{{singleWorkDetail.fromWareHouse}}</span>
+          </div>
+          <div class="col-3">
+            <span class="me-3">Thiết bị bốc : </span><span class="fw-700">{{singleWorkDetail.codeEquipmentLoad}}</span>
+          </div>
+          <div class="col-3">
+            <span class="me-3">Kho dỡ :</span><span class="fw-700">{{singleWorkDetail.toWareHouse}}</span>
+          </div>
+          <div class="col-3">
+            <span class="me-3">Thiết bị dỡ :</span><span class="fw-700">{{singleWorkDetail.codeEquipmentUnLoad}}</span>
+          </div>
         </div>
 
+        <div class="mt-3">
+
+          <table class="table table-boder">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Loại sản phẩm</th>
+                <th scope="col">Loại bao</th>
+                <th scope="col">Số bao</th>
+                <th scope="col">Khối lượng (kg)</th>
+                <th scope="col">Cung độ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of arrSingleWorkDetail;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.productName}}</td>
+                <td>{{item.productType}}</td>
+                <td>{{item.packagingType}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.quantity * item.weight}}</td>
+                <td>{{item.distance}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex mt-5">
+          <button class="btn btn-light ms-auto" (click)="closePop()">Đóng</button>
+        </div>
       </div>
-        
-    </dx-popup>
+
+    </div>
+
+  </dx-popup>
 </div>

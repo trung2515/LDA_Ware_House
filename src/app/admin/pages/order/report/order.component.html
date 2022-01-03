@@ -33,14 +33,17 @@
         <dxi-column dataField="quantity" caption="Số lượng đăng kí"></dxi-column>
         <dxi-column dataField="quantity_actual" caption="Số lượng xuất kho thực tế"></dxi-column>
         <dxi-column dataField="weight_actual" caption="Khối lượng xuất kho thực tế"></dxi-column>
-        <dxi-column dataField="timecreated" caption="Thời gian bắt đầu"></dxi-column>
-        <dxi-column dataField="timelasted" caption="Thời gian kết thúc"></dxi-column>
+        <dxi-column dataField="timecreated" caption="Thời gian bắt đầu" cellTemplate="time"></dxi-column>
+        <dxi-column dataField="timelasted" caption="Thời gian kết thúc" cellTemplate="time"></dxi-column>
         <dxi-column dataField="status" caption="Trạng thái"></dxi-column>
         <!-- <dxi-column dataField="weight_estimate" caption="Thời gian"></dxi-column> -->
         <div *dxTemplate="let cell of 'detailTemplate'">
             <a style="color: #2466d1; cursor: pointer; text-decoration: underline;" (click)="openPopup(cell.value)">
                 {{cell.value}}</a>
         </div>
+        <div *dxTemplate="let item of 'time'">
+            {{ item.value | date: "dd/MM/yyyy HH:mm:ss" }}
+          </div>
         <dxo-summary>
             <dxi-total-item column="orderCode" summaryType="count" displayFormat="Tổng: {0} đơn hàng"> </dxi-total-item>
         </dxo-summary>

@@ -16,6 +16,7 @@
           [(value)]="now"
           type="date"
           (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"
         ></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
@@ -77,7 +78,6 @@
                 <app-select-option
                   [formControlName]="input.formControlName"
                   [label]="input.label"
-                  [type]="'select'"
                   [options]="input.options"
                 ></app-select-option>
               </div>

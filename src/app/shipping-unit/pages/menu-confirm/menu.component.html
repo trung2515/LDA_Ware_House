@@ -15,7 +15,6 @@
         <span>Đăng xuất</span>
       </div>
     </div>
-
     <img src="assets/img/lda_icon.png" alt="lda_brand" class="brand" />
     <div class="company-name">
       <p>TẬP ĐOÀN CÔNG NGHIỆP THAN - KHOÁNG SẢN VIỆT NAM</p>
@@ -27,7 +26,6 @@
       <div *ngFor="let item of registrationMenuList" class="menu-item">
         <div [routerLink]="item.linkTo" class="menu-item-content ">
           <div class="img-around">
-
             <img *ngIf="item.icon_class === 'adding'" [class]="item.icon_class" src="assets/svg/add_png.svg"  alt="file-plus" />
             <img *ngIf="item.icon_class === 'list-view'" src="assets/svg/file-plus.svg" alt="file-plus" />
           </div>
@@ -41,8 +39,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
