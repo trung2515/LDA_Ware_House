@@ -44,7 +44,7 @@ demoData(){
       this.dataTypeMinutes.push(typeMinutesItem)
       typeMinutesItem.listDetail = dataDetail
   }
-  console.log('demo',this.dataTypeMinutes);
+
 }
 blur(e:any,obj:any){
   _.blur(e,obj)
@@ -59,7 +59,7 @@ showAddMinutesDetail(data:any){
   this.objAddMinuteDetail.atc = "Thêm mới"
   this.isShowPopup = true 
   this.objAddMinuteDetail.title = data
-  console.log(data);
+
 }
 showEditDetailMinute(i:number,name:string,title:any){
   this.objAddMinuteDetail.atc = "Chỉnh sửa"
@@ -87,9 +87,6 @@ if(atc == "Thêm mới"){
 }
 }
 addMinutesDetail(data:any){
-  console.log(data);
-  console.log(this.objAddMinuteDetail.input.dvd.value);
-  
   let isIndex =this.dataTypeMinutes.findIndex((element:any)=>element.name == data) 
   let item: any ={}
   let idmax = 0
@@ -121,15 +118,11 @@ idmax++;
   this.toast.success('','Thêm mới thành công')
 }
 updateMinutesMinutes(data:any){
-  console.log('edit',data)
   let isIndex =this.dataTypeMinutes.findIndex((element:any)=>element.name == data)
-  console.log(this.objAddMinuteDetail);
   let indexSlice = this.objAddMinuteDetail.index
   let newDetail:any = {}
   newDetail.detailName = this.objAddMinuteDetail.name
   this.dataTypeMinutes[isIndex].listDetail.splice(indexSlice,1,newDetail)
-  console.log('result',this.dataTypeMinutes);
-  
   this.objAddMinuteDetail={
     title:'',
     mess:'',
@@ -147,7 +140,6 @@ updateMinutesMinutes(data:any){
 }
 deleteMinutesMinutes(data:any){
   let isIndex =this.dataTypeMinutes.findIndex((element:any)=>element.name == data)
-  console.log(this.objAddMinuteDetail);
   let indexSlice = this.objAddMinuteDetail.index
   this.dataTypeMinutes[isIndex].listDetail.splice(indexSlice,1)
   this.objAddMinuteDetail={
