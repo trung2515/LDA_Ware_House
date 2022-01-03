@@ -15,7 +15,7 @@ service Account {
 service Administrator {
 
     rpc GetListMasterData(MasterRequest) returns (MasterDataResponse);
-
+   
     rpc GetListEquipment(MasterRequest) returns (EquipmentResponse);
     rpc GetListPackingUnit(MasterRequest) returns (PackingUnitResponse);
     rpc GetListPartner(MasterRequest) returns (PartnerResponse);
@@ -76,7 +76,7 @@ service Administrator {
     rpc UpdateWork(WorkInfo) returns (Response);
     rpc DeleteWork(WorkInfo) returns (Response);
 
-
+   
     //rpc Login(UserInfo) returns (UserReply);
 
 
@@ -125,10 +125,10 @@ service WareHouse {
     rpc InsertTask(InsertTaskRequest) returns (Response);
     rpc UpdateTask(InsertTaskRequest) returns (Response);
     rpc DeleteTask(TaskInfo) returns (Response);
-
     rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
-    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date
+    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); //get from date -> to date
 }
+
 service Card
 {
 
@@ -161,7 +161,7 @@ service Report
     rpc GetQRCodeByOrder(MasterRequest) returns (QRCodeResponse);
 }
 
-service RecordConfirm
+service RecordConfirm 
 {
     rpc GetListProduct(MasterRequest) returns (ProductResponse);          //get all
     rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);   //get all

@@ -80,13 +80,19 @@ export class WorkflowManagementComponent implements OnInit {
     }
 
   }
-
+  sumQuantity:number
+  sumWeight:number
   showPopup(data: any) {
     this.isShowPopup = true;
     this.arrSingleWorkDetail = this.dataWork.filter(w => w.code == data.code)
+    this.sumQuantity = 0
+    this.sumWeight = 0
+    for(var i = 0; i < this.arrSingleWorkDetail.length; i++){
+      this.sumQuantity += this.arrSingleWorkDetail[i].quantity
+      this.sumWeight += (this.arrSingleWorkDetail[i].quantity * this.arrSingleWorkDetail[i].weight)
+    }
     console.log(this.arrSingleWorkDetail);
     this.singleWorkDetail = this.arrSingleWorkDetail[0]
-
 
   }
   closePop() {

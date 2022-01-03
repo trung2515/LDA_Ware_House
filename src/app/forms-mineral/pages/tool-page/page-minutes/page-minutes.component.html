@@ -65,9 +65,9 @@
             </div>
             <div *ngFor="let person of surrogateSender; let i = index">
               <div class="row ">
-                <span *ngIf="surrogateSender[0].name != null" class="col-7 totalAll_5 px-4">- Ông/(Bà): {{ person.name }}
+                <span   *ngIf="surrogateSender[0].name != null"  class="col-7 totalAll_5 px-4">- Ông/(Bà): {{ person.name }}
                 </span>
-                <span  *ngIf="surrogateSender[0].department != null"  class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
+                <span    *ngIf="surrogateSender[0].department != null"  class="col-5 totalAll_5">Chức vụ: {{ person.department }}</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
             </div>
           </div>
           <!-- ---------------------------------------/table/--------------------------- -->
-          <div class="py-4">
+          <div class="py-2">
             <table-minutes [minuteType]="minuteType" [dataSelect]="dataSelect" [dataSelectConvert]="dataSelectConvert"
               [dataSelectTask]="dataSelectTask" [dataSelectExport]="dataSelectExport"
               [totalAllQuantity]="totalAllQuantity" [totalAllMass]="totalAllMass" [request]="request"

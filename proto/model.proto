@@ -96,6 +96,7 @@ message ProductInfo
     string codeProduct = 2;
     string nameProduct = 3;
     bool isDeleted = 4;
+    int32 weight = 5;
 }message ProductResponse
 {
     Response response = 1;
