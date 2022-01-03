@@ -23,6 +23,7 @@ export class ConfigurationLayoutComponent implements OnInit {
     {link:'/configuration/bill',name:'Các loại phiếu'},
     {link:'/configuration/job',name:'Công việc'},
     {link:'/configuration/reason',name:'Nguyên nhân'},
+    {link:'/configuration/minutes',name:'Biên bản'},
   ]
 
 }
