@@ -2,7 +2,7 @@
   <app-header-report [title_nav]="'Báo cáo bao lỗi'" [startDate]="startDate" [endDate]="endDate"
     (getStartDate)="onStartDateChanged($event)" (getEndDate)="onEndDateChanged($event)"> </app-header-report>
 </div>
-<div class="content">
+<div class="content pb-5">
   <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true">
     <dxo-search-panel [visible]="true"></dxo-search-panel>
     <dxo-export [enabled]="true"></dxo-export>
@@ -21,6 +21,9 @@
     </dxi-column>
     <dxi-column dataField="seri_number" caption="Số seri"></dxi-column>
     <dxi-column dataField="error" caption="Nguyên nhân lỗi"></dxi-column>
-    <dxi-column dataField="user" caption="User"></dxi-column>
+    <dxi-column dataField="user" caption="Tên tài khoản"></dxi-column>
+    <dxo-summary>
+      <dxi-total-item column="error" summaryType="count" displayFormat="Tổng cộng: {0}"> </dxi-total-item>
+    </dxo-summary>
   </dx-data-grid>
 </div>

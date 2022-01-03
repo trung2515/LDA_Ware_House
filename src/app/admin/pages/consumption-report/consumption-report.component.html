@@ -44,11 +44,11 @@
                 </dxi-column>
                 <dxi-column dataField="consignments_number" caption="Số lô" alignment="left"></dxi-column>
                 <dxi-column dataField="bag_number" alignment="left" caption="Số bao"></dxi-column>
-                <dxi-column dataField="ton_number" caption="Số tấn" alignment="left"></dxi-column>
+                <dxi-column dataField="ton_number" caption="Khối lượng (kg)" alignment="left"></dxi-column>
                 <dxi-column dataField="warehouse" caption="Kho"></dxi-column>
                 <dxi-column dataField="reason" caption="Nguyên nhân">
                 </dxi-column>
-                <dxi-column dataField="user" caption="User">
+                <dxi-column dataField="user" caption="Tên tài khoản">
                 </dxi-column>
                 <dxi-column dataField="note" caption="Ghi chú">
                 </dxi-column>
@@ -56,6 +56,10 @@
                 <div *dxTemplate="let item of 'time'">
                   {{item.value | date: 'yyyy-MM-dd HH:mm:ss'}}
                 </div> -->
+                <dxo-summary>
+                  <dxi-total-item column="bag_number" summaryType="sum" displayFormat="Tổng cộng: {0}">
+                  </dxi-total-item>
+                </dxo-summary>
               </dx-data-grid>
             </div>
           </div>

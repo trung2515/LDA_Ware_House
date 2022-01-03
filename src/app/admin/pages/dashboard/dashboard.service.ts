@@ -30,7 +30,8 @@ function GenerateProductList(): Product[] {
         palang: (1000 * i) / 8,
         cautientuan: (1000 * i) / 4,
         xenangvuontre: (1000 * i) / 2
-      }
+      },
+      code_type_bill: ''
     };
     rs.push(product);
   }

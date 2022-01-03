@@ -55,14 +55,20 @@ export class WorkDetail {
     task:string;
     fromWareHouse: string;
     toWareHouse:string;
+    quantity: number
+    codeProduct: string
+    codeBag: string
+
 
     constructor(data: TransportInfo){
         this.task = data.nameWork
         this.shift = Utils.convertTimeToShift(data.createddate)
         this.date = Utils.formatDate(new Date(data.createddate))
-        this.fromWareHouse = data.nameWareHouseLoad
-        this.toWareHouse = data.nameWareHouseUnLoad
-     
+        this.fromWareHouse = data.codeWareHouseload
+        this.toWareHouse = data.codeWareHouseUnload
+        this.quantity = data.quantity
+        this.codeProduct = data.nameProduct
+        this.codeBag = 'L' + data.idTypeProduct.toString()
     }
 }
 export class  SingleDetailWork {

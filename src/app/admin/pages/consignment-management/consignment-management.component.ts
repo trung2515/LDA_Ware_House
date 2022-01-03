@@ -165,7 +165,7 @@ export class ConsignmentManagementComponent implements OnInit {
 
   getData(year: number, month: number) {
     var date = new Date(year, month, 1)
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+    var firstDay = new Date(2021, 10, 1)
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
     this.warehouseService.getListParcel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
       this.consignments = data.map(d => new ParcelModel(d))

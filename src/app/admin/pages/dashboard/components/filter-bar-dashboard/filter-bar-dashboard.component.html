@@ -51,24 +51,25 @@
   </dx-range-selector>
 </div>
 <!-- inventory of month -->
-<!-- <p class="inventory-month-title">
+<p class="inventory-month-title">
   Tồn kho theo tháng
 </p>
 <div class="product-select inventory-month">
   <table id="table-inventory-month">
     <tr>
-      <th>Kho</th>
       <th>Sản phẩm</th>
+      <th>Loại</th>
       <th>Số lượng tồn</th>
+
     </tr>
     <tr *ngFor="let inventoryM of inventoryMonths">
-      <td>{{inventoryM.store}}</td>
       <td>{{inventoryM.name}}</td>
-      <td>{{inventoryM.total}}</td>
+      <td>{{inventoryM.type}}</td>
+      <td class="text-right">{{inventoryM.total}}</td>
     </tr>
     <tr class="field-total">
       <td colspan="2">Tổng cộng: </td>
       <td>{{inventorySum}}</td>
     </tr>
   </table>
-</div> -->
+</div>
