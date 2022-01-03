@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-warehouse-category',
   templateUrl: './warehouse-category.component.html',
@@ -9,7 +10,7 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class WarehouseCategoryComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
   
   ngOnInit(): void {
     this.getListWareHouse()
@@ -69,7 +70,7 @@ export class WarehouseCategoryComponent implements OnInit {
         this.objAddWareHouse.formSuccMess=data.message
         this.objAddWareHouse.formErrMess=""
         this.getListWareHouse()
-        setTimeout(()=>{
+        
           this.objAddWareHouse={
             title:'Thêm kho',
             mess:'',
@@ -83,7 +84,7 @@ export class WarehouseCategoryComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddWareHouse) this.togglePopupAddWareHouse()
-        },this.timeShowMess)
+        this.toastr.success('','Thêm mới thành công')
       }else{
         this.objAddWareHouse.formSuccMess=""
         this.objAddWareHouse.formErrMess=data.message
@@ -133,7 +134,7 @@ export class WarehouseCategoryComponent implements OnInit {
         this.objEditWareHouse.formSuccMess=data.message
         this.objEditWareHouse.formErrMess=""
         this.getListWareHouse()
-        setTimeout(()=>{
+       
           this.objEditWareHouse={
             title:'Chỉnh sửa kho',
             mess:'',
@@ -147,7 +148,7 @@ export class WarehouseCategoryComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditWareHouse) this.togglePopupEditWareHouse()
-        },this.timeShowMess)
+        this.toastr.success('','Chỉnh sửa thành công')
       }else{
         this.objEditWareHouse.formSuccMess=""
         this.objEditWareHouse.formErrMess=data.message
@@ -181,7 +182,7 @@ export class WarehouseCategoryComponent implements OnInit {
         this.objDeleteWareHouse.formSuccMess=data.message
         this.objDeleteWareHouse.formErrMess=""
         this.getListWareHouse()
-        setTimeout(()=>{
+
           this.objDeleteWareHouse={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -189,7 +190,7 @@ export class WarehouseCategoryComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteWareHouse) this.togglePopupDeleteWareHouse()
-        },this.timeShowMess)
+        this.toastr.success('','Xóa ')
       }else{
         this.objDeleteWareHouse.formSuccMess=""
         this.objDeleteWareHouse.formErrMess=data.message

@@ -1,4 +1,4 @@
-import { CardDetailInfo, QRCodeInfo, ReportInventoryInfo } from "src/app/core/models/model.pb";
+import { CardDetailInfo, QRCodeInfo, ReportInventoryInfo, TransportInfo } from "src/app/core/models/model.pb";
 import Utils from "src/app/_lib/utils";
 
 export class Product {
@@ -11,12 +11,25 @@ export class Product {
   machines_packaging: any;
   machines_consumption: any
   code_type_bill: string
-
   constructor(data: CardDetailInfo) {
     this.date = Utils.formatDateV1(new Date(data.createdDate))
     this.name = data.nameProduct
     this.inventory_qty = parseInt(data.quantity)
     this.code_type_bill = data.codeTypeBill.includes('N') ? 'N' : 'X'
+  }
+}
+
+export class TransportModel {
+  fieldCode: string;
+  value: number;
+  date: string;
+  type: string
+  constructor(data: TransportInfo) {
+    // this.fieldCode = data.codeEquipmentLoad != '' ? (data.codeEquipmentLoad + ' ' + data.dvBoc) : ''
+    this.fieldCode = data.codeEquipmentLoad
+    this.value = data.quantity
+    this.date = Utils.formatDateV1(new Date(data.createddate))
+    this.type = data.codeWork
   }
 }
 export class BarCharDateModel {

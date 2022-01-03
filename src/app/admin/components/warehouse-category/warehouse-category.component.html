@@ -34,7 +34,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objAddWareHouse.title}}"
-  [height]='300'
+  [height]='360'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -63,7 +63,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objAddWareHouse.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objAddWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddWareHouse()' >Hủy</div>
         <button type="submit" [disabled]='!objAddWareHouse.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
       </div>
@@ -76,7 +76,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objEditWareHouse.title}}"
-  [height]='300'
+  [height]='360'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -105,7 +105,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objEditWareHouse.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objEditWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditWareHouse()' >Hủy</div>
         <button type="submit" [disabled]='!objEditWareHouse.isValid' class="btn btn-primary btn-blue" > Sửa</button>
       </div>
@@ -127,7 +127,7 @@
     <form  (ngSubmit)="onSubmitDeleteWareHouse($event)" autocomplete="off" *ngIf='isPopupDeleteWareHouse'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteWareHouse.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4' >
         <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteWareHouse()' >Hủy</div>
         <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
       </div>

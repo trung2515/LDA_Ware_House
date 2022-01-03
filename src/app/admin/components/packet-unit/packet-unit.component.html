@@ -34,7 +34,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objAddPackingUnit.title}}"
-  [height]='200'
+  [height]='220'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -49,9 +49,9 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objAddPackingUnit.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objAddPackingUnit.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddPackingUnit()' >Hủy</div>
-        <button type="submit" [disabled]='!objAddPackingUnit.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
+        <button type="submit" [disabled]='!objAddPackingUnit.isValid'  class="btn btn-primary btn-blue   " > Thêm</button>
       </div>
 		</form>
   </div>
@@ -62,7 +62,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objEditPackingUnit.title}}"
-  [height]='200'
+  [height]='220'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -77,7 +77,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objEditPackingUnit.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objEditPackingUnit.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditPackingUnit()' >Hủy</div>
         <button type="submit" [disabled]='!objEditPackingUnit.isValid' class="btn btn-primary btn-blue" > Sửa</button>
       </div>
@@ -99,7 +99,7 @@
     <form  (ngSubmit)="onSubmitDeletePackingUnit($event)" autocomplete="off" *ngIf='isPopupDeletePackingUnit'>
       <div class='formErrMess text-danger mt-2'>{{objDeletePackingUnit.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeletePackingUnit.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4' >
         <div  class="btn btn-light btn-cancel " (click)='togglePopupDeletePackingUnit()' >Hủy</div>
         <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
       </div>

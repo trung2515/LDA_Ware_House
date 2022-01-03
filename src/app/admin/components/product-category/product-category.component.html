@@ -21,7 +21,7 @@
           <td>{{item.codeProduct}}</td>
           <td>{{item.nameProduct}}</td>
           <td style='width: 150px;text-align: center;'>
-            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}"
+            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}"
               (click)='clickEditProduct($event)'>
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' attr.data-order="{{item.index}}"
               (click)='clickDeleteProduct($event)'>
@@ -75,9 +75,9 @@
   </form>
 </dx-popup>
 <!-- Add Product -->
-<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="250" width="500"
+<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="280" width="500"
   [showTitle]="true" title="{{objAddProduct.title}}" [resizeEnabled]="true">
-  <form (ngSubmit)="onSubmitAddProduct($event)" autocomplete="off" *ngIf='isPopupAddProduct'>
+  <form  autocomplete="off" *ngIf='isPopupAddProduct'>
     <div class="wrap-input">
       <div class='d-flex' style='justify-content: space-between;'>
         <label for="FAP-msp" class="form-label">Mã sản phẩm</label>
@@ -95,16 +95,16 @@
       <span class="input-message"></span>
     </div>
     <div class='formErrMess text-danger pt-2'>{{objAddProduct.formErrMess}}</div>
-    <div class='formSuccMess text-success pt-2'>{{objAddProduct.formSuccMess}}</div>
+    
     <div class='d-flex justify-content-end py-2'>
       <button type="button" class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddProduct()'>Hủy</button>
-      <button type="submit" class="btn btn-primary btn-blue" [disabled]='!objAddProduct.isValid'> Thêm</button>
+      <button type="button" class="btn btn-primary btn-blue" (click)="onSubmitAddProduct($event)" [disabled]='!objAddProduct.isValid'> Thêm</button>
     </div>
   </form>
 </dx-popup>
 <!-- Edit Product -->
 <dx-popup [(visible)]="isPopupEditProduct" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objEditProduct.title}}" height="250" width="500" [resizeEnabled]="true">
+  title="{{objEditProduct.title}}" height="280" width="500" [resizeEnabled]="true">
   <form (ngSubmit)="onSubmitEditProduct($event)" autocomplete="off" *ngIf='isPopupEditProduct'>
     <div class="wrap-input">
       <div class='d-flex' style='justify-content: space-between;'>
@@ -148,10 +148,9 @@
         <span class="input-message"></span>
       </div>
       <div class='formErrMess text-danger pt-2'>{{objAddTypeProduct.formErrMess}}</div>
-      <div class='formSuccMess text-success pt-2'>{{objAddTypeProduct.formSuccMess}}</div>
       <div class='d-flex justify-content-end py-2'>
         <button type="button" class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeProduct()'>Hủy</button>
-        <button type="submit" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue   "> Thêm</button>
+        <button type="submit" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
       </div>
     </form>
   </div>
@@ -172,7 +171,7 @@
       </div>
       <div class='formErrMess text-danger pt-2'>{{objEditTypeProduct.formErrMess}}</div>
       <div class='formSuccMess text-success pt-2'>{{objEditTypeProduct.formSuccMess}}</div>
-      <div class='d-flex justify-content-end py-2' style=''>
+      <div class='d-flex justify-content-end py-2'>
         <button type="button" class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditTypeProduct()'>Hủy</button>
         <button type="submit" [disabled]='!objEditTypeProduct.isValid' class="btn btn-primary btn-blue"> Sửa</button>
       </div>
@@ -187,7 +186,7 @@
     <form (ngSubmit)="onSubmitDeleteTypeProduct($event)" autocomplete="off" *ngIf='isPopupDeleteTypeProduct'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteTypeProduct.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteTypeProduct.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4'>
         <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeProduct()'>Hủy</div>
         <button type="submit" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
       </div>

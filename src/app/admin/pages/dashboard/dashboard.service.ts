@@ -5,6 +5,7 @@ let productListInfo: any = [];
 
 function GenerateProductList(): Product[] {
   let rs: Product[] = [];
+<<<<<<< HEAD
   for (let i = 1; i <= 31; i++) {
     const now = new Date();
     const strDate = now.getMonth() + 1 + '/' + i + '/' + now.getFullYear();
@@ -35,6 +36,8 @@ function GenerateProductList(): Product[] {
     };
     rs.push(product);
   }
+=======
+>>>>>>> origin/main
   return rs;
 }
 

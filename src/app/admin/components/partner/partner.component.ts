@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-partner',
   templateUrl: './partner.component.html',
   styleUrls: ['./partner.component.css']
 })
 export class PartnerComponent implements OnInit {
+ 
 
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
   ngOnInit(): void {
     this.getListPartner()
     this.getListTypePartner()
@@ -90,7 +92,7 @@ export class PartnerComponent implements OnInit {
         this.objAddPartner.formSuccMess=data.message
         this.objAddPartner.formErrMess=""
         this.getListPartner()
-        setTimeout(()=>{
+       
           this.objAddPartner={
             title:'Thêm khách hàng',
             mess:'',
@@ -104,7 +106,7 @@ export class PartnerComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddPartner) this.togglePopupAddPartner()
-        },this.timeShowMess)
+        this.toastr.success('','Thêm mới thành công')
       }else{
         this.objAddPartner.formSuccMess=""
         this.objAddPartner.formErrMess=data.message
@@ -158,7 +160,6 @@ export class PartnerComponent implements OnInit {
         this.objEditPartner.formSuccMess=data.message
         this.objEditPartner.formErrMess=""
         this.getListPartner()
-        setTimeout(()=>{
           this.objEditPartner={
             title:'Chỉnh sữa khách hàng',
             mess:'',
@@ -172,7 +173,7 @@ export class PartnerComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditPartner) this.togglePopupEditPartner()
-        },this.timeShowMess)
+        this.toastr.success('','Chỉnh sửa thành công')
       }else{
         this.objEditPartner.formSuccMess=""
         this.objEditPartner.formErrMess=data.message
@@ -206,7 +207,7 @@ export class PartnerComponent implements OnInit {
         this.objDeletePartner.formSuccMess=data.message
         this.objDeletePartner.formErrMess=""
         this.getListPartner()
-        setTimeout(()=>{
+       
           this.objDeletePartner={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -214,7 +215,7 @@ export class PartnerComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeletePartner) this.togglePopupDeletePartner()
-        },this.timeShowMess)
+        this.toastr.success('','Xóa thành công')
       }else{
         this.objDeletePartner.formSuccMess=""
         this.objDeletePartner.formErrMess=data.message

@@ -52,7 +52,7 @@ export class ReportService {
     console.log(request)
     return this.reportClient.getReportTransport(request).pipe(
       map((reply: TransportResponse) => {
-        console.log(reply.data)
+        // console.log(reply.data)
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }),
     )

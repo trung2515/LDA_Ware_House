@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-type-bag',
   templateUrl: './type-bag.component.html',
   styleUrls: ['./type-bag.component.css']
 })
 export class TypeBagComponent implements OnInit {
+  
+  
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getListTypePacket()
@@ -66,7 +69,6 @@ export class TypeBagComponent implements OnInit {
         this.objAddTypePacket.formSuccMess=data.message
         this.objAddTypePacket.formErrMess=""
         this.getListTypePacket()
-        setTimeout(()=>{
           this.objAddTypePacket={
             title:'Thêm loại sản phẩm',
             mess:'',
@@ -78,7 +80,7 @@ export class TypeBagComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddTypePacket) this.togglePopupAddTypePacket()
-        },this.timeShowMess)
+          this.toastr.success('',"Thêm mới thành công")
       }else{
         this.objAddTypePacket.formSuccMess=""
         this.objAddTypePacket.formErrMess=data.message
@@ -120,7 +122,7 @@ export class TypeBagComponent implements OnInit {
         this.objEditTypePacket.formSuccMess=data.message
         this.objEditTypePacket.formErrMess=""
         this.getListTypePacket()
-        setTimeout(()=>{
+      
           this.objEditTypePacket={
             title:'Chỉnh sửa loại sản phẩm',
             mess:'',
@@ -132,7 +134,7 @@ export class TypeBagComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditTypePacket) this.togglePopupEditTypePacket()
-        },this.timeShowMess)
+          this.toastr.success('','Chỉnh sửa thành công')
       }else{
         this.objEditTypePacket.formSuccMess=""
         this.objEditTypePacket.formErrMess=data.message
@@ -166,7 +168,7 @@ export class TypeBagComponent implements OnInit {
         this.objDeleteTypePacket.formSuccMess=data.message
         this.objDeleteTypePacket.formErrMess=""
         this.getListTypePacket()
-        setTimeout(()=>{
+     
           this.objDeleteTypePacket={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -174,7 +176,7 @@ export class TypeBagComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteTypePacket) this.togglePopupDeleteTypePacket()
-        },this.timeShowMess)
+          this.toastr.success('','Xóa thành công')
       }else{
         this.objDeleteTypePacket.formSuccMess=""
         this.objDeleteTypePacket.formErrMess=data.message

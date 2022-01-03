@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
@@ -10,13 +11,15 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class ProductCategoryComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService ,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getListProduct()
     this.getListTypeProduct()
   }
-  
+  showLog(){
+    console.log(123);
+  }
   blur(e:any,obj:any){
     _.blur(e,obj)
     console.log(obj.input)
@@ -29,7 +32,7 @@ export class ProductCategoryComponent implements OnInit {
   }
   timeShowMess:any=3000
 
-
+  isConfirm:boolean = false
 
   // -----------------------------------------------------PRODUCT---------------------------------------
   listProduct:any=[]
@@ -73,7 +76,6 @@ export class ProductCategoryComponent implements OnInit {
         this.objDeleteProduct.formSuccMess=data.message
         this.objDeleteProduct.formErrMess=""
         this.getListProduct()
-        setTimeout(()=>{
           this.objDeleteProduct={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -81,7 +83,8 @@ export class ProductCategoryComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteProduct) this.togglePopupDeleteProduct()
-        },this.timeShowMess)
+          this.toastr.success('','Xóa thành công')
+      
       }else{
         this.objDeleteProduct.formSuccMess=""
         this.objDeleteProduct.formErrMess=data.message
@@ -127,7 +130,7 @@ export class ProductCategoryComponent implements OnInit {
         this.objEditProduct.formSuccMess=data.message
         this.objEditProduct.formErrMess=""
         this.getListProduct()
-        setTimeout(()=>{
+        
           this.objEditProduct={
             title:'Chỉnh sửa sản phẩm',
             mess:'',
@@ -140,7 +143,7 @@ export class ProductCategoryComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditProduct) this.togglePopupEditProduct()
-        },this.timeShowMess)
+          this.toastr.success('','Chỉnh sửa thành công')
       }else{
         this.objEditProduct.formSuccMess=""
         this.objEditProduct.formErrMess=data.message
@@ -175,7 +178,7 @@ export class ProductCategoryComponent implements OnInit {
         this.objAddProduct.formSuccMess=data.message
         this.objAddProduct.formErrMess=""
         this.getListProduct()
-        setTimeout(()=>{
+      
           this.objAddProduct={
             title:'Thêm sản phẩm',
             mess:'',
@@ -188,7 +191,8 @@ export class ProductCategoryComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddProduct) this.togglePopupAddProduct()
-        },this.timeShowMess)
+          this.toastr.success('',"Thêm mới thành công")
+       
       }else{
         this.objAddProduct.formSuccMess=""
         this.objAddProduct.formErrMess=data.message
