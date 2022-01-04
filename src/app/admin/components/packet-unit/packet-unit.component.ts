@@ -65,7 +65,7 @@ export class PacketUnitComponent implements OnInit {
         this.objAddPackingUnit.formSuccMess=data.message
         this.objAddPackingUnit.formErrMess=""
         this.getListPackingUnit()
-        setTimeout(()=>{
+        {
           this.objAddPackingUnit={
             title:'Thêm đơn vị đóng',
             mess:'',
@@ -77,7 +77,7 @@ export class PacketUnitComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddPackingUnit) this.togglePopupAddPackingUnit()
-        },this.timeShowMess)
+        }
       }else{
         this.objAddPackingUnit.formSuccMess=""
         this.objAddPackingUnit.formErrMess=data.message

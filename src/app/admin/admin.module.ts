@@ -46,6 +46,8 @@ import { OrderComponent } from './pages/order/report/order.component'
 import { DetailTransportComponent } from './pages/transportation-report/component/detail-transport.component';
 import { DetailOrderComponent } from './pages/order/component/detail-order.component';
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
+import { MinutesComponent } from './components/minutes/minutes.component';
+
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -83,7 +85,8 @@ import { WorkflowManagementComponent } from './pages/workflow-management/workflo
     ErrorBagComponent,
     DetailTransportComponent,
     DetailOrderComponent,
-    WorkflowManagementComponent
+    WorkflowManagementComponent,
+    MinutesComponent
   ],
   imports: [
     CommonModule,
