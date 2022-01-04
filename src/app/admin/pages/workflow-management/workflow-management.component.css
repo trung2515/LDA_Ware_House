@@ -56,3 +56,6 @@ label {
   border-radius: 4px;
   color: #3459e6;
 }
+.poiter{
+  cursor: pointer;
+}

@@ -93,6 +93,8 @@ export class WorkflowManagementComponent implements OnInit {
     }
     console.log(this.arrSingleWorkDetail);
     this.singleWorkDetail = this.arrSingleWorkDetail[0]
+    console.log('single',this.singleWorkDetail);
+    
 
   }
   closePop() {

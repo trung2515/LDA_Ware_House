@@ -136,9 +136,9 @@
 
 <!-- Add TypeProduct -->
 <dx-popup [(visible)]="isPopupAddTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objAddTypeProduct.title}}" [height]="200" [width]="550">
+  title="{{objAddTypeProduct.title}}" [height]="250" [width]="550">
   <div class="" style="width:90%;margin:auto">
-    <form (ngSubmit)="onSubmitAddTypeProduct($event)" autocomplete="off" *ngIf='isPopupAddTypeProduct'>
+    <form  autocomplete="off" *ngIf='isPopupAddTypeProduct'>
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
@@ -150,9 +150,23 @@
       <div class='formErrMess text-danger pt-2'>{{objAddTypeProduct.formErrMess}}</div>
       <div class='d-flex justify-content-end py-2'>
         <button type="button" class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeProduct()'>Hủy</button>
-        <button type="submit" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
+        <button type="button" (click)="isShowConfirmTypeProduct = !isShowConfirmTypeProduct" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
       </div>
     </form>
+  </div>
+</dx-popup>
+<dx-popup 
+[(visible)]="isShowConfirmTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
+title="Xác nhận" [height]="200" [width]="550">
+<div class="wrap-input">
+  <div class='d-flex' style='justify-content: space-between;'>
+   <p>Bạn chắc chắn xóa mục này</p>
+  
+  </div>
+  </div>
+  <div class='d-flex justify-content-end py-2'>
+    <button type="button" class="btn btn-light btn-cancel mr-3" (click)='isShowConfirmTypeProduct = false'>Hủy</button>
+    <button type="button" (click)="onSubmitAddTypeProduct($event)" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
   </div>
 </dx-popup>
 <!-- Edit TypeProduct -->

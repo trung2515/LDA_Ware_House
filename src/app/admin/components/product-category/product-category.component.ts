@@ -33,7 +33,7 @@ export class ProductCategoryComponent implements OnInit {
   timeShowMess:any=3000
 
   isConfirm:boolean = false
-
+  isShowConfirmTypeProduct:boolean = false
   // -----------------------------------------------------PRODUCT---------------------------------------
   listProduct:any=[]
   itemProductClicked:any={}
