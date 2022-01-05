@@ -1,36 +1,16 @@
 <dx-chart [id]="chartID" [dataSource]="products" palette="soft">
-  <dxi-series
-    [valueField]="configChart.dataField"
-    [name]="configChart.chartLegend"
-    [color]="configChart.color"
-    [argumentField]="configChart.argumentField"
-    type="bar"
-    barWidth="14"
-  >
+  <dxi-series [valueField]="configChart.dataField" [name]="configChart.chartLegend" [color]="configChart.color"
+    [argumentField]="configChart.argumentField" type="bar" barWidth="14">
   </dxi-series>
   <dxi-value-axis>
     <dxo-title text="Tấn" position="top"></dxo-title>
   </dxi-value-axis>
-  <dxo-legend
-    [visible]="true"
-    [font]="configChart.fontLegend"
-    verticalAlignment="top"
-    horizontalAlignment="center"
-    itemTextPosition="right"
-    markerSize="18"
-  ></dxo-legend>
-  <dxo-title
-    [text]="configChart.product_name"
-    [font]="configChart.fontTitle"
-    verticalAlignment="top"
-    horizontalAlignment="right"
-  ></dxo-title>
+  <dxo-legend [visible]="true" [font]="configChart.fontLegend" verticalAlignment="top" horizontalAlignment="center"
+    itemTextPosition="right" markerSize="18"></dxo-legend>
+  <dxo-title [text]="configChart.product_name" [font]="configChart.fontTitle" verticalAlignment="top"
+    horizontalAlignment="right"></dxo-title>
 
-  <dxo-tooltip
-    [enabled]="true"
-    location="edge"
-    [border]="configChart.borderTooltip"
-  >
+  <dxo-tooltip [enabled]="true" location="edge" [border]="configChart.borderTooltip">
   </dxo-tooltip>
 </dx-chart>
-<p class="total-consume-packaging">Tổng sản lượng {{sumSomething}}</p>
+<!-- <p class="total-consume-packaging">Tổng sản lượng {{sumSomething}}</p> -->

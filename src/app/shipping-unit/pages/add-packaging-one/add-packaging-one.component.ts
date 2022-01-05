@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ShippingUnitService } from '../../services/shipping-unit-service.service';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { ShiftDetail } from '../model';
+import Utils from 'src/app/_lib/utils';
 
 @Component({
   selector: 'app-add-packaging-one',
@@ -26,7 +27,7 @@ import { ShiftDetail } from '../model';
 })
 export class AddPackagingOneComponent implements OnInit {
   popupVisible: boolean = false;
-  now: Date = new Date('2022/01/01');
+  now: Date = new Date('1/1/2022');
   ca_no_option: string = 'Ca 1';
   aShiftList: ShiftDetail[] = [];
   formGroupProduct: any = {};
@@ -58,10 +59,12 @@ export class AddPackagingOneComponent implements OnInit {
   getData() {
     this.adminService
       .getListShiftDetail(
-        this.getCurrentDate(this.now),
-        this.getCurrentDate(this.now)
+        Utils.formatDate(this.now),
+        Utils.formatDate(this.now)
       )
       .subscribe(data => {
+        console.log(data);
+
         let currentShifts = [];
         for (const _data of data) {
           currentShifts.push(new ShiftDetail(_data));
@@ -77,12 +80,16 @@ export class AddPackagingOneComponent implements OnInit {
           );
           this.aShiftList = currentShifts;
         } else {
+          this.aShiftList = [];
+
           this.showError('Chưa có dữ liệu ca làm việc này!');
         }
+
         this.generationForm();
       });
   }
   generationForm() {
+    this.formGroupProduct = {};
     for (let i = 0; i < this.aShiftList.length; i++) {
       this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
@@ -100,25 +107,29 @@ export class AddPackagingOneComponent implements OnInit {
 
   onSubmit(e: any) {
     if (this.isValidForm()) {
-      let dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
+      const data: ConfirmProduction1000Info = new ConfirmProduction1000Info();
       let machine_list: ConfirmProduction1000[] = [];
 
       for (let i = 0; i < this.getKeyForm().length; i++) {
         const form = this.formGroupProduct[this.getKeyForm()[i]].value;
         for (const key in form) {
           let machine: ConfirmProduction1000 = new ConfirmProduction1000();
-          machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
+          // console.log(this.aShiftList[i].idShiftDetail);
+          // console.log(this.aShiftList[i].idShiftDetail.toString());
+
+          machine.idShiftDetail = this.aShiftList[i].idShiftDetail.toString();
           machine.codeEquipment = key.split('_')[1];
-          machine.quantity = form[key];
+          machine.quantity = Number(form[key]);
 
           machine_list.push(machine);
         }
       }
-      dataInput.user = this.authService.getUser().id;
-      dataInput.data = machine_list;
-      console.log(machine_list);
+      data.user = this.authService.getUser().id;
+      data.data = [...machine_list];
+      console.log(data);
 
-      this.warehouseService.update1000Kg(dataInput).subscribe(reply => {
+      this.warehouseService.update1000Kg(data).subscribe(reply => {
+        console.log(reply);
         if (reply.state == ResponseState.SUCCESS) {
           this.showSuccess('Thêm mới thành công');
         } else {
@@ -151,11 +162,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['22', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['2', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['22', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['222', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_a: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {
@@ -186,13 +197,13 @@ export class AddPackagingOneComponent implements OnInit {
       date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
     );
   }
-  getCurrentDateDMY(date: Date): string {
-    console.log('dateeeee  ', date);
+  // getCurrentDateDMY(date: Date): string {
+  //   console.log('dateeeee  ', date);
 
-    return (
-      date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-    );
-  }
+  //   return (
+  //     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+  //   );
+  // }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
       timeOut: 2000,

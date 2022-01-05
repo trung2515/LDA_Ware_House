@@ -1,8 +1,5 @@
 <div class="wrapper">
-  <app-header-bar
-    (onBackClicked)="onBackClicked()"
-    title="Nhập sản lượng đóng bao loại 1 tấn"
-  ></app-header-bar>
+  <app-header-bar (onBackClicked)="onBackClicked()" title="Nhập sản lượng đóng bao loại 1 tấn"></app-header-bar>
   <div class="content mainCol">
     <h3 class="heading-title">
       Ca làm việc:
@@ -12,44 +9,31 @@
     <div class="select-group row">
       <div class="select-date col-12 col-lg-3">
         <label for="">Ngày</label>
-        <dx-date-box
-          [(value)]="now"
-          type="date"
-          (onValueChanged)="onDateValueChanged($event)"
-          displayFormat="dd/MM/yyyy"
-        ></dx-date-box>
+        <dx-date-box [(value)]="now" type="date" (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
         <label for="">Ca làm việc</label>
-        <dx-select-box
-          id="dxSelectShift"
-          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
-          [(value)]="ca_no_option"
-          hoverStateEnabled="false"
-          placeholder="Chọn ca làm việc"
-          (onSelectionChanged)="onSelectCaChange($event)"
-        ></dx-select-box>
+        <dx-select-box id="dxSelectShift" [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']" [(value)]="ca_no_option"
+          hoverStateEnabled="false" placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectCaChange($event)">
+        </dx-select-box>
       </div>
     </div>
-    <h3  class="heading-title pt-4">
+    <h3 *ngIf="aShiftList.length > 0" class="heading-title pt-4">
       Số lượng máy đóng bao
     </h3>
-    <div class="horizontal-line"></div>
+    <div *ngIf="aShiftList.length > 0" class="horizontal-line"></div>
 
     <div class="option-group">
-      <div
-      class="option-item"
-      *ngFor="
+      <div class="option-item" *ngFor="
         let optionItem of aShiftList;
         let i = index
-      "
-      >
+      ">
         <div class="option-head">
           <span>{{ optionItem.option }}:</span>
           <span class="option-title">
             {{ optionItem.nameProduct }} - {{ optionItem.typeProduct }} -
-            {{ optionItem.nameTypePacket }}</span
-          >
+            {{ optionItem.typePacket }}</span>
           <app-option-status [type]="optionItem.ballot_type"></app-option-status>
         </div>
         <div class="option-location-info row d-none d-lg-flex">
@@ -68,23 +52,15 @@
         </div>
 
         <form [formGroup]="getForm(i)" class="form-info-group row">
-          <div
-            *ngFor="let input of inputs_options"
-            class="col-12 col-lg-3 form-item"
-          >
+          <div *ngFor="let input of inputs_options" class="col-12 col-lg-3 form-item">
             <p class="info-field">{{ input.label + ":" }}</p>
-            <app-text-input
-              [formControlName]="input.formControlName"
-              [label]="input.label"
-              type="text"
-            ></app-text-input>
+            <app-text-input [formControlName]="input.formControlName" [label]="input.label" type="text">
+            </app-text-input>
           </div>
         </form>
-        <div
-          [class]="'horizontal-line dotted option-' + optionItem.option"
-        ></div>
+        <div  [class]="'horizontal-line dotted option-' + optionItem.option"></div>
       </div>
-      <button class="btn-ship btn-completed" (click)="onSubmit($event)">
+      <button *ngIf="aShiftList.length > 0" class="btn-ship btn-completed" (click)="onSubmit($event)">
         Hoàn tất
       </button>
     </div>
@@ -93,18 +69,9 @@
 </div>
 <!-- popup confirm -->
 
-<dx-popup
-  [showTitle]="true"
-  width="90%"
-  title="Xác nhận thay đổi"
-  [dragEnabled]="false"
-  [closeOnOutsideClick]="false"
-  [showCloseButton]="true"
-  container=".dx-viewport"
-  [(visible)]="popupVisible"
-  shadingColor="rgba(0,0,0,0.3)"
-  id="popUpAddPackaging"
-  [toolbarItems]="[
+<dx-popup [showTitle]="true" width="90%" title="Xác nhận thay đổi" [dragEnabled]="false" [closeOnOutsideClick]="false"
+  [showCloseButton]="true" container=".dx-viewport" [(visible)]="popupVisible" shadingColor="rgba(0,0,0,0.3)"
+  id="popUpAddPackaging" [toolbarItems]="[
     {
       widget: 'dxButton',
       location: 'after',
@@ -123,8 +90,7 @@
       toolbar: 'bottom',
       onClick: onConfirm
     }
-  ]"
->
+  ]">
   <div class="popup-head">
     <p>
       Số lượng máy đóng bao của ca này đã được ghi nhận trước đó, gồm:
@@ -155,10 +121,7 @@
       </div>
     </div> -->
 
-    <div
-      *ngFor="let shift of aShiftList; let i = index"
-      class="option-wrap"
-    >
+    <div *ngFor="let shift of aShiftList; let i = index" class="option-wrap">
       <div class="option-info">
         <span class="option-p">{{ shift.option }}</span>
         <span class="option-name-bag">
@@ -166,23 +129,15 @@
         </span>
 
         <div class="d-none d-lg-inline-block">
-          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new"
-            >Nhập đóng mới</span
-          >
-          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old"
-            >Nhập đóng lại</span
-          >
+          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new">Nhập đóng mới</span>
+          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old">Nhập đóng lại</span>
         </div>
         <div class="d-lg-none d-inline-block">
-          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new"
-            >NDM</span
-          >
-          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old"
-            >NDL</span
-          >
+          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new">NDM</span>
+          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old">NDL</span>
         </div>
       </div>
-<!--
+      <!--
       <div class="row option-group ">
         <div class="option-item col-6 col-lg-3">
           <p class="option-title">Máy A:</p>

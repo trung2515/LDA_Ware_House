@@ -71,3 +71,11 @@ img.btn-edit {
   color: #000000;
   font-weight: 400;
 }
+
+
+.ballot_type {
+  font-family: 'Roboto';
+  color: #3459E6;
+  font-weight: 400;
+  font-size: 15px;
+}

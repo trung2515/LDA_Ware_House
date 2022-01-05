@@ -13,6 +13,7 @@ import { Any } from '@ngx-grpc/well-known-types'
 import { forkJoin } from 'rxjs';
 import { MasterDataInfo, ProductInfo } from 'src/app/core/models/model.pb';
 import Utils from 'src/app/_lib/utils';
+import { join } from 'path';
 
 
 @Component({
@@ -72,6 +73,23 @@ export class ToolPageComponent implements OnInit {
   productType: string = ''
   request: string
   decision: string
+  surrogateSender: any = [{}]
+  surrogateReceiver: any = [{}]
+  suggest: any = [{}]
+  customer:string;
+  isShift:string;
+  isDate:string;
+  isArrProduct:any =[{}];
+  isArrProductType:any =[{}];
+  isArrPackaging:any =[{}];
+  isDecision:string;
+  isSender:string;
+  isReceiver:string;
+  isArrSenderName:any=[{}];
+  isArrSenderDeparment:any=[{}];
+  isArrReceiverName:any=[{}];
+  isArrReceiverDepartment:any=[{}];
+
   initSelectControl() {
     this.adminService.getListMasterData().subscribe((masterData) => {
       this.sender = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new OptionModel(m))
@@ -112,7 +130,6 @@ export class ToolPageComponent implements OnInit {
       console.log(data);
       
         this.dataTableMinuteFilter = data.filter(f=>f.codeTypeBill == 'NDM' || f.codeTypeBill == 'NDL').filter(f =>f.nameShift == shift).map(m =>  new DataTableMinuteExchange(m))
-        // this.dataTableMinuteFilter = this.dataTableMinute.filter((f:any )=> f.shift == shift)
         console.log('data in dxgird', this.dataTableMinuteFilter ); 
     })
    }else if(typeMinute==2){
@@ -135,27 +152,52 @@ export class ToolPageComponent implements OnInit {
  }
 
   selectShiftFilter(data: any) {
-    this.dataFilter.shift = data.value.shift
+    console.log(data);
+    
+    this.dataFilter.shift = data.value
     if(this.dataFilter.shift&& this.dataFilter.date){
       this.getDataTableMunites(this.dataFilter.date,this.checkMinuteType,this.dataFilter.shift)
-      // this.dataTableMinuteFilter = this.dataTableMinute.filter((element:any) => element.shift == this.dataFilter.shift)
-
+      this.checkMinuteType == 1? this.dataBinding.contentMinute = `Tiến hành giao nhận sản phẩm Alumin đóng bao loại 1 tấn hoàn thành ${this.dataFilter.shift.toLowerCase()}, ngày ${this.dataFilter.date.getDate()} tháng ${this.dataFilter.date.getMonth()+1} năm ${this.dataFilter.date.getFullYear()} để nhập kho như sau:  `:this.dataBinding.contentMinute
+      this.checkMinuteType == 2? this.dataBinding.contentMinute = `Tiến hành xác nhận khối lượng công việc thực hiện bốc xếp sản phẩm lưu kho và bốc xếp sản phẩm tiêu thụ thực hiện trong ca ${this.dataFilter.shift.toLowerCase()}, ngày ${this.dataFilter.date.getDate()} tháng ${this.dataFilter.date.getMonth()+1} năm ${this.dataFilter.date.getFullYear()} để nhập kho như sau:  `:this.dataBinding.contentMinute
+                                                                                                                           
     }
     
   }
   selectDateFilter(data: any) {
     this.dataFilter.date = new Date(data.value)
+   
     if(this.dataFilter.shift && this.dataFilter.date){
       this.getDataTableMunites(this.dataFilter.date,this.checkMinuteType,this.dataFilter.shift)
-      // this.dataTableMinuteFilter = this.dataTableMinute.filter((element:any) => element.shift == this.dataFilter.shift)
+      this.checkMinuteType == 1? this.dataBinding.contentMinute = `Tiến hành giao nhận sản phẩm Alumin đóng bao loại 1 tấn hoàn thành ${this.dataFilter.shift.toLowerCase()}, ngày ${this.dataFilter.date.getDate()} tháng ${this.dataFilter.date.getMonth()+1} năm ${this.dataFilter.date.getFullYear()} để nhập kho như sau:  `:this.dataBinding.contentMinute
+      this.checkMinuteType == 2? this.dataBinding.contentMinute = `Tiến hành xác nhận khối lượng công việc thực hiện bốc xếp sản phẩm lưu kho và bốc xếp sản phẩm tiêu thụ thực hiện trong ca ${this.dataFilter.shift.toLowerCase()}, ngày ${this.dataFilter.date.getDate()} tháng ${this.dataFilter.date.getMonth()+1} năm ${this.dataFilter.date.getFullYear()} để nhập kho như sau:  `:this.dataBinding.contentMinute
    
     }
    
   }
   selectType: number
  
-
   selectionChanged(data: any) {
+    if(this.selectType == 1){
+      let nameProduct:any =[]
+      let nameProductConvert:any
+      for(var i = 0;i < data.selectedRowsData.length ;i++){
+        nameProduct.push(data.selectedRowsData[i].product)
+      }
+      nameProduct = [...new Set(nameProduct)]
+     for(var i = 0; i < nameProduct.length ; i++){
+      let item = nameProduct[i].split(' ')
+          item.splice(1,0,'đóng bao')
+          item = item.join(' ')
+          if(nameProduct.length = 1){
+            nameProductConvert = item
+          }else{
+            nameProductConvert = nameProductConvert + ', '+item
+          }   
+     }
+     
+      this.dataBinding.contentMinute = `Tiến hành giao nhận sản phẩm ${nameProductConvert} hoàn thành ${this.dataFilter.shift.toLowerCase()}, ngày ${this.dataFilter.date.getDate()} tháng ${this.dataFilter.date.getMonth()+1} năm ${this.dataFilter.date.getFullYear()} để nhập kho như sau:  `
+    }
+   
     this.dataSelect = data
   }
   public captureScreen() {
@@ -176,39 +218,34 @@ export class ToolPageComponent implements OnInit {
       pdf.save('test.pdf') // Generated PDF
     })
   }
-  surrogateSender: any = [{}]
-  surrogateReceiver: any = [{}]
-  suggest: any = [{}]
+ 
   selectSender(e: any) {
     console.log(e);
     this.dataBinding.sender = e.value.name
   }
   selectsenderPersonName(e: any, i: any) {
     let newSender: any = this.surrogateSender.slice(i, i + 1)
-    console.log(newSender)
-    newSender[0].name = e.value.name
-     console.log(newSender)
+    newSender[0].name = e.value
     this.surrogateSender.splice(i, 1, newSender[0])
-    console.log(this.surrogateSender)
   }
   selectsenderPersonDepartment(e: any, i: any) {
     let newSender: any = this.surrogateSender.slice(i, i + 1)
-    newSender[0].department = e.value.name
+    newSender[0].department = e.value
     this.surrogateSender.splice(i, 1, newSender[0])
     console.log(this.surrogateSender)
   }
   selectReceiver(e: any) {
-    this.dataBinding.receiver = e.value.name
+    this.dataBinding.receiver = e.value
   }
   selectreceiverPersonName(e: any, i: any) {
     let newreceiver: any = this.surrogateReceiver.slice(i, i + 1)
-    newreceiver[0].name = e.value.name
+    newreceiver[0].name = e.value
     this.surrogateReceiver.splice(i, 1, newreceiver[0])
     console.log(this.surrogateReceiver)
   }
   selectreceiverPersonDepartment(e: any, i: any) {
     let newreceiver: any = this.surrogateReceiver.slice(i, i + 1)
-    newreceiver[0].department = e.value.name
+    newreceiver[0].department = e.value
     this.surrogateReceiver.splice(i, 1, newreceiver[0])
     console.log(this.surrogateReceiver)
   }
@@ -235,24 +272,24 @@ export class ToolPageComponent implements OnInit {
   selectSuggestProduct(e: any, i: any) {
     console.log('pro',e)
     let item: any = this.suggest.slice(i, i + 1)
-    item[0].product = e.value.name
-    this.product = e.value.name
+    item[0].product = e.value
+    this.product = e.value
     this.suggest.splice(i, 1, item[0])
-    this.request = `Kính đề nghị Phó Giám đốc cùng các Phòng, Ban xem xét, duyệt ${this.checkMinuteType == 4 ? 'nhập' : 'xuất'} phẩm ${this.product}/bao L${this.productType} phát sinh trong quá trình lưu kho và tiêu thụ sản phẩm từ ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} đến ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} như sau:`
+    this.request = `Kính đề nghị Phó Giám đốc cùng các Phòng, Ban xem xét, duyệt ${this.checkMinuteType == 4 ? 'nhập' : 'xuất'} phẩm ${this.product}/bao L${this.productType} bị lỗi từ sản phẩm Alumin 1 tấn/bao L1 phát sinh trong quá trình lưu kho và tiêu thụ sản phẩm từ ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} đến ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} như sau:`
   }
   selectSuggestProductType(e: any, i: any) {
     console.log('type',e)
     let item: any = this.suggest.slice(i, i + 1)
-    item[0].productType = e.value.id
+    item[0].productType = e.value
     this.suggest.splice(i, 1, item[0])
-    this.productType = e.value.id
-    this.request = `Kính đề nghị Phó Giám đốc cùng các Phòng, Ban xem xét, duyệt ${this.checkMinuteType == 4 ? 'nhập' : 'xuất'} sản phẩm ${this.product}/bao L${this.productType} phát sinh trong quá trình lưu kho và tiêu thụ sản phẩm từ ngày  ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} đến ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} như sau:`
+    this.productType = e.value
+    this.request = `Kính đề nghị Phó Giám đốc cùng các Phòng, Ban xem xét, duyệt ${this.checkMinuteType == 4 ? 'nhập' : 'xuất'} sản phẩm ${this.product}/bao L${this.productType} bị lỗi từ sản phẩm Alumin 1 tấn/bao L1 phát sinh trong quá trình lưu kho và tiêu thụ sản phẩm từ ngày  ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} đến ngày ${this.now.getDate()} / ${this.now.getMonth() + 1} / ${this.now.getFullYear()} như sau:`
 
   }
   selectSuggestPackaging(e: any, i: any) {
     console.log('pac',e)
     let item: any = this.suggest.slice(i, i + 1)
-    item[0].packaging = e.value.name
+    item[0].packaging = e.value
     this.suggest.splice(i, 1, item[0])
 
   }
@@ -266,10 +303,22 @@ export class ToolPageComponent implements OnInit {
    this.surrogateReceiver = [{}]
    this.dataBinding.sender = ''
    this.dataBinding.receiver = ''
-   this.receiver = []
-   this.senderPerson = []
-   this.receiverPerson = []
    this.nameMinutes = ''
+   this.dataSelect = []
+   this.isShift=''
+   this.isDate=''
+   this.isArrProduct=[{}];
+   this.isArrProductType=[{}];
+   this.isArrPackaging=[{}];
+   this.isDecision=''
+   this.isSender=''
+   this.isReceiver=''
+   this.isArrSenderName=[{}];
+   this.isArrSenderDeparment=[{}];
+   this.isArrReceiverName=[{}];
+   this.isArrReceiverDepartment=[{}];
+   this.switchInternal=false
+   this.dataFilter={}
   }
 
 }

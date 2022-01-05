@@ -1,3 +1,4 @@
+import { CardClient } from './../models/admin.pbsc';
 import {
   ConfirmProduction1000Info,
   InsertParcelRequest,
@@ -11,7 +12,7 @@ import {
 } from './../models/model.pb';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { CardClient, WareHouseClient } from '../models/admin.pbsc';
+import { WareHouseClient } from '../models/admin.pbsc';
 import {
   MasterRequest,
   ParcelResponse,
@@ -62,9 +63,10 @@ export class WareHouseService {
   update1000Kg(data: ConfirmProduction1000Info) {
     return this.warehouseClient.updateConfirmProduct(data);
   }
-  getConfirmProduct(date: string) {
+  getConfirmProduct(fromDate: string, toDate:string) {
     let req: MasterRequest = new MasterRequest();
-    req.date = date;
+    req.fromDate = fromDate;
+    req.toDate = toDate;
 
     return this.warehouseClient.getConfirmProduct(req).pipe(
       map((reply: ConfirmProductionResponse) => {
@@ -90,6 +92,7 @@ export class WareHouseService {
     let req: MasterRequest = new MasterRequest();
     req.fromDate = startDate;
     req.toDate = endDate;
+    console.log(req);
 
     return this.cartClient.getListCar50kg(req).pipe(
       map((reply: CardDetailResponse) => {
@@ -100,7 +103,28 @@ export class WareHouseService {
     );
   }
   updateCard50kg(data: InsertCardRequest) {
+    console.log('req update50kg',data);
+
     return this.cartClient.updateCard50kg(data);
+  }
+  deleteCard50kg(idCard: number) {
+    let req: CardDetailInfo = new CardDetailInfo();
+    req.idCard = idCard;
+    console.log(req);
+
+    return this.cartClient.deleteCard(req).pipe(
+      map((reply: Response) => {
+        return reply;
+      })
+    );
+  }
+  setChangeableCard(data: CardDetailInfo) {
+    return this.cartClient.setChangeableCard(data).pipe(
+      map((reply: Response) => {
+        console.log(reply);
+        return reply;
+      })
+    );
   }
 
   insertParcel(data: ParcelModel, detail: ParcelDetailModel[]) {

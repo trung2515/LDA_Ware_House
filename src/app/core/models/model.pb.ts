@@ -2193,6 +2193,7 @@ export class ProductInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.isDeleted = _instance.isDeleted || false;
+    _instance.weight = _instance.weight || 0;
   }
 
   /**
@@ -2219,6 +2220,9 @@ export class ProductInfo implements GrpcMessage {
           break;
         case 4:
           _instance.isDeleted = _reader.readBool();
+          break;
+        case 5:
+          _instance.weight = _reader.readInt32();
           break;
         default:
           _reader.skipField();
@@ -2249,12 +2253,16 @@ export class ProductInfo implements GrpcMessage {
     if (_instance.isDeleted) {
       _writer.writeBool(4, _instance.isDeleted);
     }
+    if (_instance.weight) {
+      _writer.writeInt32(5, _instance.weight);
+    }
   }
 
   private _idProduct?: number;
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _isDeleted?: boolean;
+  private _weight?: number;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -2266,6 +2274,7 @@ export class ProductInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.isDeleted = _value.isDeleted;
+    this.weight = _value.weight;
     ProductInfo.refineValues(this);
   }
   get idProduct(): number | undefined {
@@ -2292,6 +2301,12 @@ export class ProductInfo implements GrpcMessage {
   set isDeleted(value: boolean | undefined) {
     this._isDeleted = value;
   }
+  get weight(): number | undefined {
+    return this._weight;
+  }
+  set weight(value: number | undefined) {
+    this._weight = value;
+  }
 
   /**
    * Serialize message to binary data
@@ -2311,7 +2326,8 @@ export class ProductInfo implements GrpcMessage {
       idProduct: this.idProduct,
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      weight: this.weight
     };
   }
 
@@ -2335,7 +2351,8 @@ export class ProductInfo implements GrpcMessage {
       idProduct: this.idProduct,
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
-      isDeleted: this.isDeleted
+      isDeleted: this.isDeleted,
+      weight: this.weight
     };
   }
 }
@@ -2348,6 +2365,7 @@ export module ProductInfo {
     codeProduct?: string;
     nameProduct?: string;
     isDeleted?: boolean;
+    weight?: number;
   }
 
   /**
@@ -2358,6 +2376,7 @@ export module ProductInfo {
     codeProduct?: string;
     nameProduct?: string;
     isDeleted?: boolean;
+    weight?: number;
   }
 }
 

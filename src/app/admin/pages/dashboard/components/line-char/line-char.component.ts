@@ -1,4 +1,4 @@
-import {  Product } from './../../models';
+import { Product, TransportModel } from './../../models';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -6,12 +6,12 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
   templateUrl: './line-char.component.html',
   styleUrls: ['./line-char.component.css']
 })
-export class LineCharComponent implements OnInit, OnChanges{
+export class LineCharComponent implements OnInit, OnChanges {
   @Input() idChartLine: string = '';
   @Input() chartID: string = '';
-  @Input() products: Product[] = [];
+  @Input() products: TransportModel[] = [];
   @Input() configChart: any = {
-    chartLegend: 'Thống kê sản lượng ...',
+    chartLegend: 'Thống kê vận chuyển lưu kho',
     borderTooltip: {
       color: '#CBD3EE',
       dashStyle: 'solid',
@@ -34,7 +34,7 @@ export class LineCharComponent implements OnInit, OnChanges{
       weight: 400
     },
     series: [
-      {caption: 'Palang', code: 'palang'}
+      { caption: 'Palang', code: 'palang' }
     ]
   };
 

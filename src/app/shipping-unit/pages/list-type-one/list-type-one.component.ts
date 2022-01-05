@@ -10,6 +10,7 @@ import {
   Validators
 } from '@angular/forms';
 import { AdminService } from 'src/app/core/services/admin.service';
+import { ShiftDetail } from '../model';
 import {
   InputOptionModel,
   MachineModel,
@@ -22,6 +23,7 @@ import {
   ResponseState
 } from 'src/app/core/models/model.pb';
 import { AuthService } from 'src/app/core/services/auth.service';
+import Utils from 'src/app/_lib/utils';
 
 @Component({
   selector: 'app-list-type-one',
@@ -51,19 +53,18 @@ export class ListTypeOneComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.appointments = this.shiftService.getAppointments();
     this.getData();
   }
   getData() {
     this.wareHouseService
-      .getConfirmProduct(this.getCurrentDate(this.now))
+      .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
       .subscribe(data => {
+        console.log('data: ', data);
 
-        let currentShifts:ProductConfirm[] = [];
+        let currentShifts: ProductConfirm[] = [];
         for (const _data of data) {
           currentShifts.push(new ProductConfirm(_data));
         }
-
         const selectShift = currentShifts.filter(item => {
           return (
             item.nameShift.toLowerCase() == this.ca_no_option.toLowerCase()
@@ -115,10 +116,11 @@ export class ListTypeOneComponent implements OnInit {
                 );
               }
             });
-            console.log(optionObj);
 
             options.push(optionObj);
           }
+          console.log(options);
+
           this.aOptionShiftList = [...new Set(options)];
         } else {
           this.showError('Chưa có dữ liệu ca làm việc này!');
@@ -181,9 +183,12 @@ export class ListTypeOneComponent implements OnInit {
       console.log(dataInput);
 
       this.wareHouseService.update1000Kg(dataInput).subscribe(reply => {
+        console.log(reply);
+
         if (reply.state == ResponseState.SUCCESS) {
           this.showSuccess('Sửa thành công');
           this.isEditing = false;
+          this.inputs_options = [];
           this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
         } else {
           this.showError(reply.message);
@@ -213,11 +218,6 @@ export class ListTypeOneComponent implements OnInit {
     this.getData();
   };
 
-  getCurrentDate(date: Date): string {
-    return (
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-    );
-  }
   getCurrentShift(ca_option: string) {
     return Number(ca_option.split(' ')[1]);
   }

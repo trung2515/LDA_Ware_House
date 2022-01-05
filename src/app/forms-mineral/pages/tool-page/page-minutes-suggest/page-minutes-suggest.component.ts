@@ -24,28 +24,28 @@ export class PageMinutesSuggestComponent implements OnInit, OnChanges {
   @Input('decision') decision: any;
   ngOnChanges(changes: SimpleChanges): void {
     this.convertSuggest(this.suggest);
+    this.showData(this.suggest)
   }
   ngOnInit(): void {
   }
-  showData(){
-    console.log(this.suggest)
+  showData(e:any){
+    console.log('any ',e)
   }
-
+  now:Date = new Date()
   dataSelect:any = [];
   dataSelectExport:any = []
   dataSelectTask:any = []
   subTitle:any =[]
-
-    convertSuggest(data:any){
- 
-    for( var i = 0 ; i < data.length ; i++){
-      let item:any = {}
-      item.titleProduct =` ${data[i].product}/bao L${data[i].productType} `
-      item.titleProductName =` ${data[i].product} (${data[i].packaging}) `
-      this.subTitle.push(item)
-      // console.log('sub',this.subTitle);
-      
-    }
+  suggestConvert:any =[]
+  convertSuggest(data:any){
+    this.suggestConvert = []
+    data.forEach((element:any) => {
+      element.nameProduct = ` ${element.product}/bao L${element.productType} (${element.packaging}) `
+      element.productSubtitle = ` ${element.product}/bao L${element.productType} `
+      this.suggestConvert.push(element)
+    });
+    console.log('2',this.suggestConvert );
+    
   }
 
 }

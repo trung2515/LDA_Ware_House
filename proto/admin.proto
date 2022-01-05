@@ -127,8 +127,9 @@ service WareHouse {
     rpc DeleteTask(TaskInfo) returns (Response);
 
     rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
-    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); // get by date
+    rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); //get from date -> to date
 }
+
 service Card
 {
 
@@ -152,7 +153,7 @@ service Report
 {
     rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
     rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
-    rpc  (MasterRequest) returns (ReportInventoryResponse); // from date -> to date
+    rpc (MasterRequest) returns (ReportInventoryResponse); // from date -> to date
     rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
     rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
     rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);// from date -> to date

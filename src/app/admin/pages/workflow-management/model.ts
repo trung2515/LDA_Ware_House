@@ -27,6 +27,7 @@ export class DataWork {
     packagingType: string
     quantity: number
     weight: number
+
     constructor(data:TransportInfo){
         this.productName = data.nameProduct
         this.productType = data.nameTypeProduct
@@ -43,7 +44,8 @@ export class DataWork {
         this.user = data.createdPerson
         this.distance = data.distance
         this.quantity = data.quantity
-        this.weight = data.quantity
+        this.weight = data.weight
+
     }
 }
   

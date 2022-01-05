@@ -20,20 +20,27 @@
         <label class="select-label" for="">Ca làm việc</label>
         <dx-select-box
           height="42"
-          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [dataSource]="[
+            { name: 'Ca 1', code: 'Ca 1' },
+            { name: 'Ca 2', code: 'Ca 2' },
+            { name: 'Ca 3', code: 'Ca 3' }
+          ]"
           [(value)]="ca_no_option"
           hoverStateEnabled="false"
+          displayExpr="name"
+          valueExpr="code"
           placeholder="Chọn ca làm việc"
           (onSelectionChanged)="onSelectShiftChange($event)"
-
         ></dx-select-box>
       </div>
       <div class="select-group col-12 col-lg-3">
         <label class="select-label" for="">Loại phiếu</label>
         <dx-select-box
           height="42"
-          [dataSource]="['Nhập đóng mới', 'Nhập đóng lại']"
+          [dataSource]="ballot_types"
           [(value)]="ballot_type"
+          displayExpr="name"
+          valueExpr="code"
           hoverStateEnabled="false"
           placeholder="Chọn loại phiếu"
         ></dx-select-box>
@@ -44,6 +51,8 @@
           height="42"
           [dataSource]="packaging_units"
           [(value)]="packaging_unit"
+          displayExpr="name"
+          valueExpr="code"
           hoverStateEnabled="false"
           placeholder="Chọn đơn vị đóng"
         ></dx-select-box>
@@ -68,7 +77,8 @@
                 [formControlName]="input.formControlName"
                 [label]="input.label"
                 type="text"
-              ></app-text-input>
+              >
+              </app-text-input>
             </div>
           </div>
 

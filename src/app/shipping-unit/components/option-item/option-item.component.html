@@ -1,5 +1,5 @@
 <div class="item-wrap">
-  <div class="item-head">
+  <div *ngIf="type === '1000kg'" class="item-head">
     <app-option-status [type]="'NDM'"></app-option-status>
     <div class="option-toolbar">
       <img
@@ -7,13 +7,6 @@
         src="assets/svg/edit.svg"
         alt="edit"
         class="btn-edit"
-      />
-      <img
-        (click)="onDeleteClick($event)"
-        *ngIf="visibleBtnDelete"
-        src="assets/svg/delete.svg"
-        alt="edit"
-        class="btn-delete"
       />
     </div>
   </div>
@@ -55,19 +48,36 @@
     </div>
   </div>
 
-  <div *ngIf="type === '50kg'" class="item-content">
-    <div class="option-title">
-      Option {{ objItem.option }}: {{ objItem.product }} - Loại
-      {{ objItem.productRange }} - {{ objItem.packaging }}
+
+
+  <div *ngIf="type === '50kg'" class="item-head">
+    <span class="ballot_type">{{objItem.ballot_type}}</span>
+
+    <div class="option-toolbar">
+      <img
+        (click)="onClick($event)"
+        src="assets/svg/edit.svg"
+        alt="edit"
+        class="btn-edit"
+      />
+      <img
+        (click)="onDeleteClick($event)"
+        *ngIf="visibleBtnDelete"
+        src="assets/svg/delete.svg"
+        alt="edit"
+        class="btn-delete"
+      />
     </div>
+  </div>
+  <div *ngIf="type === '50kg'" class="item-content">
     <div class="row option-info">
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Đơn vị đóng</div>
-        <div class="shift-value">{{ objItem.packingUnit }}</div>
+        <div class="shift-value">{{ objItem.packing_unit }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Người lập phiếu</div>
-        <div class="shift-value">{{ creator }}</div>
+        <div class="shift-value">{{ objItem.creator || '--' }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Kho</div>
@@ -79,37 +89,37 @@
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Sản phẩm:</div>
         <div class="machine-value">
-          Alumin 50kg
+          {{objItem.product_name}}
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Loại sản phẩm:</div>
         <div class="machine-value">
-          Loại 1
+          Loại {{objItem.product_type || 1}}
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Loại bao:</div>
         <div class="machine-value">
-          Đáy liền
+          {{objItem.bag_type}}
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Lô</div>
         <div class="machine-value">
-          121
+          {{objItem.parcel}}
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Số lượng:</div>
         <div class="machine-value">
-          123
+          {{objItem.qty}}
         </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
         <div class="machine-label">Số tấn:</div>
         <div class="machine-value">
-          2
+          {{objItem.weight_num}}
         </div>
       </div>
     </div>
