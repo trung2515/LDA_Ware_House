@@ -10,7 +10,7 @@ export class InventoryModel {
 
   constructor(data: ReportInventoryInfo){
     this.product_name = data.nameProduct
-    this.product_type = data.nameTypeProduct
+    this.product_type = data.idTypeProduct.toString() || ''
     this.package_type_name = data.nameTypePacket
     this.ballot_name =data.codeParcel
     this.quantity = data.quantity

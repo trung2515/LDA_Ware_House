@@ -107,7 +107,7 @@ export class WareHouseService {
 
     return this.cartClient.updateCard50kg(data);
   }
-  deleteCard50kg(idCard: number) {
+  deleteCard50kg(idCard: string) {
     let req: CardDetailInfo = new CardDetailInfo();
     req.idCard = idCard;
     console.log(req);
@@ -118,14 +118,7 @@ export class WareHouseService {
       })
     );
   }
-  setChangeableCard(data: CardDetailInfo) {
-    return this.cartClient.setChangeableCard(data).pipe(
-      map((reply: Response) => {
-        console.log(reply);
-        return reply;
-      })
-    );
-  }
+ 
 
   insertParcel(data: ParcelModel, detail: ParcelDetailModel[]) {
     let request: InsertParcelRequest = new InsertParcelRequest();

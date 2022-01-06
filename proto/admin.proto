@@ -65,10 +65,9 @@ service Administrator {
     rpc DeleteTypePacket(TypePacketInfo) returns (Response);
 
     rpc InsertTypeProduct(TypeProductInfo) returns (Response);
-    rpc UpdateTypeProduct(TypeProductInfo) returns (Response);
     rpc DeleteTypeProduct(TypeProductInfo) returns (Response);
 
-    rpc InsertWareHouse(WareHouseInfo) returns (Response);
+rpc InsertWareHouse(WareHouseInfo) returns (Response);
     rpc UpdateWareHouse(WareHouseInfo) returns (Response);
     rpc DeleteWareHouse(WareHouseInfo) returns (Response);
 
@@ -110,10 +109,6 @@ service WareHouse {
     rpc GetListParcelDetailByCode(MasterRequest) returns (ParcelDetailResponse);
     rpc GetListParcel(MasterRequest) returns (ParcelResponse); // from date -> to date
 
-    rpc GetListTask(MasterRequest) returns (TaskResponse);                   // from date -> to date
-    rpc getListTaskDetailById(TaskInfo) returns (TaskDetailResponse);
-    rpc getListTaskDetail(MasterRequest) returns (TaskDetailResponse);       // from date -> to date
-
     rpc NewInsertShift(InsertShiftRequest) returns (Response);
     rpc NewUpdateShift(InsertShiftRequest) returns (Response);
     rpc DeleteShift(ShiftInfo) returns (Response);
@@ -122,9 +117,6 @@ service WareHouse {
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
     rpc DeleteParcel(ParcelInfo) returns (Response);
 
-    rpc InsertTask(InsertTaskRequest) returns (Response);
-    rpc UpdateTask(InsertTaskRequest) returns (Response);
-    rpc DeleteTask(TaskInfo) returns (Response);
     rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
     rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); //get from date -> to date
 }
@@ -134,9 +126,12 @@ service Card
 
     rpc GetListCard(MasterRequest) returns (CardDetailResponse); // from date -> to date
     rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse);
+    rpc GetListCard1000kg(MasterRequest) returns (CardDetailResponse);
+
     //rpc InsertCard(InsertCardRequest) returns (Response);
-    rpc UpdateCard50kg(InsertCardRequest) returns (Response);
-    rpc SetChangeableCard(CardDetailInfo) returns (Response);
+    rpc UpdateCard50kg(InsertCardRequest) returns (Response);  // insert and update multy card 50kg in shift
+    rpc UpdateOneCard50kg(CardDetailInfo) returns (Response);  // update one card (created person is update person)
+    //rpc SetChangeableCard(CardDetailInfo) returns (Response);
     rpc DeleteCard(CardDetailInfo) returns (Response);
 
     rpc InsertOrder(OrderInfo) returns (OrderResponse);
@@ -152,7 +147,7 @@ service Report
 {
     rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
     rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
-    rpc (MasterRequest) returns (ReportInventoryResponse); // from date -> to date
+    rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse); // from date -> to date
     rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
     rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
     rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);// from date -> to date
@@ -163,6 +158,7 @@ service Report
 
 service RecordConfirm 
 {
+    rpc GetListMaster (MasterDataInfo) returns (MasterDataResponse);
     rpc GetListProduct(MasterRequest) returns (ProductResponse);          //get all
     rpc GetListTypeProduct(MasterRequest) returns (TypeProductResponse);   //get all
     rpc GetListTypePacket(MasterRequest) returns (TypePacketResponse);     //get all

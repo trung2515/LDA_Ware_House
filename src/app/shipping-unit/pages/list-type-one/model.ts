@@ -47,7 +47,7 @@ export class ProductConfirm {
     this.nameShift = data.nameShift;
     this.nameTypeBill = data.nameTypeBill;
     this.typePacket = data.nameTypePacket;
-    this.typeProduct = data.nameTypeProduct;
+    this.typeProduct = data.idTypeProduct.toString();
     this.nameWareHouse = data.nameWareHouse;
     this.option = data.optionName;
     this.quantity = data.quantity;
