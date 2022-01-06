@@ -233,6 +233,7 @@ export class ListTypeFiftyComponent implements OnInit {
         console.log(reply);
         if (reply.state === ResponseState.SUCCESS) {
           this.toastrService.success('Xoá thành công', '');
+          this.getData()
         } else {
           this.toastrService.warning(reply.message);
         }
