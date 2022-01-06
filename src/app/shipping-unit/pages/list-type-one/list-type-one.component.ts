@@ -107,6 +107,7 @@ export class ListTypeOneComponent implements OnInit {
                 optionObj.typeProduct = item.typeProduct;
                 optionObj.nameProduct = item.nameProduct;
                 optionObj.typePacket = item.typePacket;
+
                 optionObj.machine_list.push({
                   code: item.codeEquipment,
                   qty: item.quantity
@@ -121,9 +122,10 @@ export class ListTypeOneComponent implements OnInit {
           }
           console.log(options);
 
-          this.aOptionShiftList = [...new Set(options)];
+          this.aOptionShiftList = options;
         } else {
-          this.showError('Chưa có dữ liệu ca làm việc này!');
+          this.aOptionShiftList = [];
+          this.showError('Chưa có dữ liệu!');
         }
       });
   }

@@ -169,6 +169,8 @@ export class ListTypeFiftyComponent implements OnInit {
 
       for (const key of this.getKeyForm()) {
         const valueForm = this.formGroupProduct[key].value;
+        console.log(valueForm);
+
 
         const cardDetail: CardDetailInfo = new CardDetailInfo();
         cardDetail.codeProduct = valueForm.product_name;
@@ -283,7 +285,7 @@ export class ListTypeFiftyComponent implements OnInit {
       product_type: ['1' || '', [Validators.required]],
       bag_type: [option?.code_bag_type || '', [Validators.required]],
       qty: [
-        option?.qty || '',
+        option?.qty || '0',
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
       consignments: [
