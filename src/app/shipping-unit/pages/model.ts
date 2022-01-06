@@ -36,7 +36,6 @@ export class ShiftDetail {
     this.warehouse = data.codeWareHouse;
     this.option = data.optionName;
     this.nameProduct = data.nameProduct;
-    this.typeProduct = data.nameTypeProduct;
     this.typePacket = data.nameTypePacket;
     this.packingUnit = data.namePackingUnit;
     this.creator = data.nameCreatedPerson;
@@ -175,7 +174,7 @@ export class Option50Modal {
 
 // list 50kg
 export class Card50kgDetailModel {
-  idCard: number;
+  idCard: string;
   ballot_type: string;
   code_ballot_type: string
   packing_unit: string;

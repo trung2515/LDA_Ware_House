@@ -1090,27 +1090,6 @@ export class AdministratorClient {
       });
     },
     /**
-     * Unary RPC for /client.Administrator/UpdateTypeProduct
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    updateTypeProduct: (
-      requestData: client000.TypeProductInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.Administrator/UpdateTypeProduct',
-        requestData,
-        requestMetadata,
-        requestClass: client000.TypeProductInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
      * Unary RPC for /client.Administrator/DeleteTypeProduct
      *
      * @param requestMessage Request message
@@ -2202,22 +2181,6 @@ export class AdministratorClient {
   }
 
   /**
-   * Unary RPC for /client.Administrator/UpdateTypeProduct
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  updateTypeProduct(
-    requestData: client000.TypeProductInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .updateTypeProduct(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
    * Unary RPC for /client.Administrator/DeleteTypeProduct
    *
    * @param requestMessage Request message
@@ -2693,69 +2656,6 @@ export class WareHouseClient {
       });
     },
     /**
-     * Unary RPC for /client.WareHouse/GetListTask
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.TaskResponse>>
-     */
-    getListTask: (
-      requestData: client000.MasterRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.TaskResponse>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/GetListTask',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterRequest,
-        responseClass: client000.TaskResponse
-      });
-    },
-    /**
-     * Unary RPC for /client.WareHouse/getListTaskDetailById
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.TaskDetailResponse>>
-     */
-    getListTaskDetailById: (
-      requestData: client000.TaskInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.TaskDetailResponse>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/getListTaskDetailById',
-        requestData,
-        requestMetadata,
-        requestClass: client000.TaskInfo,
-        responseClass: client000.TaskDetailResponse
-      });
-    },
-    /**
-     * Unary RPC for /client.WareHouse/getListTaskDetail
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.TaskDetailResponse>>
-     */
-    getListTaskDetail: (
-      requestData: client000.MasterRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.TaskDetailResponse>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/getListTaskDetail',
-        requestData,
-        requestMetadata,
-        requestClass: client000.MasterRequest,
-        responseClass: client000.TaskDetailResponse
-      });
-    },
-    /**
      * Unary RPC for /client.WareHouse/NewInsertShift
      *
      * @param requestMessage Request message
@@ -2878,69 +2778,6 @@ export class WareHouseClient {
         requestData,
         requestMetadata,
         requestClass: client000.ParcelInfo,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.WareHouse/InsertTask
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    insertTask: (
-      requestData: client000.InsertTaskRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/InsertTask',
-        requestData,
-        requestMetadata,
-        requestClass: client000.InsertTaskRequest,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.WareHouse/UpdateTask
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    updateTask: (
-      requestData: client000.InsertTaskRequest,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/UpdateTask',
-        requestData,
-        requestMetadata,
-        requestClass: client000.InsertTaskRequest,
-        responseClass: client000.Response
-      });
-    },
-    /**
-     * Unary RPC for /client.WareHouse/DeleteTask
-     *
-     * @param requestMessage Request message
-     * @param requestMetadata Request metadata
-     * @returns Observable<GrpcEvent<client000.Response>>
-     */
-    deleteTask: (
-      requestData: client000.TaskInfo,
-      requestMetadata = new GrpcMetadata()
-    ): Observable<GrpcEvent<client000.Response>> => {
-      return this.handler.handle({
-        type: GrpcCallType.unary,
-        client: this.client,
-        path: '/client.WareHouse/DeleteTask',
-        requestData,
-        requestMetadata,
-        requestClass: client000.TaskInfo,
         responseClass: client000.Response
       });
     },
@@ -3093,54 +2930,6 @@ export class WareHouseClient {
   }
 
   /**
-   * Unary RPC for /client.WareHouse/GetListTask
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.TaskResponse>
-   */
-  getListTask(
-    requestData: client000.MasterRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.TaskResponse> {
-    return this.$raw
-      .getListTask(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.WareHouse/getListTaskDetailById
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.TaskDetailResponse>
-   */
-  getListTaskDetailById(
-    requestData: client000.TaskInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.TaskDetailResponse> {
-    return this.$raw
-      .getListTaskDetailById(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.WareHouse/getListTaskDetail
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.TaskDetailResponse>
-   */
-  getListTaskDetail(
-    requestData: client000.MasterRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.TaskDetailResponse> {
-    return this.$raw
-      .getListTaskDetail(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
    * Unary RPC for /client.WareHouse/NewInsertShift
    *
    * @param requestMessage Request message
@@ -3237,54 +3026,6 @@ export class WareHouseClient {
   }
 
   /**
-   * Unary RPC for /client.WareHouse/InsertTask
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  insertTask(
-    requestData: client000.InsertTaskRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .insertTask(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.WareHouse/UpdateTask
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  updateTask(
-    requestData: client000.InsertTaskRequest,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .updateTask(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
-   * Unary RPC for /client.WareHouse/DeleteTask
-   *
-   * @param requestMessage Request message
-   * @param requestMetadata Request metadata
-   * @returns Observable<client000.Response>
-   */
-  deleteTask(
-    requestData: client000.TaskInfo,
-    requestMetadata = new GrpcMetadata()
-  ): Observable<client000.Response> {
-    return this.$raw
-      .deleteTask(requestData, requestMetadata)
-      .pipe(throwStatusErrors(), takeMessages());
-  }
-
-  /**
    * Unary RPC for /client.WareHouse/UpdateConfirmProduct
    *
    * @param requestMessage Request message
@@ -3372,6 +3113,27 @@ export class CardClient {
       });
     },
     /**
+     * Unary RPC for /client.Card/GetListCard1000kg
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.CardDetailResponse>>
+     */
+    getListCard1000kg: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.CardDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/GetListCard1000kg',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.CardDetailResponse
+      });
+    },
+    /**
      * Unary RPC for /client.Card/UpdateCard50kg
      *
      * @param requestMessage Request message
@@ -3393,20 +3155,20 @@ export class CardClient {
       });
     },
     /**
-     * Unary RPC for /client.Card/SetChangeableCard
+     * Unary RPC for /client.Card/UpdateOneCard50kg
      *
      * @param requestMessage Request message
      * @param requestMetadata Request metadata
      * @returns Observable<GrpcEvent<client000.Response>>
      */
-    setChangeableCard: (
+    updateOneCard50kg: (
       requestData: client000.CardDetailInfo,
       requestMetadata = new GrpcMetadata()
     ): Observable<GrpcEvent<client000.Response>> => {
       return this.handler.handle({
         type: GrpcCallType.unary,
         client: this.client,
-        path: '/client.Card/SetChangeableCard',
+        path: '/client.Card/UpdateOneCard50kg',
         requestData,
         requestMetadata,
         requestClass: client000.CardDetailInfo,
@@ -3540,6 +3302,22 @@ export class CardClient {
   }
 
   /**
+   * Unary RPC for /client.Card/GetListCard1000kg
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.CardDetailResponse>
+   */
+  getListCard1000kg(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.CardDetailResponse> {
+    return this.$raw
+      .getListCard1000kg(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
    * Unary RPC for /client.Card/UpdateCard50kg
    *
    * @param requestMessage Request message
@@ -3556,18 +3334,18 @@ export class CardClient {
   }
 
   /**
-   * Unary RPC for /client.Card/SetChangeableCard
+   * Unary RPC for /client.Card/UpdateOneCard50kg
    *
    * @param requestMessage Request message
    * @param requestMetadata Request metadata
    * @returns Observable<client000.Response>
    */
-  setChangeableCard(
+  updateOneCard50kg(
     requestData: client000.CardDetailInfo,
     requestMetadata = new GrpcMetadata()
   ): Observable<client000.Response> {
     return this.$raw
-      .setChangeableCard(requestData, requestMetadata)
+      .updateOneCard50kg(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 
@@ -4005,6 +3783,27 @@ export class RecordConfirmClient {
    */
   $raw = {
     /**
+     * Unary RPC for /client.RecordConfirm/GetListMaster
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.MasterDataResponse>>
+     */
+    getListMaster: (
+      requestData: client000.MasterDataInfo,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.MasterDataResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.RecordConfirm/GetListMaster',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterDataInfo,
+        responseClass: client000.MasterDataResponse
+      });
+    },
+    /**
      * Unary RPC for /client.RecordConfirm/GetListProduct
      *
      * @param requestMessage Request message
@@ -4159,6 +3958,22 @@ export class RecordConfirmClient {
     private handler: GrpcHandler
   ) {
     this.client = clientFactory.createClient('client.RecordConfirm', settings);
+  }
+
+  /**
+   * Unary RPC for /client.RecordConfirm/GetListMaster
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.MasterDataResponse>
+   */
+  getListMaster(
+    requestData: client000.MasterDataInfo,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.MasterDataResponse> {
+    return this.$raw
+      .getListMaster(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
   }
 
   /**

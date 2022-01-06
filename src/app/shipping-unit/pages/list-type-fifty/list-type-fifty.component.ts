@@ -81,7 +81,7 @@ export class ListTypeFiftyComponent implements OnInit {
     private adminService: AdminService,
     private warehouseService: WareHouseService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getData();
@@ -208,9 +208,9 @@ export class ListTypeFiftyComponent implements OnInit {
     _option.idCard = option.idCard;
     _option.isChangable = true;
 
-    this.warehouseService.setChangeableCard(_option).subscribe(reply => {
-      console.log(reply);
-    });
+    // this.warehouseService.setChangeableCard(_option).subscribe((reply: any) => {
+    //   console.log(reply);
+    // });
 
     for (let i = 1; i <= 1; i++) {
       this.formGroupProduct['form-' + i] = this.initFormGroup(option);

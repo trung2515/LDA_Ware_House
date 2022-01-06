@@ -45,7 +45,7 @@ export class OptionModel {
       data.nameWareHouse ||
       data.namePartner ||
       data.objectName ||
-      data.nameTypeProduct ||
+      data.idTypeProduct.toString() || '' ||
       ''
     this.value =
       data.codeProduct ||

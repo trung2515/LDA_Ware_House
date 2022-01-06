@@ -40,7 +40,7 @@ message CodePacketInfo
     bool isDeteted = 6;
     int32 id = 7;
     float weight = 8;
-    string nameTypePacket = 9;
+string nameTypePacket = 9;
 
     
 }
@@ -97,6 +97,7 @@ message ProductInfo
     string nameProduct = 3;
     bool isDeleted = 4;
     int32 weight = 5;
+    
 }message ProductResponse
 {
     Response response = 1;
@@ -132,8 +133,7 @@ message TypePacketInfo
     int32 idTypePacket = 1;
     string codeTypePacket =2 ;
     string nameTypePacket = 3;
-    int32 weight = 4;
-    bool isDeleted = 5;
+    bool isDeleted = 4;
 }
 message TypePacketResponse
 {
@@ -143,8 +143,7 @@ message TypePacketResponse
 message TypeProductInfo
 {
     int32 idTypeProduct = 1;
-    string nameTypeProduct = 2;
-    bool isDeleted = 3;
+    bool isDeleted = 2;
 }
 message TypeProductResponse
 {
@@ -188,19 +187,18 @@ message ShiftDetailInfo
     string codeProduct = 5;
     string nameProduct = 6;
     int32 idTypeProduct = 7;
-    string nameTypeProduct = 8;
-    string codeTypePacket = 9;
-    string nameTypePacket = 10;
-    string codeParcel = 11;
-    string codeWareHouse = 12;
-    string nameWareHouse = 13;
-    int32 idShift = 14;
-    string nameShift = 15;
-    string codePackingUnit = 16;
-    string namePackingUnit = 17;
-    int32 createdPerson = 18;
-    string nameCreatedPerson = 19;
-    string date = 20;
+    string codeTypePacket = 8;
+    string nameTypePacket = 9;
+    string codeParcel = 10;
+    string codeWareHouse = 11;
+    string nameWareHouse = 12;
+    int32 idShift = 13;
+    string nameShift = 14;
+    string codePackingUnit = 15;
+    string namePackingUnit = 16;
+    int32 createdPerson = 17;
+    string nameCreatedPerson = 18;
+    string date = 19;
 }
 message ShiftDetailResponse
 {
@@ -308,17 +306,16 @@ message ParcelDetailInfo
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
-    string nameTypeProduct = 5;
-    string codeTypePacket = 6;
-    string nameTypePacket = 7;
-    int32 idStatus = 8;
-    string nameStatus = 9;
-    int64 quantity = 10;
-    string codeParcel = 11;
-    int32 idParcel = 12;
-    int32 createdPerson = 13;
-    string nameCreatedPerson = 14;
-    string date = 15;
+    string codeTypePacket = 5;
+    string nameTypePacket = 6;
+    int32 idStatus = 7;
+    string nameStatus = 8;
+    int64 quantity = 9;
+    string codeParcel = 10;
+    int32 idParcel = 11;
+    int32 createdPerson = 12;
+    string nameCreatedPerson = 13;
+    string date = 14;
     
 }
 message ParcelDetailResponse
@@ -345,11 +342,11 @@ message CardResponse
 
 message CardDetailInfo
 {
-    int32 idCard = 1;
+    int64 idCard = 1;
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
-    string nameTypeProduct = 5;
+    string customerInternal = 5;
     string codeTypePacket = 6;
     string nameTypePacket = 7;
     string codeParcel = 8;
@@ -378,7 +375,7 @@ message CardDetailInfo
     int32 distance = 31;
     string timereport = 32;
     string nameCustomer = 33;
-    string customerInternal = 34;
+
 }
 
 message CardDetailResponse
@@ -396,61 +393,6 @@ message InsertCardRequest
     repeated CardDetailInfo cardDetails = 4;
 }
 
-message TaskInfo
-{
-    int32 idTask = 1;
-    string  createdDate = 2;
-    string nameShift = 3;
-    int32 createdPerson = 4;
-    string nameCreatedPerson = 5;
-}
-
-message TaskDetailInfo
-{
-    int32 idTaskDetail = 1;
-    string codeProduct = 2;
-    int32 idTypeProduct = 3;
-    string codeTypePacket = 4;
-    string codeWork= 5;
-    string codeWareHouseload = 6;
-    string codeWareHouseUnload = 7;
-    int32  idEquipmentLoad = 8;
-    int32 idEquipmentUnLoad = 9;
-
-    string nameProduct = 10;
-    string nameTypePoduct = 11;
-    string nameTypePacket = 12;
-    string nameWork = 13;
-    string nameWareHouseLoad = 14;
-    string nameWareHouseUnLoad = 15;
-    string nameEquipmentLoad = 16;
-    string nameEquipmentUnLoad = 17;
-
-    int32 quantity = 18;
-    int32 distance = 19;
-
-    int32 idTask = 20;
-    string  date = 21;
-    string nameShift = 22;
-    string createdPerson = 23;
-    string nameCreatedPerson = 24;
-}
-message InsertTaskRequest
-{
-    TaskInfo task = 1;
-    repeated TaskDetailInfo taskDetails = 2;
-}
-
-message TaskResponse
-{
-   Response response = 1;
-   repeated TaskInfo data = 2;
-}
-message TaskDetailResponse
-{
-   Response response = 1;
-   repeated TaskDetailInfo data = 2;
-}
 
 message RecordDetailInfo
 {
@@ -458,25 +400,21 @@ message RecordDetailInfo
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
-    string nameTypeProduct = 5;
-    string codeTypePacket = 6;
-    string nameTypePacket = 7;
-    string codeParcel = 8;
-    string nameParcel = 9;
-   
-    string codeRecord = 10;
-    int64 quantity = 11;
-    string codePackingUnit = 12;
-    string namePackingUnit  = 13;
-
-    int64 IdRecord = 14;
-    int32 createdPerson = 15;
-    string createdDate = 16;
-    string  shift = 17;
-    bool isChangable = 18;
-    string namePerson = 19;
-    string codeWareHouse = 20;
-    string nameWareHouse = 21;
+    string codeTypePacket = 5;
+    string nameTypePacket = 6;
+    string codeParcel = 7;
+    string  shift = 8;
+    string codeRecord = 9;
+    int64 quantity = 10;
+    string codePackingUnit = 11;
+    string namePackingUnit  = 12;
+    int64 IdRecord = 13;
+    int32 createdPerson = 14;
+    string createdDate = 15; 
+    bool isChangable = 16;
+    string namePerson = 17;
+    string codeWareHouse = 18;
+    string nameWareHouse = 19;
 }
 
 message RecordDetailResponse
@@ -499,26 +437,23 @@ message InsertRecordRequest
     repeated RecordDetailInfo data = 5;
 }
 
-
-
 message ReportVolConsumtion
 {
     string date = 1;
     string codeProduct = 2;
     string namesProduct = 3;
     int32 idTypeProduct = 4;
-    string nameTypeProduct = 5;
-    string codeTypePacket = 6;
-    string nameTypePacket = 7;
-    string codePackingUnit = 8;
-    string namePackingUnit = 9;
-    string idCustomer = 10;
-    int32 nameCustomer = 11;
-    string codeTypeBill = 12;
-    string nameTypeBill = 13;
-    int32 tripNumber = 14;
-    string codeParcel = 15;
-    int32 quantity = 16;
+    string codeTypePacket = 5;
+    string nameTypePacket = 6;
+    string codePackingUnit = 7;
+    string namePackingUnit = 8;
+    string idCustomer = 9;
+    int32 nameCustomer = 10;
+    string codeTypeBill = 11;
+    string nameTypeBill = 12;
+    int32 tripNumber = 13;
+    string codeParcel = 14;
+    int32 quantity = 15;
 }
 
 message ReportVolConsumtionResponse
@@ -550,8 +485,8 @@ message OrderInfo
    string nameTypeCustomer = 20; 
    string wareHouse = 21;
    int32 idTypeProduct = 22;
-    string nameTypeProdcut = 23;
-     int32 quantity_actual = 24;
+   string nameTypeProdcut = 23;
+   int32 quantity_actual = 24;
    int32 weight_estimate = 25;
    int32 weight_actual = 26;
    string timecreated = 27;
@@ -614,27 +549,26 @@ message TransportInfo
     string codeEquipmentUnLoad = 9;
 
     string nameProduct = 10;
-    string nameTypeProduct = 11;
-    string nameTypePacket = 12;
-    string nameWork = 13;
-    string nameWareHouseLoad = 14;
-    string nameWareHouseUnLoad = 15;
-    string nameEquipmentLoad = 16;
-    string nameEquipmentUnLoad = 17;
+    string nameTypePacket = 11;
+    string nameWork = 12;
+    string nameWareHouseLoad = 13;
+    string nameWareHouseUnLoad = 14;
+    string nameEquipmentLoad = 15;
+    string nameEquipmentUnLoad = 16;
 
     int32 quantity = 18;
     int32 weight = 19;
     int32 distance = 20;
-
+    string code = 17;
     string createdPerson = 21;
     string nameCreatedPerson = 22;
     int32 CountTrip = 23;
 
     string dvBoc = 25;
     string dvDo = 26;
-    string seriIn = 27;
-    string seriOut = 28;
-    string code = 29;
+    int32 seriIn = 27;
+    int32 seriOut = 28;
+   
 }
 message TransportResponse
 {
@@ -650,11 +584,10 @@ message ReportInventoryInfo
     string codeProduct = 3;
     string nameProduct = 4;
     int32 idTypeProduct = 5;
-    string nameTypeProduct = 6;
+    int64 quantity = 6;
     string codeTypePacket = 7;
     string nameTypePacket = 8;
     string codeParcel = 9;
-    int64 quantity = 10;
 }
 message ReportInventoryResponse
 {
@@ -671,7 +604,7 @@ message ConfirmProductionDetail
     string codeProduct = 5;
     string nameProduct = 6;
     int32 idTypeProduct = 7;
-    string nameTypeProduct = 8;
+    int32 quantity = 8;
     string codeTypePacket = 9;
     string nameTypePacket = 10;
     string codeParcel = 11;
@@ -685,7 +618,7 @@ message ConfirmProductionDetail
     string nameCreatedPerson = 19;
     string date = 20;
     string codeEquipment = 21;
-    int32 quantity = 22;
+   
 }
 message ConfirmProductionResponse
 {
@@ -715,7 +648,7 @@ message QRCodeInfo
     string codeProduct = 2;
     string nameProduct = 3;
     int32 idTypeProduct = 4;
-    string nameTypeProduct = 5;
+    int64 ID = 5;
     string codeIn = 6;
     string nameTypeIn = 7;
     string codeParcel = 8;
@@ -745,10 +678,10 @@ message QRCodeInfo
     string timeReport = 32;
     string codeTypePacket = 33;
     string nameTypePacket = 34;
-    int64 ID = 35;
-    string user = 36;
-    string transportIn = 37;
-    string transportOut = 38;
+   
+    string user = 35;
+    string transportIn = 36;
+    string transportOut = 37;
 
 
 }
