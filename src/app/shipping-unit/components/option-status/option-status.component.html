@@ -1,16 +1,9 @@
 <div class="d-none d-lg-inline-block">
-  <span *ngIf="type === 'NDM'" class="option-status new"
-    >Nhập đóng mới</span
-  >
-  <span *ngIf="type === 'NDL'" class="option-status old"
-    >Nhập đóng lại</span
-  >
+  <span *ngIf="type === 'NDM' || type === 'Nhập đóng mới'" class="option-status new">Nhập đóng mới</span>
+  <span *ngIf="type === 'NDL' || type === 'Nhập đóng lại'" class="option-status old">Nhập đóng lại</span>
+
 </div>
-<div  class="d-lg-none d-inline-block">
-  <span *ngIf="type === 'NDM'" class="option-status new"
-    >NDM</span
-  >
-  <span *ngIf="type === 'NDL'" class="option-status old"
-    >NDL</span
-  >
+<div class="d-lg-none d-inline-block">
+  <span *ngIf="type === 'NDM' || type === 'Nhập đóng mới'" class="option-status new">NDM</span>
+  <span *ngIf="type === 'NDL' || type === 'Nhập đóng lại'" class="option-status old">NDL</span>
 </div>

@@ -1,4 +1,4 @@
-import { Appointment } from './../../../admin/pages/shift/model';
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,20 @@ import {
   Validators
 } from '@angular/forms';
 import { AdminService } from 'src/app/core/services/admin.service';
+import { ShiftDetail } from '../model';
+import {
+  InputOptionModel,
+  MachineModel,
+  OptionDetail,
+  ProductConfirm
+} from './model';
+import {
+  ConfirmProduction1000,
+  ConfirmProduction1000Info,
+  ResponseState
+} from 'src/app/core/models/model.pb';
+import { AuthService } from 'src/app/core/services/auth.service';
+import Utils from 'src/app/_lib/utils';
 
 @Component({
   selector: 'app-list-type-one',
@@ -19,32 +33,14 @@ import { AdminService } from 'src/app/core/services/admin.service';
 export class ListTypeOneComponent implements OnInit {
   title: string = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
   isEditing: boolean = false;
-  now: Date = new Date();
+  now: Date = new Date('2022/01/01');
   ca_no_option: string = 'Ca 1';
 
-  appointments: Appointment[] = [];
-
-  currentAppointment: Appointment = {
-    id: 0,
-    text: '',
-    shift: 0,
-    startDate: undefined,
-    endDate: undefined,
-    description: '',
-    shiftDetail: [],
-    idDetail: 0
-
-  };
+  aOptionShiftList: OptionDetail[] = [];
   optionEditing: any;
-  optionForm!: FormGroup;
+  optionForm: FormGroup;
 
-  inputs_options: any = [
-    { label: 'Máy A', formControlName: 'machine_a' },
-    { label: 'Máy B', formControlName: 'machine_b' },
-    { label: 'Máy C', formControlName: 'machine_c' },
-    { label: 'Máy D', formControlName: 'machine_d' },
-    { label: 'Máy E', formControlName: 'machine_e' }
-  ];
+  inputs_options: InputOptionModel[] = [];
 
   constructor(
     private location: Location,
@@ -52,24 +48,115 @@ export class ListTypeOneComponent implements OnInit {
     private adminService: AdminService,
     private shiftService: ShiftService,
     private formBuilder: FormBuilder,
+    private wareHouseService: WareHouseService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    // this.appointments = this.shiftService.getAppointments();
-    this.appointments = this.shiftService.getAppointments();
-    this.currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(this.ca_no_option)
-    );
-    this.optionForm = this.formBuilder.group({
-      machine_a: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+    this.getData();
+  }
+  getData() {
+    this.wareHouseService
+      .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
+      .subscribe(data => {
+        console.log('data: ', data);
+
+        let currentShifts: ProductConfirm[] = [];
+        for (const _data of data) {
+          currentShifts.push(new ProductConfirm(_data));
+        }
+        const selectShift = currentShifts.filter(item => {
+          return (
+            item.nameShift.toLowerCase() == this.ca_no_option.toLowerCase()
+          );
+        });
+        if (selectShift.length > 0) {
+          currentShifts = selectShift
+            .filter(
+              item =>
+                item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase()
+            )
+            .sort(
+              (a, b) =>
+                parseInt(a.option.split(' ')[1]) -
+                parseInt(b.option.split(' ')[1])
+            );
+
+          let options: OptionDetail[] = [];
+          for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
+            const stringOpt = 'option ' + i;
+            let optionObj: OptionDetail = {
+              option: stringOpt,
+              idParcel: 0,
+              warehouse: '',
+              packagingUnit: '',
+              creator: '',
+              machine_list: [],
+              typeProduct: '',
+              nameProduct: '',
+              typePacket: '',
+              idShiftDetail: 0
+            };
+            currentShifts.forEach(item => {
+              if (item.option.toLowerCase() === stringOpt) {
+                optionObj.idShiftDetail = item.idShiftDetail;
+                optionObj.idParcel = parseInt(item.idParcel);
+                optionObj.warehouse = item.codeWareHouse;
+                optionObj.packagingUnit = item.codePackingUnit;
+                optionObj.creator = item.creator;
+                optionObj.typeProduct = item.typeProduct;
+                optionObj.nameProduct = item.nameProduct;
+                optionObj.typePacket = item.typePacket;
+                optionObj.machine_list.push({
+                  code: item.codeEquipment,
+                  qty: item.quantity
+                });
+                optionObj.machine_list.sort((a, b) =>
+                  a.code > b.code ? 1 : b.code > a.code ? -1 : 0
+                );
+              }
+            });
+
+            options.push(optionObj);
+          }
+          console.log(options);
+
+          this.aOptionShiftList = [...new Set(options)];
+        } else {
+          this.showError('Chưa có dữ liệu ca làm việc này!');
+        }
+      });
+  }
+  initForm(machineList: MachineModel[]) {
+    this.optionForm = this.formBuilder.group({});
+    let _form_d: any = {};
+
+    for (const machine of machineList) {
+      let input: InputOptionModel = {
+        label: 'Máy ' + machine.code,
+        formControlName: 'machine_' + machine.code
+      };
+      this.inputs_options.push(input);
+      _form_d['machine_' + machine.code] = [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]*$')]
+      ];
+    }
+    this.optionForm = this.formBuilder.group(_form_d);
+  }
+  getQtyOption(shifts: ProductConfirm[]): number {
+    let numOption: any = [];
+
+    shifts.forEach(item => {
+      numOption.push(item.option.toLowerCase());
     });
+    numOption = [...new Set(numOption)].length;
+    return numOption;
   }
   onUpdateData() {
+    let dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
+    let machine_list: ConfirmProduction1000[] = [];
+
     if (!this.optionForm.valid) {
       for (const key in this.optionForm.controls) {
         if (this.optionForm.controls.hasOwnProperty(key)) {
@@ -80,73 +167,69 @@ export class ListTypeOneComponent implements OnInit {
         }
       }
     } else {
-      let rsUpdate: any = {};
+      // machine list
       for (const key in this.optionForm.value) {
-        rsUpdate[key] = Number(this.optionForm.value[key]);
+        let machine: ConfirmProduction1000 = new ConfirmProduction1000();
+        machine.idShiftDetail = this.optionEditing.idShiftDetail;
+        machine.codeEquipment = key.split('_')[1];
+        machine.quantity = this.optionForm.value[key];
+
+        machine_list.push(machine);
       }
-      // console.log(rsUpdate);
-      // this.optionEditing.option.machines_packaging = rsUpdate;
-      this.appointments[this.optionEditing.indexAppointment].shiftDetail[
-        this.optionEditing.indexOption
-      ].machines_packaging = rsUpdate;
-      this.showSuccess('Sửa thành công')
-      this.isEditing = false;
+
+      dataInput.user = this.authService.getUser().id;
+      dataInput.data = machine_list;
+
+      console.log(dataInput);
+
+      this.wareHouseService.update1000Kg(dataInput).subscribe(reply => {
+        console.log(reply);
+
+        if (reply.state == ResponseState.SUCCESS) {
+          this.showSuccess('Sửa thành công');
+          this.isEditing = false;
+          this.inputs_options = [];
+          this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
+        } else {
+          this.showError(reply.message);
+        }
+      });
     }
   }
 
   onShiftOptionClicked = (option: any) => {
-    this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
-    const indexAppointment = this.appointments.findIndex(
-      item => item.id === this.currentAppointment.id
-    );
-    const indexOption = this.currentAppointment.shiftDetail.findIndex(
-      item => item.id === option.id
-    );
+    this.optionEditing = option;
+    this.initForm(option.machine_list);
 
-    // set current value(machine packaging) for input text
-    for (const key in this.optionForm.value) {
-      this.optionForm.get(key).setValue(option.machines_packaging[key]);
+    // get & set data to input control
+    for (let i = 0; i < option.machine_list.length; i++) {
+      this.optionForm
+        .get(this.getKeyForm()[i])
+        .setValue(option.machine_list[i].qty);
     }
-    this.optionEditing = { option, indexAppointment, indexOption };
+
     this.isEditing = true;
-    this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
+    this.title = 'Chỉnh sửa thông tin nhập đóng mới (lại)';
   };
   onDateValueChanged(e: any) {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(e.value),
-      this.getCurrentShift(this.ca_no_option)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca này!');
-    }
+    this.getData();
   }
   onSelectShiftChange = (e: any) => {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(e.selectedItem)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca làm việc này!');
-    }
+    this.getData();
   };
-  getCurrentAppointment(date: string, ca_no?: number) {
-    return this.appointments.find(appointment => {
-      const { startDate, shift } = appointment;
-      const currentDate = this.getCurrentDate(startDate);
-      return currentDate === date && shift === ca_no;
-    });
-  }
-  getCurrentDate(date: Date): string {
-    return (
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-    );
-  }
+
   getCurrentShift(ca_option: string) {
     return Number(ca_option.split(' ')[1]);
+  }
+  getKeyForm() {
+    let rs = [];
+
+    for (const key in this.optionForm.value) {
+      if (Object.prototype.hasOwnProperty.call(this.optionForm.value, key)) {
+        rs.push(key);
+      }
+    }
+    return rs;
   }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
@@ -163,6 +246,10 @@ export class ListTypeOneComponent implements OnInit {
     });
   }
   onBackClicked() {
-    this.location.back();
+    if (this.isEditing) {
+      this.isEditing = false;
+      this.inputs_options = [];
+      this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
+    } else this.location.back();
   }
 }

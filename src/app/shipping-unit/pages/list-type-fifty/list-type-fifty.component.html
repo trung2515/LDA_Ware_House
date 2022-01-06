@@ -1,43 +1,104 @@
 <div class="wrapper">
-  <app-header-bar
-    (onBackClicked)="onBackClicked()"
-    [title]="'Danh sách sản lượng đóng bao loại 50kg'"
-  ></app-header-bar>
+  <app-header-bar (onBackClicked)="onBackClicked()" [title]="title"></app-header-bar>
   <div class="content mainCol">
     <div class="select-group row">
+      <h3 *ngIf="isUpdating" class="form-tile p-0 form-title-top">
+        Ca làm việc
+      </h3>
+
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ngày</label>
-        <dx-date-box
-          [(value)]="now"
-          type="date"
-          (onValueChanged)="onDateValueChanged($event)"
-        ></dx-date-box>
+        <dx-date-box height="48" [(value)]="now" type="date" (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ca làm việc</label>
-        <dx-select-box
-          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
-          [(value)]="ca_no_option"
-          hoverStateEnabled="false"
-          placeholder="Chọn ca làm việc"
-          (onSelectionChanged)="onSelectShiftChange($event)"
-        ></dx-select-box>
+        <dx-select-box [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']" [(value)]="ca_no_option" height="48"
+          hoverStateEnabled="false" placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectShiftChange($event)">
+        </dx-select-box>
+      </div>
+      <div *ngIf="isUpdating" class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Loại phiếu</label>
+        <dx-select-box  height="48" [dataSource]="ballot_types" [(value)]="ballot_type"
+          displayExpr="name" valueExpr="code" hoverStateEnabled="false" placeholder="Chọn loại phiếu"></dx-select-box>
+      </div>
+      <div *ngIf="isUpdating" class="select-group col-12 col-lg-3">
+        <label class="select-label" for="">Đơn vị đóng</label>
+        <dx-select-box  height="48" [dataSource]="packaging_units" [(value)]="packaging_unit"
+          displayExpr="name" valueExpr="code" hoverStateEnabled="false" placeholder="Chọn đơn vị đóng"></dx-select-box>
       </div>
     </div>
-    <div class="list-option-summary">
+    <!-- list 50kg  -->
+    <div *ngIf="!isUpdating" class="list-option-summary">
       <div class="row">
-        <div
-          *ngFor="let option of currentAppointment.shiftDetail"
-          class="col-lg-4 col-12 shift-option"
-        >
-          <app-option-item
-            [objItem]="option"
-            [creator]="currentAppointment.text"
-            (onClickItem)="onShiftOptionClicked($event)"
-          >
+        <div *ngFor="let option of card50kgList" class="col-lg-4 col-12 shift-option">
+          <app-option-item [objItem]="option" [creator]="option.creator" type="50kg"
+            (onClickItem)="onOptionEditClicked($event)" (onDeleteClickItem)="onOptionDeleteClicked($event)">
           </app-option-item>
         </div>
       </div>
     </div>
+    <!-- update -->
+    <div *ngIf="isUpdating" class="update-wrap">
+      <h3 class="form-tile mt-4">Số lượng máy đóng bao</h3>
+
+      <div class="product-detail">
+        <form *ngFor="let key of getKeyForm()" [formGroup]="formGroupProduct[key]" class="row product-item">
+          <div *ngFor="let input of inputs_options" class="col-lg-3 col-12 field-item">
+            <div *ngIf="input.type === 'text'" class="form-groups">
+              <div class="field-label">{{ input.label }}</div>
+              <div class="field-control">
+                <app-text-input [formControlName]="input.formControlName" [label]="input.label" type="text">
+                </app-text-input>
+              </div>
+            </div>
+
+            <div *ngIf="input.type === 'select'" class="form-groups">
+              <div class="field-label">{{ input.label }}</div>
+              <div class="field-control">
+                <app-select-option [formControlName]="input.formControlName" [label]="input.label"
+                  [options]="input.options" [value]="input.value"></app-select-option>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <button (click)="addNewForm()" class="btn-add-new-form">
+        <img src="assets/svg/add_png_active.svg" alt="add" />
+        <span>Thêm sản phẩm</span>
+      </button>
+      <button (click)="onUpdateData()" class="btn-ship btn-completed">
+        Cập nhật
+      </button>
+    </div>
   </div>
 </div>
+
+<!-- popup confirm -->
+<dx-popup id="popup-edit" [showTitle]="true" width="500" height="200" maxWidth="90%" title="Xác nhận xoá"
+  [dragEnabled]="false" [closeOnOutsideClick]="false" [showCloseButton]="true" container=".dx-viewport"
+  [(visible)]="popupVisible" shadingColor="rgba(0,0,0,0.3)" [toolbarItems]="[
+    {
+      widget: 'dxButton',
+      location: 'after',
+      options: {
+        text: 'Đóng'
+      },
+      toolbar: 'bottom',
+      onClick: onClosePopup
+    },
+    {
+      widget: 'dxButton',
+      location: 'after',
+      options: {
+        text: 'Xoá'
+      },
+      toolbar: 'bottom',
+      onClick: onConfirm
+    }
+  ]">
+  <!-- <dxo-position >
+  <dxo-at x="center" y="center"   of="#target"></dxo-at>
+</dxo-position> -->
+  <p class="confirm-msg">Bạn có chắc chắn xoá mục này?</p>
+</dx-popup>

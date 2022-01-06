@@ -99,7 +99,9 @@ export class ReportService {
     let request: MasterRequest = new MasterRequest()
     request.fromDate = fromDate
     request.toDate = toDate
+
     request.userName = this.authService.getUser().user
+    console.log(request);
     return this.cardClient.getListCar50kg(request).pipe(
       map((reply: CardDetailResponse) => {
         console.log(reply.data)
@@ -110,9 +112,11 @@ export class ReportService {
 
   reportOnMachineBag(fromDate: string, toDate: string) {
     let request: MasterRequest = new MasterRequest()
+
     request.fromDate = fromDate
     request.toDate = toDate
     request.userName = this.authService.getUser().user
+    console.log(request);
     return this.warehouseClient.getConfirmProduct(request).pipe(
       map((reply: ConfirmProductionResponse) => {
         console.log(reply.data)

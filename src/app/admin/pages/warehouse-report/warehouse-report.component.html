@@ -14,7 +14,7 @@
       <div class="tabpanel-item">
         <div class="row p-1" *ngIf="tabPanel.id === 1">
           <div class="col-12">
-            <dx-data-grid id="production_table_" [dataSource]="qtyOnBaggingMachines" keyExpr="id" [showRowLines]="true"
+            <dx-data-grid id="production_table_" [noDataText]="'Không có dữ liệu'" [dataSource]="qtyOnBaggingMachines" keyExpr="id" [showRowLines]="true"
               [showBorders]="true" [columnAutoWidth]="true" (onExporting)="onExportingGrid($event)">
 
               <dxo-search-panel [visible]="true"></dxo-search-panel>
@@ -26,13 +26,16 @@
               </dxo-pager>
               <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
               <dxi-column dataField="ca" caption="Ca"></dxi-column>
-              <dxi-column dataField="date" caption="Ngày"></dxi-column>
+              <dxi-column dataField="date" cellTemplate="date"caption="Ngày"></dxi-column>
+              <div *dxTemplate="let date of 'date'">
+                {{ date.value | date: "dd-MM-yyyy" }}
+              </div>
               <dxi-column dataField="product_name" caption="Sản phẩm">
               </dxi-column>
               <dxi-column dataField="bag_type" caption="Loại bao"></dxi-column>
-              <dxi-column dataField="bagging_machine" caption="Máy ĐB">
+              <dxi-column dataField="bagging_machine" caption="Máy Đóng bao">
               </dxi-column>
-              <dxi-column dataField="display_bagM" caption="Hiện thị trên máy ĐB">
+              <dxi-column dataField="display_bagM" caption="Hiện thị trên máy đóng bao">
               </dxi-column>
               <dxi-column dataField="username" caption="Tên tài khoản">
               </dxi-column>
@@ -48,7 +51,7 @@
         </div>
         <div class="row p-1" *ngIf="tabPanel.id === 2">
           <div class="col-12">
-            <dx-data-grid id="production_table_" [dataSource]="qtyAlumin50" [showRowLines]="true" [showBorders]="true"
+            <dx-data-grid id="production_table_" noDataText="Không có dữ liệu" [dataSource]="qtyAlumin50" [showRowLines]="true" [showBorders]="true"
               [columnAutoWidth]="true" (onExporting)="onExportingGrid($event)">
               <dxo-search-panel [visible]="true"></dxo-search-panel>
               <dxo-export [enabled]="true"></dxo-export>
@@ -59,7 +62,10 @@
               </dxo-pager>
               <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
               <dxi-column dataField="ca" caption="Ca"></dxi-column>
-              <dxi-column dataField="date" caption="Ngày"></dxi-column>
+              <dxi-column dataField="date" cellTemplate="date"caption="Ngày"></dxi-column>
+              <div *dxTemplate="let date of 'date'">
+                {{ date.value | date: "dd-MM-yyyy" }}
+              </div>
               <dxi-column dataField="product_name" caption="Sản phẩm">
               </dxi-column>
               <dxi-column dataField="bag_type" caption="Loại bao"></dxi-column>

@@ -79,6 +79,9 @@
   font-weight: 500;
   color: #000000;
 }
+.form-info-group {
+  margin-top: 24px;
+}
 ::ng-deep .popup-content .option-status.new,
 .option-head .option-status.new {
   color: #3459e6;
@@ -236,7 +239,9 @@
   content: " ";
   border-bottom: 1px dashed #aeafb0;
 }
-.option-item {
+.option-item:last-of-type .horizontal-line {
+  display: none;
+
 }
 .option-title {
   margin-bottom: 0;

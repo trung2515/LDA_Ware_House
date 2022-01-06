@@ -152,7 +152,7 @@ service Report
 {
     rpc GetReportTransport (MasterRequest) returns (TransportResponse);  // from date -> to date
     rpc GetReportImportExport(MasterRequest) returns (CardDetailResponse); // from date -> to date
-    rpc GetReportInventory(MasterRequest) returns (ReportInventoryResponse); // from date -> to date
+    rpc (MasterRequest) returns (ReportInventoryResponse); // from date -> to date
     rpc GetReportOrder(MasterRequest) returns (OrderReply);// from date -> to date
     rpc GetReportError(MasterRequest) returns (CardDetailResponse);// from date -> to date
     rpc GetReportQRCode(MasterRequest) returns (QRCodeResponse);// from date -> to date

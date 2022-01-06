@@ -14,7 +14,7 @@
         <div *ngIf="tabPanel.id === 1">
           <div class="row px-1">
             <div class="col-12">
-              <dx-data-grid id="production_table" [dataSource]="statistics" keyExpr="shiftID" [showRowLines]="true"
+              <dx-data-grid id="production_table" noDataText="Không có dữ liệu" [dataSource]="statistics" keyExpr="shiftID" [showRowLines]="true"
                 [showBorders]="true" (onExporting)="onExportingGrid($event)" [remoteOperations]="false"
                 [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true">
                 <dxo-export [enabled]="true"></dxo-export>
@@ -24,8 +24,11 @@
                 <dxo-pager [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
                 <dxi-column dataField="shiftID" [fixed]="true" caption="Ca" alignment="left"></dxi-column>
-                <dxi-column dataField="date" [fixed]="true" caption="Ngày">
+                <dxi-column dataField="date" cellTemplate="date"[fixed]="true" caption="Ngày">
                 </dxi-column>
+                <div *dxTemplate="let date of 'date'">
+                  {{ date.value | date: "dd-MM-yyyy" }}
+                </div>
                 <dxi-column dataField="name" [fixed]="true" caption="Sản phẩm">
                 </dxi-column>
                 <dxi-column dataField="type_product" caption="Loại sản phẩm">
@@ -44,7 +47,11 @@
                 </dxi-column>
                 <dxi-column dataField="consignments_number" caption="Số lô" alignment="left"></dxi-column>
                 <dxi-column dataField="bag_number" alignment="left" caption="Số bao"></dxi-column>
+<<<<<<< HEAD
+                <dxi-column dataField="ton_number" caption="Khối lượng (Kg)" alignment="left"></dxi-column>
+=======
                 <dxi-column dataField="ton_number" caption="Khối lượng (kg)" alignment="left"></dxi-column>
+>>>>>>> origin/main
                 <dxi-column dataField="warehouse" caption="Kho"></dxi-column>
                 <dxi-column dataField="reason" caption="Nguyên nhân">
                 </dxi-column>
@@ -68,7 +75,7 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridNSP" [allowSortingBySummary]="true" [allowSorting]="true"
-                [texts]="{ grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [texts]="{ grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                 (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputN" searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
@@ -82,7 +89,7 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridXSP" [allowSortingBySummary]="true" [allowSorting]="true"
-                [texts]="{ grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [texts]="{ grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                 (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputX" searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
@@ -99,7 +106,7 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridNXTSM" [allowSortingBySummary]="false" [allowSorting]="true"
-                [texts]="{'grandTotal': 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="false"
+                [texts]="{'grandTotal': 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="false"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                 [allowExpandAll]="true" [dataSource]="detailImExInventoryReport"
                 (onExporting)="onExportingPivot($event, tabPanel)" searchExpr="name">
@@ -116,7 +123,7 @@
           <div class="row p-1">
             <div class="col-12">
               <dx-pivot-grid id="pivotgridParcel" [allowSortingBySummary]="true" [allowSorting]="true"
-                [texts]="{grandTotal: 'Tổng cộng'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [texts]="{grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
                 [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
                 (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="pipotParcelReport" searchExpr="name">
                 <dxo-field-chooser [enabled]="false"></dxo-field-chooser>

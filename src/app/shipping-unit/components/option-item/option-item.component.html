@@ -1,5 +1,5 @@
 <div class="item-wrap">
-  <div class="item-head">
+  <div *ngIf="type === '1000kg'" class="item-head">
     <app-option-status [type]="'NDM'"></app-option-status>
     <div class="option-toolbar">
       <img
@@ -8,52 +8,119 @@
         alt="edit"
         class="btn-edit"
       />
-      <img *ngIf="visibleBtnDelete" src="assets/svg/delete.svg" alt="edit" class="btn-delete" />
     </div>
   </div>
-  <div class="item-content">
+
+  <div *ngIf="type === '1000kg'" class="item-content">
     <div class="option-title">
-      Option {{ objItem.option }}: {{ objItem.product }} - Loại
-      {{ objItem.productRange }} - {{ objItem.packaging }}
+      {{ objItem.option }}: {{ objItem.nameProduct }} -
+      {{ objItem.typeProduct }} - {{ objItem.typePacket }}
     </div>
     <div class="row option-info">
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Lô</div>
-        <div class="shift-value">{{objItem.lot}}</div>
+        <div class="shift-value">{{ objItem.idParcel }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Kho</div>
-        <div class="shift-value">{{objItem.wareHouse}}</div>
+        <div class="shift-value">{{ objItem.warehouse }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">Đơn vị đóng</div>
-        <div class="shift-value">{{objItem.unit}}</div>
+        <div class="shift-value">{{ objItem.packagingUnit }}</div>
       </div>
       <div class="col-6 col-lg-6 shift-info">
         <div class="shift-label">TK nhập số</div>
-        <div class="shift-value">{{creator}}</div>
+        <div class="shift-value">{{ creator }}</div>
       </div>
     </div>
+
+    <div class="row machine-list">
+      <div
+        *ngFor="let machine of objItem.machine_list"
+        class="col-6 col-lg-6 machine-item"
+      >
+        <div class="machine-label">Máy {{ machine.code }}:</div>
+        <div class="machine-value">
+          {{ machine.qty }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="type === '50kg'" class="item-head">
+    <span class="ballot_type">{{objItem.ballot_type}}</span>
+
+    <div class="option-toolbar">
+      <img
+        (click)="onClick($event)"
+        src="assets/svg/edit.svg"
+        alt="edit"
+        class="btn-edit"
+      />
+      <img
+        (click)="onDeleteClick($event)"
+        *ngIf="visibleBtnDelete"
+        src="assets/svg/delete.svg"
+        alt="edit"
+        class="btn-delete"
+      />
+    </div>
+  </div>
+  <div *ngIf="type === '50kg'" class="item-content">
+    <div class="row option-info">
+      <div class="col-6 col-lg-6 shift-info">
+        <div class="shift-label">Đơn vị đóng</div>
+        <div class="shift-value">{{ objItem.packing_unit }}</div>
+      </div>
+      <div class="col-6 col-lg-6 shift-info">
+        <div class="shift-label">Người lập phiếu</div>
+        <div class="shift-value">{{ objItem.creator || '--' }}</div>
+      </div>
+      <div class="col-6 col-lg-6 shift-info">
+        <div class="shift-label">Kho</div>
+        <div class="shift-value">{{ objItem.warehouse }}</div>
+      </div>
+    </div>
+
     <div class="row machine-list">
       <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy A:</div>
-        <div class="machine-value">{{objItem.machines_packaging.machine_a}}</div>
+        <div class="machine-label">Sản phẩm:</div>
+        <div class="machine-value">
+          {{objItem.product_name}}
+        </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy B:</div>
-        <div class="machine-value">{{objItem.machines_packaging.machine_b}}</div>
+        <div class="machine-label">Loại sản phẩm:</div>
+        <div class="machine-value">
+          Loại {{objItem.product_type || 1}}
+        </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy C:</div>
-        <div class="machine-value">{{objItem.machines_packaging.machine_c}}</div>
+        <div class="machine-label">Loại bao:</div>
+        <div class="machine-value">
+          {{objItem.bag_type}}
+        </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy D:</div>
-        <div class="machine-value">{{objItem.machines_packaging.machine_d}}</div>
+        <div class="machine-label">Lô</div>
+        <div class="machine-value">
+          {{objItem.parcel}}
+        </div>
       </div>
       <div class="col-6 col-lg-6 machine-item">
-        <div class="machine-label">Máy E:</div>
-        <div class="machine-value">{{objItem.machines_packaging.machine_e}}</div>
+        <div class="machine-label">Số lượng:</div>
+        <div class="machine-value">
+          {{objItem.qty}}
+        </div>
+      </div>
+      <div class="col-6 col-lg-6 machine-item">
+        <div class="machine-label">Số tấn:</div>
+        <div class="machine-value">
+          {{objItem.weight_num}}
+        </div>
       </div>
     </div>
   </div>

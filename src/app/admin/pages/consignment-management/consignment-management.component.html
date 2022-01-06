@@ -87,9 +87,10 @@
 
   <div id="data-grid-demo" class="pt-2">
     <dx-data-grid #detailGrid id="con-gridContainer" [dataSource]="consigmentDetail" [showBorders]="true"
-      showRowLines="true" showColumnLines="true">
+      showRowLines="true" noDataText="Không có dữ liệu" showColumnLines="true">
       <dxo-paging [enabled]="true"></dxo-paging>
-      <dxo-editing mode="popup" [confirmDelete]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true">
+      <dxo-editing mode="popup" [confirmDelete]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true"
+        [confirmDelete]="false">
         <dxo-popup title="Thêm mới" [showTitle]="true" [width]="671" [height]="434" [toolbarItems]="[
               {
                 widget: 'dxButton',
@@ -136,7 +137,7 @@
       </dxi-column>
       <dxi-column dataField="quantity" [ngClass]="'quantity-column'" caption="Số lượng">
       </dxi-column>
-      <dxi-column dataField="status" cellTemplate="statusCellTemplate" caption="Trạng thái"></dxi-column>
+      <!-- <dxi-column dataField="status" cellTemplate="statusCellTemplate" caption="Trạng thái"></dxi-column> -->
       <!-- statusCellTemplate -->
       <div *dxTemplate="let cell of 'statusCellTemplate'">
         <div [class]="
@@ -153,8 +154,8 @@
       </div>
       <dxo-summary>
         <dxi-total-item column="quantity" summaryType="sum" displayFormat="Tổng cộng: {0}"> </dxi-total-item>
-    </dxo-summary>
-      
+      </dxo-summary>
+
     </dx-data-grid>
   </div>
 </dx-popup>

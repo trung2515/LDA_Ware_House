@@ -4,13 +4,18 @@
     [title]="title"
   ></app-header-bar>
   <div class="content mainCol">
+
     <div class="select-group row">
+      <div *ngIf="isEditing" class="detail-title shift-title">
+        Ca làm việc
+      </div>
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ngày</label>
         <dx-date-box
           [(value)]="now"
           type="date"
           (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"
         ></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
@@ -27,46 +32,49 @@
 
     <div *ngIf="!isEditing" class="content-list">
       <div class="row ">
+
         <div
-          *ngFor="let option of currentAppointment.shiftDetail"
           class="col-lg-4 col-12 shift-option"
+          *ngFor="let option of aOptionShiftList"
         >
           <app-option-item
             [objItem]="option"
-            [creator]="currentAppointment.text"
+            [creator]="option.creator"
             (onClickItem)="onShiftOptionClicked($event)"
             [visibleBtnDelete]="false"
           ></app-option-item>
         </div>
       </div>
     </div>
+
+
     <div *ngIf="isEditing" class="detail-shift-option">
       <div class="detail-title">
         Số lượng máy đóng bao
       </div>
       <div class="option-shift-info">
         <span class="option-num"
-          >Option {{ optionEditing.option.option }}:</span
+          >{{ optionEditing.option }}: </span
         >
         <span class="shift-info"
-          >{{ optionEditing.option.product }}- Loại
-          {{ optionEditing.option.productRange }} -
-          {{ optionEditing.option.packaging }}
+          >{{ optionEditing.nameProduct }} -
+          {{ optionEditing.typeProduct }} -
+          {{ optionEditing.typePacket }}
         </span>
         <app-option-status></app-option-status>
       </div>
       <div class="row shift-info-common">
         <div class="col-lg-4">
           <div class="shift-label">Lô</div>
-          <div class="shift-value">{{ optionEditing.option.lot }}</div>
+          <div class="shift-value">{{ optionEditing.idParcel }}</div>
         </div>
         <div class="col-lg-4">
           <div class="shift-label">Kho</div>
-          <div class="shift-value">{{ optionEditing.option.wareHouse }}</div>
+          <div class="shift-value">{{ optionEditing.warehouse }}</div>
         </div>
         <div class="col-lg-4">
           <div class="shift-label">Đơn vị đóng</div>
-          <div class="shift-value">{{ optionEditing.option.unit }}</div>
+          <div class="shift-value">{{ optionEditing.packingUnit }}</div>
         </div>
       </div>
       <form [formGroup]="optionForm" class="row machine-qty">
@@ -84,9 +92,11 @@
           </div>
         </div>
       </form>
+
       <button (click)="onUpdateData()" class="btn-ship btn-update">
         Cập nhật
       </button>
     </div>
+
   </div>
 </div>
