@@ -17,7 +17,7 @@ export class ErrorModel {
     this.shift = Utils.convertTimeToShift(data.timereport) || ''
     this.date = Utils.formatDate(new Date(data.timereport)) || ''
 
-    this.product_type = data.nameTypeProduct
+    this.product_type = data.idTypeProduct.toString() || ''
     this.bag_type = data.nameTypePacket
     this.parcel = data.codeParcel
     this.seri_number = data.seri

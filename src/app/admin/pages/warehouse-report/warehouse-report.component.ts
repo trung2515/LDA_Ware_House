@@ -60,19 +60,26 @@ export class WarehouseReportComponent implements OnInit {
 
   // handle dx-date-box change event
   getStartDate(e: any) {
-    this.startDate = e.value;
-    if (this.startDate) {
-      this.disabledDates = this.getDisabledDates(this.startDate);
+    this.startDate = e;
+    // if (this.startDate) {
+    //   this.disabledDates = this.getDisabledDates(this.startDate);
+    // }
+    if(this.startDate <= this.endDate){
+      this.getData()
     }
   }
   getEndDate(e: any) {
-    this.endDate = e.value;
-    const endDate = this.endDate.getTime();
-    const startDate = this.startDate.getTime();
-    this.filterControl.objDate = {
-      startDate,
-      endDate
-    };
+    this.endDate = e;
+    // const endDate = this.endDate.getTime();
+    // const startDate = this.startDate.getTime();
+    // this.filterControl.objDate = {
+    //   startDate,
+    //   endDate
+    // };
+    if(this.startDate <= this.endDate){
+      this.getData()
+    }
+
   }
   getDisabledDates(stopDate: Date) {
     return getDates(stopDate);

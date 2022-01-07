@@ -114,7 +114,7 @@ export class AdminService {
   }
   insertTypeProduct(nameTypeProduct: any) {
     let req: TypeProductInfo = new TypeProductInfo()
-    req.nameTypeProduct = nameTypeProduct
+    req.idTypeProduct = nameTypeProduct
     return this.administratorClient.insertTypeProduct(req).pipe(
       map((reply: Response) => {
         return reply
@@ -124,12 +124,11 @@ export class AdminService {
   updateTypeProduct(idTypeProdcut: any, nameTypeProduct: any) {
     let req: TypeProductInfo = new TypeProductInfo()
     req.idTypeProduct = idTypeProdcut
-    req.nameTypeProduct = nameTypeProduct
-    return this.administratorClient.updateTypeProduct(req).pipe(
-      map((reply: Response) => {
-        return reply
-      }),
-    )
+    // return this.administratorClient.updateTypeProduct(req).pipe(
+    //   map((reply: Response) => {
+    //     return reply
+    //   }),
+    // )
   }
   deleteTypeProduct(idTypeProduct: any) {
     let req: TypeProductInfo = new TypeProductInfo()
@@ -605,11 +604,12 @@ export class AdminService {
       }
       ));
   }
-  insertListMasterData(id:number, name:any, type:any){
+  insertListMasterData(id:number, name:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo() 
-    req.objectId= id;
+    req.objectId = id;
     req.objectName = name;
-    req.objectType =type
+    req.objectType = type
+    req.objectCate = cate
     console.log('rq',req);
     return this.administratorClient.insertMaster(req).pipe(
       map((reply) => {
@@ -701,4 +701,6 @@ export class AdminService {
       }),
     )
   }
+
 }
+

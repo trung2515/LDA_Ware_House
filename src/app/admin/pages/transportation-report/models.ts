@@ -48,8 +48,8 @@ export class TransportationReportModel {
     this.time = data.createddate
     this.dv_boc = data.dvBoc || ''
     this.dv_do = data.dvDo || ''
-    this.seriIn = data.seriIn
-    this.seriOut = data.seriOut
+    this.seriIn = data.seriIn.toString() || ''
+    this.seriOut = data.seriOut.toString() || ''
     this.codeTransport = data.code
     this.shift_by_date = Utils.convertTimeToShift(data.createddate) + ' ' + Utils.formatDateV1(new Date(data.createddate))
   }
@@ -65,7 +65,7 @@ export class DetailTransportInfo {
   time: string
   constructor(data: QRCodeInfo) {
     this.product_name = data.nameProduct
-    this.product_type = data.nameTypeProduct
+    this.product_type = data.idTypeProduct.toString() || ''
     this.seri = data.seri
     this.user = data.nameUserIn
     this.code = data.code

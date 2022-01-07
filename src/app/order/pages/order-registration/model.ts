@@ -9,7 +9,7 @@ export class OptionModel {
       data.nameWareHouse ||
       data.namePartner ||
       data.objectName ||
-      data.nameTypeProduct ||
+      data.idTypeProduct.toString() || '' ||
       data.codeParcel ||
       data.nameTypeBill ||
       data.namePackingUnit ||

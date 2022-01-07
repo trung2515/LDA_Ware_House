@@ -12,7 +12,7 @@ export class ShiftService {
       let a = new Date();
       let item: any = {};
       item.id = i;
-      item.text = 'Trung trader ' + i;
+      item.text = 'Đình Trung ' + i;
       // item.shift = i%2 +1
       item.shift = 1;
       item.startDate = new Date(

@@ -114,6 +114,8 @@ export class NavbarComponent implements OnInit {
     this.parentMenu = this.menus.filter((m) => m.isParent == true)
 
     this.username = this.authService.getUser().name
+
+
   }
 
   getChildMenu(menuId: number) {

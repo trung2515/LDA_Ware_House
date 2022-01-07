@@ -10,7 +10,7 @@ import { OptionModel } from 'src/app/order/pages/order-registration/model';
 export class SelectOptionComponent implements ControlValueAccessor {
   @Input() options: OptionModel[] = [];
   @Input() label!: string;
-  @Input() type = 'select';
+  @Input() value = '';
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
   }

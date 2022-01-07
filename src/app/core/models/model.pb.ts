@@ -3315,7 +3315,6 @@ export class TypePacketInfo implements GrpcMessage {
     _instance.idTypePacket = _instance.idTypePacket || 0;
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
-    _instance.weight = _instance.weight || 0;
     _instance.isDeleted = _instance.isDeleted || false;
   }
 
@@ -3342,9 +3341,6 @@ export class TypePacketInfo implements GrpcMessage {
           _instance.nameTypePacket = _reader.readString();
           break;
         case 4:
-          _instance.weight = _reader.readInt32();
-          break;
-        case 5:
           _instance.isDeleted = _reader.readBool();
           break;
         default:
@@ -3373,18 +3369,14 @@ export class TypePacketInfo implements GrpcMessage {
     if (_instance.nameTypePacket) {
       _writer.writeString(3, _instance.nameTypePacket);
     }
-    if (_instance.weight) {
-      _writer.writeInt32(4, _instance.weight);
-    }
     if (_instance.isDeleted) {
-      _writer.writeBool(5, _instance.isDeleted);
+      _writer.writeBool(4, _instance.isDeleted);
     }
   }
 
   private _idTypePacket?: number;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
-  private _weight?: number;
   private _isDeleted?: boolean;
 
   /**
@@ -3396,7 +3388,6 @@ export class TypePacketInfo implements GrpcMessage {
     this.idTypePacket = _value.idTypePacket;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
-    this.weight = _value.weight;
     this.isDeleted = _value.isDeleted;
     TypePacketInfo.refineValues(this);
   }
@@ -3417,12 +3408,6 @@ export class TypePacketInfo implements GrpcMessage {
   }
   set nameTypePacket(value: string | undefined) {
     this._nameTypePacket = value;
-  }
-  get weight(): number | undefined {
-    return this._weight;
-  }
-  set weight(value: number | undefined) {
-    this._weight = value;
   }
   get isDeleted(): boolean | undefined {
     return this._isDeleted;
@@ -3449,7 +3434,6 @@ export class TypePacketInfo implements GrpcMessage {
       idTypePacket: this.idTypePacket,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      weight: this.weight,
       isDeleted: this.isDeleted
     };
   }
@@ -3474,7 +3458,6 @@ export class TypePacketInfo implements GrpcMessage {
       idTypePacket: this.idTypePacket,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      weight: this.weight,
       isDeleted: this.isDeleted
     };
   }
@@ -3487,7 +3470,6 @@ export module TypePacketInfo {
     idTypePacket?: number;
     codeTypePacket?: string;
     nameTypePacket?: string;
-    weight?: number;
     isDeleted?: boolean;
   }
 
@@ -3498,7 +3480,6 @@ export module TypePacketInfo {
     idTypePacket?: number;
     codeTypePacket?: string;
     nameTypePacket?: string;
-    weight?: number;
     isDeleted?: boolean;
   }
 }
@@ -3703,7 +3684,6 @@ export class TypeProductInfo implements GrpcMessage {
    */
   static refineValues(_instance: TypeProductInfo) {
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.isDeleted = _instance.isDeleted || false;
   }
 
@@ -3724,9 +3704,6 @@ export class TypeProductInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 2:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 3:
           _instance.isDeleted = _reader.readBool();
           break;
         default:
@@ -3749,16 +3726,12 @@ export class TypeProductInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(1, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(2, _instance.nameTypeProduct);
-    }
     if (_instance.isDeleted) {
-      _writer.writeBool(3, _instance.isDeleted);
+      _writer.writeBool(2, _instance.isDeleted);
     }
   }
 
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
   private _isDeleted?: boolean;
 
   /**
@@ -3768,7 +3741,6 @@ export class TypeProductInfo implements GrpcMessage {
   constructor(_value?: RecursivePartial<TypeProductInfo.AsObject>) {
     _value = _value || {};
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.isDeleted = _value.isDeleted;
     TypeProductInfo.refineValues(this);
   }
@@ -3777,12 +3749,6 @@ export class TypeProductInfo implements GrpcMessage {
   }
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
-  }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
   }
   get isDeleted(): boolean | undefined {
     return this._isDeleted;
@@ -3807,7 +3773,6 @@ export class TypeProductInfo implements GrpcMessage {
   toObject(): TypeProductInfo.AsObject {
     return {
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       isDeleted: this.isDeleted
     };
   }
@@ -3830,7 +3795,6 @@ export class TypeProductInfo implements GrpcMessage {
   ): TypeProductInfo.AsProtobufJSON {
     return {
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       isDeleted: this.isDeleted
     };
   }
@@ -3841,7 +3805,6 @@ export module TypeProductInfo {
    */
   export interface AsObject {
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     isDeleted?: boolean;
   }
 
@@ -3850,7 +3813,6 @@ export module TypeProductInfo {
    */
   export interface AsProtobufJSON {
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     isDeleted?: boolean;
   }
 }
@@ -4813,7 +4775,6 @@ export class ShiftDetailInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codeParcel = _instance.codeParcel || '';
@@ -4863,42 +4824,39 @@ export class ShiftDetailInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 8:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 9:
           _instance.codeTypePacket = _reader.readString();
           break;
-        case 10:
+        case 9:
           _instance.nameTypePacket = _reader.readString();
           break;
-        case 11:
+        case 10:
           _instance.codeParcel = _reader.readString();
           break;
-        case 12:
+        case 11:
           _instance.codeWareHouse = _reader.readString();
           break;
-        case 13:
+        case 12:
           _instance.nameWareHouse = _reader.readString();
           break;
-        case 14:
+        case 13:
           _instance.idShift = _reader.readInt32();
           break;
-        case 15:
+        case 14:
           _instance.nameShift = _reader.readString();
           break;
-        case 16:
+        case 15:
           _instance.codePackingUnit = _reader.readString();
           break;
-        case 17:
+        case 16:
           _instance.namePackingUnit = _reader.readString();
           break;
-        case 18:
+        case 17:
           _instance.createdPerson = _reader.readInt32();
           break;
-        case 19:
+        case 18:
           _instance.nameCreatedPerson = _reader.readString();
           break;
-        case 20:
+        case 19:
           _instance.date = _reader.readString();
           break;
         default:
@@ -4939,44 +4897,41 @@ export class ShiftDetailInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(7, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(8, _instance.nameTypeProduct);
-    }
     if (_instance.codeTypePacket) {
-      _writer.writeString(9, _instance.codeTypePacket);
+      _writer.writeString(8, _instance.codeTypePacket);
     }
     if (_instance.nameTypePacket) {
-      _writer.writeString(10, _instance.nameTypePacket);
+      _writer.writeString(9, _instance.nameTypePacket);
     }
     if (_instance.codeParcel) {
-      _writer.writeString(11, _instance.codeParcel);
+      _writer.writeString(10, _instance.codeParcel);
     }
     if (_instance.codeWareHouse) {
-      _writer.writeString(12, _instance.codeWareHouse);
+      _writer.writeString(11, _instance.codeWareHouse);
     }
     if (_instance.nameWareHouse) {
-      _writer.writeString(13, _instance.nameWareHouse);
+      _writer.writeString(12, _instance.nameWareHouse);
     }
     if (_instance.idShift) {
-      _writer.writeInt32(14, _instance.idShift);
+      _writer.writeInt32(13, _instance.idShift);
     }
     if (_instance.nameShift) {
-      _writer.writeString(15, _instance.nameShift);
+      _writer.writeString(14, _instance.nameShift);
     }
     if (_instance.codePackingUnit) {
-      _writer.writeString(16, _instance.codePackingUnit);
+      _writer.writeString(15, _instance.codePackingUnit);
     }
     if (_instance.namePackingUnit) {
-      _writer.writeString(17, _instance.namePackingUnit);
+      _writer.writeString(16, _instance.namePackingUnit);
     }
     if (_instance.createdPerson) {
-      _writer.writeInt32(18, _instance.createdPerson);
+      _writer.writeInt32(17, _instance.createdPerson);
     }
     if (_instance.nameCreatedPerson) {
-      _writer.writeString(19, _instance.nameCreatedPerson);
+      _writer.writeString(18, _instance.nameCreatedPerson);
     }
     if (_instance.date) {
-      _writer.writeString(20, _instance.date);
+      _writer.writeString(19, _instance.date);
     }
   }
 
@@ -4987,7 +4942,6 @@ export class ShiftDetailInfo implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codeParcel?: string;
@@ -5014,7 +4968,6 @@ export class ShiftDetailInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codeParcel = _value.codeParcel;
@@ -5070,12 +5023,6 @@ export class ShiftDetailInfo implements GrpcMessage {
   }
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
-  }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -5172,7 +5119,6 @@ export class ShiftDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -5212,7 +5158,6 @@ export class ShiftDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -5240,7 +5185,6 @@ export module ShiftDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -5266,7 +5210,6 @@ export module ShiftDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -8028,7 +7971,6 @@ export class ParcelDetailInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.idStatus = _instance.idStatus || 0;
@@ -8067,36 +8009,33 @@ export class ParcelDetailInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 5:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 6:
           _instance.codeTypePacket = _reader.readString();
           break;
-        case 7:
+        case 6:
           _instance.nameTypePacket = _reader.readString();
           break;
-        case 8:
+        case 7:
           _instance.idStatus = _reader.readInt32();
           break;
-        case 9:
+        case 8:
           _instance.nameStatus = _reader.readString();
           break;
-        case 10:
+        case 9:
           _instance.quantity = _reader.readInt64String();
           break;
-        case 11:
+        case 10:
           _instance.codeParcel = _reader.readString();
           break;
-        case 12:
+        case 11:
           _instance.idParcel = _reader.readInt32();
           break;
-        case 13:
+        case 12:
           _instance.createdPerson = _reader.readInt32();
           break;
-        case 14:
+        case 13:
           _instance.nameCreatedPerson = _reader.readString();
           break;
-        case 15:
+        case 14:
           _instance.date = _reader.readString();
           break;
         default:
@@ -8128,38 +8067,35 @@ export class ParcelDetailInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(4, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(5, _instance.nameTypeProduct);
-    }
     if (_instance.codeTypePacket) {
-      _writer.writeString(6, _instance.codeTypePacket);
+      _writer.writeString(5, _instance.codeTypePacket);
     }
     if (_instance.nameTypePacket) {
-      _writer.writeString(7, _instance.nameTypePacket);
+      _writer.writeString(6, _instance.nameTypePacket);
     }
     if (_instance.idStatus) {
-      _writer.writeInt32(8, _instance.idStatus);
+      _writer.writeInt32(7, _instance.idStatus);
     }
     if (_instance.nameStatus) {
-      _writer.writeString(9, _instance.nameStatus);
+      _writer.writeString(8, _instance.nameStatus);
     }
     if (_instance.quantity) {
-      _writer.writeInt64String(10, _instance.quantity);
+      _writer.writeInt64String(9, _instance.quantity);
     }
     if (_instance.codeParcel) {
-      _writer.writeString(11, _instance.codeParcel);
+      _writer.writeString(10, _instance.codeParcel);
     }
     if (_instance.idParcel) {
-      _writer.writeInt32(12, _instance.idParcel);
+      _writer.writeInt32(11, _instance.idParcel);
     }
     if (_instance.createdPerson) {
-      _writer.writeInt32(13, _instance.createdPerson);
+      _writer.writeInt32(12, _instance.createdPerson);
     }
     if (_instance.nameCreatedPerson) {
-      _writer.writeString(14, _instance.nameCreatedPerson);
+      _writer.writeString(13, _instance.nameCreatedPerson);
     }
     if (_instance.date) {
-      _writer.writeString(15, _instance.date);
+      _writer.writeString(14, _instance.date);
     }
   }
 
@@ -8167,7 +8103,6 @@ export class ParcelDetailInfo implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _idStatus?: number;
@@ -8189,7 +8124,6 @@ export class ParcelDetailInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.idStatus = _value.idStatus;
@@ -8225,12 +8159,6 @@ export class ParcelDetailInfo implements GrpcMessage {
   }
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
-  }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -8312,7 +8240,6 @@ export class ParcelDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       idStatus: this.idStatus,
@@ -8347,7 +8274,6 @@ export class ParcelDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       idStatus: this.idStatus,
@@ -8370,7 +8296,6 @@ export module ParcelDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     idStatus?: number;
@@ -8391,7 +8316,6 @@ export module ParcelDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     idStatus?: number;
@@ -8981,11 +8905,11 @@ export class CardDetailInfo implements GrpcMessage {
    * @param _instance message instance
    */
   static refineValues(_instance: CardDetailInfo) {
-    _instance.idCard = _instance.idCard || 0;
+    _instance.idCard = _instance.idCard || '0';
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.customerInternal = _instance.customerInternal || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codeParcel = _instance.codeParcel || '';
@@ -9014,7 +8938,6 @@ export class CardDetailInfo implements GrpcMessage {
     _instance.distance = _instance.distance || 0;
     _instance.timereport = _instance.timereport || '';
     _instance.nameCustomer = _instance.nameCustomer || '';
-    _instance.customerInternal = _instance.customerInternal || '';
   }
 
   /**
@@ -9031,7 +8954,7 @@ export class CardDetailInfo implements GrpcMessage {
 
       switch (_reader.getFieldNumber()) {
         case 1:
-          _instance.idCard = _reader.readInt32();
+          _instance.idCard = _reader.readInt64String();
           break;
         case 2:
           _instance.codeProduct = _reader.readString();
@@ -9043,7 +8966,7 @@ export class CardDetailInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 5:
-          _instance.nameTypeProduct = _reader.readString();
+          _instance.customerInternal = _reader.readString();
           break;
         case 6:
           _instance.codeTypePacket = _reader.readString();
@@ -9129,9 +9052,6 @@ export class CardDetailInfo implements GrpcMessage {
         case 33:
           _instance.nameCustomer = _reader.readString();
           break;
-        case 34:
-          _instance.customerInternal = _reader.readString();
-          break;
         default:
           _reader.skipField();
       }
@@ -9150,7 +9070,7 @@ export class CardDetailInfo implements GrpcMessage {
     _writer: BinaryWriter
   ) {
     if (_instance.idCard) {
-      _writer.writeInt32(1, _instance.idCard);
+      _writer.writeInt64String(1, _instance.idCard);
     }
     if (_instance.codeProduct) {
       _writer.writeString(2, _instance.codeProduct);
@@ -9161,8 +9081,8 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(4, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(5, _instance.nameTypeProduct);
+    if (_instance.customerInternal) {
+      _writer.writeString(5, _instance.customerInternal);
     }
     if (_instance.codeTypePacket) {
       _writer.writeString(6, _instance.codeTypePacket);
@@ -9248,16 +9168,13 @@ export class CardDetailInfo implements GrpcMessage {
     if (_instance.nameCustomer) {
       _writer.writeString(33, _instance.nameCustomer);
     }
-    if (_instance.customerInternal) {
-      _writer.writeString(34, _instance.customerInternal);
-    }
   }
 
-  private _idCard?: number;
+  private _idCard?: string;
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
+  private _customerInternal?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codeParcel?: string;
@@ -9286,7 +9203,6 @@ export class CardDetailInfo implements GrpcMessage {
   private _distance?: number;
   private _timereport?: string;
   private _nameCustomer?: string;
-  private _customerInternal?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -9298,7 +9214,7 @@ export class CardDetailInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
+    this.customerInternal = _value.customerInternal;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codeParcel = _value.codeParcel;
@@ -9327,13 +9243,12 @@ export class CardDetailInfo implements GrpcMessage {
     this.distance = _value.distance;
     this.timereport = _value.timereport;
     this.nameCustomer = _value.nameCustomer;
-    this.customerInternal = _value.customerInternal;
     CardDetailInfo.refineValues(this);
   }
-  get idCard(): number | undefined {
+  get idCard(): string | undefined {
     return this._idCard;
   }
-  set idCard(value: number | undefined) {
+  set idCard(value: string | undefined) {
     this._idCard = value;
   }
   get codeProduct(): string | undefined {
@@ -9354,11 +9269,11 @@ export class CardDetailInfo implements GrpcMessage {
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
+  get customerInternal(): string | undefined {
+    return this._customerInternal;
   }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
+  set customerInternal(value: string | undefined) {
+    this._customerInternal = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -9528,12 +9443,6 @@ export class CardDetailInfo implements GrpcMessage {
   set nameCustomer(value: string | undefined) {
     this._nameCustomer = value;
   }
-  get customerInternal(): string | undefined {
-    return this._customerInternal;
-  }
-  set customerInternal(value: string | undefined) {
-    this._customerInternal = value;
-  }
 
   /**
    * Serialize message to binary data
@@ -9554,7 +9463,7 @@ export class CardDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      customerInternal: this.customerInternal,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -9582,8 +9491,7 @@ export class CardDetailInfo implements GrpcMessage {
       seri: this.seri,
       distance: this.distance,
       timereport: this.timereport,
-      nameCustomer: this.nameCustomer,
-      customerInternal: this.customerInternal
+      nameCustomer: this.nameCustomer
     };
   }
 
@@ -9608,7 +9516,7 @@ export class CardDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      customerInternal: this.customerInternal,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -9636,8 +9544,7 @@ export class CardDetailInfo implements GrpcMessage {
       seri: this.seri,
       distance: this.distance,
       timereport: this.timereport,
-      nameCustomer: this.nameCustomer,
-      customerInternal: this.customerInternal
+      nameCustomer: this.nameCustomer
     };
   }
 }
@@ -9646,11 +9553,11 @@ export module CardDetailInfo {
    * Standard JavaScript object representation for CardDetailInfo
    */
   export interface AsObject {
-    idCard?: number;
+    idCard?: string;
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    customerInternal?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -9679,18 +9586,17 @@ export module CardDetailInfo {
     distance?: number;
     timereport?: string;
     nameCustomer?: string;
-    customerInternal?: string;
   }
 
   /**
    * Protobuf JSON representation for CardDetailInfo
    */
   export interface AsProtobufJSON {
-    idCard?: number;
+    idCard?: string;
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    customerInternal?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -9719,7 +9625,6 @@ export module CardDetailInfo {
     distance?: number;
     timereport?: string;
     nameCustomer?: string;
-    customerInternal?: string;
   }
 }
 
@@ -10108,1317 +10013,6 @@ export module InsertCardRequest {
 }
 
 /**
- * Message implementation for client.TaskInfo
- */
-export class TaskInfo implements GrpcMessage {
-  static id = 'client.TaskInfo';
-
-  /**
-   * Deserialize binary data to message
-   * @param instance message instance
-   */
-  static deserializeBinary(bytes: ByteSource) {
-    const instance = new TaskInfo();
-    TaskInfo.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-    return instance;
-  }
-
-  /**
-   * Check all the properties and set default protobuf values if necessary
-   * @param _instance message instance
-   */
-  static refineValues(_instance: TaskInfo) {
-    _instance.idTask = _instance.idTask || 0;
-    _instance.createdDate = _instance.createdDate || '';
-    _instance.nameShift = _instance.nameShift || '';
-    _instance.createdPerson = _instance.createdPerson || 0;
-    _instance.nameCreatedPerson = _instance.nameCreatedPerson || '';
-  }
-
-  /**
-   * Deserializes / reads binary message into message instance using provided binary reader
-   * @param _instance message instance
-   * @param _reader binary reader instance
-   */
-  static deserializeBinaryFromReader(
-    _instance: TaskInfo,
-    _reader: BinaryReader
-  ) {
-    while (_reader.nextField()) {
-      if (_reader.isEndGroup()) break;
-
-      switch (_reader.getFieldNumber()) {
-        case 1:
-          _instance.idTask = _reader.readInt32();
-          break;
-        case 2:
-          _instance.createdDate = _reader.readString();
-          break;
-        case 3:
-          _instance.nameShift = _reader.readString();
-          break;
-        case 4:
-          _instance.createdPerson = _reader.readInt32();
-          break;
-        case 5:
-          _instance.nameCreatedPerson = _reader.readString();
-          break;
-        default:
-          _reader.skipField();
-      }
-    }
-
-    TaskInfo.refineValues(_instance);
-  }
-
-  /**
-   * Serializes a message to binary format using provided binary reader
-   * @param _instance message instance
-   * @param _writer binary writer instance
-   */
-  static serializeBinaryToWriter(_instance: TaskInfo, _writer: BinaryWriter) {
-    if (_instance.idTask) {
-      _writer.writeInt32(1, _instance.idTask);
-    }
-    if (_instance.createdDate) {
-      _writer.writeString(2, _instance.createdDate);
-    }
-    if (_instance.nameShift) {
-      _writer.writeString(3, _instance.nameShift);
-    }
-    if (_instance.createdPerson) {
-      _writer.writeInt32(4, _instance.createdPerson);
-    }
-    if (_instance.nameCreatedPerson) {
-      _writer.writeString(5, _instance.nameCreatedPerson);
-    }
-  }
-
-  private _idTask?: number;
-  private _createdDate?: string;
-  private _nameShift?: string;
-  private _createdPerson?: number;
-  private _nameCreatedPerson?: string;
-
-  /**
-   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-   * @param _value initial values object or instance of TaskInfo to deeply clone from
-   */
-  constructor(_value?: RecursivePartial<TaskInfo.AsObject>) {
-    _value = _value || {};
-    this.idTask = _value.idTask;
-    this.createdDate = _value.createdDate;
-    this.nameShift = _value.nameShift;
-    this.createdPerson = _value.createdPerson;
-    this.nameCreatedPerson = _value.nameCreatedPerson;
-    TaskInfo.refineValues(this);
-  }
-  get idTask(): number | undefined {
-    return this._idTask;
-  }
-  set idTask(value: number | undefined) {
-    this._idTask = value;
-  }
-  get createdDate(): string | undefined {
-    return this._createdDate;
-  }
-  set createdDate(value: string | undefined) {
-    this._createdDate = value;
-  }
-  get nameShift(): string | undefined {
-    return this._nameShift;
-  }
-  set nameShift(value: string | undefined) {
-    this._nameShift = value;
-  }
-  get createdPerson(): number | undefined {
-    return this._createdPerson;
-  }
-  set createdPerson(value: number | undefined) {
-    this._createdPerson = value;
-  }
-  get nameCreatedPerson(): string | undefined {
-    return this._nameCreatedPerson;
-  }
-  set nameCreatedPerson(value: string | undefined) {
-    this._nameCreatedPerson = value;
-  }
-
-  /**
-   * Serialize message to binary data
-   * @param instance message instance
-   */
-  serializeBinary() {
-    const writer = new BinaryWriter();
-    TaskInfo.serializeBinaryToWriter(this, writer);
-    return writer.getResultBuffer();
-  }
-
-  /**
-   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-   */
-  toObject(): TaskInfo.AsObject {
-    return {
-      idTask: this.idTask,
-      createdDate: this.createdDate,
-      nameShift: this.nameShift,
-      createdPerson: this.createdPerson,
-      nameCreatedPerson: this.nameCreatedPerson
-    };
-  }
-
-  /**
-   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-   */
-  toJSON() {
-    return this.toObject();
-  }
-
-  /**
-   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-   */
-  toProtobufJSON(
-    // @ts-ignore
-    options?: ToProtobufJSONOptions
-  ): TaskInfo.AsProtobufJSON {
-    return {
-      idTask: this.idTask,
-      createdDate: this.createdDate,
-      nameShift: this.nameShift,
-      createdPerson: this.createdPerson,
-      nameCreatedPerson: this.nameCreatedPerson
-    };
-  }
-}
-export module TaskInfo {
-  /**
-   * Standard JavaScript object representation for TaskInfo
-   */
-  export interface AsObject {
-    idTask?: number;
-    createdDate?: string;
-    nameShift?: string;
-    createdPerson?: number;
-    nameCreatedPerson?: string;
-  }
-
-  /**
-   * Protobuf JSON representation for TaskInfo
-   */
-  export interface AsProtobufJSON {
-    idTask?: number;
-    createdDate?: string;
-    nameShift?: string;
-    createdPerson?: number;
-    nameCreatedPerson?: string;
-  }
-}
-
-/**
- * Message implementation for client.TaskDetailInfo
- */
-export class TaskDetailInfo implements GrpcMessage {
-  static id = 'client.TaskDetailInfo';
-
-  /**
-   * Deserialize binary data to message
-   * @param instance message instance
-   */
-  static deserializeBinary(bytes: ByteSource) {
-    const instance = new TaskDetailInfo();
-    TaskDetailInfo.deserializeBinaryFromReader(
-      instance,
-      new BinaryReader(bytes)
-    );
-    return instance;
-  }
-
-  /**
-   * Check all the properties and set default protobuf values if necessary
-   * @param _instance message instance
-   */
-  static refineValues(_instance: TaskDetailInfo) {
-    _instance.idTaskDetail = _instance.idTaskDetail || 0;
-    _instance.codeProduct = _instance.codeProduct || '';
-    _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.codeTypePacket = _instance.codeTypePacket || '';
-    _instance.codeWork = _instance.codeWork || '';
-    _instance.codeWareHouseload = _instance.codeWareHouseload || '';
-    _instance.codeWareHouseUnload = _instance.codeWareHouseUnload || '';
-    _instance.idEquipmentLoad = _instance.idEquipmentLoad || 0;
-    _instance.idEquipmentUnLoad = _instance.idEquipmentUnLoad || 0;
-    _instance.nameProduct = _instance.nameProduct || '';
-    _instance.nameTypePoduct = _instance.nameTypePoduct || '';
-    _instance.nameTypePacket = _instance.nameTypePacket || '';
-    _instance.nameWork = _instance.nameWork || '';
-    _instance.nameWareHouseLoad = _instance.nameWareHouseLoad || '';
-    _instance.nameWareHouseUnLoad = _instance.nameWareHouseUnLoad || '';
-    _instance.nameEquipmentLoad = _instance.nameEquipmentLoad || '';
-    _instance.nameEquipmentUnLoad = _instance.nameEquipmentUnLoad || '';
-    _instance.quantity = _instance.quantity || 0;
-    _instance.distance = _instance.distance || 0;
-    _instance.idTask = _instance.idTask || 0;
-    _instance.date = _instance.date || '';
-    _instance.nameShift = _instance.nameShift || '';
-    _instance.createdPerson = _instance.createdPerson || '';
-    _instance.nameCreatedPerson = _instance.nameCreatedPerson || '';
-  }
-
-  /**
-   * Deserializes / reads binary message into message instance using provided binary reader
-   * @param _instance message instance
-   * @param _reader binary reader instance
-   */
-  static deserializeBinaryFromReader(
-    _instance: TaskDetailInfo,
-    _reader: BinaryReader
-  ) {
-    while (_reader.nextField()) {
-      if (_reader.isEndGroup()) break;
-
-      switch (_reader.getFieldNumber()) {
-        case 1:
-          _instance.idTaskDetail = _reader.readInt32();
-          break;
-        case 2:
-          _instance.codeProduct = _reader.readString();
-          break;
-        case 3:
-          _instance.idTypeProduct = _reader.readInt32();
-          break;
-        case 4:
-          _instance.codeTypePacket = _reader.readString();
-          break;
-        case 5:
-          _instance.codeWork = _reader.readString();
-          break;
-        case 6:
-          _instance.codeWareHouseload = _reader.readString();
-          break;
-        case 7:
-          _instance.codeWareHouseUnload = _reader.readString();
-          break;
-        case 8:
-          _instance.idEquipmentLoad = _reader.readInt32();
-          break;
-        case 9:
-          _instance.idEquipmentUnLoad = _reader.readInt32();
-          break;
-        case 10:
-          _instance.nameProduct = _reader.readString();
-          break;
-        case 11:
-          _instance.nameTypePoduct = _reader.readString();
-          break;
-        case 12:
-          _instance.nameTypePacket = _reader.readString();
-          break;
-        case 13:
-          _instance.nameWork = _reader.readString();
-          break;
-        case 14:
-          _instance.nameWareHouseLoad = _reader.readString();
-          break;
-        case 15:
-          _instance.nameWareHouseUnLoad = _reader.readString();
-          break;
-        case 16:
-          _instance.nameEquipmentLoad = _reader.readString();
-          break;
-        case 17:
-          _instance.nameEquipmentUnLoad = _reader.readString();
-          break;
-        case 18:
-          _instance.quantity = _reader.readInt32();
-          break;
-        case 19:
-          _instance.distance = _reader.readInt32();
-          break;
-        case 20:
-          _instance.idTask = _reader.readInt32();
-          break;
-        case 21:
-          _instance.date = _reader.readString();
-          break;
-        case 22:
-          _instance.nameShift = _reader.readString();
-          break;
-        case 23:
-          _instance.createdPerson = _reader.readString();
-          break;
-        case 24:
-          _instance.nameCreatedPerson = _reader.readString();
-          break;
-        default:
-          _reader.skipField();
-      }
-    }
-
-    TaskDetailInfo.refineValues(_instance);
-  }
-
-  /**
-   * Serializes a message to binary format using provided binary reader
-   * @param _instance message instance
-   * @param _writer binary writer instance
-   */
-  static serializeBinaryToWriter(
-    _instance: TaskDetailInfo,
-    _writer: BinaryWriter
-  ) {
-    if (_instance.idTaskDetail) {
-      _writer.writeInt32(1, _instance.idTaskDetail);
-    }
-    if (_instance.codeProduct) {
-      _writer.writeString(2, _instance.codeProduct);
-    }
-    if (_instance.idTypeProduct) {
-      _writer.writeInt32(3, _instance.idTypeProduct);
-    }
-    if (_instance.codeTypePacket) {
-      _writer.writeString(4, _instance.codeTypePacket);
-    }
-    if (_instance.codeWork) {
-      _writer.writeString(5, _instance.codeWork);
-    }
-    if (_instance.codeWareHouseload) {
-      _writer.writeString(6, _instance.codeWareHouseload);
-    }
-    if (_instance.codeWareHouseUnload) {
-      _writer.writeString(7, _instance.codeWareHouseUnload);
-    }
-    if (_instance.idEquipmentLoad) {
-      _writer.writeInt32(8, _instance.idEquipmentLoad);
-    }
-    if (_instance.idEquipmentUnLoad) {
-      _writer.writeInt32(9, _instance.idEquipmentUnLoad);
-    }
-    if (_instance.nameProduct) {
-      _writer.writeString(10, _instance.nameProduct);
-    }
-    if (_instance.nameTypePoduct) {
-      _writer.writeString(11, _instance.nameTypePoduct);
-    }
-    if (_instance.nameTypePacket) {
-      _writer.writeString(12, _instance.nameTypePacket);
-    }
-    if (_instance.nameWork) {
-      _writer.writeString(13, _instance.nameWork);
-    }
-    if (_instance.nameWareHouseLoad) {
-      _writer.writeString(14, _instance.nameWareHouseLoad);
-    }
-    if (_instance.nameWareHouseUnLoad) {
-      _writer.writeString(15, _instance.nameWareHouseUnLoad);
-    }
-    if (_instance.nameEquipmentLoad) {
-      _writer.writeString(16, _instance.nameEquipmentLoad);
-    }
-    if (_instance.nameEquipmentUnLoad) {
-      _writer.writeString(17, _instance.nameEquipmentUnLoad);
-    }
-    if (_instance.quantity) {
-      _writer.writeInt32(18, _instance.quantity);
-    }
-    if (_instance.distance) {
-      _writer.writeInt32(19, _instance.distance);
-    }
-    if (_instance.idTask) {
-      _writer.writeInt32(20, _instance.idTask);
-    }
-    if (_instance.date) {
-      _writer.writeString(21, _instance.date);
-    }
-    if (_instance.nameShift) {
-      _writer.writeString(22, _instance.nameShift);
-    }
-    if (_instance.createdPerson) {
-      _writer.writeString(23, _instance.createdPerson);
-    }
-    if (_instance.nameCreatedPerson) {
-      _writer.writeString(24, _instance.nameCreatedPerson);
-    }
-  }
-
-  private _idTaskDetail?: number;
-  private _codeProduct?: string;
-  private _idTypeProduct?: number;
-  private _codeTypePacket?: string;
-  private _codeWork?: string;
-  private _codeWareHouseload?: string;
-  private _codeWareHouseUnload?: string;
-  private _idEquipmentLoad?: number;
-  private _idEquipmentUnLoad?: number;
-  private _nameProduct?: string;
-  private _nameTypePoduct?: string;
-  private _nameTypePacket?: string;
-  private _nameWork?: string;
-  private _nameWareHouseLoad?: string;
-  private _nameWareHouseUnLoad?: string;
-  private _nameEquipmentLoad?: string;
-  private _nameEquipmentUnLoad?: string;
-  private _quantity?: number;
-  private _distance?: number;
-  private _idTask?: number;
-  private _date?: string;
-  private _nameShift?: string;
-  private _createdPerson?: string;
-  private _nameCreatedPerson?: string;
-
-  /**
-   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-   * @param _value initial values object or instance of TaskDetailInfo to deeply clone from
-   */
-  constructor(_value?: RecursivePartial<TaskDetailInfo.AsObject>) {
-    _value = _value || {};
-    this.idTaskDetail = _value.idTaskDetail;
-    this.codeProduct = _value.codeProduct;
-    this.idTypeProduct = _value.idTypeProduct;
-    this.codeTypePacket = _value.codeTypePacket;
-    this.codeWork = _value.codeWork;
-    this.codeWareHouseload = _value.codeWareHouseload;
-    this.codeWareHouseUnload = _value.codeWareHouseUnload;
-    this.idEquipmentLoad = _value.idEquipmentLoad;
-    this.idEquipmentUnLoad = _value.idEquipmentUnLoad;
-    this.nameProduct = _value.nameProduct;
-    this.nameTypePoduct = _value.nameTypePoduct;
-    this.nameTypePacket = _value.nameTypePacket;
-    this.nameWork = _value.nameWork;
-    this.nameWareHouseLoad = _value.nameWareHouseLoad;
-    this.nameWareHouseUnLoad = _value.nameWareHouseUnLoad;
-    this.nameEquipmentLoad = _value.nameEquipmentLoad;
-    this.nameEquipmentUnLoad = _value.nameEquipmentUnLoad;
-    this.quantity = _value.quantity;
-    this.distance = _value.distance;
-    this.idTask = _value.idTask;
-    this.date = _value.date;
-    this.nameShift = _value.nameShift;
-    this.createdPerson = _value.createdPerson;
-    this.nameCreatedPerson = _value.nameCreatedPerson;
-    TaskDetailInfo.refineValues(this);
-  }
-  get idTaskDetail(): number | undefined {
-    return this._idTaskDetail;
-  }
-  set idTaskDetail(value: number | undefined) {
-    this._idTaskDetail = value;
-  }
-  get codeProduct(): string | undefined {
-    return this._codeProduct;
-  }
-  set codeProduct(value: string | undefined) {
-    this._codeProduct = value;
-  }
-  get idTypeProduct(): number | undefined {
-    return this._idTypeProduct;
-  }
-  set idTypeProduct(value: number | undefined) {
-    this._idTypeProduct = value;
-  }
-  get codeTypePacket(): string | undefined {
-    return this._codeTypePacket;
-  }
-  set codeTypePacket(value: string | undefined) {
-    this._codeTypePacket = value;
-  }
-  get codeWork(): string | undefined {
-    return this._codeWork;
-  }
-  set codeWork(value: string | undefined) {
-    this._codeWork = value;
-  }
-  get codeWareHouseload(): string | undefined {
-    return this._codeWareHouseload;
-  }
-  set codeWareHouseload(value: string | undefined) {
-    this._codeWareHouseload = value;
-  }
-  get codeWareHouseUnload(): string | undefined {
-    return this._codeWareHouseUnload;
-  }
-  set codeWareHouseUnload(value: string | undefined) {
-    this._codeWareHouseUnload = value;
-  }
-  get idEquipmentLoad(): number | undefined {
-    return this._idEquipmentLoad;
-  }
-  set idEquipmentLoad(value: number | undefined) {
-    this._idEquipmentLoad = value;
-  }
-  get idEquipmentUnLoad(): number | undefined {
-    return this._idEquipmentUnLoad;
-  }
-  set idEquipmentUnLoad(value: number | undefined) {
-    this._idEquipmentUnLoad = value;
-  }
-  get nameProduct(): string | undefined {
-    return this._nameProduct;
-  }
-  set nameProduct(value: string | undefined) {
-    this._nameProduct = value;
-  }
-  get nameTypePoduct(): string | undefined {
-    return this._nameTypePoduct;
-  }
-  set nameTypePoduct(value: string | undefined) {
-    this._nameTypePoduct = value;
-  }
-  get nameTypePacket(): string | undefined {
-    return this._nameTypePacket;
-  }
-  set nameTypePacket(value: string | undefined) {
-    this._nameTypePacket = value;
-  }
-  get nameWork(): string | undefined {
-    return this._nameWork;
-  }
-  set nameWork(value: string | undefined) {
-    this._nameWork = value;
-  }
-  get nameWareHouseLoad(): string | undefined {
-    return this._nameWareHouseLoad;
-  }
-  set nameWareHouseLoad(value: string | undefined) {
-    this._nameWareHouseLoad = value;
-  }
-  get nameWareHouseUnLoad(): string | undefined {
-    return this._nameWareHouseUnLoad;
-  }
-  set nameWareHouseUnLoad(value: string | undefined) {
-    this._nameWareHouseUnLoad = value;
-  }
-  get nameEquipmentLoad(): string | undefined {
-    return this._nameEquipmentLoad;
-  }
-  set nameEquipmentLoad(value: string | undefined) {
-    this._nameEquipmentLoad = value;
-  }
-  get nameEquipmentUnLoad(): string | undefined {
-    return this._nameEquipmentUnLoad;
-  }
-  set nameEquipmentUnLoad(value: string | undefined) {
-    this._nameEquipmentUnLoad = value;
-  }
-  get quantity(): number | undefined {
-    return this._quantity;
-  }
-  set quantity(value: number | undefined) {
-    this._quantity = value;
-  }
-  get distance(): number | undefined {
-    return this._distance;
-  }
-  set distance(value: number | undefined) {
-    this._distance = value;
-  }
-  get idTask(): number | undefined {
-    return this._idTask;
-  }
-  set idTask(value: number | undefined) {
-    this._idTask = value;
-  }
-  get date(): string | undefined {
-    return this._date;
-  }
-  set date(value: string | undefined) {
-    this._date = value;
-  }
-  get nameShift(): string | undefined {
-    return this._nameShift;
-  }
-  set nameShift(value: string | undefined) {
-    this._nameShift = value;
-  }
-  get createdPerson(): string | undefined {
-    return this._createdPerson;
-  }
-  set createdPerson(value: string | undefined) {
-    this._createdPerson = value;
-  }
-  get nameCreatedPerson(): string | undefined {
-    return this._nameCreatedPerson;
-  }
-  set nameCreatedPerson(value: string | undefined) {
-    this._nameCreatedPerson = value;
-  }
-
-  /**
-   * Serialize message to binary data
-   * @param instance message instance
-   */
-  serializeBinary() {
-    const writer = new BinaryWriter();
-    TaskDetailInfo.serializeBinaryToWriter(this, writer);
-    return writer.getResultBuffer();
-  }
-
-  /**
-   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-   */
-  toObject(): TaskDetailInfo.AsObject {
-    return {
-      idTaskDetail: this.idTaskDetail,
-      codeProduct: this.codeProduct,
-      idTypeProduct: this.idTypeProduct,
-      codeTypePacket: this.codeTypePacket,
-      codeWork: this.codeWork,
-      codeWareHouseload: this.codeWareHouseload,
-      codeWareHouseUnload: this.codeWareHouseUnload,
-      idEquipmentLoad: this.idEquipmentLoad,
-      idEquipmentUnLoad: this.idEquipmentUnLoad,
-      nameProduct: this.nameProduct,
-      nameTypePoduct: this.nameTypePoduct,
-      nameTypePacket: this.nameTypePacket,
-      nameWork: this.nameWork,
-      nameWareHouseLoad: this.nameWareHouseLoad,
-      nameWareHouseUnLoad: this.nameWareHouseUnLoad,
-      nameEquipmentLoad: this.nameEquipmentLoad,
-      nameEquipmentUnLoad: this.nameEquipmentUnLoad,
-      quantity: this.quantity,
-      distance: this.distance,
-      idTask: this.idTask,
-      date: this.date,
-      nameShift: this.nameShift,
-      createdPerson: this.createdPerson,
-      nameCreatedPerson: this.nameCreatedPerson
-    };
-  }
-
-  /**
-   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-   */
-  toJSON() {
-    return this.toObject();
-  }
-
-  /**
-   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-   */
-  toProtobufJSON(
-    // @ts-ignore
-    options?: ToProtobufJSONOptions
-  ): TaskDetailInfo.AsProtobufJSON {
-    return {
-      idTaskDetail: this.idTaskDetail,
-      codeProduct: this.codeProduct,
-      idTypeProduct: this.idTypeProduct,
-      codeTypePacket: this.codeTypePacket,
-      codeWork: this.codeWork,
-      codeWareHouseload: this.codeWareHouseload,
-      codeWareHouseUnload: this.codeWareHouseUnload,
-      idEquipmentLoad: this.idEquipmentLoad,
-      idEquipmentUnLoad: this.idEquipmentUnLoad,
-      nameProduct: this.nameProduct,
-      nameTypePoduct: this.nameTypePoduct,
-      nameTypePacket: this.nameTypePacket,
-      nameWork: this.nameWork,
-      nameWareHouseLoad: this.nameWareHouseLoad,
-      nameWareHouseUnLoad: this.nameWareHouseUnLoad,
-      nameEquipmentLoad: this.nameEquipmentLoad,
-      nameEquipmentUnLoad: this.nameEquipmentUnLoad,
-      quantity: this.quantity,
-      distance: this.distance,
-      idTask: this.idTask,
-      date: this.date,
-      nameShift: this.nameShift,
-      createdPerson: this.createdPerson,
-      nameCreatedPerson: this.nameCreatedPerson
-    };
-  }
-}
-export module TaskDetailInfo {
-  /**
-   * Standard JavaScript object representation for TaskDetailInfo
-   */
-  export interface AsObject {
-    idTaskDetail?: number;
-    codeProduct?: string;
-    idTypeProduct?: number;
-    codeTypePacket?: string;
-    codeWork?: string;
-    codeWareHouseload?: string;
-    codeWareHouseUnload?: string;
-    idEquipmentLoad?: number;
-    idEquipmentUnLoad?: number;
-    nameProduct?: string;
-    nameTypePoduct?: string;
-    nameTypePacket?: string;
-    nameWork?: string;
-    nameWareHouseLoad?: string;
-    nameWareHouseUnLoad?: string;
-    nameEquipmentLoad?: string;
-    nameEquipmentUnLoad?: string;
-    quantity?: number;
-    distance?: number;
-    idTask?: number;
-    date?: string;
-    nameShift?: string;
-    createdPerson?: string;
-    nameCreatedPerson?: string;
-  }
-
-  /**
-   * Protobuf JSON representation for TaskDetailInfo
-   */
-  export interface AsProtobufJSON {
-    idTaskDetail?: number;
-    codeProduct?: string;
-    idTypeProduct?: number;
-    codeTypePacket?: string;
-    codeWork?: string;
-    codeWareHouseload?: string;
-    codeWareHouseUnload?: string;
-    idEquipmentLoad?: number;
-    idEquipmentUnLoad?: number;
-    nameProduct?: string;
-    nameTypePoduct?: string;
-    nameTypePacket?: string;
-    nameWork?: string;
-    nameWareHouseLoad?: string;
-    nameWareHouseUnLoad?: string;
-    nameEquipmentLoad?: string;
-    nameEquipmentUnLoad?: string;
-    quantity?: number;
-    distance?: number;
-    idTask?: number;
-    date?: string;
-    nameShift?: string;
-    createdPerson?: string;
-    nameCreatedPerson?: string;
-  }
-}
-
-/**
- * Message implementation for client.InsertTaskRequest
- */
-export class InsertTaskRequest implements GrpcMessage {
-  static id = 'client.InsertTaskRequest';
-
-  /**
-   * Deserialize binary data to message
-   * @param instance message instance
-   */
-  static deserializeBinary(bytes: ByteSource) {
-    const instance = new InsertTaskRequest();
-    InsertTaskRequest.deserializeBinaryFromReader(
-      instance,
-      new BinaryReader(bytes)
-    );
-    return instance;
-  }
-
-  /**
-   * Check all the properties and set default protobuf values if necessary
-   * @param _instance message instance
-   */
-  static refineValues(_instance: InsertTaskRequest) {
-    _instance.task = _instance.task || undefined;
-    _instance.taskDetails = _instance.taskDetails || [];
-  }
-
-  /**
-   * Deserializes / reads binary message into message instance using provided binary reader
-   * @param _instance message instance
-   * @param _reader binary reader instance
-   */
-  static deserializeBinaryFromReader(
-    _instance: InsertTaskRequest,
-    _reader: BinaryReader
-  ) {
-    while (_reader.nextField()) {
-      if (_reader.isEndGroup()) break;
-
-      switch (_reader.getFieldNumber()) {
-        case 1:
-          _instance.task = new TaskInfo();
-          _reader.readMessage(
-            _instance.task,
-            TaskInfo.deserializeBinaryFromReader
-          );
-          break;
-        case 2:
-          const messageInitializer2 = new TaskDetailInfo();
-          _reader.readMessage(
-            messageInitializer2,
-            TaskDetailInfo.deserializeBinaryFromReader
-          );
-          (_instance.taskDetails = _instance.taskDetails || []).push(
-            messageInitializer2
-          );
-          break;
-        default:
-          _reader.skipField();
-      }
-    }
-
-    InsertTaskRequest.refineValues(_instance);
-  }
-
-  /**
-   * Serializes a message to binary format using provided binary reader
-   * @param _instance message instance
-   * @param _writer binary writer instance
-   */
-  static serializeBinaryToWriter(
-    _instance: InsertTaskRequest,
-    _writer: BinaryWriter
-  ) {
-    if (_instance.task) {
-      _writer.writeMessage(
-        1,
-        _instance.task as any,
-        TaskInfo.serializeBinaryToWriter
-      );
-    }
-    if (_instance.taskDetails && _instance.taskDetails.length) {
-      _writer.writeRepeatedMessage(
-        2,
-        _instance.taskDetails as any,
-        TaskDetailInfo.serializeBinaryToWriter
-      );
-    }
-  }
-
-  private _task?: TaskInfo;
-  private _taskDetails?: TaskDetailInfo[];
-
-  /**
-   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-   * @param _value initial values object or instance of InsertTaskRequest to deeply clone from
-   */
-  constructor(_value?: RecursivePartial<InsertTaskRequest.AsObject>) {
-    _value = _value || {};
-    this.task = _value.task ? new TaskInfo(_value.task) : undefined;
-    this.taskDetails = (_value.taskDetails || []).map(
-      m => new TaskDetailInfo(m)
-    );
-    InsertTaskRequest.refineValues(this);
-  }
-  get task(): TaskInfo | undefined {
-    return this._task;
-  }
-  set task(value: TaskInfo | undefined) {
-    this._task = value;
-  }
-  get taskDetails(): TaskDetailInfo[] | undefined {
-    return this._taskDetails;
-  }
-  set taskDetails(value: TaskDetailInfo[] | undefined) {
-    this._taskDetails = value;
-  }
-
-  /**
-   * Serialize message to binary data
-   * @param instance message instance
-   */
-  serializeBinary() {
-    const writer = new BinaryWriter();
-    InsertTaskRequest.serializeBinaryToWriter(this, writer);
-    return writer.getResultBuffer();
-  }
-
-  /**
-   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-   */
-  toObject(): InsertTaskRequest.AsObject {
-    return {
-      task: this.task ? this.task.toObject() : undefined,
-      taskDetails: (this.taskDetails || []).map(m => m.toObject())
-    };
-  }
-
-  /**
-   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-   */
-  toJSON() {
-    return this.toObject();
-  }
-
-  /**
-   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-   */
-  toProtobufJSON(
-    // @ts-ignore
-    options?: ToProtobufJSONOptions
-  ): InsertTaskRequest.AsProtobufJSON {
-    return {
-      task: this.task ? this.task.toProtobufJSON(options) : null,
-      taskDetails: (this.taskDetails || []).map(m => m.toProtobufJSON(options))
-    };
-  }
-}
-export module InsertTaskRequest {
-  /**
-   * Standard JavaScript object representation for InsertTaskRequest
-   */
-  export interface AsObject {
-    task?: TaskInfo.AsObject;
-    taskDetails?: TaskDetailInfo.AsObject[];
-  }
-
-  /**
-   * Protobuf JSON representation for InsertTaskRequest
-   */
-  export interface AsProtobufJSON {
-    task?: TaskInfo.AsProtobufJSON | null;
-    taskDetails?: TaskDetailInfo.AsProtobufJSON[] | null;
-  }
-}
-
-/**
- * Message implementation for client.TaskResponse
- */
-export class TaskResponse implements GrpcMessage {
-  static id = 'client.TaskResponse';
-
-  /**
-   * Deserialize binary data to message
-   * @param instance message instance
-   */
-  static deserializeBinary(bytes: ByteSource) {
-    const instance = new TaskResponse();
-    TaskResponse.deserializeBinaryFromReader(instance, new BinaryReader(bytes));
-    return instance;
-  }
-
-  /**
-   * Check all the properties and set default protobuf values if necessary
-   * @param _instance message instance
-   */
-  static refineValues(_instance: TaskResponse) {
-    _instance.response = _instance.response || undefined;
-    _instance.data = _instance.data || [];
-  }
-
-  /**
-   * Deserializes / reads binary message into message instance using provided binary reader
-   * @param _instance message instance
-   * @param _reader binary reader instance
-   */
-  static deserializeBinaryFromReader(
-    _instance: TaskResponse,
-    _reader: BinaryReader
-  ) {
-    while (_reader.nextField()) {
-      if (_reader.isEndGroup()) break;
-
-      switch (_reader.getFieldNumber()) {
-        case 1:
-          _instance.response = new Response();
-          _reader.readMessage(
-            _instance.response,
-            Response.deserializeBinaryFromReader
-          );
-          break;
-        case 2:
-          const messageInitializer2 = new TaskInfo();
-          _reader.readMessage(
-            messageInitializer2,
-            TaskInfo.deserializeBinaryFromReader
-          );
-          (_instance.data = _instance.data || []).push(messageInitializer2);
-          break;
-        default:
-          _reader.skipField();
-      }
-    }
-
-    TaskResponse.refineValues(_instance);
-  }
-
-  /**
-   * Serializes a message to binary format using provided binary reader
-   * @param _instance message instance
-   * @param _writer binary writer instance
-   */
-  static serializeBinaryToWriter(
-    _instance: TaskResponse,
-    _writer: BinaryWriter
-  ) {
-    if (_instance.response) {
-      _writer.writeMessage(
-        1,
-        _instance.response as any,
-        Response.serializeBinaryToWriter
-      );
-    }
-    if (_instance.data && _instance.data.length) {
-      _writer.writeRepeatedMessage(
-        2,
-        _instance.data as any,
-        TaskInfo.serializeBinaryToWriter
-      );
-    }
-  }
-
-  private _response?: Response;
-  private _data?: TaskInfo[];
-
-  /**
-   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-   * @param _value initial values object or instance of TaskResponse to deeply clone from
-   */
-  constructor(_value?: RecursivePartial<TaskResponse.AsObject>) {
-    _value = _value || {};
-    this.response = _value.response ? new Response(_value.response) : undefined;
-    this.data = (_value.data || []).map(m => new TaskInfo(m));
-    TaskResponse.refineValues(this);
-  }
-  get response(): Response | undefined {
-    return this._response;
-  }
-  set response(value: Response | undefined) {
-    this._response = value;
-  }
-  get data(): TaskInfo[] | undefined {
-    return this._data;
-  }
-  set data(value: TaskInfo[] | undefined) {
-    this._data = value;
-  }
-
-  /**
-   * Serialize message to binary data
-   * @param instance message instance
-   */
-  serializeBinary() {
-    const writer = new BinaryWriter();
-    TaskResponse.serializeBinaryToWriter(this, writer);
-    return writer.getResultBuffer();
-  }
-
-  /**
-   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-   */
-  toObject(): TaskResponse.AsObject {
-    return {
-      response: this.response ? this.response.toObject() : undefined,
-      data: (this.data || []).map(m => m.toObject())
-    };
-  }
-
-  /**
-   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-   */
-  toJSON() {
-    return this.toObject();
-  }
-
-  /**
-   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-   */
-  toProtobufJSON(
-    // @ts-ignore
-    options?: ToProtobufJSONOptions
-  ): TaskResponse.AsProtobufJSON {
-    return {
-      response: this.response ? this.response.toProtobufJSON(options) : null,
-      data: (this.data || []).map(m => m.toProtobufJSON(options))
-    };
-  }
-}
-export module TaskResponse {
-  /**
-   * Standard JavaScript object representation for TaskResponse
-   */
-  export interface AsObject {
-    response?: Response.AsObject;
-    data?: TaskInfo.AsObject[];
-  }
-
-  /**
-   * Protobuf JSON representation for TaskResponse
-   */
-  export interface AsProtobufJSON {
-    response?: Response.AsProtobufJSON | null;
-    data?: TaskInfo.AsProtobufJSON[] | null;
-  }
-}
-
-/**
- * Message implementation for client.TaskDetailResponse
- */
-export class TaskDetailResponse implements GrpcMessage {
-  static id = 'client.TaskDetailResponse';
-
-  /**
-   * Deserialize binary data to message
-   * @param instance message instance
-   */
-  static deserializeBinary(bytes: ByteSource) {
-    const instance = new TaskDetailResponse();
-    TaskDetailResponse.deserializeBinaryFromReader(
-      instance,
-      new BinaryReader(bytes)
-    );
-    return instance;
-  }
-
-  /**
-   * Check all the properties and set default protobuf values if necessary
-   * @param _instance message instance
-   */
-  static refineValues(_instance: TaskDetailResponse) {
-    _instance.response = _instance.response || undefined;
-    _instance.data = _instance.data || [];
-  }
-
-  /**
-   * Deserializes / reads binary message into message instance using provided binary reader
-   * @param _instance message instance
-   * @param _reader binary reader instance
-   */
-  static deserializeBinaryFromReader(
-    _instance: TaskDetailResponse,
-    _reader: BinaryReader
-  ) {
-    while (_reader.nextField()) {
-      if (_reader.isEndGroup()) break;
-
-      switch (_reader.getFieldNumber()) {
-        case 1:
-          _instance.response = new Response();
-          _reader.readMessage(
-            _instance.response,
-            Response.deserializeBinaryFromReader
-          );
-          break;
-        case 2:
-          const messageInitializer2 = new TaskDetailInfo();
-          _reader.readMessage(
-            messageInitializer2,
-            TaskDetailInfo.deserializeBinaryFromReader
-          );
-          (_instance.data = _instance.data || []).push(messageInitializer2);
-          break;
-        default:
-          _reader.skipField();
-      }
-    }
-
-    TaskDetailResponse.refineValues(_instance);
-  }
-
-  /**
-   * Serializes a message to binary format using provided binary reader
-   * @param _instance message instance
-   * @param _writer binary writer instance
-   */
-  static serializeBinaryToWriter(
-    _instance: TaskDetailResponse,
-    _writer: BinaryWriter
-  ) {
-    if (_instance.response) {
-      _writer.writeMessage(
-        1,
-        _instance.response as any,
-        Response.serializeBinaryToWriter
-      );
-    }
-    if (_instance.data && _instance.data.length) {
-      _writer.writeRepeatedMessage(
-        2,
-        _instance.data as any,
-        TaskDetailInfo.serializeBinaryToWriter
-      );
-    }
-  }
-
-  private _response?: Response;
-  private _data?: TaskDetailInfo[];
-
-  /**
-   * Message constructor. Initializes the properties and applies default Protobuf values if necessary
-   * @param _value initial values object or instance of TaskDetailResponse to deeply clone from
-   */
-  constructor(_value?: RecursivePartial<TaskDetailResponse.AsObject>) {
-    _value = _value || {};
-    this.response = _value.response ? new Response(_value.response) : undefined;
-    this.data = (_value.data || []).map(m => new TaskDetailInfo(m));
-    TaskDetailResponse.refineValues(this);
-  }
-  get response(): Response | undefined {
-    return this._response;
-  }
-  set response(value: Response | undefined) {
-    this._response = value;
-  }
-  get data(): TaskDetailInfo[] | undefined {
-    return this._data;
-  }
-  set data(value: TaskDetailInfo[] | undefined) {
-    this._data = value;
-  }
-
-  /**
-   * Serialize message to binary data
-   * @param instance message instance
-   */
-  serializeBinary() {
-    const writer = new BinaryWriter();
-    TaskDetailResponse.serializeBinaryToWriter(this, writer);
-    return writer.getResultBuffer();
-  }
-
-  /**
-   * Cast message to standard JavaScript object (all non-primitive values are deeply cloned)
-   */
-  toObject(): TaskDetailResponse.AsObject {
-    return {
-      response: this.response ? this.response.toObject() : undefined,
-      data: (this.data || []).map(m => m.toObject())
-    };
-  }
-
-  /**
-   * Convenience method to support JSON.stringify(message), replicates the structure of toObject()
-   */
-  toJSON() {
-    return this.toObject();
-  }
-
-  /**
-   * Cast message to JSON using protobuf JSON notation: https://developers.google.com/protocol-buffers/docs/proto3#json
-   * Attention: output differs from toObject() e.g. enums are represented as names and not as numbers, Timestamp is an ISO Date string format etc.
-   * If the message itself or some of descendant messages is google.protobuf.Any, you MUST provide a message pool as options. If not, the messagePool is not required
-   */
-  toProtobufJSON(
-    // @ts-ignore
-    options?: ToProtobufJSONOptions
-  ): TaskDetailResponse.AsProtobufJSON {
-    return {
-      response: this.response ? this.response.toProtobufJSON(options) : null,
-      data: (this.data || []).map(m => m.toProtobufJSON(options))
-    };
-  }
-}
-export module TaskDetailResponse {
-  /**
-   * Standard JavaScript object representation for TaskDetailResponse
-   */
-  export interface AsObject {
-    response?: Response.AsObject;
-    data?: TaskDetailInfo.AsObject[];
-  }
-
-  /**
-   * Protobuf JSON representation for TaskDetailResponse
-   */
-  export interface AsProtobufJSON {
-    response?: Response.AsProtobufJSON | null;
-    data?: TaskDetailInfo.AsProtobufJSON[] | null;
-  }
-}
-
-/**
  * Message implementation for client.RecordDetailInfo
  */
 export class RecordDetailInfo implements GrpcMessage {
@@ -11446,11 +10040,10 @@ export class RecordDetailInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codeParcel = _instance.codeParcel || '';
-    _instance.nameParcel = _instance.nameParcel || '';
+    _instance.shift = _instance.shift || '';
     _instance.codeRecord = _instance.codeRecord || '';
     _instance.quantity = _instance.quantity || '0';
     _instance.codePackingUnit = _instance.codePackingUnit || '';
@@ -11458,7 +10051,6 @@ export class RecordDetailInfo implements GrpcMessage {
     _instance.idRecord = _instance.idRecord || '0';
     _instance.createdPerson = _instance.createdPerson || 0;
     _instance.createdDate = _instance.createdDate || '';
-    _instance.shift = _instance.shift || '';
     _instance.isChangable = _instance.isChangable || false;
     _instance.namePerson = _instance.namePerson || '';
     _instance.codeWareHouse = _instance.codeWareHouse || '';
@@ -11491,54 +10083,48 @@ export class RecordDetailInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 5:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 6:
           _instance.codeTypePacket = _reader.readString();
           break;
-        case 7:
+        case 6:
           _instance.nameTypePacket = _reader.readString();
           break;
-        case 8:
+        case 7:
           _instance.codeParcel = _reader.readString();
           break;
-        case 9:
-          _instance.nameParcel = _reader.readString();
-          break;
-        case 10:
-          _instance.codeRecord = _reader.readString();
-          break;
-        case 11:
-          _instance.quantity = _reader.readInt64String();
-          break;
-        case 12:
-          _instance.codePackingUnit = _reader.readString();
-          break;
-        case 13:
-          _instance.namePackingUnit = _reader.readString();
-          break;
-        case 14:
-          _instance.idRecord = _reader.readInt64String();
-          break;
-        case 15:
-          _instance.createdPerson = _reader.readInt32();
-          break;
-        case 16:
-          _instance.createdDate = _reader.readString();
-          break;
-        case 17:
+        case 8:
           _instance.shift = _reader.readString();
           break;
-        case 18:
+        case 9:
+          _instance.codeRecord = _reader.readString();
+          break;
+        case 10:
+          _instance.quantity = _reader.readInt64String();
+          break;
+        case 11:
+          _instance.codePackingUnit = _reader.readString();
+          break;
+        case 12:
+          _instance.namePackingUnit = _reader.readString();
+          break;
+        case 13:
+          _instance.idRecord = _reader.readInt64String();
+          break;
+        case 14:
+          _instance.createdPerson = _reader.readInt32();
+          break;
+        case 15:
+          _instance.createdDate = _reader.readString();
+          break;
+        case 16:
           _instance.isChangable = _reader.readBool();
           break;
-        case 19:
+        case 17:
           _instance.namePerson = _reader.readString();
           break;
-        case 20:
+        case 18:
           _instance.codeWareHouse = _reader.readString();
           break;
-        case 21:
+        case 19:
           _instance.nameWareHouse = _reader.readString();
           break;
         default:
@@ -11570,56 +10156,50 @@ export class RecordDetailInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(4, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(5, _instance.nameTypeProduct);
-    }
     if (_instance.codeTypePacket) {
-      _writer.writeString(6, _instance.codeTypePacket);
+      _writer.writeString(5, _instance.codeTypePacket);
     }
     if (_instance.nameTypePacket) {
-      _writer.writeString(7, _instance.nameTypePacket);
+      _writer.writeString(6, _instance.nameTypePacket);
     }
     if (_instance.codeParcel) {
-      _writer.writeString(8, _instance.codeParcel);
-    }
-    if (_instance.nameParcel) {
-      _writer.writeString(9, _instance.nameParcel);
-    }
-    if (_instance.codeRecord) {
-      _writer.writeString(10, _instance.codeRecord);
-    }
-    if (_instance.quantity) {
-      _writer.writeInt64String(11, _instance.quantity);
-    }
-    if (_instance.codePackingUnit) {
-      _writer.writeString(12, _instance.codePackingUnit);
-    }
-    if (_instance.namePackingUnit) {
-      _writer.writeString(13, _instance.namePackingUnit);
-    }
-    if (_instance.idRecord) {
-      _writer.writeInt64String(14, _instance.idRecord);
-    }
-    if (_instance.createdPerson) {
-      _writer.writeInt32(15, _instance.createdPerson);
-    }
-    if (_instance.createdDate) {
-      _writer.writeString(16, _instance.createdDate);
+      _writer.writeString(7, _instance.codeParcel);
     }
     if (_instance.shift) {
-      _writer.writeString(17, _instance.shift);
+      _writer.writeString(8, _instance.shift);
+    }
+    if (_instance.codeRecord) {
+      _writer.writeString(9, _instance.codeRecord);
+    }
+    if (_instance.quantity) {
+      _writer.writeInt64String(10, _instance.quantity);
+    }
+    if (_instance.codePackingUnit) {
+      _writer.writeString(11, _instance.codePackingUnit);
+    }
+    if (_instance.namePackingUnit) {
+      _writer.writeString(12, _instance.namePackingUnit);
+    }
+    if (_instance.idRecord) {
+      _writer.writeInt64String(13, _instance.idRecord);
+    }
+    if (_instance.createdPerson) {
+      _writer.writeInt32(14, _instance.createdPerson);
+    }
+    if (_instance.createdDate) {
+      _writer.writeString(15, _instance.createdDate);
     }
     if (_instance.isChangable) {
-      _writer.writeBool(18, _instance.isChangable);
+      _writer.writeBool(16, _instance.isChangable);
     }
     if (_instance.namePerson) {
-      _writer.writeString(19, _instance.namePerson);
+      _writer.writeString(17, _instance.namePerson);
     }
     if (_instance.codeWareHouse) {
-      _writer.writeString(20, _instance.codeWareHouse);
+      _writer.writeString(18, _instance.codeWareHouse);
     }
     if (_instance.nameWareHouse) {
-      _writer.writeString(21, _instance.nameWareHouse);
+      _writer.writeString(19, _instance.nameWareHouse);
     }
   }
 
@@ -11627,11 +10207,10 @@ export class RecordDetailInfo implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codeParcel?: string;
-  private _nameParcel?: string;
+  private _shift?: string;
   private _codeRecord?: string;
   private _quantity?: string;
   private _codePackingUnit?: string;
@@ -11639,7 +10218,6 @@ export class RecordDetailInfo implements GrpcMessage {
   private _idRecord?: string;
   private _createdPerson?: number;
   private _createdDate?: string;
-  private _shift?: string;
   private _isChangable?: boolean;
   private _namePerson?: string;
   private _codeWareHouse?: string;
@@ -11655,11 +10233,10 @@ export class RecordDetailInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codeParcel = _value.codeParcel;
-    this.nameParcel = _value.nameParcel;
+    this.shift = _value.shift;
     this.codeRecord = _value.codeRecord;
     this.quantity = _value.quantity;
     this.codePackingUnit = _value.codePackingUnit;
@@ -11667,7 +10244,6 @@ export class RecordDetailInfo implements GrpcMessage {
     this.idRecord = _value.idRecord;
     this.createdPerson = _value.createdPerson;
     this.createdDate = _value.createdDate;
-    this.shift = _value.shift;
     this.isChangable = _value.isChangable;
     this.namePerson = _value.namePerson;
     this.codeWareHouse = _value.codeWareHouse;
@@ -11698,12 +10274,6 @@ export class RecordDetailInfo implements GrpcMessage {
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
-  }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
   }
@@ -11722,11 +10292,11 @@ export class RecordDetailInfo implements GrpcMessage {
   set codeParcel(value: string | undefined) {
     this._codeParcel = value;
   }
-  get nameParcel(): string | undefined {
-    return this._nameParcel;
+  get shift(): string | undefined {
+    return this._shift;
   }
-  set nameParcel(value: string | undefined) {
-    this._nameParcel = value;
+  set shift(value: string | undefined) {
+    this._shift = value;
   }
   get codeRecord(): string | undefined {
     return this._codeRecord;
@@ -11769,12 +10339,6 @@ export class RecordDetailInfo implements GrpcMessage {
   }
   set createdDate(value: string | undefined) {
     this._createdDate = value;
-  }
-  get shift(): string | undefined {
-    return this._shift;
-  }
-  set shift(value: string | undefined) {
-    this._shift = value;
   }
   get isChangable(): boolean | undefined {
     return this._isChangable;
@@ -11820,11 +10384,10 @@ export class RecordDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
-      nameParcel: this.nameParcel,
+      shift: this.shift,
       codeRecord: this.codeRecord,
       quantity: this.quantity,
       codePackingUnit: this.codePackingUnit,
@@ -11832,7 +10395,6 @@ export class RecordDetailInfo implements GrpcMessage {
       idRecord: this.idRecord,
       createdPerson: this.createdPerson,
       createdDate: this.createdDate,
-      shift: this.shift,
       isChangable: this.isChangable,
       namePerson: this.namePerson,
       codeWareHouse: this.codeWareHouse,
@@ -11861,11 +10423,10 @@ export class RecordDetailInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
-      nameParcel: this.nameParcel,
+      shift: this.shift,
       codeRecord: this.codeRecord,
       quantity: this.quantity,
       codePackingUnit: this.codePackingUnit,
@@ -11873,7 +10434,6 @@ export class RecordDetailInfo implements GrpcMessage {
       idRecord: this.idRecord,
       createdPerson: this.createdPerson,
       createdDate: this.createdDate,
-      shift: this.shift,
       isChangable: this.isChangable,
       namePerson: this.namePerson,
       codeWareHouse: this.codeWareHouse,
@@ -11890,11 +10450,10 @@ export module RecordDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
-    nameParcel?: string;
+    shift?: string;
     codeRecord?: string;
     quantity?: string;
     codePackingUnit?: string;
@@ -11902,7 +10461,6 @@ export module RecordDetailInfo {
     idRecord?: string;
     createdPerson?: number;
     createdDate?: string;
-    shift?: string;
     isChangable?: boolean;
     namePerson?: string;
     codeWareHouse?: string;
@@ -11917,11 +10475,10 @@ export module RecordDetailInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
-    nameParcel?: string;
+    shift?: string;
     codeRecord?: string;
     quantity?: string;
     codePackingUnit?: string;
@@ -11929,7 +10486,6 @@ export module RecordDetailInfo {
     idRecord?: string;
     createdPerson?: number;
     createdDate?: string;
-    shift?: string;
     isChangable?: boolean;
     namePerson?: string;
     codeWareHouse?: string;
@@ -12521,7 +11077,6 @@ export class ReportVolConsumtion implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.namesProduct = _instance.namesProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codePackingUnit = _instance.codePackingUnit || '';
@@ -12561,39 +11116,36 @@ export class ReportVolConsumtion implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 5:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 6:
           _instance.codeTypePacket = _reader.readString();
           break;
-        case 7:
+        case 6:
           _instance.nameTypePacket = _reader.readString();
           break;
-        case 8:
+        case 7:
           _instance.codePackingUnit = _reader.readString();
           break;
-        case 9:
+        case 8:
           _instance.namePackingUnit = _reader.readString();
           break;
-        case 10:
+        case 9:
           _instance.idCustomer = _reader.readString();
           break;
-        case 11:
+        case 10:
           _instance.nameCustomer = _reader.readInt32();
           break;
-        case 12:
+        case 11:
           _instance.codeTypeBill = _reader.readString();
           break;
-        case 13:
+        case 12:
           _instance.nameTypeBill = _reader.readString();
           break;
-        case 14:
+        case 13:
           _instance.tripNumber = _reader.readInt32();
           break;
-        case 15:
+        case 14:
           _instance.codeParcel = _reader.readString();
           break;
-        case 16:
+        case 15:
           _instance.quantity = _reader.readInt32();
           break;
         default:
@@ -12625,41 +11177,38 @@ export class ReportVolConsumtion implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(4, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(5, _instance.nameTypeProduct);
-    }
     if (_instance.codeTypePacket) {
-      _writer.writeString(6, _instance.codeTypePacket);
+      _writer.writeString(5, _instance.codeTypePacket);
     }
     if (_instance.nameTypePacket) {
-      _writer.writeString(7, _instance.nameTypePacket);
+      _writer.writeString(6, _instance.nameTypePacket);
     }
     if (_instance.codePackingUnit) {
-      _writer.writeString(8, _instance.codePackingUnit);
+      _writer.writeString(7, _instance.codePackingUnit);
     }
     if (_instance.namePackingUnit) {
-      _writer.writeString(9, _instance.namePackingUnit);
+      _writer.writeString(8, _instance.namePackingUnit);
     }
     if (_instance.idCustomer) {
-      _writer.writeString(10, _instance.idCustomer);
+      _writer.writeString(9, _instance.idCustomer);
     }
     if (_instance.nameCustomer) {
-      _writer.writeInt32(11, _instance.nameCustomer);
+      _writer.writeInt32(10, _instance.nameCustomer);
     }
     if (_instance.codeTypeBill) {
-      _writer.writeString(12, _instance.codeTypeBill);
+      _writer.writeString(11, _instance.codeTypeBill);
     }
     if (_instance.nameTypeBill) {
-      _writer.writeString(13, _instance.nameTypeBill);
+      _writer.writeString(12, _instance.nameTypeBill);
     }
     if (_instance.tripNumber) {
-      _writer.writeInt32(14, _instance.tripNumber);
+      _writer.writeInt32(13, _instance.tripNumber);
     }
     if (_instance.codeParcel) {
-      _writer.writeString(15, _instance.codeParcel);
+      _writer.writeString(14, _instance.codeParcel);
     }
     if (_instance.quantity) {
-      _writer.writeInt32(16, _instance.quantity);
+      _writer.writeInt32(15, _instance.quantity);
     }
   }
 
@@ -12667,7 +11216,6 @@ export class ReportVolConsumtion implements GrpcMessage {
   private _codeProduct?: string;
   private _namesProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codePackingUnit?: string;
@@ -12690,7 +11238,6 @@ export class ReportVolConsumtion implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.namesProduct = _value.namesProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codePackingUnit = _value.codePackingUnit;
@@ -12727,12 +11274,6 @@ export class ReportVolConsumtion implements GrpcMessage {
   }
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
-  }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -12820,7 +11361,6 @@ export class ReportVolConsumtion implements GrpcMessage {
       codeProduct: this.codeProduct,
       namesProduct: this.namesProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codePackingUnit: this.codePackingUnit,
@@ -12856,7 +11396,6 @@ export class ReportVolConsumtion implements GrpcMessage {
       codeProduct: this.codeProduct,
       namesProduct: this.namesProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codePackingUnit: this.codePackingUnit,
@@ -12880,7 +11419,6 @@ export module ReportVolConsumtion {
     codeProduct?: string;
     namesProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codePackingUnit?: string;
@@ -12902,7 +11440,6 @@ export module ReportVolConsumtion {
     codeProduct?: string;
     namesProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codePackingUnit?: string;
@@ -15032,7 +13569,6 @@ export class TransportInfo implements GrpcMessage {
     _instance.codeEquipmentLoad = _instance.codeEquipmentLoad || '';
     _instance.codeEquipmentUnLoad = _instance.codeEquipmentUnLoad || '';
     _instance.nameProduct = _instance.nameProduct || '';
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.nameWork = _instance.nameWork || '';
     _instance.nameWareHouseLoad = _instance.nameWareHouseLoad || '';
@@ -15042,14 +13578,14 @@ export class TransportInfo implements GrpcMessage {
     _instance.quantity = _instance.quantity || 0;
     _instance.weight = _instance.weight || 0;
     _instance.distance = _instance.distance || 0;
+    _instance.code = _instance.code || '';
     _instance.createdPerson = _instance.createdPerson || '';
     _instance.nameCreatedPerson = _instance.nameCreatedPerson || '';
     _instance.countTrip = _instance.countTrip || 0;
     _instance.dvBoc = _instance.dvBoc || '';
     _instance.dvDo = _instance.dvDo || '';
-    _instance.seriIn = _instance.seriIn || '';
-    _instance.seriOut = _instance.seriOut || '';
-    _instance.code = _instance.code || '';
+    _instance.seriIn = _instance.seriIn || 0;
+    _instance.seriOut = _instance.seriOut || 0;
   }
 
   /**
@@ -15096,24 +13632,21 @@ export class TransportInfo implements GrpcMessage {
           _instance.nameProduct = _reader.readString();
           break;
         case 11:
-          _instance.nameTypeProduct = _reader.readString();
-          break;
-        case 12:
           _instance.nameTypePacket = _reader.readString();
           break;
-        case 13:
+        case 12:
           _instance.nameWork = _reader.readString();
           break;
-        case 14:
+        case 13:
           _instance.nameWareHouseLoad = _reader.readString();
           break;
-        case 15:
+        case 14:
           _instance.nameWareHouseUnLoad = _reader.readString();
           break;
-        case 16:
+        case 15:
           _instance.nameEquipmentLoad = _reader.readString();
           break;
-        case 17:
+        case 16:
           _instance.nameEquipmentUnLoad = _reader.readString();
           break;
         case 18:
@@ -15124,6 +13657,9 @@ export class TransportInfo implements GrpcMessage {
           break;
         case 20:
           _instance.distance = _reader.readInt32();
+          break;
+        case 17:
+          _instance.code = _reader.readString();
           break;
         case 21:
           _instance.createdPerson = _reader.readString();
@@ -15141,13 +13677,10 @@ export class TransportInfo implements GrpcMessage {
           _instance.dvDo = _reader.readString();
           break;
         case 27:
-          _instance.seriIn = _reader.readString();
+          _instance.seriIn = _reader.readInt32();
           break;
         case 28:
-          _instance.seriOut = _reader.readString();
-          break;
-        case 29:
-          _instance.code = _reader.readString();
+          _instance.seriOut = _reader.readInt32();
           break;
         default:
           _reader.skipField();
@@ -15196,26 +13729,23 @@ export class TransportInfo implements GrpcMessage {
     if (_instance.nameProduct) {
       _writer.writeString(10, _instance.nameProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(11, _instance.nameTypeProduct);
-    }
     if (_instance.nameTypePacket) {
-      _writer.writeString(12, _instance.nameTypePacket);
+      _writer.writeString(11, _instance.nameTypePacket);
     }
     if (_instance.nameWork) {
-      _writer.writeString(13, _instance.nameWork);
+      _writer.writeString(12, _instance.nameWork);
     }
     if (_instance.nameWareHouseLoad) {
-      _writer.writeString(14, _instance.nameWareHouseLoad);
+      _writer.writeString(13, _instance.nameWareHouseLoad);
     }
     if (_instance.nameWareHouseUnLoad) {
-      _writer.writeString(15, _instance.nameWareHouseUnLoad);
+      _writer.writeString(14, _instance.nameWareHouseUnLoad);
     }
     if (_instance.nameEquipmentLoad) {
-      _writer.writeString(16, _instance.nameEquipmentLoad);
+      _writer.writeString(15, _instance.nameEquipmentLoad);
     }
     if (_instance.nameEquipmentUnLoad) {
-      _writer.writeString(17, _instance.nameEquipmentUnLoad);
+      _writer.writeString(16, _instance.nameEquipmentUnLoad);
     }
     if (_instance.quantity) {
       _writer.writeInt32(18, _instance.quantity);
@@ -15225,6 +13755,9 @@ export class TransportInfo implements GrpcMessage {
     }
     if (_instance.distance) {
       _writer.writeInt32(20, _instance.distance);
+    }
+    if (_instance.code) {
+      _writer.writeString(17, _instance.code);
     }
     if (_instance.createdPerson) {
       _writer.writeString(21, _instance.createdPerson);
@@ -15242,13 +13775,10 @@ export class TransportInfo implements GrpcMessage {
       _writer.writeString(26, _instance.dvDo);
     }
     if (_instance.seriIn) {
-      _writer.writeString(27, _instance.seriIn);
+      _writer.writeInt32(27, _instance.seriIn);
     }
     if (_instance.seriOut) {
-      _writer.writeString(28, _instance.seriOut);
-    }
-    if (_instance.code) {
-      _writer.writeString(29, _instance.code);
+      _writer.writeInt32(28, _instance.seriOut);
     }
   }
 
@@ -15262,7 +13792,6 @@ export class TransportInfo implements GrpcMessage {
   private _codeEquipmentLoad?: string;
   private _codeEquipmentUnLoad?: string;
   private _nameProduct?: string;
-  private _nameTypeProduct?: string;
   private _nameTypePacket?: string;
   private _nameWork?: string;
   private _nameWareHouseLoad?: string;
@@ -15272,14 +13801,14 @@ export class TransportInfo implements GrpcMessage {
   private _quantity?: number;
   private _weight?: number;
   private _distance?: number;
+  private _code?: string;
   private _createdPerson?: string;
   private _nameCreatedPerson?: string;
   private _countTrip?: number;
   private _dvBoc?: string;
   private _dvDo?: string;
-  private _seriIn?: string;
-  private _seriOut?: string;
-  private _code?: string;
+  private _seriIn?: number;
+  private _seriOut?: number;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -15297,7 +13826,6 @@ export class TransportInfo implements GrpcMessage {
     this.codeEquipmentLoad = _value.codeEquipmentLoad;
     this.codeEquipmentUnLoad = _value.codeEquipmentUnLoad;
     this.nameProduct = _value.nameProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
     this.nameTypePacket = _value.nameTypePacket;
     this.nameWork = _value.nameWork;
     this.nameWareHouseLoad = _value.nameWareHouseLoad;
@@ -15307,6 +13835,7 @@ export class TransportInfo implements GrpcMessage {
     this.quantity = _value.quantity;
     this.weight = _value.weight;
     this.distance = _value.distance;
+    this.code = _value.code;
     this.createdPerson = _value.createdPerson;
     this.nameCreatedPerson = _value.nameCreatedPerson;
     this.countTrip = _value.countTrip;
@@ -15314,7 +13843,6 @@ export class TransportInfo implements GrpcMessage {
     this.dvDo = _value.dvDo;
     this.seriIn = _value.seriIn;
     this.seriOut = _value.seriOut;
-    this.code = _value.code;
     TransportInfo.refineValues(this);
   }
   get createddate(): string | undefined {
@@ -15377,12 +13905,6 @@ export class TransportInfo implements GrpcMessage {
   set nameProduct(value: string | undefined) {
     this._nameProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
-  }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
-  }
   get nameTypePacket(): string | undefined {
     return this._nameTypePacket;
   }
@@ -15437,6 +13959,12 @@ export class TransportInfo implements GrpcMessage {
   set distance(value: number | undefined) {
     this._distance = value;
   }
+  get code(): string | undefined {
+    return this._code;
+  }
+  set code(value: string | undefined) {
+    this._code = value;
+  }
   get createdPerson(): string | undefined {
     return this._createdPerson;
   }
@@ -15467,23 +13995,17 @@ export class TransportInfo implements GrpcMessage {
   set dvDo(value: string | undefined) {
     this._dvDo = value;
   }
-  get seriIn(): string | undefined {
+  get seriIn(): number | undefined {
     return this._seriIn;
   }
-  set seriIn(value: string | undefined) {
+  set seriIn(value: number | undefined) {
     this._seriIn = value;
   }
-  get seriOut(): string | undefined {
+  get seriOut(): number | undefined {
     return this._seriOut;
   }
-  set seriOut(value: string | undefined) {
+  set seriOut(value: number | undefined) {
     this._seriOut = value;
-  }
-  get code(): string | undefined {
-    return this._code;
-  }
-  set code(value: string | undefined) {
-    this._code = value;
   }
 
   /**
@@ -15511,7 +14033,6 @@ export class TransportInfo implements GrpcMessage {
       codeEquipmentLoad: this.codeEquipmentLoad,
       codeEquipmentUnLoad: this.codeEquipmentUnLoad,
       nameProduct: this.nameProduct,
-      nameTypeProduct: this.nameTypeProduct,
       nameTypePacket: this.nameTypePacket,
       nameWork: this.nameWork,
       nameWareHouseLoad: this.nameWareHouseLoad,
@@ -15521,14 +14042,14 @@ export class TransportInfo implements GrpcMessage {
       quantity: this.quantity,
       weight: this.weight,
       distance: this.distance,
+      code: this.code,
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
       countTrip: this.countTrip,
       dvBoc: this.dvBoc,
       dvDo: this.dvDo,
       seriIn: this.seriIn,
-      seriOut: this.seriOut,
-      code: this.code
+      seriOut: this.seriOut
     };
   }
 
@@ -15559,7 +14080,6 @@ export class TransportInfo implements GrpcMessage {
       codeEquipmentLoad: this.codeEquipmentLoad,
       codeEquipmentUnLoad: this.codeEquipmentUnLoad,
       nameProduct: this.nameProduct,
-      nameTypeProduct: this.nameTypeProduct,
       nameTypePacket: this.nameTypePacket,
       nameWork: this.nameWork,
       nameWareHouseLoad: this.nameWareHouseLoad,
@@ -15569,14 +14089,14 @@ export class TransportInfo implements GrpcMessage {
       quantity: this.quantity,
       weight: this.weight,
       distance: this.distance,
+      code: this.code,
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
       countTrip: this.countTrip,
       dvBoc: this.dvBoc,
       dvDo: this.dvDo,
       seriIn: this.seriIn,
-      seriOut: this.seriOut,
-      code: this.code
+      seriOut: this.seriOut
     };
   }
 }
@@ -15595,7 +14115,6 @@ export module TransportInfo {
     codeEquipmentLoad?: string;
     codeEquipmentUnLoad?: string;
     nameProduct?: string;
-    nameTypeProduct?: string;
     nameTypePacket?: string;
     nameWork?: string;
     nameWareHouseLoad?: string;
@@ -15605,14 +14124,14 @@ export module TransportInfo {
     quantity?: number;
     weight?: number;
     distance?: number;
+    code?: string;
     createdPerson?: string;
     nameCreatedPerson?: string;
     countTrip?: number;
     dvBoc?: string;
     dvDo?: string;
-    seriIn?: string;
-    seriOut?: string;
-    code?: string;
+    seriIn?: number;
+    seriOut?: number;
   }
 
   /**
@@ -15629,7 +14148,6 @@ export module TransportInfo {
     codeEquipmentLoad?: string;
     codeEquipmentUnLoad?: string;
     nameProduct?: string;
-    nameTypeProduct?: string;
     nameTypePacket?: string;
     nameWork?: string;
     nameWareHouseLoad?: string;
@@ -15639,14 +14157,14 @@ export module TransportInfo {
     quantity?: number;
     weight?: number;
     distance?: number;
+    code?: string;
     createdPerson?: string;
     nameCreatedPerson?: string;
     countTrip?: number;
     dvBoc?: string;
     dvDo?: string;
-    seriIn?: string;
-    seriOut?: string;
-    code?: string;
+    seriIn?: number;
+    seriOut?: number;
   }
 }
 
@@ -15854,11 +14372,10 @@ export class ReportInventoryInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.quantity = _instance.quantity || '0';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codeParcel = _instance.codeParcel || '';
-    _instance.quantity = _instance.quantity || '0';
   }
 
   /**
@@ -15890,7 +14407,7 @@ export class ReportInventoryInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 6:
-          _instance.nameTypeProduct = _reader.readString();
+          _instance.quantity = _reader.readInt64String();
           break;
         case 7:
           _instance.codeTypePacket = _reader.readString();
@@ -15900,9 +14417,6 @@ export class ReportInventoryInfo implements GrpcMessage {
           break;
         case 9:
           _instance.codeParcel = _reader.readString();
-          break;
-        case 10:
-          _instance.quantity = _reader.readInt64String();
           break;
         default:
           _reader.skipField();
@@ -15936,8 +14450,8 @@ export class ReportInventoryInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(5, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(6, _instance.nameTypeProduct);
+    if (_instance.quantity) {
+      _writer.writeInt64String(6, _instance.quantity);
     }
     if (_instance.codeTypePacket) {
       _writer.writeString(7, _instance.codeTypePacket);
@@ -15948,9 +14462,6 @@ export class ReportInventoryInfo implements GrpcMessage {
     if (_instance.codeParcel) {
       _writer.writeString(9, _instance.codeParcel);
     }
-    if (_instance.quantity) {
-      _writer.writeInt64String(10, _instance.quantity);
-    }
   }
 
   private _codeWareHouse?: string;
@@ -15958,11 +14469,10 @@ export class ReportInventoryInfo implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
+  private _quantity?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codeParcel?: string;
-  private _quantity?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -15975,11 +14485,10 @@ export class ReportInventoryInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
+    this.quantity = _value.quantity;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codeParcel = _value.codeParcel;
-    this.quantity = _value.quantity;
     ReportInventoryInfo.refineValues(this);
   }
   get codeWareHouse(): string | undefined {
@@ -16012,11 +14521,11 @@ export class ReportInventoryInfo implements GrpcMessage {
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
+  get quantity(): string | undefined {
+    return this._quantity;
   }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
+  set quantity(value: string | undefined) {
+    this._quantity = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -16035,12 +14544,6 @@ export class ReportInventoryInfo implements GrpcMessage {
   }
   set codeParcel(value: string | undefined) {
     this._codeParcel = value;
-  }
-  get quantity(): string | undefined {
-    return this._quantity;
-  }
-  set quantity(value: string | undefined) {
-    this._quantity = value;
   }
 
   /**
@@ -16063,11 +14566,10 @@ export class ReportInventoryInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      quantity: this.quantity,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      codeParcel: this.codeParcel,
-      quantity: this.quantity
+      codeParcel: this.codeParcel
     };
   }
 
@@ -16093,11 +14595,10 @@ export class ReportInventoryInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      quantity: this.quantity,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      codeParcel: this.codeParcel,
-      quantity: this.quantity
+      codeParcel: this.codeParcel
     };
   }
 }
@@ -16111,11 +14612,10 @@ export module ReportInventoryInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    quantity?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
-    quantity?: string;
   }
 
   /**
@@ -16127,11 +14627,10 @@ export module ReportInventoryInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    quantity?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
-    quantity?: string;
   }
 }
 
@@ -16341,7 +14840,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.quantity = _instance.quantity || 0;
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
     _instance.codeParcel = _instance.codeParcel || '';
@@ -16355,7 +14854,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
     _instance.nameCreatedPerson = _instance.nameCreatedPerson || '';
     _instance.date = _instance.date || '';
     _instance.codeEquipment = _instance.codeEquipment || '';
-    _instance.quantity = _instance.quantity || 0;
   }
 
   /**
@@ -16393,7 +14891,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 8:
-          _instance.nameTypeProduct = _reader.readString();
+          _instance.quantity = _reader.readInt32();
           break;
         case 9:
           _instance.codeTypePacket = _reader.readString();
@@ -16434,9 +14932,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
         case 21:
           _instance.codeEquipment = _reader.readString();
           break;
-        case 22:
-          _instance.quantity = _reader.readInt32();
-          break;
         default:
           _reader.skipField();
       }
@@ -16475,8 +14970,8 @@ export class ConfirmProductionDetail implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(7, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(8, _instance.nameTypeProduct);
+    if (_instance.quantity) {
+      _writer.writeInt32(8, _instance.quantity);
     }
     if (_instance.codeTypePacket) {
       _writer.writeString(9, _instance.codeTypePacket);
@@ -16517,9 +15012,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
     if (_instance.codeEquipment) {
       _writer.writeString(21, _instance.codeEquipment);
     }
-    if (_instance.quantity) {
-      _writer.writeInt32(22, _instance.quantity);
-    }
   }
 
   private _idShiftDetail?: number;
@@ -16529,7 +15021,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
+  private _quantity?: number;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
   private _codeParcel?: string;
@@ -16543,7 +15035,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
   private _nameCreatedPerson?: string;
   private _date?: string;
   private _codeEquipment?: string;
-  private _quantity?: number;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -16558,7 +15049,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
+    this.quantity = _value.quantity;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
     this.codeParcel = _value.codeParcel;
@@ -16572,7 +15063,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
     this.nameCreatedPerson = _value.nameCreatedPerson;
     this.date = _value.date;
     this.codeEquipment = _value.codeEquipment;
-    this.quantity = _value.quantity;
     ConfirmProductionDetail.refineValues(this);
   }
   get idShiftDetail(): number | undefined {
@@ -16617,11 +15107,11 @@ export class ConfirmProductionDetail implements GrpcMessage {
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
+  get quantity(): number | undefined {
+    return this._quantity;
   }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
+  set quantity(value: number | undefined) {
+    this._quantity = value;
   }
   get codeTypePacket(): string | undefined {
     return this._codeTypePacket;
@@ -16701,12 +15191,6 @@ export class ConfirmProductionDetail implements GrpcMessage {
   set codeEquipment(value: string | undefined) {
     this._codeEquipment = value;
   }
-  get quantity(): number | undefined {
-    return this._quantity;
-  }
-  set quantity(value: number | undefined) {
-    this._quantity = value;
-  }
 
   /**
    * Serialize message to binary data
@@ -16730,7 +15214,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      quantity: this.quantity,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -16743,8 +15227,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
       date: this.date,
-      codeEquipment: this.codeEquipment,
-      quantity: this.quantity
+      codeEquipment: this.codeEquipment
     };
   }
 
@@ -16772,7 +15255,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      quantity: this.quantity,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
       codeParcel: this.codeParcel,
@@ -16785,8 +15268,7 @@ export class ConfirmProductionDetail implements GrpcMessage {
       createdPerson: this.createdPerson,
       nameCreatedPerson: this.nameCreatedPerson,
       date: this.date,
-      codeEquipment: this.codeEquipment,
-      quantity: this.quantity
+      codeEquipment: this.codeEquipment
     };
   }
 }
@@ -16802,7 +15284,7 @@ export module ConfirmProductionDetail {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    quantity?: number;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -16816,7 +15298,6 @@ export module ConfirmProductionDetail {
     nameCreatedPerson?: string;
     date?: string;
     codeEquipment?: string;
-    quantity?: number;
   }
 
   /**
@@ -16830,7 +15311,7 @@ export module ConfirmProductionDetail {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    quantity?: number;
     codeTypePacket?: string;
     nameTypePacket?: string;
     codeParcel?: string;
@@ -16844,7 +15325,6 @@ export module ConfirmProductionDetail {
     nameCreatedPerson?: string;
     date?: string;
     codeEquipment?: string;
-    quantity?: number;
   }
 }
 
@@ -17550,7 +16030,7 @@ export class QRCodeInfo implements GrpcMessage {
     _instance.codeProduct = _instance.codeProduct || '';
     _instance.nameProduct = _instance.nameProduct || '';
     _instance.idTypeProduct = _instance.idTypeProduct || 0;
-    _instance.nameTypeProduct = _instance.nameTypeProduct || '';
+    _instance.id = _instance.id || '0';
     _instance.codeIn = _instance.codeIn || '';
     _instance.nameTypeIn = _instance.nameTypeIn || '';
     _instance.codeParcel = _instance.codeParcel || '';
@@ -17580,7 +16060,6 @@ export class QRCodeInfo implements GrpcMessage {
     _instance.timeReport = _instance.timeReport || '';
     _instance.codeTypePacket = _instance.codeTypePacket || '';
     _instance.nameTypePacket = _instance.nameTypePacket || '';
-    _instance.id = _instance.id || '0';
     _instance.user = _instance.user || '';
     _instance.transportIn = _instance.transportIn || '';
     _instance.transportOut = _instance.transportOut || '';
@@ -17612,7 +16091,7 @@ export class QRCodeInfo implements GrpcMessage {
           _instance.idTypeProduct = _reader.readInt32();
           break;
         case 5:
-          _instance.nameTypeProduct = _reader.readString();
+          _instance.id = _reader.readInt64String();
           break;
         case 6:
           _instance.codeIn = _reader.readString();
@@ -17702,15 +16181,12 @@ export class QRCodeInfo implements GrpcMessage {
           _instance.nameTypePacket = _reader.readString();
           break;
         case 35:
-          _instance.id = _reader.readInt64String();
-          break;
-        case 36:
           _instance.user = _reader.readString();
           break;
-        case 37:
+        case 36:
           _instance.transportIn = _reader.readString();
           break;
-        case 38:
+        case 37:
           _instance.transportOut = _reader.readString();
           break;
         default:
@@ -17739,8 +16215,8 @@ export class QRCodeInfo implements GrpcMessage {
     if (_instance.idTypeProduct) {
       _writer.writeInt32(4, _instance.idTypeProduct);
     }
-    if (_instance.nameTypeProduct) {
-      _writer.writeString(5, _instance.nameTypeProduct);
+    if (_instance.id) {
+      _writer.writeInt64String(5, _instance.id);
     }
     if (_instance.codeIn) {
       _writer.writeString(6, _instance.codeIn);
@@ -17829,17 +16305,14 @@ export class QRCodeInfo implements GrpcMessage {
     if (_instance.nameTypePacket) {
       _writer.writeString(34, _instance.nameTypePacket);
     }
-    if (_instance.id) {
-      _writer.writeInt64String(35, _instance.id);
-    }
     if (_instance.user) {
-      _writer.writeString(36, _instance.user);
+      _writer.writeString(35, _instance.user);
     }
     if (_instance.transportIn) {
-      _writer.writeString(37, _instance.transportIn);
+      _writer.writeString(36, _instance.transportIn);
     }
     if (_instance.transportOut) {
-      _writer.writeString(38, _instance.transportOut);
+      _writer.writeString(37, _instance.transportOut);
     }
   }
 
@@ -17847,7 +16320,7 @@ export class QRCodeInfo implements GrpcMessage {
   private _codeProduct?: string;
   private _nameProduct?: string;
   private _idTypeProduct?: number;
-  private _nameTypeProduct?: string;
+  private _id?: string;
   private _codeIn?: string;
   private _nameTypeIn?: string;
   private _codeParcel?: string;
@@ -17877,7 +16350,6 @@ export class QRCodeInfo implements GrpcMessage {
   private _timeReport?: string;
   private _codeTypePacket?: string;
   private _nameTypePacket?: string;
-  private _id?: string;
   private _user?: string;
   private _transportIn?: string;
   private _transportOut?: string;
@@ -17892,7 +16364,7 @@ export class QRCodeInfo implements GrpcMessage {
     this.codeProduct = _value.codeProduct;
     this.nameProduct = _value.nameProduct;
     this.idTypeProduct = _value.idTypeProduct;
-    this.nameTypeProduct = _value.nameTypeProduct;
+    this.id = _value.id;
     this.codeIn = _value.codeIn;
     this.nameTypeIn = _value.nameTypeIn;
     this.codeParcel = _value.codeParcel;
@@ -17922,7 +16394,6 @@ export class QRCodeInfo implements GrpcMessage {
     this.timeReport = _value.timeReport;
     this.codeTypePacket = _value.codeTypePacket;
     this.nameTypePacket = _value.nameTypePacket;
-    this.id = _value.id;
     this.user = _value.user;
     this.transportIn = _value.transportIn;
     this.transportOut = _value.transportOut;
@@ -17952,11 +16423,11 @@ export class QRCodeInfo implements GrpcMessage {
   set idTypeProduct(value: number | undefined) {
     this._idTypeProduct = value;
   }
-  get nameTypeProduct(): string | undefined {
-    return this._nameTypeProduct;
+  get id(): string | undefined {
+    return this._id;
   }
-  set nameTypeProduct(value: string | undefined) {
-    this._nameTypeProduct = value;
+  set id(value: string | undefined) {
+    this._id = value;
   }
   get codeIn(): string | undefined {
     return this._codeIn;
@@ -18132,12 +16603,6 @@ export class QRCodeInfo implements GrpcMessage {
   set nameTypePacket(value: string | undefined) {
     this._nameTypePacket = value;
   }
-  get id(): string | undefined {
-    return this._id;
-  }
-  set id(value: string | undefined) {
-    this._id = value;
-  }
   get user(): string | undefined {
     return this._user;
   }
@@ -18176,7 +16641,7 @@ export class QRCodeInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      id: this.id,
       codeIn: this.codeIn,
       nameTypeIn: this.nameTypeIn,
       codeParcel: this.codeParcel,
@@ -18206,7 +16671,6 @@ export class QRCodeInfo implements GrpcMessage {
       timeReport: this.timeReport,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      id: this.id,
       user: this.user,
       transportIn: this.transportIn,
       transportOut: this.transportOut
@@ -18234,7 +16698,7 @@ export class QRCodeInfo implements GrpcMessage {
       codeProduct: this.codeProduct,
       nameProduct: this.nameProduct,
       idTypeProduct: this.idTypeProduct,
-      nameTypeProduct: this.nameTypeProduct,
+      id: this.id,
       codeIn: this.codeIn,
       nameTypeIn: this.nameTypeIn,
       codeParcel: this.codeParcel,
@@ -18264,7 +16728,6 @@ export class QRCodeInfo implements GrpcMessage {
       timeReport: this.timeReport,
       codeTypePacket: this.codeTypePacket,
       nameTypePacket: this.nameTypePacket,
-      id: this.id,
       user: this.user,
       transportIn: this.transportIn,
       transportOut: this.transportOut
@@ -18280,7 +16743,7 @@ export module QRCodeInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    id?: string;
     codeIn?: string;
     nameTypeIn?: string;
     codeParcel?: string;
@@ -18310,7 +16773,6 @@ export module QRCodeInfo {
     timeReport?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
-    id?: string;
     user?: string;
     transportIn?: string;
     transportOut?: string;
@@ -18324,7 +16786,7 @@ export module QRCodeInfo {
     codeProduct?: string;
     nameProduct?: string;
     idTypeProduct?: number;
-    nameTypeProduct?: string;
+    id?: string;
     codeIn?: string;
     nameTypeIn?: string;
     codeParcel?: string;
@@ -18354,7 +16816,6 @@ export module QRCodeInfo {
     timeReport?: string;
     codeTypePacket?: string;
     nameTypePacket?: string;
-    id?: string;
     user?: string;
     transportIn?: string;
     transportOut?: string;

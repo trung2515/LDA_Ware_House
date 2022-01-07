@@ -1,3 +1,5 @@
+import { Option50Modal } from './../model';
+import { WareHouseService } from 'src/app/core/services/warehouse.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -7,10 +9,16 @@ import {
   Validators
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Appointment, ShiftDetail } from 'src/app/admin/pages/shift/model';
 import { ShiftService } from 'src/app/admin/pages/shift/services/shift.service';
 import { AdminService } from 'src/app/core/services/admin.service';
 import Utils from 'src/app/_lib/utils';
+
+import {
+  CardDetailInfo,
+  InsertCardRequest,
+  ResponseState
+} from 'src/app/core/models/model.pb';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-add-packaging-fifty',
@@ -19,57 +27,137 @@ import Utils from 'src/app/_lib/utils';
 })
 export class AddPackagingFiftyComponent implements OnInit {
   title: string = 'Nhập sản lượng đóng bao loại 50kg';
-  now: Date = new Date();
+  now: Date = new Date('2022/01/01');
   ca_no_option: string = 'Ca 1';
+  ballot_types: Option50Modal[] = [];
   ballot_type: string = 'Nhập đóng mới';
-  packaging_units: any = ['VTRE', 'VTR'];
+  packaging_units: Option50Modal[] = [];
   packaging_unit = 'VTRE';
 
-  appointments: Appointment[] = [];
-  currentAppointment: any = {
-    id: 0,
-    text: '',
-    shift: 0,
-    startDate: undefined,
-    endDate: undefined,
-    description: '',
-    shiftDetail: []
-  };
-
-  listProduct: any = []
+  productList: Option50Modal[] = [];
+  typeProductList: Option50Modal[] = [];
+  typePacketList: Option50Modal[] = [];
+  warehouseList: Option50Modal[] = [];
+  listProduct: any = [];
   inputs_options: any = [];
   formGroupProduct: any = {};
+
+  cardListDetail: any = [];
+
   constructor(
     private location: Location,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
     private adminService: AdminService,
-    private shiftService: ShiftService
-  ) { }
+    private shiftService: ShiftService,
+    private warehouseService: WareHouseService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.appointments = this.shiftService.getAppointments();
-    // this.getData()
-    this.getListProduct()
+    this.getData();
+    this.getDataSelect();
 
+    for (let i = 1; i < 2; i++) {
+      this.formGroupProduct['form-' + i] = this.initFormGroup();
+    }
+  }
+  getData() {
+    this.warehouseService
+      .getListCar50kg(Utils.formatDate(this.now), Utils.formatDate(this.now))
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+  onSubmit() {
+    if (this.isValidForm()) {
+      this.handleUpdate50kg();
+    }
+  }
+  handleUpdate50kg() {
+    const data: InsertCardRequest = new InsertCardRequest();
+    data.date = Utils.formatDate(this.now);
+    data.nameShift = this.ca_no_option;
+    data.user = this.authService.getUser().id;
+
+    for (const key of this.getKeyForm()) {
+      const valueForm = this.formGroupProduct[key].value;
+
+      const cardDetail: CardDetailInfo = new CardDetailInfo();
+      // cardDetail.namePerson = this.authService.getUser().user;
+      // cardDetail.createdPerson =this.authService.getUser().user;
+
+      cardDetail.codeProduct = valueForm.product_code;
+      cardDetail.idTypeProduct = valueForm.product_type_code;
+      cardDetail.codeTypePacket = valueForm.bag_type_code;
+      cardDetail.quantity = valueForm.qty;
+      cardDetail.codeParcel = valueForm.consignments;
+      cardDetail.codeWareHouse = valueForm.warehouse;
+      cardDetail.codeTypeBill = this.ballot_type;
+      cardDetail.codePackingUnit = this.packaging_unit;
+
+      data.cardDetails.push(cardDetail);
+    }
+
+    console.log(data);
+
+    this.warehouseService.updateCard50kg(data).subscribe(reply => {
+      console.log(reply);
+
+      if (reply.state == ResponseState.SUCCESS) {
+        this.showSuccess('Thêm mới thành công');
+      } else {
+        this.showWarn(reply.message);
+      }
+    });
+  }
+  getDataSelect() {
+    this.adminService.getListProduct().subscribe(data => {
+      this.productList = data.map(d => new Option50Modal(d));
+      this.setOptionList();
+    });
+    this.adminService.getListTypeProduct().subscribe(data => {
+      // console.log('type product ', data);
+      this.typeProductList = data.map(d => new Option50Modal(d));
+      this.setOptionList();
+    });
+    this.adminService.getListTypePacket().subscribe(data => {
+      this.typePacketList = data.map(d => new Option50Modal(d));
+      this.setOptionList();
+    });
+    this.adminService.getListWareHouse().subscribe(data => {
+      this.warehouseList = data.map(d => new Option50Modal(d));
+      this.setOptionList();
+    });
+    this.adminService.getListPackingUnit().subscribe(data => {
+      this.packaging_units = data.map(d => new Option50Modal(d));
+    });
+    this.adminService.getListTypeBill().subscribe(data => {
+      this.ballot_types = data.map(d => new Option50Modal(d));
+    });
+  }
+  // ah50kg
+  setOptionList() {
     this.inputs_options = [
       {
         label: 'Sản phẩm',
-        formControlName: 'product_name',
+        formControlName: 'product_code',
         type: 'select',
-        options: ['a', 'b']
+        options: this.productList.filter(item =>
+          item.code.toLowerCase().includes('50kg')
+        )
       },
       {
         label: 'Loại sản phẩm',
-        formControlName: 'product_type',
+        formControlName: 'product_type_code',
         type: 'select',
-        options: ['Loại 1', 'Loại 2']
+        options: this.typeProductList
       },
       {
         label: 'Loại bao',
-        formControlName: 'bag_type',
+        formControlName: 'bag_type_code',
         type: 'select',
-        options: ['Đáy liền', 'Đáy bằng']
+        options: this.typePacketList
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
       { label: 'Lô', formControlName: 'consignments', type: 'text' },
@@ -77,67 +165,15 @@ export class AddPackagingFiftyComponent implements OnInit {
         label: 'Kho',
         formControlName: 'warehouse',
         type: 'select',
-        options: ['Kho TT', 'Kho TT 1']
+        options: this.warehouseList
       }
     ];
-
-    for (let i = 1; i < 3; i++) {
-      this.formGroupProduct['form-' + i] = this.initFormGroup();
-    }
   }
-  onSubmit() {
-    if (this.isValidForm()) {
-      const currentIndex = this.appointments.findIndex(
-        item => item.id === this.currentAppointment.id
-      );
-      const shiftDetailProducts = [...this.currentAppointment.shiftDetail];
 
-      if (shiftDetailProducts) {
-        for (const key of this.getKeyForm()) {
-          const form = this.formGroupProduct[key].value;
-
-          let _shiftDetail: ShiftDetail = {
-            id: shiftDetailProducts.length + 1,
-            option: (shiftDetailProducts.length + 1).toString(),
-            type: this.ballot_type === 'Nhập đóng mới' ? 'NDM' : 'NDL',
-            product: form.product_name,
-            productRange: form.product_type,
-            packaging: form.bag_type,
-            lot: form.consignments,
-            machines_packaging: '',
-            unit: this.packaging_unit,
-            wareHouse: form.wareHouse,
-            idMaster: 0,
-            shift: 1,
-            date: '2021-12-11',
-            nameShift: 'CA 1',
-            type_bag :'',
-          };
-          shiftDetailProducts.push(_shiftDetail);
-        }
-      }
-      this.appointments[currentIndex].shiftDetail = shiftDetailProducts;
-      this.showSuccess('Thêm thành công!');
-    }
-  }
-  getListProduct() {
-    this.adminService.getListProduct().subscribe((data: any) => {
-      this.listProduct = data
-      console.log('listProduct ', this.listProduct)
-      this.listProduct.sort((a: any, b: any) => {
-        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
-      })
-      this.listProduct.forEach((item: any, index: any) => {
-        item.index = index
-      })
-    })
-  }
   isValidForm(): Boolean {
     let isValid = true;
     for (const key of this.getKeyForm()) {
       const form = this.formGroupProduct[key];
-      console.log(form.status);
-
       if (!form.valid) {
         for (const key in form.controls) {
           if (form.controls.hasOwnProperty(key)) {
@@ -152,24 +188,13 @@ export class AddPackagingFiftyComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      product_name: ['', [Validators.required]],
-      product_type: ['', [Validators.required]],
-      bag_type: ['', [Validators.required]],
-      qty: ['123', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      consignments: [
-        '321',
-        [Validators.required, Validators.pattern('^[0-9]*$')]
-      ],
+      product_code: ['', [Validators.required]],
+      product_type_code: ['', [Validators.required]],
+      bag_type_code: ['', [Validators.required]],
+      qty: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      consignments: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       warehouse: ['', [Validators.required]]
     });
-  }
-  getData() {
-    this.adminService
-      .getListShiftDetail('2021-12-01', Utils.formatDate(new Date()))
-      .subscribe(data => {
-        this.appointments = data.map(d => new Appointment(d));
-        this.appointments.sort((a, b) => a.shift - b.shift);
-      });
   }
   addNewForm() {
     const sumForm = this.getKeyForm().length;
@@ -187,45 +212,21 @@ export class AddPackagingFiftyComponent implements OnInit {
     return result;
   }
   onDateValueChanged(e: any) {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(e.value),
-      this.getCurrentShift(this.ca_no_option)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca này!');
-    }
+    this.getData();
   }
   onSelectShiftChange = (e: any) => {
-    const _currentAppointment = this.getCurrentAppointment(
-      this.getCurrentDate(this.now),
-      this.getCurrentShift(e.selectedItem)
-    );
-    if (_currentAppointment) {
-      this.currentAppointment = _currentAppointment;
-    } else {
-      this.showError('Chưa có dữ liệu ca làm việc này!');
-    }
+    this.getData();
   };
-  getCurrentShift(ca_option: string) {
-    return Number(ca_option.split(' ')[1]);
-  }
-  getCurrentAppointment(date: string, ca_no?: number) {
-    return this.appointments.find(appointment => {
-      const { startDate, shift } = appointment;
-      const currentDate = this.getCurrentDate(startDate);
-      return currentDate === date && shift === ca_no;
-    });
-  }
-  getCurrentDate(date: Date): string {
-    return (
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-    );
-  }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
       timeOut: 2000,
+      closeButton: true,
+      enableHtml: true
+    });
+  }
+  showWarn(msg: string) {
+    this.toastrService.warning(msg, '', {
+      timeOut: 3000,
       closeButton: true,
       enableHtml: true
     });

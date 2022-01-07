@@ -1,8 +1,7 @@
-import { ProductInfo, ResponseState } from './../../../core/models/model.pb';
+import {  ResponseState } from './../../../core/models/model.pb';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { WareHouseService } from './../../../core/services/warehouse.service';
 import { AdminService } from 'src/app/core/services/admin.service';
-import { tryEqualsArr } from './../../../utils/helper';
 import { InputProductModel, OptionModel, ParcelDetailModel, ParcelModel } from './models';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsignmentService } from 'src/app/admin/pages/consignment-management/consignment.service';

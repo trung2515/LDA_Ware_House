@@ -30,7 +30,7 @@ export class DataWork {
 
     constructor(data:TransportInfo){
         this.productName = data.nameProduct
-        this.productType = data.nameTypeProduct
+        this.productType = data.idTypeProduct.toString() || ''
         this.packagingType = data.nameTypePacket
         this.date =  Utils.formatDate(new Date(data.createddate))
         this.shift = Utils.convertTimeToShift(data.createddate)

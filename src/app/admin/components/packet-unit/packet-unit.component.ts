@@ -27,13 +27,14 @@ export class PacketUnitComponent implements OnInit {
   // -----------------------------------------------------PackingUnit---------------------------------------
   listPackingUnit:any=[]
   itemPackingUnitClicked:any={}
+  isConfirmDelete:boolean =false
   getListPackingUnit(){
     this.adminService.getListPackingUnit().subscribe((data:any) => {
       this.listPackingUnit=data
       this.listPackingUnit.sort((a:any,b:any)=>{
         return a.namePackingUnit.toLowerCase().localeCompare(b.namePackingUnit.toLowerCase())
       })
-      console.log('listPackingUnit ',this.listPackingUnit)  
+      console.log('listPackingUnit ',this.listPackingUnit)
       this.listPackingUnit.forEach((item:any,index:any)=>{
         item.index=index
       })
@@ -156,7 +157,7 @@ export class PacketUnitComponent implements OnInit {
   togglePopupDeletePackingUnit(){
     this.isPopupDeletePackingUnit=!this.isPopupDeletePackingUnit
   }
-  onSubmitDeletePackingUnit(e:any){
+  onSubmitDeletePackingUnit(){
     let id=this.itemPackingUnitClicked.idPackingUnit
     this.adminService.deletePackingUnit(id).subscribe((data:any) => {
       console.log(data)

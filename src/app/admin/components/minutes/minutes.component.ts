@@ -121,6 +121,9 @@ if(this.objAddMinuteDetail.atc == "Thêm mới"){
 }
 addMinutesDetail(){
   console.log(this.objAddMinuteDetail);
+  let cate:string
+  this.objAddMinuteDetail.type == 'partner'? cate = 'vendor' : ''
+  console.log(cate);
   
   let idmax = 0
   for (var i = 0; i < this.masterData.length;i++){
@@ -128,7 +131,7 @@ addMinutesDetail(){
   }
   idmax++;
   console.log('id',idmax);
-   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.input.dvd.value,this.objAddMinuteDetail.type)
+   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.input.dvd.value,this.objAddMinuteDetail.type,cate)
    .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){

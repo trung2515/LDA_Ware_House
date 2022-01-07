@@ -12,8 +12,8 @@
         <div class="tabpanel-item">
           <div class="row p-1" *ngIf="tabPanel.id === 1">
             <div class="col-12">
-              <dx-data-grid id="production_table_1" [dataSource]="transportationList" keyExpr="codeTransport"
-                [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [remoteOperations]="false"
+              <dx-data-grid id="production_table_1"  [dataSource]="transportationList" keyExpr="codeTransport"
+                [showRowLines]="true" [noDataText]="'Không có dữ liệu'" [showBorders]="true" [columnAutoWidth]="true" [remoteOperations]="false"
                 [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
                 (onExporting)="onExportingGrid($event)">
                 <dxo-export [enabled]="true"></dxo-export>
@@ -23,8 +23,11 @@
                 <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
                 <dxi-column dataField="shift" [fixed]="true" caption="Ca" alignment="left"></dxi-column>
-                <dxi-column dataField="date" [fixed]="true" caption="Ngày">
+                <dxi-column dataField="date" cellTemplate="date"[fixed]="true" caption="Ngày">
                 </dxi-column>
+                <div *dxTemplate="let date of 'date'">
+                  {{ date.value | date: "dd-MM-yyyy" }}
+                </div>
                 <dxi-column dataField="product_name" [fixed]="true" caption="Sản phẩm"></dxi-column>
                 <dxi-column dataField="product_type" [fixed]="true" caption="Loại sản phẩm"></dxi-column>
                 <dxi-column dataField="work" caption="Công việc"></dxi-column>
@@ -39,7 +42,11 @@
                 </dxi-column>
                 <dxi-column dataField="bag_number" caption="Số bao">
                 </dxi-column>
+<<<<<<< HEAD
+                <dxi-column dataField="ton_number" caption="Khối lượng(kg)" alignment="left"></dxi-column>
+=======
                 <dxi-column dataField="ton_number" caption="Khối lượng (kg)" alignment="left"></dxi-column>
+>>>>>>> origin/main
                 <dxi-column dataField="cdo" alignment="left" caption="Cung độ">
                 </dxi-column>
                 <!-- <dxo-summary>
@@ -52,7 +59,11 @@
                 <dxi-column dataField="user" caption="Tên tài khoản"></dxi-column>
                 <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
                 <div *dxTemplate="let item of 'time'">
+<<<<<<< HEAD
+                  {{ item.value | date: "dd-MM-yyyy HH:mm:ss" }}
+=======
                   {{ item.value | date: "dd/MM/yyyy HH:mm:ss" }}
+>>>>>>> origin/main
                 </div>
                 <!-- title header template -->
                 <div class="caption-cus" *dxTemplate="let info of 'titleHeaderTemplate'">
@@ -74,7 +85,7 @@
               <div class="col-12">
                 <dx-pivot-grid id="pivotgrid-b-d" [allowSortingBySummary]="true" [allowSorting]="true"
                   [showBorders]="true" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"
-                  [texts]="{grandTotal: 'Tổng cộng'}" [showRowTotals]="false" [showColumnTotals]="true"
+                  [texts]="{grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showRowTotals]="false" [showColumnTotals]="true"
                   (onExporting)="onExportingPivot($event, tabPanel)" [allowFiltering]="true"
                   [dataSource]="detailLoadUnLoadReport">
                   <dxo-field-chooser [enabled]="false"></dxo-field-chooser>

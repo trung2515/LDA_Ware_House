@@ -10,6 +10,12 @@
   height: 100vh;
   background-size: cover;
 }
+.company-name {
+  user-select: none;
+}
+.brand {
+  user-select: none;
+}
 /* .wrapper {
 } */
 .head-menu {
@@ -111,6 +117,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   padding: 10px 16px;
+  user-select: none;
 }
 .logout-box:hover {
   border-color: #3459e6;
@@ -168,6 +175,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   padding-left: 16px;
+  user-select: none;
 }
 .img-around {
   width: 36px;
