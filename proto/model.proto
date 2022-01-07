@@ -390,7 +390,9 @@ message InsertCardRequest
     string date = 1;
     string nameShift = 2;
     string user  = 3;
-    repeated CardDetailInfo cardDetails = 4;
+    string codeTypeBill = 4;
+    string codePackingUnit = 5;
+    repeated CardDetailInfo cardDetails = 6;
 }
 
 
@@ -528,7 +530,9 @@ message ConfirmProduction1000
 message ConfirmProduction1000Info
 {
     int32 user = 1;
-    repeated ConfirmProduction1000 data = 2;
+    string date = 2;
+    string nameShift = 3;
+    repeated ConfirmProduction1000 data = 4;
 }
 
 message OrderResponse
@@ -566,8 +570,8 @@ message TransportInfo
 
     string dvBoc = 25;
     string dvDo = 26;
-    int32 seriIn = 27;
-    int32 seriOut = 28;
+    string seriIn = 27;
+    string seriOut = 28;
    
 }
 message TransportResponse
@@ -596,7 +600,6 @@ message ReportInventoryResponse
 }
 message ConfirmProductionDetail
 {
-    
     int32 idShiftDetail = 1;
     string optionName = 2;
     string codeTypeBill = 3;

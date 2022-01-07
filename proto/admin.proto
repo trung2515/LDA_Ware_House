@@ -117,19 +117,28 @@ service WareHouse {
     rpc UpdateParcel(InsertParcelRequest) returns (Response);
     rpc DeleteParcel(ParcelInfo) returns (Response);
 
+    
+    rpc InsertConfirmProduct(ConfirmProduction1000Info) returns (Response);  // insert return false if exist 
     rpc UpdateConfirmProduct(ConfirmProduction1000Info) returns (Response);  //update confirm
     rpc GetConfirmProduct(MasterRequest) returns (ConfirmProductionResponse); //get from date -> to date
+    rpc GetConfirmProductDisplayByShift(MasterRequest) returns (ConfirmProductionResponse); // if not exist return 0 for machine
+    rpc GetConfirmProductByShift(MasterRequest) returns (ConfirmProductionResponse);  // return only exist data
 }
 
 service Card
 {
 
     rpc GetListCard(MasterRequest) returns (CardDetailResponse); // from date -> to date
-    rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse);
+    rpc GetListCar50kg(MasterRequest) returns (CardDetailResponse); // from date -> to date
     rpc GetListCard1000kg(MasterRequest) returns (CardDetailResponse);
 
-    //rpc InsertCard(InsertCardRequest) returns (Response);
-    rpc UpdateCard50kg(InsertCardRequest) returns (Response);  // insert and update multy card 50kg in shift
+    rpc GetListCard50kgByShift(MasterRequest) returns (CardDetailResponse); // get date and name
+
+
+
+    rpc InsertCard(InsertCardRequest) returns (Response);
+    rpc InsertCard50kg(InsertCardRequest) returns (Response);  // insert
+    rpc UpdateCard50kg(InsertCardRequest) returns (Response);  // update multy card 50kg in shift
     rpc UpdateOneCard50kg(CardDetailInfo) returns (Response);  // update one card (created person is update person)
     //rpc SetChangeableCard(CardDetailInfo) returns (Response);
     rpc DeleteCard(CardDetailInfo) returns (Response);
