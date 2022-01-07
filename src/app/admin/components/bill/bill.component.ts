@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
@@ -9,7 +10,7 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class BillComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getListTypeBill()
@@ -24,6 +25,7 @@ export class BillComponent implements OnInit {
     _.input(e,obj)
   }
   timeShowMess:any=3000
+  isConfirmDelete:boolean=false
   // -----------------------------------------------------TypeBill---------------------------------------
   listTypeBill:any=[]
   itemTypeBillClicked:any={}
@@ -64,7 +66,7 @@ export class BillComponent implements OnInit {
         this.objAddTypeBill.formSuccMess=data.message
         this.objAddTypeBill.formErrMess=""
         this.getListTypeBill()
-        setTimeout(()=>{
+    
           this.objAddTypeBill={
             title:'Thêm phiếu',
             mess:'',
@@ -77,10 +79,10 @@ export class BillComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddTypeBill) this.togglePopupAddTypeBill()
-        },this.timeShowMess)
+          this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddTypeBill.formSuccMess=""
-        this.objAddTypeBill.formErrMess=data.message
+        this.togglePopupAddTypeBill()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -122,7 +124,7 @@ export class BillComponent implements OnInit {
         this.objEditTypeBill.formSuccMess=data.message
         this.objEditTypeBill.formErrMess=""
         this.getListTypeBill()
-        setTimeout(()=>{
+       
           this.objEditTypeBill={
             title:'Chỉnh sửa phiếu ',
             mess:'',
@@ -135,10 +137,11 @@ export class BillComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditTypeBill) this.togglePopupEditTypeBill()
-        },this.timeShowMess)
+          this.toastr.success('','Chỉnh sửa thành công')
+        
       }else{
-        this.objEditTypeBill.formSuccMess=""
-        this.objEditTypeBill.formErrMess=data.message
+        this.togglePopupEditTypeBill()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -169,7 +172,7 @@ export class BillComponent implements OnInit {
         this.objDeleteTypeBill.formSuccMess=data.message
         this.objDeleteTypeBill.formErrMess=""
         this.getListTypeBill()
-        setTimeout(()=>{
+       
           this.objDeleteTypeBill={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -177,10 +180,13 @@ export class BillComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteTypeBill) this.togglePopupDeleteTypeBill()
-        },this.timeShowMess)
+          this.isConfirmDelete = false
+        
       }else{
-        this.objDeleteTypeBill.formSuccMess=""
-        this.objDeleteTypeBill.formErrMess=data.message
+        this.isConfirmDelete = false
+        this.togglePopupDeleteTypeBill()
+        this.toastr.error('',data._message)
+        
       }
     })
   }

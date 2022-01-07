@@ -136,7 +136,17 @@ addMinutesDetail(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-       this.objAddMinuteDetail={
+
+  console.log(this.dataTypeMinutes);
+  this.isShowPopup = false 
+  this.toast.success('','Thêm mới thành công')
+    }else{
+      this.isShowPopup = false 
+      this.toast.error('',data._message)
+    }
+  })
+ 
+  this.objAddMinuteDetail={
     title:'',
     name:'',
     index:'',
@@ -147,16 +157,6 @@ addMinutesDetail(){
     },
     isValid:false
   }
-  console.log(this.dataTypeMinutes);
-  this.isShowPopup = false 
-  this.toast.success('','Thêm mới thành công')
-    }else{
-      this.isShowPopup = false 
-      this.toast.error('',data._message)
-    }
-  })
- 
-  
  
 }
 updateMinutesMinutes(){
@@ -165,16 +165,7 @@ updateMinutesMinutes(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-       this.objAddMinuteDetail={
-    title:'',
-    name:'',
-    id:0,
-    atc:'',
-    input:{
-      dvd:{value:'',isValid:false},
-    },
-    isValid:false
-  }
+       
   console.log(this.dataTypeMinutes);
   this.isShowPopup = false 
 
@@ -185,7 +176,16 @@ updateMinutesMinutes(){
       this.toast.error('',data._message)
     }
   })
-
+  this.objAddMinuteDetail={
+    title:'',
+    name:'',
+    id:0,
+    atc:'',
+    input:{
+      dvd:{value:'',isValid:false},
+    },
+    isValid:false
+  }
  
 }
 
@@ -197,16 +197,7 @@ deleteMinutesMinutes(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-       this.objAddMinuteDetail={
-    title:'',
-    name:'',
-    id:0,
-    atc:'',
-    input:{
-      dvd:{value:'',isValid:false},
-    },
-    isValid:false
-  }
+  
   console.log(this.dataTypeMinutes);
   this.isConfirmDelete = false 
   this.isShowPopup = false 
@@ -217,6 +208,16 @@ deleteMinutesMinutes(){
       this.toast.error('',data._message)
     }
   })
+  this.objAddMinuteDetail={
+    title:'',
+    name:'',
+    id:0,
+    atc:'',
+    input:{
+      dvd:{value:'',isValid:false},
+    },
+    isValid:false
+  }
 }
 closePop(){
   this.isShowPopup = false 

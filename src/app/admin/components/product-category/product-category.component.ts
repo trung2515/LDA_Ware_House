@@ -82,11 +82,12 @@ export class ProductCategoryComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteProduct) this.togglePopupDeleteProduct()
+          this.isConfirmDeleteProduct = false
           this.toastr.success('','Xóa thành công')
       
       }else{
-        this.objDeleteProduct.formSuccMess=""
-        this.objDeleteProduct.formErrMess=data.message
+        this.togglePopupDeleteProduct()
+        this.toastr.error('',data._message)
       }
     })
 
@@ -144,8 +145,8 @@ export class ProductCategoryComponent implements OnInit {
           if(this.isPopupEditProduct) this.togglePopupEditProduct()
           this.toastr.success('','Chỉnh sửa thành công')
       }else{
-        this.objEditProduct.formSuccMess=""
-        this.objEditProduct.formErrMess=data.message
+        this.togglePopupEditProduct()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -195,8 +196,8 @@ export class ProductCategoryComponent implements OnInit {
           this.toastr.success('',"Thêm mới thành công")
        
       }else{
-        this.objAddProduct.formSuccMess=""
-        this.objAddProduct.formErrMess=data.message
+        this.togglePopupAddProduct()
+        this.toastr.error('',data._message)
       }
     })
 
@@ -209,9 +210,9 @@ export class ProductCategoryComponent implements OnInit {
   getListTypeProduct() {
     this.adminService.getListTypeProduct().subscribe((data: any) => {
       this.listTypeProduct = data
-      this.listTypeProduct.sort((a: any, b: any) => {
-        return a.nameTypeProduct.toLowerCase().localeCompare(b.nameTypeProduct.toLowerCase())
-      })
+      // this.listTypeProduct.sort((a: any, b: any) => {
+      //   return a.nameTypeProduct.toLowerCase().localeCompare(b.nameTypeProduct.toLowerCase())
+      // })
       console.log('listTypeProduct ', this.listTypeProduct)
       this.listTypeProduct.forEach((item: any, index: any) => {
         item.index = index
@@ -244,7 +245,6 @@ export class ProductCategoryComponent implements OnInit {
         this.objAddTypeProduct.formSuccMess = data.message
         this.objAddTypeProduct.formErrMess = ""
         this.getListTypeProduct()
-        setTimeout(() => {
           this.objAddTypeProduct = {
             title: 'Thêm loại sản phẩm',
             mess: '',
@@ -256,10 +256,10 @@ export class ProductCategoryComponent implements OnInit {
             isValid: false
           }
           if (this.isPopupAddTypeProduct) this.togglePopupAddTypeProduct()
-        }, this.timeShowMess)
+          this.toastr.success('',"Thêm mới thành công")
       } else {
-        this.objAddTypeProduct.formSuccMess = ""
-        this.objAddTypeProduct.formErrMess = data.message
+        this.togglePopupAddTypeProduct()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -344,7 +344,7 @@ export class ProductCategoryComponent implements OnInit {
         this.objDeleteTypeProduct.formSuccMess = data.message
         this.objDeleteTypeProduct.formErrMess = ""
         this.getListTypeProduct()
-        setTimeout(() => {
+       
           this.objDeleteTypeProduct = {
             title: 'Xác nhận',
             mess: 'Xóa ',
@@ -352,10 +352,12 @@ export class ProductCategoryComponent implements OnInit {
             formSuccMess: ''
           }
           if (this.isPopupDeleteTypeProduct) this.togglePopupDeleteTypeProduct()
-        }, this.timeShowMess)
+          this.isConfirmDeleteType = false
+        this.toastr.success('',"Xóa thành công")
       } else {
-        this.objDeleteTypeProduct.formSuccMess = ""
-        this.objDeleteTypeProduct.formErrMess = data.message
+        this.togglePopupDeleteTypeProduct()
+        this.isConfirmDeleteType = false
+        this.toastr.error('',data._message)
       }
     })
 

@@ -28,6 +28,7 @@ export class WarehouseCategoryComponent implements OnInit {
   // -----------------------------------------------------WareHouse---------------------------------------
   listWareHouse:any=[]
   itemWareHouseClicked:any={}
+  isConfirmDelete:boolean=false
   getListWareHouse(){
     this.adminService.getListWareHouse().subscribe((data:any) => {
       this.listWareHouse=data
@@ -173,7 +174,7 @@ export class WarehouseCategoryComponent implements OnInit {
   togglePopupDeleteWareHouse(){
     this.isPopupDeleteWareHouse=!this.isPopupDeleteWareHouse
   }
-  onSubmitDeleteWareHouse(e:any){
+  onSubmitDeleteWareHouse(){
     let id=this.itemWareHouseClicked.idWareHouse
     this.adminService.deleteWareHouse(id).subscribe((data:any) => {
       console.log(data)

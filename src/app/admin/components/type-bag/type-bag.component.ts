@@ -31,6 +31,7 @@ export class TypeBagComponent implements OnInit {
   
   listTypePacket:any=[]
   itemTypePacketClicked:any={}
+  isConfirmDelete:boolean = false
   getListTypePacket(){
     this.adminService.getListTypePacket().subscribe((data:any) => {
       this.listTypePacket=data
@@ -82,8 +83,8 @@ export class TypeBagComponent implements OnInit {
           if(this.isPopupAddTypePacket) this.togglePopupAddTypePacket()
           this.toastr.success('',"Thêm mới thành công")
       }else{
-        this.objAddTypePacket.formSuccMess=""
-        this.objAddTypePacket.formErrMess=data.message
+        this.togglePopupAddTypePacket()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -136,8 +137,8 @@ export class TypeBagComponent implements OnInit {
           if(this.isPopupEditTypePacket) this.togglePopupEditTypePacket()
           this.toastr.success('','Chỉnh sửa thành công')
       }else{
-        this.objEditTypePacket.formSuccMess=""
-        this.objEditTypePacket.formErrMess=data.message
+        this.togglePopupEditTypePacket()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -176,10 +177,12 @@ export class TypeBagComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteTypePacket) this.togglePopupDeleteTypePacket()
+          this.isConfirmDelete =false
           this.toastr.success('','Xóa thành công')
       }else{
-        this.objDeleteTypePacket.formSuccMess=""
-        this.objDeleteTypePacket.formErrMess=data.message
+        this.togglePopupDeleteTypePacket()
+        this.isConfirmDelete =false
+        this.toastr.error('',data._message)
       }
     })
 

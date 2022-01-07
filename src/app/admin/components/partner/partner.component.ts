@@ -32,6 +32,7 @@ export class PartnerComponent implements OnInit {
   itemPartnerClicked:any={}
   listTypePartner:any=[]
   itemTypePartnerClicked:any={}
+  isConfirmDelete:boolean=false
   getListPartner(){
     this.adminService.getListPartner().subscribe((data:any) => {
       this.listPartner=data
@@ -108,8 +109,7 @@ export class PartnerComponent implements OnInit {
           if(this.isPopupAddPartner) this.togglePopupAddPartner()
         this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddPartner.formSuccMess=""
-        this.objAddPartner.formErrMess=data.message
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -175,8 +175,7 @@ export class PartnerComponent implements OnInit {
           if(this.isPopupEditPartner) this.togglePopupEditPartner()
         this.toastr.success('','Chỉnh sửa thành công')
       }else{
-        this.objEditPartner.formSuccMess=""
-        this.objEditPartner.formErrMess=data.message
+       this.toastr.error('',data._message)
       }
     })
   }
@@ -198,7 +197,7 @@ export class PartnerComponent implements OnInit {
   togglePopupDeletePartner(){
     this.isPopupDeletePartner=!this.isPopupDeletePartner
   }
-  onSubmitDeletePartner(e:any){
+  onSubmitDeletePartner(){
     let idPartner=this.itemPartnerClicked.idPartner
     this.adminService.deletePartner(idPartner).subscribe((data:any) => {
       console.log(data)
@@ -215,10 +214,11 @@ export class PartnerComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeletePartner) this.togglePopupDeletePartner()
+         this.isConfirmDelete == false
         this.toastr.success('','Xóa thành công')
       }else{
-        this.objDeletePartner.formSuccMess=""
-        this.objDeletePartner.formErrMess=data.message
+        this.isConfirmDelete == false
+        this.toastr.error('',data._message)
       }
     })
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -9,7 +10,7 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class JobComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
   ngOnInit(): void {
     this.getListWork()
   }
@@ -26,6 +27,7 @@ export class JobComponent implements OnInit {
   // -----------------------------------------------------Work---------------------------------------
   listWork:any=[]
   itemWorkClicked:any={}
+  isConfirmDelete:boolean = false
   getListWork(){
     this.adminService.getListWork().subscribe((data:any) => {
       this.listWork=data
@@ -66,7 +68,7 @@ export class JobComponent implements OnInit {
         this.objAddWork.formSuccMess=data.message
         this.objAddWork.formErrMess=""
         this.getListWork()
-        setTimeout(()=>{
+        
           this.objAddWork={
             title:'Thêm công việc',
             mess:'',
@@ -79,10 +81,11 @@ export class JobComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddWork) this.togglePopupAddWork()
-        },this.timeShowMess)
+          this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddWork.formSuccMess=""
-        this.objAddWork.formErrMess=data.message
+        this.togglePopupAddWork()
+       this.toastr.error('',data._message);
+       
       }
     })
   }
@@ -124,7 +127,7 @@ export class JobComponent implements OnInit {
         this.objEditWork.formSuccMess=data.message
         this.objEditWork.formErrMess=""
         this.getListWork()
-        setTimeout(()=>{
+     
           this.objEditWork={
             title:'Chỉnh sửa công việc ',
             mess:'',
@@ -137,10 +140,10 @@ export class JobComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditWork) this.togglePopupEditWork()
-        },this.timeShowMess)
+        this.toastr.success('','Chỉnh sửa thành công')
       }else{
-        this.objEditWork.formSuccMess=""
-        this.objEditWork.formErrMess=data.message
+        this.togglePopupEditWork()
+        this.toastr.error('',data._message);
       }
     })
   }
@@ -171,7 +174,7 @@ export class JobComponent implements OnInit {
         this.objDeleteWork.formSuccMess=data.message
         this.objDeleteWork.formErrMess=""
         this.getListWork()
-        setTimeout(()=>{
+    
           this.objDeleteWork={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -179,10 +182,12 @@ export class JobComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteWork) this.togglePopupDeleteWork()
-        },this.timeShowMess)
+          this.isConfirmDelete = false
+          this.toastr.success('','Xóa thành công')
       }else{
-        this.objDeleteWork.formSuccMess=""
-        this.objDeleteWork.formErrMess=data.message
+        this.togglePopupDeleteWork()
+        this.isConfirmDelete = false
+        this.toastr.error('',data._message);
       }
     })
   }

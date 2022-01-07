@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-device-category',
   templateUrl: './device-category.component.html',
@@ -9,7 +10,7 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class DeviceCategoryComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getListTypeEquipment()
@@ -27,6 +28,7 @@ export class DeviceCategoryComponent implements OnInit {
   timeShowMess:any=3000
  // -----------------------------------------------------Equipment---------------------------------------
   listEquipment:any=[]
+  isConfirmDelete:boolean = false
   itemEquipmentClicked:any={}
   listTypeEquipment:any=[]
   itemTypeEquipmentClicked:any={}
@@ -101,7 +103,7 @@ export class DeviceCategoryComponent implements OnInit {
         this.objAddEquipment.formSuccMess=data.message
         this.objAddEquipment.formErrMess=""
         this.getListEquipment()
-        setTimeout(()=>{
+       
           this.objAddEquipment={
             title:'Thêm thiết bị',
             mess:'',
@@ -114,10 +116,10 @@ export class DeviceCategoryComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddEquipment) this.togglePopupAddEquipment()
-        },this.timeShowMess)
+          this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddEquipment.formSuccMess=""
-        this.objAddEquipment.formErrMess=data.message
+        this.togglePopupAddEquipment()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -184,10 +186,11 @@ export class DeviceCategoryComponent implements OnInit {
             nameTypeEquipment:''
           }
           if(this.isPopupEditEquipment) this.togglePopupEditEquipment()
+          this.toastr.success('','Chỉnh sửa thành công')
         },this.timeShowMess)
       }else{
-        this.objEditEquipment.formSuccMess=""
-        this.objEditEquipment.formErrMess=data.message
+        this.togglePopupEditEquipment()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -228,7 +231,7 @@ export class DeviceCategoryComponent implements OnInit {
         this.objDeleteEquipment.formSuccMess=data.message
         this.objDeleteEquipment.formErrMess=""
         this.getListEquipment()
-        setTimeout(()=>{
+       
           this.objDeleteEquipment={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -236,10 +239,12 @@ export class DeviceCategoryComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteEquipment) this.togglePopupDeleteEquipment()
-        },this.timeShowMess)
+          this.isConfirmDelete = false
+          this.toastr.success('','Xóa thành công')
       }else{
-        this.objDeleteEquipment.formSuccMess=""
-        this.objDeleteEquipment.formErrMess=data.message
+        this.togglePopupDeleteEquipment()
+          this.isConfirmDelete = false
+        this.toastr.error('',data._message)
       }
     })
   }

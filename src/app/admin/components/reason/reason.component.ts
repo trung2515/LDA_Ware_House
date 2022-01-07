@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-reason',
   templateUrl: './reason.component.html',
   styleUrls: ['./reason.component.css']
 })
 export class ReasonComponent implements OnInit {
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
   ngOnInit(): void {
     this.getListReason()
   }
@@ -25,6 +26,7 @@ export class ReasonComponent implements OnInit {
   // -----------------------------------------------------Reason---------------------------------------
   listReason:any=[]
   itemReasonClicked:any={}
+  isConfirmDelete:boolean=false
   getListReason(){
     this.adminService.getListReason().subscribe((data:any) => {
       this.listReason=data
@@ -65,7 +67,7 @@ export class ReasonComponent implements OnInit {
         this.objAddReason.formSuccMess=data.message
         this.objAddReason.formErrMess=""
         this.getListReason()
-        setTimeout(()=>{
+     
           this.objAddReason={
             title:'Thêm nguyên nhân',
             mess:'',
@@ -78,10 +80,10 @@ export class ReasonComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupAddReason) this.togglePopupAddReason()
-        },this.timeShowMess)
+          this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddReason.formSuccMess=""
-        this.objAddReason.formErrMess=data.message
+        this.togglePopupAddReason()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -123,7 +125,7 @@ export class ReasonComponent implements OnInit {
         this.objEditReason.formSuccMess=data.message
         this.objEditReason.formErrMess=""
         this.getListReason()
-        setTimeout(()=>{
+        
           this.objEditReason={
             title:'Chỉnh sửa nguyên nhân ',
             mess:'',
@@ -136,10 +138,10 @@ export class ReasonComponent implements OnInit {
             isValid:false
           }
           if(this.isPopupEditReason) this.togglePopupEditReason()
-        },this.timeShowMess)
+          this.toastr.success('','Chỉnh sửa thành công')
       }else{
-        this.objEditReason.formSuccMess=""
-        this.objEditReason.formErrMess=data.message
+        this.togglePopupEditReason()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -170,7 +172,7 @@ export class ReasonComponent implements OnInit {
         this.objDeleteReason.formSuccMess=data.message
         this.objDeleteReason.formErrMess=""
         this.getListReason()
-        setTimeout(()=>{
+       
           this.objDeleteReason={
             title:'Xác nhận',
             mess:'Xóa ',
@@ -178,10 +180,12 @@ export class ReasonComponent implements OnInit {
             formSuccMess:''
           }
           if(this.isPopupDeleteReason) this.togglePopupDeleteReason()
-        },this.timeShowMess)
+          this.isConfirmDelete = false
+          this.toastr.success('','Xóa thành công')
       }else{
-        this.objDeleteReason.formSuccMess=""
-        this.objDeleteReason.formErrMess=data.message
+        this.togglePopupDeleteReason()
+        this.isConfirmDelete = false
+        this.toastr.error('',data._message)
       }
     })
   }
