@@ -9830,6 +9830,8 @@ export class InsertCardRequest implements GrpcMessage {
     _instance.date = _instance.date || '';
     _instance.nameShift = _instance.nameShift || '';
     _instance.user = _instance.user || '';
+    _instance.codeTypeBill = _instance.codeTypeBill || '';
+    _instance.codePackingUnit = _instance.codePackingUnit || '';
     _instance.cardDetails = _instance.cardDetails || [];
   }
 
@@ -9856,13 +9858,19 @@ export class InsertCardRequest implements GrpcMessage {
           _instance.user = _reader.readString();
           break;
         case 4:
-          const messageInitializer4 = new CardDetailInfo();
+          _instance.codeTypeBill = _reader.readString();
+          break;
+        case 5:
+          _instance.codePackingUnit = _reader.readString();
+          break;
+        case 6:
+          const messageInitializer6 = new CardDetailInfo();
           _reader.readMessage(
-            messageInitializer4,
+            messageInitializer6,
             CardDetailInfo.deserializeBinaryFromReader
           );
           (_instance.cardDetails = _instance.cardDetails || []).push(
-            messageInitializer4
+            messageInitializer6
           );
           break;
         default:
@@ -9891,9 +9899,15 @@ export class InsertCardRequest implements GrpcMessage {
     if (_instance.user) {
       _writer.writeString(3, _instance.user);
     }
+    if (_instance.codeTypeBill) {
+      _writer.writeString(4, _instance.codeTypeBill);
+    }
+    if (_instance.codePackingUnit) {
+      _writer.writeString(5, _instance.codePackingUnit);
+    }
     if (_instance.cardDetails && _instance.cardDetails.length) {
       _writer.writeRepeatedMessage(
-        4,
+        6,
         _instance.cardDetails as any,
         CardDetailInfo.serializeBinaryToWriter
       );
@@ -9903,6 +9917,8 @@ export class InsertCardRequest implements GrpcMessage {
   private _date?: string;
   private _nameShift?: string;
   private _user?: string;
+  private _codeTypeBill?: string;
+  private _codePackingUnit?: string;
   private _cardDetails?: CardDetailInfo[];
 
   /**
@@ -9914,6 +9930,8 @@ export class InsertCardRequest implements GrpcMessage {
     this.date = _value.date;
     this.nameShift = _value.nameShift;
     this.user = _value.user;
+    this.codeTypeBill = _value.codeTypeBill;
+    this.codePackingUnit = _value.codePackingUnit;
     this.cardDetails = (_value.cardDetails || []).map(
       m => new CardDetailInfo(m)
     );
@@ -9936,6 +9954,18 @@ export class InsertCardRequest implements GrpcMessage {
   }
   set user(value: string | undefined) {
     this._user = value;
+  }
+  get codeTypeBill(): string | undefined {
+    return this._codeTypeBill;
+  }
+  set codeTypeBill(value: string | undefined) {
+    this._codeTypeBill = value;
+  }
+  get codePackingUnit(): string | undefined {
+    return this._codePackingUnit;
+  }
+  set codePackingUnit(value: string | undefined) {
+    this._codePackingUnit = value;
   }
   get cardDetails(): CardDetailInfo[] | undefined {
     return this._cardDetails;
@@ -9962,6 +9992,8 @@ export class InsertCardRequest implements GrpcMessage {
       date: this.date,
       nameShift: this.nameShift,
       user: this.user,
+      codeTypeBill: this.codeTypeBill,
+      codePackingUnit: this.codePackingUnit,
       cardDetails: (this.cardDetails || []).map(m => m.toObject())
     };
   }
@@ -9986,6 +10018,8 @@ export class InsertCardRequest implements GrpcMessage {
       date: this.date,
       nameShift: this.nameShift,
       user: this.user,
+      codeTypeBill: this.codeTypeBill,
+      codePackingUnit: this.codePackingUnit,
       cardDetails: (this.cardDetails || []).map(m => m.toProtobufJSON(options))
     };
   }
@@ -9998,6 +10032,8 @@ export module InsertCardRequest {
     date?: string;
     nameShift?: string;
     user?: string;
+    codeTypeBill?: string;
+    codePackingUnit?: string;
     cardDetails?: CardDetailInfo.AsObject[];
   }
 
@@ -10008,6 +10044,8 @@ export module InsertCardRequest {
     date?: string;
     nameShift?: string;
     user?: string;
+    codeTypeBill?: string;
+    codePackingUnit?: string;
     cardDetails?: CardDetailInfo.AsProtobufJSON[] | null;
   }
 }
@@ -13219,6 +13257,8 @@ export class ConfirmProduction1000Info implements GrpcMessage {
    */
   static refineValues(_instance: ConfirmProduction1000Info) {
     _instance.user = _instance.user || 0;
+    _instance.date = _instance.date || '';
+    _instance.nameShift = _instance.nameShift || '';
     _instance.data = _instance.data || [];
   }
 
@@ -13239,12 +13279,18 @@ export class ConfirmProduction1000Info implements GrpcMessage {
           _instance.user = _reader.readInt32();
           break;
         case 2:
-          const messageInitializer2 = new ConfirmProduction1000();
+          _instance.date = _reader.readString();
+          break;
+        case 3:
+          _instance.nameShift = _reader.readString();
+          break;
+        case 4:
+          const messageInitializer4 = new ConfirmProduction1000();
           _reader.readMessage(
-            messageInitializer2,
+            messageInitializer4,
             ConfirmProduction1000.deserializeBinaryFromReader
           );
-          (_instance.data = _instance.data || []).push(messageInitializer2);
+          (_instance.data = _instance.data || []).push(messageInitializer4);
           break;
         default:
           _reader.skipField();
@@ -13266,9 +13312,15 @@ export class ConfirmProduction1000Info implements GrpcMessage {
     if (_instance.user) {
       _writer.writeInt32(1, _instance.user);
     }
+    if (_instance.date) {
+      _writer.writeString(2, _instance.date);
+    }
+    if (_instance.nameShift) {
+      _writer.writeString(3, _instance.nameShift);
+    }
     if (_instance.data && _instance.data.length) {
       _writer.writeRepeatedMessage(
-        2,
+        4,
         _instance.data as any,
         ConfirmProduction1000.serializeBinaryToWriter
       );
@@ -13276,6 +13328,8 @@ export class ConfirmProduction1000Info implements GrpcMessage {
   }
 
   private _user?: number;
+  private _date?: string;
+  private _nameShift?: string;
   private _data?: ConfirmProduction1000[];
 
   /**
@@ -13285,6 +13339,8 @@ export class ConfirmProduction1000Info implements GrpcMessage {
   constructor(_value?: RecursivePartial<ConfirmProduction1000Info.AsObject>) {
     _value = _value || {};
     this.user = _value.user;
+    this.date = _value.date;
+    this.nameShift = _value.nameShift;
     this.data = (_value.data || []).map(m => new ConfirmProduction1000(m));
     ConfirmProduction1000Info.refineValues(this);
   }
@@ -13293,6 +13349,18 @@ export class ConfirmProduction1000Info implements GrpcMessage {
   }
   set user(value: number | undefined) {
     this._user = value;
+  }
+  get date(): string | undefined {
+    return this._date;
+  }
+  set date(value: string | undefined) {
+    this._date = value;
+  }
+  get nameShift(): string | undefined {
+    return this._nameShift;
+  }
+  set nameShift(value: string | undefined) {
+    this._nameShift = value;
   }
   get data(): ConfirmProduction1000[] | undefined {
     return this._data;
@@ -13317,6 +13385,8 @@ export class ConfirmProduction1000Info implements GrpcMessage {
   toObject(): ConfirmProduction1000Info.AsObject {
     return {
       user: this.user,
+      date: this.date,
+      nameShift: this.nameShift,
       data: (this.data || []).map(m => m.toObject())
     };
   }
@@ -13339,6 +13409,8 @@ export class ConfirmProduction1000Info implements GrpcMessage {
   ): ConfirmProduction1000Info.AsProtobufJSON {
     return {
       user: this.user,
+      date: this.date,
+      nameShift: this.nameShift,
       data: (this.data || []).map(m => m.toProtobufJSON(options))
     };
   }
@@ -13349,6 +13421,8 @@ export module ConfirmProduction1000Info {
    */
   export interface AsObject {
     user?: number;
+    date?: string;
+    nameShift?: string;
     data?: ConfirmProduction1000.AsObject[];
   }
 
@@ -13357,6 +13431,8 @@ export module ConfirmProduction1000Info {
    */
   export interface AsProtobufJSON {
     user?: number;
+    date?: string;
+    nameShift?: string;
     data?: ConfirmProduction1000.AsProtobufJSON[] | null;
   }
 }
@@ -13584,8 +13660,8 @@ export class TransportInfo implements GrpcMessage {
     _instance.countTrip = _instance.countTrip || 0;
     _instance.dvBoc = _instance.dvBoc || '';
     _instance.dvDo = _instance.dvDo || '';
-    _instance.seriIn = _instance.seriIn || 0;
-    _instance.seriOut = _instance.seriOut || 0;
+    _instance.seriIn = _instance.seriIn || '';
+    _instance.seriOut = _instance.seriOut || '';
   }
 
   /**
@@ -13677,10 +13753,10 @@ export class TransportInfo implements GrpcMessage {
           _instance.dvDo = _reader.readString();
           break;
         case 27:
-          _instance.seriIn = _reader.readInt32();
+          _instance.seriIn = _reader.readString();
           break;
         case 28:
-          _instance.seriOut = _reader.readInt32();
+          _instance.seriOut = _reader.readString();
           break;
         default:
           _reader.skipField();
@@ -13775,10 +13851,10 @@ export class TransportInfo implements GrpcMessage {
       _writer.writeString(26, _instance.dvDo);
     }
     if (_instance.seriIn) {
-      _writer.writeInt32(27, _instance.seriIn);
+      _writer.writeString(27, _instance.seriIn);
     }
     if (_instance.seriOut) {
-      _writer.writeInt32(28, _instance.seriOut);
+      _writer.writeString(28, _instance.seriOut);
     }
   }
 
@@ -13807,8 +13883,8 @@ export class TransportInfo implements GrpcMessage {
   private _countTrip?: number;
   private _dvBoc?: string;
   private _dvDo?: string;
-  private _seriIn?: number;
-  private _seriOut?: number;
+  private _seriIn?: string;
+  private _seriOut?: string;
 
   /**
    * Message constructor. Initializes the properties and applies default Protobuf values if necessary
@@ -13995,16 +14071,16 @@ export class TransportInfo implements GrpcMessage {
   set dvDo(value: string | undefined) {
     this._dvDo = value;
   }
-  get seriIn(): number | undefined {
+  get seriIn(): string | undefined {
     return this._seriIn;
   }
-  set seriIn(value: number | undefined) {
+  set seriIn(value: string | undefined) {
     this._seriIn = value;
   }
-  get seriOut(): number | undefined {
+  get seriOut(): string | undefined {
     return this._seriOut;
   }
-  set seriOut(value: number | undefined) {
+  set seriOut(value: string | undefined) {
     this._seriOut = value;
   }
 
@@ -14130,8 +14206,8 @@ export module TransportInfo {
     countTrip?: number;
     dvBoc?: string;
     dvDo?: string;
-    seriIn?: number;
-    seriOut?: number;
+    seriIn?: string;
+    seriOut?: string;
   }
 
   /**
@@ -14163,8 +14239,8 @@ export module TransportInfo {
     countTrip?: number;
     dvBoc?: string;
     dvDo?: string;
-    seriIn?: number;
-    seriOut?: number;
+    seriIn?: string;
+    seriOut?: string;
   }
 }
 

@@ -2782,6 +2782,27 @@ export class WareHouseClient {
       });
     },
     /**
+     * Unary RPC for /client.WareHouse/InsertConfirmProduct
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertConfirmProduct: (
+      requestData: client000.ConfirmProduction1000Info,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/InsertConfirmProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.ConfirmProduction1000Info,
+        responseClass: client000.Response
+      });
+    },
+    /**
      * Unary RPC for /client.WareHouse/UpdateConfirmProduct
      *
      * @param requestMessage Request message
@@ -2817,6 +2838,48 @@ export class WareHouseClient {
         type: GrpcCallType.unary,
         client: this.client,
         path: '/client.WareHouse/GetConfirmProduct',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.ConfirmProductionResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/GetConfirmProductDisplayByShift
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.ConfirmProductionResponse>>
+     */
+    getConfirmProductDisplayByShift: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.ConfirmProductionResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/GetConfirmProductDisplayByShift',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.ConfirmProductionResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.WareHouse/GetConfirmProductByShift
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.ConfirmProductionResponse>>
+     */
+    getConfirmProductByShift: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.ConfirmProductionResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.WareHouse/GetConfirmProductByShift',
         requestData,
         requestMetadata,
         requestClass: client000.MasterRequest,
@@ -3026,6 +3089,22 @@ export class WareHouseClient {
   }
 
   /**
+   * Unary RPC for /client.WareHouse/InsertConfirmProduct
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertConfirmProduct(
+    requestData: client000.ConfirmProduction1000Info,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertConfirmProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
    * Unary RPC for /client.WareHouse/UpdateConfirmProduct
    *
    * @param requestMessage Request message
@@ -3054,6 +3133,38 @@ export class WareHouseClient {
   ): Observable<client000.ConfirmProductionResponse> {
     return this.$raw
       .getConfirmProduct(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/GetConfirmProductDisplayByShift
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.ConfirmProductionResponse>
+   */
+  getConfirmProductDisplayByShift(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.ConfirmProductionResponse> {
+    return this.$raw
+      .getConfirmProductDisplayByShift(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.WareHouse/GetConfirmProductByShift
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.ConfirmProductionResponse>
+   */
+  getConfirmProductByShift(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.ConfirmProductionResponse> {
+    return this.$raw
+      .getConfirmProductByShift(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 }
@@ -3131,6 +3242,69 @@ export class CardClient {
         requestMetadata,
         requestClass: client000.MasterRequest,
         responseClass: client000.CardDetailResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/GetListCard50kgByShift
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.CardDetailResponse>>
+     */
+    getListCard50kgByShift: (
+      requestData: client000.MasterRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.CardDetailResponse>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/GetListCard50kgByShift',
+        requestData,
+        requestMetadata,
+        requestClass: client000.MasterRequest,
+        responseClass: client000.CardDetailResponse
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/InsertCard
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertCard: (
+      requestData: client000.InsertCardRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/InsertCard',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertCardRequest,
+        responseClass: client000.Response
+      });
+    },
+    /**
+     * Unary RPC for /client.Card/InsertCard50kg
+     *
+     * @param requestMessage Request message
+     * @param requestMetadata Request metadata
+     * @returns Observable<GrpcEvent<client000.Response>>
+     */
+    insertCard50kg: (
+      requestData: client000.InsertCardRequest,
+      requestMetadata = new GrpcMetadata()
+    ): Observable<GrpcEvent<client000.Response>> => {
+      return this.handler.handle({
+        type: GrpcCallType.unary,
+        client: this.client,
+        path: '/client.Card/InsertCard50kg',
+        requestData,
+        requestMetadata,
+        requestClass: client000.InsertCardRequest,
+        responseClass: client000.Response
       });
     },
     /**
@@ -3314,6 +3488,54 @@ export class CardClient {
   ): Observable<client000.CardDetailResponse> {
     return this.$raw
       .getListCard1000kg(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/GetListCard50kgByShift
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.CardDetailResponse>
+   */
+  getListCard50kgByShift(
+    requestData: client000.MasterRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.CardDetailResponse> {
+    return this.$raw
+      .getListCard50kgByShift(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/InsertCard
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertCard(
+    requestData: client000.InsertCardRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertCard(requestData, requestMetadata)
+      .pipe(throwStatusErrors(), takeMessages());
+  }
+
+  /**
+   * Unary RPC for /client.Card/InsertCard50kg
+   *
+   * @param requestMessage Request message
+   * @param requestMetadata Request metadata
+   * @returns Observable<client000.Response>
+   */
+  insertCard50kg(
+    requestData: client000.InsertCardRequest,
+    requestMetadata = new GrpcMetadata()
+  ): Observable<client000.Response> {
+    return this.$raw
+      .insertCard50kg(requestData, requestMetadata)
       .pipe(throwStatusErrors(), takeMessages());
   }
 
