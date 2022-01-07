@@ -50,7 +50,9 @@ export class WorkflowManagementComponent implements OnInit {
           }
         }
 
+        console.log(data);
       });
+      
   }
   getDetail(date: string, shift: string) {
     if (shift == null || shift == '') {
@@ -58,7 +60,7 @@ export class WorkflowManagementComponent implements OnInit {
       return master
     } else {
       const detail = this.workDetail.filter(w => w.date == date && w.shift == shift);
-      console.log(detail)
+      // console.log(detail)
       return detail
     }
   }
@@ -91,7 +93,7 @@ export class WorkflowManagementComponent implements OnInit {
       this.sumQuantity += this.arrSingleWorkDetail[i].quantity
       this.sumWeight += (this.arrSingleWorkDetail[i].quantity * this.arrSingleWorkDetail[i].weight)
     }
-    console.log(this.arrSingleWorkDetail);
+   
     this.singleWorkDetail = this.arrSingleWorkDetail[0]
     console.log('single',this.singleWorkDetail);
     

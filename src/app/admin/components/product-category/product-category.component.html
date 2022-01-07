@@ -65,14 +65,26 @@
 <dx-popup [(visible)]="isPopupDeleteProduct" [closeOnOutsideClick]="true" [showTitle]="true"
   title="{{objDeleteProduct.title}}" [height]='180' [width]="380" [resizeEnabled]="true">
   <div class='title-from-delete'>{{objDeleteProduct.mess}}</div>
-  <form (ngSubmit)="onSubmitDeleteProduct($event)" autocomplete="off" *ngIf='isPopupDeleteProduct'>
+  <form  autocomplete="off" *ngIf='isPopupDeleteProduct'>
     <div class='formErrMess text-danger pt-2'>{{objDeleteProduct.formErrMess}}</div>
     <div class='formSuccMess text-success pt-2'>{{objDeleteProduct.formSuccMess}}</div>
     <div class='d-flex justify-content-around py-2'>
       <button type="button" class="btn btn-light btn-cancel" (click)='togglePopupDeleteProduct()'>Hủy</button>
-      <button type="submit" class="btn btn-primary btn-blue mr-3">Xóa</button>
+      <button type="button" (click)="isConfirmDeleteProduct = !isConfirmDeleteProduct" class="btn btn-primary btn-blue mr-3">Xóa</button>
     </div>
   </form>
+  <dx-popup [(visible)]="isConfirmDeleteProduct" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <span>Bạn chắc chắn xóa mục này ?</span>
+      </div>
+      
+    </div>
+    <div class='d-flex justify-content-end mt-4' >
+      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDeleteProduct = !isConfirmDeleteProduct">Đóng</div>
+      <button type="button" (click)="onSubmitDeleteProduct()"  class="btn btn-primary btn-danger" >  Xóa</button>
+    </div>
+  </dx-popup>
 </dx-popup>
 <!-- Add Product -->
 <dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="280" width="500"
@@ -138,7 +150,7 @@
 <dx-popup [(visible)]="isPopupAddTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
   title="{{objAddTypeProduct.title}}" [height]="250" [width]="550">
   <div class="" style="width:90%;margin:auto">
-    <form  autocomplete="off" *ngIf='isPopupAddTypeProduct'>
+    <form (ngSubmit)="onSubmitAddTypeProduct($event)" autocomplete="off" *ngIf='isPopupAddTypeProduct'>
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
@@ -150,23 +162,9 @@
       <div class='formErrMess text-danger pt-2'>{{objAddTypeProduct.formErrMess}}</div>
       <div class='d-flex justify-content-end py-2'>
         <button type="button" class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeProduct()'>Hủy</button>
-        <button type="button" (click)="isShowConfirmTypeProduct = !isShowConfirmTypeProduct" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
+        <button type="submit" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
       </div>
     </form>
-  </div>
-</dx-popup>
-<dx-popup 
-[(visible)]="isShowConfirmTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
-title="Xác nhận" [height]="200" [width]="550">
-<div class="wrap-input">
-  <div class='d-flex' style='justify-content: space-between;'>
-   <p>Bạn chắc chắn xóa mục này</p>
-  
-  </div>
-  </div>
-  <div class='d-flex justify-content-end py-2'>
-    <button type="button" class="btn btn-light btn-cancel mr-3" (click)='isShowConfirmTypeProduct = false'>Hủy</button>
-    <button type="button" (click)="onSubmitAddTypeProduct($event)" [disabled]='!objAddTypeProduct.isValid' class="btn btn-primary btn-blue "> Thêm</button>
   </div>
 </dx-popup>
 <!-- Edit TypeProduct -->
@@ -197,13 +195,23 @@ title="Xác nhận" [height]="200" [width]="550">
   title="{{objDeleteTypeProduct.title}}" [height]='220' [width]="380" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto">
     <div class='title-from-delete'>{{objDeleteTypeProduct.mess}}</div>
-    <form (ngSubmit)="onSubmitDeleteTypeProduct($event)" autocomplete="off" *ngIf='isPopupDeleteTypeProduct'>
-      <div class='formErrMess text-danger mt-2'>{{objDeleteTypeProduct.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objDeleteTypeProduct.formSuccMess}}</div>
+    <form autocomplete="off" *ngIf='isPopupDeleteTypeProduct'>
       <div class='d-flex justify-content-around mt-4'>
         <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeProduct()'>Hủy</div>
-        <button type="submit" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
+        <button type="button" (click)="isConfirmDeleteType = !isConfirmDeleteType" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
       </div>
     </form>
   </div>
+  <dx-popup [(visible)]="isConfirmDeleteType" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <span>Bạn chắc chắn xóa mục này ?</span>
+      </div>
+      
+    </div>
+    <div class='d-flex justify-content-end mt-4' >
+      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDeleteType = !isConfirmDeleteType">Đóng</div>
+      <button type="button" (click)="onSubmitDeleteTypeProduct()"  class="btn btn-primary btn-danger" >  Xóa</button>
+    </div>
+  </dx-popup>
 </dx-popup>

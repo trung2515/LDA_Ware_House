@@ -32,8 +32,9 @@ export class ProductCategoryComponent implements OnInit {
   }
   timeShowMess:any=3000
 
-  isConfirm:boolean = false
-  isShowConfirmTypeProduct:boolean = false
+  isConfirmDeleteProduct:boolean = false
+  isConfirmDeleteType:boolean = false
+
   // -----------------------------------------------------PRODUCT---------------------------------------
   listProduct:any=[]
   itemProductClicked:any={}
@@ -67,7 +68,7 @@ export class ProductCategoryComponent implements OnInit {
   togglePopupDeleteProduct(){
     this.isPopupDeleteProduct=!this.isPopupDeleteProduct
   }
-  onSubmitDeleteProduct(e:any){
+  onSubmitDeleteProduct(){
     let id=this.itemProductClicked.idProduct
     this.adminService.deleteProduct(id).subscribe((data:any) => {
       console.log(data)
@@ -172,6 +173,8 @@ export class ProductCategoryComponent implements OnInit {
   onSubmitAddProduct(e:any){
     let nameProduct=this.objAddProduct.input.tsp.value
     let codeProduct=this.objAddProduct.input.msp.value
+    console.log(nameProduct,codeProduct);
+    
     this.adminService.insertProduct(codeProduct,nameProduct).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
@@ -334,7 +337,7 @@ export class ProductCategoryComponent implements OnInit {
   togglePopupDeleteTypeProduct(){
     this.isPopupDeleteTypeProduct=!this.isPopupDeleteTypeProduct
   }
-  onSubmitDeleteTypeProduct(e:any){
+  onSubmitDeleteTypeProduct(){
     let idTypeProduct=this.itemTypeProductClicked.idTypeProduct
     this.adminService.deleteTypeProduct(idTypeProduct).subscribe((data:any) => {
       console.log(data)

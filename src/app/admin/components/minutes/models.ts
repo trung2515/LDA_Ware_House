@@ -3,9 +3,10 @@ export class ListMinutes{
 }
 export class ListDetail{
     detailName: string;
-    id: number;
-    constructor(){
-
+    detailId: number;
+    constructor(data:any){
+        this.detailName = data.objectName
+        this.detailId = data.objectId
     }
 }
 export class ListTypeMinutes{

@@ -37,6 +37,7 @@ import {
   ShiftDetailInfo,
   ShiftInfo,
   TransportationUnitResponse,
+  MasterDataInfo,
 } from '../models/model.pb'
 @Injectable()
 export class AdminService {
@@ -530,6 +531,9 @@ export class AdminService {
       }),
     )
   }
+
+  
+
   updateWork(idWork: any, codeWork: any, nameWork: any) {
     let req: WorkInfo = new WorkInfo()
     req.idWork = idWork
@@ -598,6 +602,42 @@ export class AdminService {
     return this.administratorClient.getListMasterData(request).pipe(
       map((reply) => {
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }
+      ));
+  }
+  insertListMasterData(id:number, name:any, type:any){
+    let req:MasterDataInfo = new MasterDataInfo() 
+    req.objectId= id;
+    req.objectName = name;
+    req.objectType =type
+    console.log('rq',req);
+    return this.administratorClient.insertMaster(req).pipe(
+      map((reply) => {
+        return reply
+      }
+      ));
+  }
+  
+  updateListMasterData(id:number, name:any, type:any){
+    console.log(name,type);
+    let req:MasterDataInfo = new MasterDataInfo() 
+    req.objectId= id;
+    req.objectName = name;
+    req.objectType =type
+    console.log('rq',req);
+    return this.administratorClient.updateMaster(req).pipe(
+      map((reply) => {
+        return reply
+      }
+      ));
+  }
+  deleteListMasterData(id:number,type:any){
+    let req:MasterDataInfo = new MasterDataInfo() 
+    req.objectId= id;
+    req.objectType= type;
+    return this.administratorClient.setDeletedMaster(req).pipe(
+      map((reply) => {
+        return reply
       }
       ));
   }
