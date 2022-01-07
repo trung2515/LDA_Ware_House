@@ -136,7 +136,18 @@ addMinutesDetail(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-
+ 
+      this.objAddMinuteDetail={
+        title:'',
+        name:'',
+        index:'',
+        id:0,
+        atc:'',
+        input:{
+          dvd:{value:'',isValid:false},
+        },
+        isValid:false
+      }
   console.log(this.dataTypeMinutes);
   this.isShowPopup = false 
   this.toast.success('','Thêm mới thành công')
@@ -144,8 +155,7 @@ addMinutesDetail(){
       this.isShowPopup = false 
       this.toast.error('',data._message)
     }
-  })
- 
+     
   this.objAddMinuteDetail={
     title:'',
     name:'',
@@ -157,6 +167,8 @@ addMinutesDetail(){
     },
     isValid:false
   }
+  })
+
  
 }
 updateMinutesMinutes(){
@@ -165,27 +177,38 @@ updateMinutesMinutes(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
+      this.objAddMinuteDetail={
+        title:'',
+        name:'',
+        id:0,
+        atc:'',
+        input:{
+          dvd:{value:'',isValid:false},
+        },
+        isValid:false
+      }
        
   console.log(this.dataTypeMinutes);
   this.isShowPopup = false 
 
   this.toast.success('','Chỉnh sửa thành công')
     }else{
+      this.objAddMinuteDetail={
+        title:'',
+        name:'',
+        id:0,
+        atc:'',
+        input:{
+          dvd:{value:'',isValid:false},
+        },
+        isValid:false
+      }
       this.isShowPopup = false
 
       this.toast.error('',data._message)
     }
   })
-  this.objAddMinuteDetail={
-    title:'',
-    name:'',
-    id:0,
-    atc:'',
-    input:{
-      dvd:{value:'',isValid:false},
-    },
-    isValid:false
-  }
+
  
 }
 
@@ -197,27 +220,37 @@ deleteMinutesMinutes(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-  
+      this.objAddMinuteDetail={
+        title:'',
+        name:'',
+        id:0,
+        atc:'',
+        input:{
+          dvd:{value:'',isValid:false},
+        },
+        isValid:false
+      }
   console.log(this.dataTypeMinutes);
   this.isConfirmDelete = false 
   this.isShowPopup = false 
   this.toast.success('','Xóa thành công')
     }else{
+      this.objAddMinuteDetail={
+        title:'',
+        name:'',
+        id:0,
+        atc:'',
+        input:{
+          dvd:{value:'',isValid:false},
+        },
+        isValid:false
+      }
       this.isConfirmDelete = false 
     this.isShowPopup = false
       this.toast.error('',data._message)
     }
   })
-  this.objAddMinuteDetail={
-    title:'',
-    name:'',
-    id:0,
-    atc:'',
-    input:{
-      dvd:{value:'',isValid:false},
-    },
-    isValid:false
-  }
+
 }
 closePop(){
   this.isShowPopup = false 

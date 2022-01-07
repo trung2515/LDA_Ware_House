@@ -605,6 +605,8 @@ export class AdminService {
       ));
   }
   insertListMasterData(id:number, name:any, type:any, cate:any){
+   
+    
     let req:MasterDataInfo = new MasterDataInfo() 
     req.objectId = id;
     req.objectName = name;
