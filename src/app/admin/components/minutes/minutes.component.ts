@@ -38,6 +38,17 @@ masterData:any
 department:ListDetail[]
 represent:ListDetail[]
 isConfirmDelete:boolean = false
+activeBtn:boolean = true
+
+blur(e:any,obj:any){
+  _.blur(e,obj)
+}
+click(e:any){
+  _.click(e)
+}
+onChangeInput(){
+  this.activeBtn = false 
+}
 getDetail() {
   this.adminService.getListMasterData().subscribe((masterData) => {
     console.log('mt',masterData);
@@ -74,15 +85,7 @@ demoData(){
   
 }
 
-blur(e:any,obj:any){
-  _.blur(e,obj)
-}
-click(e:any){
-  _.click(e)
-}
-input(e:any,obj:any){
-  _.input(e,obj)
-}
+
 showAddMinutesDetail(data:any,type:number){
   this.isShowPopup = true 
   this.objAddMinuteDetail.title = data
@@ -120,7 +123,7 @@ if(this.objAddMinuteDetail.atc == "Thêm mới"){
 }
 }
 addMinutesDetail(){
-  console.log(this.objAddMinuteDetail);
+  console.log('input',this.objAddMinuteDetail);
   let cate:string
   this.objAddMinuteDetail.type == 'partner'? cate = 'vendor' : ''
   console.log(cate);
@@ -131,7 +134,7 @@ addMinutesDetail(){
   }
   idmax++;
   console.log('id',idmax);
-   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.input.dvd.value,this.objAddMinuteDetail.type,cate)
+   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.name,this.objAddMinuteDetail.type,cate)
    .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
