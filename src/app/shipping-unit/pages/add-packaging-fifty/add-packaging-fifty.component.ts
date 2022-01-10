@@ -157,7 +157,9 @@ export class AddPackagingFiftyComponent implements OnInit {
         label: 'Loại bao',
         formControlName: 'bag_type_code',
         type: 'select',
-        options: this.typePacketList
+        options: this.typePacketList.filter(i =>
+          i.code.toLowerCase().includes('50kg')
+        )
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
       { label: 'Lô', formControlName: 'consignments', type: 'text' },
