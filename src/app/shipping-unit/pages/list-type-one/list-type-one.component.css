@@ -4,6 +4,7 @@
 .content {
   background-color:#FFFFFF;
   padding: 24px 28px 28px 28px;
+  height: calc(var(--contentHeight) - 20px);
 }
 .select-label{
   margin-bottom: 0;

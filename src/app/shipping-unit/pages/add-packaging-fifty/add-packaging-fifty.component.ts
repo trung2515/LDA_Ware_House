@@ -27,10 +27,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class AddPackagingFiftyComponent implements OnInit {
   title: string = 'Nhập sản lượng đóng bao loại 50kg';
-  now: Date = new Date('2022/01/01');
+  now: Date = new Date('1/1/2022');
   ca_no_option: string = 'Ca 1';
   ballot_types: Option50Modal[] = [];
-  ballot_type: string = 'Nhập đóng mới';
+  ballot_type: string = 'NDM';
   packaging_units: Option50Modal[] = [];
   packaging_unit = 'VTRE';
 
@@ -38,6 +38,8 @@ export class AddPackagingFiftyComponent implements OnInit {
   typeProductList: Option50Modal[] = [];
   typePacketList: Option50Modal[] = [];
   warehouseList: Option50Modal[] = [];
+  parcelList: Option50Modal[] = [];
+
   listProduct: any = [];
   inputs_options: any = [];
   formGroupProduct: any = {};
@@ -70,6 +72,8 @@ export class AddPackagingFiftyComponent implements OnInit {
       });
   }
   onSubmit() {
+    console.log(this.formGroupProduct['form-1'].value);
+
     if (this.isValidForm()) {
       this.handleUpdate50kg();
     }
@@ -79,6 +83,8 @@ export class AddPackagingFiftyComponent implements OnInit {
     data.date = Utils.formatDate(this.now);
     data.nameShift = this.ca_no_option;
     data.user = this.authService.getUser().id;
+    data.codeTypeBill = this.ballot_type
+    data.codePackingUnit = this.packaging_unit
 
     for (const key of this.getKeyForm()) {
       const valueForm = this.formGroupProduct[key].value;
@@ -101,9 +107,9 @@ export class AddPackagingFiftyComponent implements OnInit {
 
     console.log(data);
 
-    this.warehouseService.updateCard50kg(data).subscribe(reply => {
-      console.log(reply);
 
+    this.warehouseService.insertCard50kg(data).subscribe(reply => {
+      console.log(reply);
       if (reply.state == ResponseState.SUCCESS) {
         this.showSuccess('Thêm mới thành công');
       } else {
@@ -122,6 +128,7 @@ export class AddPackagingFiftyComponent implements OnInit {
       this.setOptionList();
     });
     this.adminService.getListTypePacket().subscribe(data => {
+
       this.typePacketList = data.map(d => new Option50Modal(d));
       this.setOptionList();
     });
@@ -131,9 +138,15 @@ export class AddPackagingFiftyComponent implements OnInit {
     });
     this.adminService.getListPackingUnit().subscribe(data => {
       this.packaging_units = data.map(d => new Option50Modal(d));
+      this.setOptionList();
     });
     this.adminService.getListTypeBill().subscribe(data => {
       this.ballot_types = data.map(d => new Option50Modal(d));
+      this.setOptionList();
+    });
+    this.warehouseService.getListAllParcel().subscribe(data => {
+      this.parcelList = data.map(d => new Option50Modal(d));
+      this.setOptionList();
     });
   }
   // ah50kg
@@ -143,8 +156,8 @@ export class AddPackagingFiftyComponent implements OnInit {
         label: 'Sản phẩm',
         formControlName: 'product_code',
         type: 'select',
-        options: this.productList.filter(item =>
-          item.code.toLowerCase().includes('50kg')
+        options: this.productList.filter(i =>
+          i?.code.toLowerCase().includes('50kg')
         )
       },
       {
@@ -158,11 +171,16 @@ export class AddPackagingFiftyComponent implements OnInit {
         formControlName: 'bag_type_code',
         type: 'select',
         options: this.typePacketList.filter(i =>
-          i.code.toLowerCase().includes('50kg')
+          i?.code.toLowerCase().includes('50')
         )
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Lô',
+        formControlName: 'consignments',
+        type: 'select',
+        options: this.parcelList
+      },
       {
         label: 'Kho',
         formControlName: 'warehouse',

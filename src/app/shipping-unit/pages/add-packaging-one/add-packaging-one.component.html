@@ -14,8 +14,8 @@
       </div>
       <div class="select-date col-12 col-lg-3">
         <label for="">Ca làm việc</label>
-        <dx-select-box id="dxSelectShift" [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']" [(value)]="ca_no_option"
-          hoverStateEnabled="false" placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectShiftChange($event)">
+        <dx-select-box id="dxSelectShift" [dataSource]="shiftOptions" [(value)]="ca_no_option" hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectShiftChange($event)">
         </dx-select-box>
       </div>
     </div>
@@ -32,7 +32,7 @@
         <div class="option-head">
           <span>{{ optionItem.option }}:</span>
           <span class="option-title">
-            {{ optionItem.nameProduct }} - {{ optionItem.typeProduct }} -
+            {{ optionItem.nameProduct }} - Loại {{ optionItem.typeProduct }} -
             {{ optionItem.typePacket }}</span>
           <app-option-status [type]="optionItem.ballot_type"></app-option-status>
         </div>
@@ -58,7 +58,7 @@
             </app-text-input>
           </div>
         </form>
-        <div  [class]="'horizontal-line dotted option-' + optionItem.option"></div>
+        <div [class]="'horizontal-line dotted option-' + optionItem.option"></div>
       </div>
       <button *ngIf="aShiftList.length > 0" class="btn-ship btn-completed" (click)="onSubmit($event)">
         Hoàn tất
@@ -98,10 +98,10 @@
   </div>
   <div class="popup-content">
 
-    <!-- <div class="item-info row">
+    <div class="item-info row">
       <div class="item-wrap col-6 col-lg-3">
         <div class="item-title">Ca</div>
-        <div class="item-value">{{ aShiftList.shift }}</div>
+        <div class="item-value">{{ ca_no_option }}</div>
       </div>
       <div class="item-wrap col-6 col-lg-3">
         <div class="item-title">Ngày</div>
@@ -111,21 +111,21 @@
       </div>
       <div class="item-wrap col-6 col-lg-3">
         <div class="item-title">Người lập phiếu:</div>
-        <div class="item-value">{{ aShiftList[0].creator }}</div>
+        <div class="item-value">{{ aShiftList[0]?.creator }}</div>
       </div>
       <div class="item-wrap col-6 col-lg-3">
         <div class="item-title">Đơn vị đóng:</div>
         <div class="item-value">
-          {{ aShiftList[0].packingUnit }}
+          {{ aShiftList[0]?.packingUnit }}
         </div>
       </div>
-    </div> -->
+    </div>
 
-    <div *ngFor="let shift of aShiftList; let i = index" class="option-wrap">
+    <div *ngFor="let shift of aOptionShiftList; let i = index" class="option-wrap">
       <div class="option-info">
-        <span class="option-p">{{ shift.option }}</span>
+        <span class="option-p">{{ shift?.option }}</span>
         <span class="option-name-bag">
-          Alumin 1 tấn - Loại 1 - Đáy bằng
+          {{shift.nameProduct}}
         </span>
 
         <div class="d-none d-lg-inline-block">
@@ -137,40 +137,17 @@
           <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old">NDL</span>
         </div>
       </div>
-      <!--
+
       <div class="row option-group ">
-        <div class="option-item col-6 col-lg-3">
-          <p class="option-title">Máy A:</p>
+        <div *ngFor="let machine of shift.machine_list" class="option-item col-6 col-lg-3">
+          <p class="option-title">Máy {{machine.code}}:</p>
           <p class="option-qty">
-            {{ shift.machines_packaging.machine_a }}
+            {{machine.qty}}
           </p>
         </div>
-        <div class="option-item col-6 col-lg-3">
-          <p class="option-title">Máy B:</p>
-          <p class="option-qty">
-            {{ shift.machines_packaging.machine_b }}
-          </p>
-        </div>
-        <div class="option-item col-6 col-lg-3">
-          <p class="option-title">Máy C:</p>
-          <p class="option-qty">
-            {{ shift.machines_packaging.machine_c }}
-          </p>
-        </div>
-        <div class="option-item col-6 col-lg-3">
-          <p class="option-title">Máy D:</p>
-          <p class="option-qty">
-            {{ shift.machines_packaging.machine_d }}
-          </p>
-        </div>
-        <div class="option-item col-6 col-lg-3">
-          <p class="option-title">Máy E:</p>
-          <p class="option-qty">
-            {{ shift.machines_packaging.machine_e }}
-          </p>
-        </div>
+
       </div>
-       -->
+
     </div>
   </div>
   <div class="popup-footer">

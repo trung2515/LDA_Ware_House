@@ -28,22 +28,24 @@ import {
 })
 export class ListTypeFiftyComponent implements OnInit {
   title: String = 'Danh sách sản lượng đóng bao loại 50kg';
-  now: Date = new Date('2022/01/01');
-  ca_no_option: string = 'Ca 1';
+  now: Date = new Date('1/1/2022');
   popupVisible: boolean = false;
   isUpdating: Boolean = false;
   optionSelected: any;
+
   productList: Option50Modal[] = [];
   typeProductList: Option50Modal[] = [];
   typePacketList: Option50Modal[] = [];
   warehouseList: Option50Modal[] = [];
   ballot_types: Option50Modal[] = [];
-  ballot_type: string = '';
+  parcelList: Option50Modal[] = [];
   packaging_units: Option50Modal[] = [];
+
+  ballot_type: string = '';
   packaging_unit = '';
+  ca_no_option: string = 'Ca 1';
 
   card50kgList: Card50kgDetailModel[] = [];
-
   inputs_options: any = [
     {
       label: 'Sản phẩm',
@@ -81,7 +83,7 @@ export class ListTypeFiftyComponent implements OnInit {
     private adminService: AdminService,
     private warehouseService: WareHouseService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getData();
@@ -119,9 +121,15 @@ export class ListTypeFiftyComponent implements OnInit {
     });
     this.adminService.getListPackingUnit().subscribe(data => {
       this.packaging_units = data.map(d => new Option50Modal(d));
+      this.setListOption();
     });
     this.adminService.getListTypeBill().subscribe(data => {
       this.ballot_types = data.map(d => new Option50Modal(d));
+      this.setListOption();
+    });
+    this.warehouseService.getListAllParcel().subscribe(data => {
+      this.parcelList = data.map(d => new Option50Modal(d));
+      this.setListOption();
     });
   }
 
@@ -151,7 +159,12 @@ export class ListTypeFiftyComponent implements OnInit {
         value: this.optionSelected?.bag_type
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Lô',
+        formControlName: 'consignments',
+        type: 'select',
+        options: this.parcelList
+      },
       {
         label: 'Kho',
         formControlName: 'warehouse',
@@ -164,17 +177,17 @@ export class ListTypeFiftyComponent implements OnInit {
     if (this.isValidForm()) {
       const data: InsertCardRequest = new InsertCardRequest();
       data.date = Utils.formatDate(this.now);
-      data.nameShift = this.ca_no_option;
+      data.nameShift = this.ca_no_option.toUpperCase();
       data.user = this.authService.getUser().id;
+      data.codePackingUnit = this.packaging_unit;
+      data.codeTypeBill = this.ballot_type;
 
       for (const key of this.getKeyForm()) {
         const valueForm = this.formGroupProduct[key].value;
-        console.log(valueForm);
-
 
         const cardDetail: CardDetailInfo = new CardDetailInfo();
         cardDetail.codeProduct = valueForm.product_name;
-        cardDetail.codeTypePacket = valueForm.product_type;
+        cardDetail.idTypeProduct = valueForm.product_type;
         cardDetail.codeTypePacket = valueForm.bag_type;
         cardDetail.quantity = valueForm.qty;
         cardDetail.codeParcel = valueForm.consignments;
@@ -185,17 +198,20 @@ export class ListTypeFiftyComponent implements OnInit {
 
         data.cardDetails.push(cardDetail);
       }
-      console.log(data);
 
-      this.warehouseService.updateCard50kg(data).subscribe(reply => {
-        console.log(reply);
-        if (reply.state === ResponseState.SUCCESS) {
-          this.showSuccess('Cập nhật thành công');
-          this.getData();
-        } else {
-          this.showWarn(reply.message);
-        }
-      });
+      if (
+        this.formGroupProduct['form-1'].value['qty'] !== this.optionSelected.qty
+      ) {
+        this.warehouseService.updateCard50kg(data).subscribe(reply => {
+          console.log(reply);
+          if (reply.state === ResponseState.SUCCESS) {
+            this.showSuccess('Cập nhật thành công');
+            this.getData();
+          } else {
+            this.showWarn(reply.message);
+          }
+        });
+      }
 
       this.isUpdating = false;
     }
@@ -206,15 +222,14 @@ export class ListTypeFiftyComponent implements OnInit {
     this.packaging_unit = option.packing_unit;
     const _option: CardDetailInfo = new CardDetailInfo();
     _option.idCard = option.idCard;
-    _option.isChangable = true;
+
+    // _option.isChangable = true;
 
     // this.warehouseService.setChangeableCard(_option).subscribe((reply: any) => {
     //   console.log(reply);
     // });
 
-    for (let i = 1; i <= 1; i++) {
-      this.formGroupProduct['form-' + i] = this.initFormGroup(option);
-    }
+    this.formGroupProduct['form-1'] = this.initFormGroup(option);
 
     this.isUpdating = true;
   }
@@ -233,7 +248,7 @@ export class ListTypeFiftyComponent implements OnInit {
         console.log(reply);
         if (reply.state === ResponseState.SUCCESS) {
           this.toastrService.success('Xoá thành công', '');
-          this.getData()
+          this.getData();
         } else {
           this.toastrService.warning(reply.message);
         }
@@ -282,18 +297,30 @@ export class ListTypeFiftyComponent implements OnInit {
   }
   initFormGroup(option?: any): FormGroup {
     return this.formBuilder.group({
-      product_name: [option?.product_code || '', [Validators.required]],
-      product_type: ['1' || '', [Validators.required]],
-      bag_type: [option?.code_bag_type || '', [Validators.required]],
+      product_name: [
+        { value: option?.product_code || '', disabled: false },
+        [Validators.required]
+      ],
+      product_type: [
+        { value: option?.product_type || '', disabled: false },
+        [Validators.required]
+      ],
+      bag_type: [
+        { value: option?.code_bag_type || '', disabled: false },
+        [Validators.required]
+      ],
       qty: [
         option?.qty || '0',
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
       consignments: [
-        option?.parcel || '',
+        { value: option?.parcel || '', disabled: false },
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
-      warehouse: [option?.codeWarehouse || '', [Validators.required]]
+      warehouse: [
+        { value: option?.codeWarehouse || '', disabled: false },
+        [Validators.required]
+      ]
     });
   }
   showError(msg: string) {
