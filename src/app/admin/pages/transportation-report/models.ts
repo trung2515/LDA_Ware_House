@@ -10,7 +10,7 @@ export class TransportationReportModel {
   product_type: number = 0
   bag_type: string = ''
   work: string = ''
-  lau_warehouse: string = ''
+  loading_warehouse: string = ''
   unloading_equipment: string = ''
   loading_equipment: string = ''
   unloading_warehouse: string = ''
@@ -33,12 +33,11 @@ export class TransportationReportModel {
     this.product_type = data.idTypeProduct
     this.bag_type = data.codeTypePacket
     this.work = data.codeWork
-    this.lau_warehouse = data.nameWareHouseUnLoad || ''
+    this.loading_warehouse = data.codeWareHouseload || ''
     this.unloading_equipment = data.codeEquipmentUnLoad || ''
     this.loading_equipment = data.codeEquipmentLoad || ''
     this.date = Utils.formatDateV1(new Date(data.createddate))
     this.trips_number = data.countTrip
-    this.lau_warehouse = data.codeWareHouseload || ''
     this.unloading_warehouse = data.codeWareHouseUnload
     this.cdo = data.distance
     this.bag_number = data.quantity
