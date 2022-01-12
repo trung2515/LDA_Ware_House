@@ -24,11 +24,9 @@
                 <dxo-pager [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
                 <dxi-column dataField="shiftID" [fixed]="true" caption="Ca" alignment="left"></dxi-column>
-                <dxi-column dataField="date" cellTemplate="date"[fixed]="true" caption="Ngày">
+                <dxi-column dataField="date" [fixed]="true" caption="Ngày">
                 </dxi-column>
-                <div *dxTemplate="let date of 'date'">
-                  {{ date.value | date: "dd-MM-yyyy" }}
-                </div>
+               
                 <dxi-column dataField="name" [fixed]="true" caption="Sản phẩm">
                 </dxi-column>
                 <dxi-column dataField="type_product" caption="Loại sản phẩm">

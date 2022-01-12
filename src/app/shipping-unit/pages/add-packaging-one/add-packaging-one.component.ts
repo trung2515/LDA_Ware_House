@@ -107,6 +107,17 @@ export class AddPackagingOneComponent implements OnInit {
 
   onSubmit(e: any) {
     if (this.isValidForm()) {
+
+
+      // this.wareHouseService
+      // .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
+      // .subscribe(data => {
+      //   const rs =data.filter(item=> item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase())
+      //   console.log('data: ', data);
+
+      // }
+      // )
+
       const data: ConfirmProduction1000Info = new ConfirmProduction1000Info();
       let machine_list: ConfirmProduction1000[] = [];
 
@@ -117,7 +128,7 @@ export class AddPackagingOneComponent implements OnInit {
           // console.log(this.aShiftList[i].idShiftDetail);
           // console.log(this.aShiftList[i].idShiftDetail.toString());
 
-          machine.idShiftDetail = this.aShiftList[i].idShiftDetail.toString();
+          machine.idShiftDetail = this.aShiftList[i].idShiftDetail+'';
           machine.codeEquipment = key.split('_')[1];
           machine.quantity = Number(form[key]);
 
@@ -162,11 +173,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['7', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_a: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {
@@ -185,25 +196,13 @@ export class AddPackagingOneComponent implements OnInit {
   onDateValueChanged(e: any) {
     this.getData();
   }
-  onSelectCaChange = (e: any) => {
+  onSelectShiftChange = (e: any) => {
     this.getData();
   };
 
   onBackClicked() {
     this.location.back();
   }
-  getCurrentDate(date: Date): string {
-    return (
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-    );
-  }
-  // getCurrentDateDMY(date: Date): string {
-  //   console.log('dateeeee  ', date);
-
-  //   return (
-  //     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-  //   );
-  // }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
       timeOut: 2000,
@@ -226,11 +225,6 @@ export class AddPackagingOneComponent implements OnInit {
     });
   }
   onConfirm = () => {
-    // const indexOfItem = this.aShiftList.findIndex(
-    //   item => item.id === this.currentAppointment.id
-    // );
-    // this.handleAddNewShiftDetail(indexOfItem);
-
     this.showSuccess('Thay đổi thành công!');
     this.popupVisible = false;
   };

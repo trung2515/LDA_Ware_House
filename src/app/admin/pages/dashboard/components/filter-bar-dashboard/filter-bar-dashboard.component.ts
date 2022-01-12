@@ -85,7 +85,7 @@ export class FilterBarDashboardComponent implements OnInit {
       })
     this.getDatesOfMonths(this.currentMonth, this.currentYear)
     this.reportService.reportWarehouse().subscribe((d) => {
-      d.forEach(d => {
+      d.filter(d => d.nameProduct != '').forEach(d => {
         if (this.inventoryMonths.filter(i => i.name == d.nameProduct
           && i.type == d.idTypeProduct).length == 0) {
           let inv = new InventoryFLMonthModel(d);
