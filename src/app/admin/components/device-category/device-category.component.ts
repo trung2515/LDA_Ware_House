@@ -59,7 +59,7 @@ export class DeviceCategoryComponent implements OnInit {
   }
   getListTypeEquipment(){
     this.adminService.getListTypeEquipment().subscribe((data:any) => {
-      this.listTypeEquipment=data
+      this.listTypeEquipment=data.filter((f:any) => f.objectType == "equipment")
       this.listTypeEquipment.sort((a:any,b:any)=>{
         return a.objectName.toLowerCase().localeCompare(b.objectName.toLowerCase())
       })
