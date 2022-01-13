@@ -57,17 +57,8 @@ export class ListTypeOneComponent implements OnInit {
   }
   getData() {
     this.wareHouseService
-      .getConfirmProduct(
-        Utils.formatDate(new Date('2021-12-12')),
-        Utils.formatDate(this.now)
-      )
-      .subscribe(data => {
-        console.log('data: ', data);
-      });
-    this.wareHouseService
       .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
       .subscribe(data => {
-        console.log('data: ', data);
         this.setOptionData(data);
       });
   }
@@ -218,6 +209,7 @@ export class ListTypeOneComponent implements OnInit {
           this.inputs_options = [];
           this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
           this.showSuccess('Cập nhật thành công');
+          this.getData()
         }
       });
     }

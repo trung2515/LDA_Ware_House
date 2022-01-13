@@ -184,26 +184,28 @@ export class ListTypeFiftyComponent implements OnInit {
 
       for (const key of this.getKeyForm()) {
         const valueForm = this.formGroupProduct[key].value;
-
         const cardDetail: CardDetailInfo = new CardDetailInfo();
-        cardDetail.codeProduct = valueForm.product_name;
-        cardDetail.idTypeProduct = valueForm.product_type;
-        cardDetail.codeTypePacket = valueForm.bag_type;
+
+        cardDetail.codeProduct = this.optionSelected.product_code;
+        cardDetail.idTypeProduct = this.optionSelected.product_type;
+        cardDetail.codeTypePacket = this.optionSelected.code_bag_type;
         cardDetail.quantity = valueForm.qty;
-        cardDetail.codeParcel = valueForm.consignments;
-        cardDetail.codeWareHouse = valueForm.warehouse;
+        cardDetail.codeParcel = this.optionSelected.parcel;
+        cardDetail.codeWareHouse = this.optionSelected.codeWarehouse;
         cardDetail.codeTypeBill = this.ballot_type;
         cardDetail.codePackingUnit = this.packaging_unit;
         cardDetail.idCard = this.optionSelected.idCard;
 
         data.cardDetails.push(cardDetail);
       }
+      const otherItem = this.getOtherDataShift(this.optionSelected.idCard);
+      data.cardDetails = data.cardDetails.concat(otherItem);
 
       if (
         this.formGroupProduct['form-1'].value['qty'] !== this.optionSelected.qty
       ) {
+        // console.log(data);
         this.warehouseService.updateCard50kg(data).subscribe(reply => {
-          console.log(reply);
           if (reply.state === ResponseState.SUCCESS) {
             this.showSuccess('Cập nhật thành công');
             this.getData();
@@ -211,10 +213,30 @@ export class ListTypeFiftyComponent implements OnInit {
             this.showWarn(reply.message);
           }
         });
-      }
-
+      } else this.showSuccess('Cập nhật thành công');
       this.isUpdating = false;
     }
+  }
+  getOtherDataShift(idCard: string): CardDetailInfo[] {
+    let rs: CardDetailInfo[] = [];
+    this.card50kgList.forEach(item => {
+      if (item.idCard !== idCard) {
+        const cardDetail: CardDetailInfo = new CardDetailInfo();
+
+        cardDetail.codeProduct = item.product_code;
+        cardDetail.idTypeProduct = Number(item.product_type);
+        cardDetail.codeTypePacket = item.code_bag_type;
+        cardDetail.quantity = item.qty + '';
+        cardDetail.codeParcel = item.parcel;
+        cardDetail.codeWareHouse = item.codeWarehouse;
+        cardDetail.codeTypeBill = item.ballot_type;
+        cardDetail.codePackingUnit = item.packing_unit;
+        cardDetail.idCard = item.idCard;
+
+        rs.push(cardDetail);
+      }
+    });
+    return rs;
   }
   onOptionEditClicked(option: any) {
     this.optionSelected = option;
@@ -223,19 +245,14 @@ export class ListTypeFiftyComponent implements OnInit {
     const _option: CardDetailInfo = new CardDetailInfo();
     _option.idCard = option.idCard;
 
-    // _option.isChangable = true;
-
-    // this.warehouseService.setChangeableCard(_option).subscribe((reply: any) => {
-    //   console.log(reply);
-    // });
-
+    this.formGroupProduct = {};
     this.formGroupProduct['form-1'] = this.initFormGroup(option);
 
     this.isUpdating = true;
   }
   onOptionDeleteClicked(option: any) {
     this.popupVisible = true;
-    console.log(option);
+    // console.log(option);
     this.optionSelected = option;
   }
   onClosePopup = () => {
@@ -245,7 +262,7 @@ export class ListTypeFiftyComponent implements OnInit {
     this.warehouseService
       .deleteCard50kg(this.optionSelected.idCard)
       .subscribe(reply => {
-        console.log(reply);
+        // console.log(reply);
         if (reply.state === ResponseState.SUCCESS) {
           this.toastrService.success('Xoá thành công', '');
           this.getData();
@@ -298,15 +315,15 @@ export class ListTypeFiftyComponent implements OnInit {
   initFormGroup(option?: any): FormGroup {
     return this.formBuilder.group({
       product_name: [
-        { value: option?.product_code || '', disabled: false },
+        { value: option?.product_code || '', disabled: true },
         [Validators.required]
       ],
       product_type: [
-        { value: option?.product_type || '', disabled: false },
+        { value: option?.product_type || '', disabled: true },
         [Validators.required]
       ],
       bag_type: [
-        { value: option?.code_bag_type || '', disabled: false },
+        { value: option?.code_bag_type || '', disabled: true },
         [Validators.required]
       ],
       qty: [
@@ -314,11 +331,11 @@ export class ListTypeFiftyComponent implements OnInit {
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
       consignments: [
-        { value: option?.parcel || '', disabled: false },
+        { value: option?.parcel || '', disabled: true },
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
       warehouse: [
-        { value: option?.codeWarehouse || '', disabled: false },
+        { value: option?.codeWarehouse || '', disabled: true },
         [Validators.required]
       ]
     });

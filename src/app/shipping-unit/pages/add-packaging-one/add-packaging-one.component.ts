@@ -88,7 +88,6 @@ export class AddPackagingOneComponent implements OnInit {
           this.aShiftList = [];
           this.showError('Chưa có dữ liệu ca làm việc này!');
         }
-
         this.generationForm();
       });
   }
@@ -111,7 +110,6 @@ export class AddPackagingOneComponent implements OnInit {
           machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
           machine.codeEquipment = key.split('_')[1].toUpperCase();
           machine.quantity = Number(form[key]);
-
           machine_list.push(machine);
         }
       }
@@ -120,23 +118,48 @@ export class AddPackagingOneComponent implements OnInit {
       dataInput.date = Utils.formatDate(this.now);
       dataInput.nameShift = this.ca_no_option.toUpperCase();
 
-      this.warehouseService.insert1000kg(dataInput).subscribe(reply => {
-        console.log(reply);
-        if (reply.state == ResponseState.SUCCESS) {
-          this.showSuccess('Thêm mới thành công');
-        } else {
-          this.popupVisible = true;
-          this.wareHouseService
-            .getConfirmProduct(
-              Utils.formatDate(this.now),
-              Utils.formatDate(this.now)
-            )
-            .subscribe(data => {
-              // console.log('data: ', data);
-              this.setOptionData(data);
+      this.wareHouseService
+        .getConfirmProduct(
+          Utils.formatDate(this.now),
+          Utils.formatDate(this.now)
+        )
+        .subscribe(data => {
+          const rs = data.filter(
+            d => d.nameShift.toUpperCase() === this.ca_no_option.toUpperCase()
+          );
+          if (rs.length) {
+            console.log('update');
+            this.popupVisible = true;
+            this.wareHouseService
+              .getConfirmProduct(
+                Utils.formatDate(this.now),
+                Utils.formatDate(this.now)
+              )
+              .subscribe(data => {
+                this.setOptionData(data);
+              });
+          } else {
+            console.log('insert');
+            this.warehouseService.insert1000kg(dataInput).subscribe(reply => {
+              console.log(reply);
+              if (reply.state == ResponseState.SUCCESS) {
+                this.showSuccess('Thêm mới thành công');
+              }
+              // else {
+              //   this.popupVisible = true;
+              //   this.wareHouseService
+              //     .getConfirmProduct(
+              //       Utils.formatDate(this.now),
+              //       Utils.formatDate(this.now)
+              //     )
+              //     .subscribe(data => {
+              //       // console.log('data: ', data);
+              //       this.setOptionData(data);
+              //     });
+              // }
             });
-        }
-      });
+          }
+        });
     }
   }
 
@@ -268,11 +291,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['9', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['9', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['9', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['9', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['9', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_a: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_b: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_c: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_d: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_e: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {

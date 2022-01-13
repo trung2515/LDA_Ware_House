@@ -93,8 +93,9 @@ export class WareHouseService {
     );
   }
 
-  getConfirmProductDisplayByShift() {
+  getConfirmProductDisplayByShift(idShift:number) {
     let req: MasterRequest = new MasterRequest();
+    req.idShift = idShift
     return this.warehouseClient.getConfirmProductDisplayByShift(req).pipe(
       map((reply: ConfirmProductionResponse) => {
         console.log(reply);

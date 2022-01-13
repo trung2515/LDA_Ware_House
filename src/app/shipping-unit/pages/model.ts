@@ -109,10 +109,10 @@ export class Option50Modal {
       data.nameTypeBill ||
       data.namePackingUnit ||
       data.nameProduct ||
-      data.idTypeProduct ||
       data.nameTypePacket ||
       data.nameWareHouse ||
-      "Lô "+data.codeParcel ||
+      data.codeParcel ||
+      "Loại "+data.idTypeProduct ||
       '';
     this.code =
       data.codeTypeBill ||
@@ -121,7 +121,7 @@ export class Option50Modal {
       data.idTypeProduct ||
       data.codeTypePacket ||
       data.codeWareHouse ||
-      data.codeParcel
+      data.codeParcel ||
       '';
   }
 }
