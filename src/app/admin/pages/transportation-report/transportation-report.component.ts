@@ -82,7 +82,7 @@ export class TransportationReportComponent implements OnInit {
         },
         {
           caption: 'Nơi bốc',
-          dataField: 'lau_warehouse',
+          dataField: 'loading_warehouse',
           area: 'row',
           width: 70,
           expanded: true,
@@ -225,7 +225,7 @@ export class TransportationReportComponent implements OnInit {
         },
         {
           caption: 'Nơi bốc',
-          dataField: 'lau_warehouse',
+          dataField: 'loading_warehouse',
           headerFilter: {
             allowSearch: true,
           },
@@ -260,7 +260,7 @@ export class TransportationReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
-          return this.transportationList.filter(t => t.loading_equipment != '' && t.lau_warehouse != '')
+          return this.transportationList.filter(t => t.loading_equipment != '' && t.loading_warehouse != '')
         },
       }),
     })
@@ -426,3 +426,5 @@ export class TransportationReportComponent implements OnInit {
       .map((item: any) => item.caption)
   }
 }
+
+
