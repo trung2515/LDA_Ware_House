@@ -114,7 +114,7 @@ export class AddPackagingFiftyComponent implements OnInit {
       if (reply.state == ResponseState.SUCCESS) {
         this.showSuccess('Thêm mới thành công');
       } else {
-        this.showWarn(reply.message);
+        this.showWarn('Đã xác nhận trước đó');
       }
     });
   }
