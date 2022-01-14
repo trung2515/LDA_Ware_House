@@ -39,11 +39,11 @@ export class AddPackagingOneComponent implements OnInit {
   aOptionShiftList: OptionDetail[] = [];
 
   inputs_options: any = [
-    { label: 'Máy A', formControlName: 'machine_a' },
-    { label: 'Máy B', formControlName: 'machine_b' },
-    { label: 'Máy C', formControlName: 'machine_c' },
-    { label: 'Máy D', formControlName: 'machine_d' },
-    { label: 'Máy E', formControlName: 'machine_e' }
+    { label: 'Máy 1', formControlName: 'machine_1' },
+    { label: 'Máy 2', formControlName: 'machine_2' },
+    { label: 'Máy 3', formControlName: 'machine_3' },
+    { label: 'Máy 4', formControlName: 'machine_4' },
+    { label: 'Máy 5', formControlName: 'machine_5' }
   ];
   constructor(
     private formBuilder: FormBuilder,
@@ -291,11 +291,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_1: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_2: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_3: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_4: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_5: [0, [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {

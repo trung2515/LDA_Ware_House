@@ -201,7 +201,7 @@ export class Card50kgDetailModel {
     this.ballot_type = data.nameTypeBill;
     this.code_ballot_type = data.codeTypeBill
     this.packing_unit = data.namePackingUnit;
-    this.creator = data.namePerson;
+    this.creator = data.createdPerson;
     this.warehouse = data.nameWareHouse;
     this.codeWarehouse = data.codeWareHouse;
     this.product_name = data.nameProduct;

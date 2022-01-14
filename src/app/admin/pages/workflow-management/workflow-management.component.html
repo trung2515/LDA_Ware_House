@@ -3,13 +3,13 @@
     <div class="choose-date">
       <label>Từ ngày</label>
       <div>
-        <dx-date-box [value]="fromDate" type="date" (onValueChanged)="changeFromDate($event)"> </dx-date-box>
+        <dx-date-box displayFormat="dd/MM/yyyy" [value]="fromDate" type="date" (onValueChanged)="changeFromDate($event)"> </dx-date-box>
       </div>
     </div>
     <div class="choose-date ms-3">
       <label>Dến ngày</label>
       <div>
-        <dx-date-box [(value)]="toDate" type="date" (onValueChanged)="changeToDate($event)"> </dx-date-box>
+        <dx-date-box displayFormat="dd/MM/yyyy" [(value)]="toDate" type="date"  (onValueChanged)="changeToDate($event)"> </dx-date-box>
       </div>
     </div>
   </div>

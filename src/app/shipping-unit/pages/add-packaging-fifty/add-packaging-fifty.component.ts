@@ -82,7 +82,8 @@ export class AddPackagingFiftyComponent implements OnInit {
     const data: InsertCardRequest = new InsertCardRequest();
     data.date = Utils.formatDate(this.now);
     data.nameShift = this.ca_no_option;
-    data.user = this.authService.getUser().id;
+
+    data.user = this.authService.getUser().user;
     data.codeTypeBill = this.ballot_type
     data.codePackingUnit = this.packaging_unit
 

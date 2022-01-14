@@ -9,10 +9,10 @@ export class OptionModel {
       data.nameWareHouse ||
       data.namePartner ||
       data.objectName ||
-      data.idTypeProduct ||
       data.nameTypeBill ||
       data.namePackingUnit ||
       data.codeParcel ||
+      data.idTypeProduct ||
       '';
     this.value =
       data.codeProduct ||
