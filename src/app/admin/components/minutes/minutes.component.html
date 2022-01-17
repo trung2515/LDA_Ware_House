@@ -43,16 +43,15 @@
             <div class='d-flex' style='justify-content: space-between;'>
               <label for="FAPU-dvd" *ngIf="objAddMinuteDetail.atc!=='Xóa'"class="form-label">{{objAddMinuteDetail.title}}</label>
               <label for="FAPU-dvd" *ngIf="objAddMinuteDetail.atc=='Xóa'" class="form-label">Xóa {{objAddMinuteDetail.title}} {{objAddMinuteDetail.name}} ?</label>
-              <input id="FAE-ttb" *ngIf="objAddMinuteDetail.atc=='Thêm mới'" name="ttb" rules='required' type="text" class="form-control"
-              (blur)='blur($event,objAddMinuteDetail)' (click)='click($event)' (input)='input($event,objAddMinuteDetail)'>
-              <input id="FAPU-dvd" name="dvd" *ngIf="objAddMinuteDetail.atc=='Chỉnh sửa'" [(ngModel)]='objAddMinuteDetail.name'  rules='required'  type="text"  class="form-control"  (blur)='blur($event,objAddMinuteDetail)' (click)='click($event)' >
+             
+              <input (keydown)="onChangeInput()" [(ngModel)]='objAddMinuteDetail.name' name="dvd"  type="text"  class="form-control"   >
             </div>
            
           </div>
           <div class='formErrMess text-danger mt-2'>{{objAddMinuteDetail.formErrMess}}</div>
           <div class='d-flex justify-content-end mt-4' >
             <div  class="btn btn-light btn-cancel mr-3" (click)="closePop()">Hủy</div>
-            <button type="submit" *ngIf="objAddMinuteDetail.atc=='Thêm mới'"  class="btn btn-primary btn-blue   " > Thêm</button>
+            <button type="submit" *ngIf="objAddMinuteDetail.atc=='Thêm mới'" [disabled]='activeBtn'  class="btn btn-primary btn-blue   " > Thêm</button>
             <button type="submit" *ngIf="objAddMinuteDetail.atc=='Chỉnh sửa'"  class="btn btn-primary btn-blue" >  Chỉnh Sửa</button>
             <button type="button" *ngIf="objAddMinuteDetail.atc=='Xóa'" (click)="isConfirmDelete = !isConfirmDelete"  class="btn btn-primary btn-blue" >  Xóa</button>
           </div>
