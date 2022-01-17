@@ -48,7 +48,7 @@ export class JobComponent implements OnInit {
     formErrMess:'',
     formSuccMess:'',
     input:{
-      mcv:{value:'',isValid:false},
+      // mcv:{value:'',isValid:false},
       tcv:{value:'',isValid:false},
     },
     isValid:false
@@ -60,9 +60,9 @@ export class JobComponent implements OnInit {
     this.isPopupAddWork=!this.isPopupAddWork
   }
   onSubmitAddWork(e:any){
-    let codeWork=this.objAddWork.input.mcv.value
+    // let codeWork=this.objAddWork.input.mcv.value
     let nameWork=this.objAddWork.input.tcv.value
-    this.adminService.insertWork(codeWork,nameWork).subscribe((data:any) => {
+    this.adminService.insertWork(nameWork).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.objAddWork.formSuccMess=data.message

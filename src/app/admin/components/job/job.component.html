@@ -35,14 +35,14 @@
   [height]='250' [width]="500" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitAddWork($event)" autocomplete="off" *ngIf='isPopupAddWork'>
-      <div class="wrap-input">
+      <!-- <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FAW-mcv" class="form-label">Mã công việc</label>
           <input id="FAW-mcv" name="mcv" rules='required' type="text" class="form-control"
             (blur)='blur($event,objAddWork)' (click)='click($event)' (input)='input($event,objAddWork)'>
         </div>
         <span class="input-message"></span>
-      </div>
+      </div> -->
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FAW-tcv" class="form-label">Tên công việc</label>

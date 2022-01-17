@@ -522,9 +522,9 @@ export class AdminService {
       }),
     )
   }
-  insertWork(codeWork: any, nameWork: any) {
+  insertWork( nameWork: any) {
     let req: WorkInfo = new WorkInfo()
-    req.codeWork = codeWork
+   
     req.nameWork = nameWork
     return this.administratorClient.insertWork(req).pipe(
       map((reply: Response) => {
