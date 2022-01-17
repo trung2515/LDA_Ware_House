@@ -91,7 +91,10 @@ export class ToolPageComponent implements OnInit {
   isArrReceiverDepartment:any=[{}];
 
   initSelectControl() {
+    
     this.adminService.getListMasterData().subscribe((masterData) => {
+      console.log('master',masterData);
+      
       this.sender = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new OptionModel(m))
       this.receiver = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new OptionModel(m))
       this.senderDepartment = masterData.filter((e:any)=>e.objectType == 'role').map(m => new OptionModel(m))

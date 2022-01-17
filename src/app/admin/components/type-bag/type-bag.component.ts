@@ -52,6 +52,7 @@ export class TypeBagComponent implements OnInit {
     formErrMess:'',
     formSuccMess:'',
     input:{
+      code:{value:'',isValid:false},
       tlb:{value:'',isValid:false},
     },
     isValid:false
@@ -64,7 +65,8 @@ export class TypeBagComponent implements OnInit {
   }
   onSubmitAddTypePacket(e:any){
     let nameTypePacket=this.objAddTypePacket.input.tlb.value
-    this.adminService.insertTypePacket(nameTypePacket).subscribe((data:any) => {
+    let codeTypePacket=this.objAddTypePacket.input.code.value
+    this.adminService.insertTypePacket(nameTypePacket,codeTypePacket).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.objAddTypePacket.formSuccMess=data.message

@@ -190,11 +190,13 @@ export class WarehouseCategoryComponent implements OnInit {
             formErrMess:'',
             formSuccMess:''
           }
-          if(this.isPopupDeleteWareHouse) this.togglePopupDeleteWareHouse()
+           this.togglePopupDeleteWareHouse()
+           this.isConfirmDelete = false
         this.toastr.success('','Xóa ')
       }else{
-        this.objDeleteWareHouse.formSuccMess=""
-        this.objDeleteWareHouse.formErrMess=data.message
+        this.togglePopupDeleteWareHouse()
+        this.isConfirmDelete = false
+        this.toastr.error('',data._message)
       }
     })
 

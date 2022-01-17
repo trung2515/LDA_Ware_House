@@ -90,10 +90,11 @@ export class AdminService {
       }),
     )
   }
-  insertProduct(codeProduct: any, nameProduct: any) {
+  insertProduct(codeProduct: any, nameProduct: any,weight:any) {
     let req: ProductInfo = new ProductInfo()
     req.codeProduct = codeProduct
     req.nameProduct = nameProduct
+    req.weight = weight
     return this.administratorClient.insertProduct(req).pipe(
       map((reply: Response) => {
         return reply
@@ -151,9 +152,10 @@ export class AdminService {
       }),
     )
   }
-  insertTypePacket(nameTypePacket: any) {
+  insertTypePacket(nameTypePacket: any, code : any) {
     let req: TypePacketInfo = new TypePacketInfo()
     req.nameTypePacket = nameTypePacket
+    req.codeTypePacket = code
     return this.administratorClient.insertTypePacket(req).pipe(
       map((reply: Response) => {
         return reply

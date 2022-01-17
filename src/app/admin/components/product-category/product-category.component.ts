@@ -174,7 +174,7 @@ export class ProductCategoryComponent implements OnInit {
     let codeProduct=this.objAddProduct.input.msp.value
     console.log(nameProduct,codeProduct);
     
-    this.adminService.insertProduct(codeProduct,nameProduct).subscribe((data:any) => {
+    this.adminService.insertProduct(codeProduct,nameProduct,100).subscribe((data:any) => {
       console.log(data)
       if (data.state == ResponseState.SUCCESS) {
         this.objAddProduct.formSuccMess = data.message
