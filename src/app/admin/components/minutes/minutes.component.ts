@@ -124,7 +124,7 @@ if(this.objAddMinuteDetail.atc == "Thêm mới"){
 }
 addMinutesDetail(){
   console.log('input',this.objAddMinuteDetail);
-  let cate:string
+  let cate:string 
   this.objAddMinuteDetail.type == 'partner'? cate = 'vendor' : ''
   console.log(cate);
   
@@ -139,7 +139,6 @@ addMinutesDetail(){
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
- 
       this.objAddMinuteDetail={
         title:'',
         name:'',

@@ -55,7 +55,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objAddTypeBill.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objAddTypeBill.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddTypeBill()'>Hủy</div>
         <button type="submit" [disabled]='!objAddTypeBill.isValid' class="btn btn-primary btn-blue   "> Thêm</button>
       </div>
@@ -70,9 +70,8 @@
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FETB-mp" class="form-label">Mã phiếu</label>
-          <input id="FETB-mp" name="mp" rules='required' type="text" class="form-control"
-            [value]='objEditTypeBill.input.mp.value' (blur)='blur($event,objEditTypeBill)' (click)='click($event)'
-            (input)='input($event,objEditTypeBill)'>
+          <input disabled id="FETB-mp" name="mp" rules='required' type="text" class="form-control"
+            [value]='objEditTypeBill.input.mp.value' >
         </div>
         <span class="input-message"></span>
       </div>
@@ -87,7 +86,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objEditTypeBill.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objEditTypeBill.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditTypeBill()'>Hủy</div>
         <button type="submit" [disabled]='!objEditTypeBill.isValid' class="btn btn-primary btn-blue"> Sửa</button>
       </div>
@@ -102,7 +101,7 @@
     <form autocomplete="off" *ngIf='isPopupDeleteTypeBill'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteTypeBill.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteTypeBill.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4' >
         <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeBill()'>Hủy</div>
         <button type="button" (click)="isConfirmDelete = !isConfirmDelete" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
       </div>

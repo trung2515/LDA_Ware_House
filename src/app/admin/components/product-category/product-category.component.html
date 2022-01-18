@@ -87,7 +87,7 @@
   </dx-popup>
 </dx-popup>
 <!-- Add Product -->
-<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="280" width="500"
+<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="320" width="500"
   [showTitle]="true" title="{{objAddProduct.title}}" [resizeEnabled]="true">
   <form  autocomplete="off" *ngIf='isPopupAddProduct'>
     <div class="wrap-input">
@@ -102,10 +102,28 @@
       <div class='d-flex' style='justify-content: space-between;'>
         <label for="FAP-tsp" class="form-label">Tên sản phẩm</label>
         <input id="FAP-tsp" name="tsp" rules='required' type="text" class="form-control"
-          (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
+        (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
       </div>
       <span class="input-message"></span>
     </div>
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <label for="FAP-pl" class="form-label"> Khối lượng</label>
+        <dx-select-box
+          [dataSource]='listWeight'
+          valueExpr="weight"
+          displayExpr="name"
+          placeholder="Chọn Khối lượng"
+          [dropDownOptions]={maxHeight:200}
+          [searchEnabled]="true"
+          (onValueChanged)="selectWeight($event,objAddProduct)"
+          style='width:300px'
+        >
+        </dx-select-box>
+      </div>
+      <span class="input-message"></span>
+    </div>
+  
     <div class='formErrMess text-danger pt-2'>{{objAddProduct.formErrMess}}</div>
     
     <div class='d-flex justify-content-end py-2'>
@@ -121,7 +139,7 @@
     <div class="wrap-input">
       <div class='d-flex' style='justify-content: space-between;'>
         <label for="FAP-msp" class="form-label">Mã sản phẩm</label>
-        <input id="FAP-msp" name="msp" rules='required' [value]='objEditProduct.input.msp.value' type="text"
+        <input id="FAP-msp" name="msp" rules='required' [value]='objEditProduct.input.msp.value' type="text"  disabled
           class="form-control" (blur)='blur($event,objEditProduct)' (click)='click($event)'
           (input)='input($event,objEditProduct)'>
       </div>

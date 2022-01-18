@@ -53,7 +53,8 @@ export class PacketUnitComponent implements OnInit {
     formErrMess: '',
     formSuccMess: '',
     input: {
-      dvd: { value: '', isValid: false }
+      dvd: { value: '', isValid: false },
+      code: { value: '', isValid: false }
     },
     isValid: false
   };
@@ -65,8 +66,9 @@ export class PacketUnitComponent implements OnInit {
   }
   onSubmitAddPackingUnit(e: any) {
     let namePackingUnit = this.objAddPackingUnit.input.dvd.value;
+    let codePackingUnit = this.objAddPackingUnit.input.code.value;
     this.adminService
-      .insertPackingUnit(namePackingUnit)
+      .insertPackingUnit(namePackingUnit,codePackingUnit)
       .subscribe((data: any) => {
         console.log(data);
         if (data.state == ResponseState.SUCCESS) {
@@ -106,11 +108,15 @@ export class PacketUnitComponent implements OnInit {
   };
   clickEditPackingUnit(e: any) {
     let order = parseInt(e.target.dataset.order);
-    console.log(order);
     this.itemPackingUnitClicked = this.listPackingUnit[order];
+    console.log('order', this.listPackingUnit[order]);
     this.objEditPackingUnit.title = `Chỉnh sửa đơn vị đóng ${this.itemPackingUnitClicked.namePackingUnit}`;
     this.objEditPackingUnit.input.dvd = {
       value: this.itemPackingUnitClicked.namePackingUnit,
+      isValid: true
+    };
+    this.objEditPackingUnit.input.code = {
+      value: this.itemPackingUnitClicked.codePackingUnit,
       isValid: true
     };
     this.objEditPackingUnit.isValid = true;

@@ -29,13 +29,21 @@ export class ProductCategoryComponent implements OnInit {
     _.input(e, obj)
   }
   timeShowMess: any = 3000
-
+  isWeight:any
   isConfirmDeleteProduct:boolean = false
   isConfirmDeleteType:boolean = false
-
+  listWeight:any = [
+    {name: '50 kg' , weight: 50},
+    {name: '1 tấn' , weight: 1000}]
   // -----------------------------------------------------PRODUCT---------------------------------------
   listProduct: any = []
   itemProductClicked: any = {}
+  selectWeight(e:any,obj:any){
+    let  value = e.value;
+    obj.input.pl={value,isValid:true}
+    console.log(obj.input)
+    _.setValid(obj);
+  }
   getListProduct() {
     this.adminService.getListProduct().subscribe((data: any) => {
       this.listProduct = data
@@ -160,6 +168,7 @@ export class ProductCategoryComponent implements OnInit {
     input: {
       msp: { value: '', isValid: false },
       tsp: { value: '', isValid: false },
+      pl: { value: '', isValid: false },
     },
     isValid: false
   }
@@ -172,9 +181,10 @@ export class ProductCategoryComponent implements OnInit {
   onSubmitAddProduct(e:any){
     let nameProduct=this.objAddProduct.input.tsp.value
     let codeProduct=this.objAddProduct.input.msp.value
+    let weight = this.objAddProduct.input.pl.value
     console.log(nameProduct,codeProduct);
     
-    this.adminService.insertProduct(codeProduct,nameProduct,100).subscribe((data:any) => {
+    this.adminService.insertProduct(codeProduct,nameProduct,weight).subscribe((data:any) => {
       console.log(data)
       if (data.state == ResponseState.SUCCESS) {
         this.objAddProduct.formSuccMess = data.message

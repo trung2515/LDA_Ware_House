@@ -109,6 +109,7 @@ export class PartnerComponent implements OnInit {
           if(this.isPopupAddPartner) this.togglePopupAddPartner()
         this.toastr.success('','Thêm mới thành công')
       }else{
+        this.togglePopupAddPartner()
         this.toastr.error('',data._message)
       }
     })
@@ -213,11 +214,11 @@ export class PartnerComponent implements OnInit {
             formErrMess:'',
             formSuccMess:''
           }
-          if(this.isPopupDeletePartner) this.togglePopupDeletePartner()
-         this.isConfirmDelete == false
+          this.togglePopupDeletePartner()
+         this.isConfirmDelete = false
         this.toastr.success('','Xóa thành công')
       }else{
-        this.isConfirmDelete == false
+        this.isConfirmDelete = false
         this.toastr.error('',data._message)
       }
     })
