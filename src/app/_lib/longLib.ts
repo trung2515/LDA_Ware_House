@@ -81,12 +81,12 @@ let validatorRules:any={
   },
   minLength:function(min:any){
       return function(value:any){
-          return value.length>=min?undefined:`Vui lòng nhập ít nhất ${min} kí tự`;   
+          return value.length>=min?undefined:`Vui lòng nhập ít nhất ${min} kí tự`;
       }
   },
   min:function(min:any){
       return function(value:any){
-          return value>=min?undefined:`Vui lòng nhập lớn hơn hoặc bằng ${min}`;   
+          return value>=min?undefined:`Vui lòng nhập lớn hơn hoặc bằng ${min}`;
       }
   },
   maxLength:function(max:any){
@@ -113,7 +113,7 @@ let validatorRules:any={
           }
           return kq;
       }
-  }, 
+  },
 };
 export function getParent(element:any,selector:any){
   while(element.parentElement){
@@ -151,7 +151,7 @@ export function validator(formSelector:any,obj:any={}){
         if(value.length>0&&value[value.length-1]==' '){
           e.preventDefault();
           return
-        }   
+        }
       }
     }
   }
@@ -204,7 +204,7 @@ export function validator(formSelector:any,obj:any={}){
             formMessage.innerText=errorMessage
             //console.log(errorMessage)
         }
-      }   
+      }
     }else{
 
     }
@@ -227,15 +227,15 @@ export function validator(formSelector:any,obj:any={}){
     //obj.input[name]={value,isValid:true}
     //obj.checkValid()
     // if(obj.isValid){
-    //   let password=formElement.querySelector(`#password`) 
-    //   let rePassword=formElement.querySelector(`#rePassword`) 
+    //   let password=formElement.querySelector(`#password`)
+    //   let rePassword=formElement.querySelector(`#rePassword`)
     //   if(password&&rePassword&&rePassword.value!=password.value){
     //     let formGroup=getParent(rePassword,'.form-group')
     //     if(formGroup){
     //         formGroup.classList.add('invalid')
     //         let formMessage=formGroup.querySelector('.form-message')
-    //         formMessage.innerText="Nhập lại mật khẩu không đúng"   
-    //     }    
+    //         formMessage.innerText="Nhập lại mật khẩu không đúng"
+    //     }
     //   }
     // }
   }
@@ -250,7 +250,7 @@ export function validator(formSelector:any,obj:any={}){
   .form-group.invalid .form-message {
     color: #f33a58;
   }
-  
+
   .form-message {
     font-size: 10px;
     padding: 4px 0 0;
@@ -312,7 +312,7 @@ function validate(e:any,obj:any,isBlur:any){
     }
     setValid(obj)
   }
-} 
+}
 export function setValid(obj:any){
   let x= Object.values(obj.input).every((item:any)=>item.isValid==true)
   obj.isValid=x

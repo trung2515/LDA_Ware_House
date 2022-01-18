@@ -154,6 +154,7 @@ export class AdminService {
   insertTypePacket(nameTypePacket: any) {
     let req: TypePacketInfo = new TypePacketInfo()
     req.nameTypePacket = nameTypePacket
+    req.codeTypePacket =  nameTypePacket
     return this.administratorClient.insertTypePacket(req).pipe(
       map((reply: Response) => {
         return reply
@@ -531,7 +532,7 @@ export class AdminService {
     )
   }
 
-  
+
 
   updateWork(idWork: any, codeWork: any, nameWork: any) {
     let req: WorkInfo = new WorkInfo()
@@ -605,9 +606,9 @@ export class AdminService {
       ));
   }
   insertListMasterData(id:number, name:any, type:any, cate:any){
-   
-    
-    let req:MasterDataInfo = new MasterDataInfo() 
+
+
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectId = id;
     req.objectName = name;
     req.objectType = type
@@ -619,10 +620,10 @@ export class AdminService {
       }
       ));
   }
-  
+
   updateListMasterData(id:number, name:any, type:any){
     console.log(name,type);
-    let req:MasterDataInfo = new MasterDataInfo() 
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
     req.objectName = name;
     req.objectType =type
@@ -634,7 +635,7 @@ export class AdminService {
       ));
   }
   deleteListMasterData(id:number,type:any){
-    let req:MasterDataInfo = new MasterDataInfo() 
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
     req.objectType= type;
     return this.administratorClient.setDeletedMaster(req).pipe(

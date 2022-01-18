@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class MenuConfirmComponent implements OnInit {
 
-
+  userNameCur:string = ''
   registrationMenuList: any = [
     {
       linkTo: '../add-packaging-one',
@@ -39,6 +39,7 @@ export class MenuConfirmComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userNameCur = this.authService.getUser().user
   }
   backClicked() {
     this._location.back();

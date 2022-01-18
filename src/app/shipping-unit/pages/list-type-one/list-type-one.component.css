@@ -48,6 +48,7 @@
   font-weight: 500;
   font-size: 18px;
   color: #000;
+  text-transform: capitalize;
 }
 .shift-info {
   font-weight: 400;
@@ -137,6 +138,8 @@
     font-size: 18px;
     font-weight: 500;
   }
-
+  .btn-update {
+    width: 100%;
+  }
 
 }

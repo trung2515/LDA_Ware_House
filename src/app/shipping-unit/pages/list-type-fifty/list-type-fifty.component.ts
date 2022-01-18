@@ -175,10 +175,13 @@ export class ListTypeFiftyComponent implements OnInit {
   }
   onUpdateData() {
     if (this.isValidForm()) {
+      const userNameCur =
+        this.card50kgList[0]?.creator || this.authService.getUser().user;
+
       const data: InsertCardRequest = new InsertCardRequest();
       data.date = Utils.formatDate(this.now);
       data.nameShift = this.ca_no_option.toUpperCase();
-      data.user = this.authService.getUser().id;
+      data.user = userNameCur;
       data.codePackingUnit = this.packaging_unit;
       data.codeTypeBill = this.ballot_type;
 
