@@ -609,16 +609,13 @@ export class AdminService {
       }
       ));
   }
-  insertListMasterData(id:number, name:any, type:any, cate:any){
-   
-    
+  insertListMasterData(name:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo() 
-    req.objectId = id;
+    // req.objectId = id;
     req.objectName = name;
     req.objectType = type
     req.objectCate = cate
-   
-  
+
     console.log('rq',req);
     return this.administratorClient.insertMaster(req).pipe(
       map((reply) => {

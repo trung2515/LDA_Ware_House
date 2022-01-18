@@ -125,7 +125,7 @@ if(this.objAddMinuteDetail.atc == "Thêm mới"){
 addMinutesDetail(){
   console.log('input',this.objAddMinuteDetail);
   let cate:string 
-  this.objAddMinuteDetail.type == 'partner'? cate = 'vendor' : ''
+  this.objAddMinuteDetail.type == ' '? cate = 'vendor' : ''
   console.log(cate);
   
   let idmax = 0
@@ -134,7 +134,7 @@ addMinutesDetail(){
   }
   idmax++;
   console.log('id',idmax);
-   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.name,this.objAddMinuteDetail.type,cate)
+   this.adminService.insertListMasterData(this.objAddMinuteDetail.name,'partner','vendor')
    .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
