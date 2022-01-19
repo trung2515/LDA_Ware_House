@@ -34,10 +34,14 @@ objAddMinuteDetail:any={
   },
   isValid:false
 }
+isDisable:boolean = false
 masterData:any
 department:ListDetail[]
 represent:ListDetail[]
+representPeson:ListDetail[]
+decision:ListDetail[]
 isConfirmDelete:boolean = false
+isPopupDeleteMinutes:boolean = false
 activeBtn:boolean = true
 
 blur(e:any,obj:any){
@@ -51,10 +55,12 @@ onChangeInput(){
 }
 getDetail() {
   this.adminService.getListMasterData().subscribe((masterData) => {
-    console.log('mt',masterData);
+    console.log('masterData',masterData);
     this.masterData = masterData
-    this.represent = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new ListDetail(m)) 
-    this.department = masterData.filter((e:any)=>e.objectType == 'role').map(m => new ListDetail(m)) 
+    this.represent = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate !== 'TYPE_PACKET' ).map(m => new ListDetail(m)) 
+    this.representPeson = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate == 'TYPE_PACKET').map(m => new ListDetail(m)) 
+    this.department = masterData.filter((e:any)=>e.objectType == 'POSITION').map(m => new ListDetail(m)) 
+    this.decision = masterData.filter((e:any)=>e.objectType == 'DECISION').map(m => new ListDetail(m)) 
     this.demoData()
   });
 }
@@ -63,22 +69,28 @@ demoData(){
     { 
       listDetail:this.represent,
       name:'Các bên đại diện',
-      type:'partner'
+      type:'PARTNER',
+      cate:'CUSTOMER'
     },
     { 
-      listDetail:[],
+      listDetail:this.representPeson,
       name:'Ông/bà đại diện',
-      type:'role'
+      type:'PARTNER',
+      cate:'TYPE_PACKET'
+     
     },
     { 
       listDetail:this.department,
       name:'Chức vụ',
-      type:'department'
+      type:'POSITION',
+      cate:'CUSTOMER'
+      
     },
     { 
-      listDetail:[],
+      listDetail:this.decision,
       name:'Quyết định',
-      type:'decision'
+      type:'DECISION',
+      cate:'CUSTOMER'
     }
   ]
   console.log(this.dataTypeMinutes);
@@ -86,17 +98,22 @@ demoData(){
 }
 
 
-showAddMinutesDetail(data:any,type:number){
+showAddMinutesDetail(data:any,type:number, cate:any){
+  this.isDisable = false
   this.isShowPopup = true 
   this.objAddMinuteDetail.title = data
   this.objAddMinuteDetail.atc = "Thêm mới"
-  this.objAddMinuteDetail.type = type
+  this.objAddMinuteDetail.type = type.toString().toUpperCase()
+  this.objAddMinuteDetail.cate = cate
 }
-showEditDetailMinute(id:number,name:string,title:any,type:any){
+showEditDetailMinute(id:number,name:string,title:any,type:any,code:any,cate:any){
+  this.isDisable = true
   this.objAddMinuteDetail.atc = "Chỉnh sửa"
   this.objAddMinuteDetail.id = id
   this.objAddMinuteDetail.name = name
+  this.objAddMinuteDetail.code = code
   this.objAddMinuteDetail.type = type
+  this.objAddMinuteDetail.cate = cate
   this.isShowPopup = true 
   this.objAddMinuteDetail.title = title
   console.log(this.objAddMinuteDetail);
@@ -108,11 +125,11 @@ showDeleteDetailMinute(id:number, name:string, title:any, type:any){
   this.objAddMinuteDetail.name = name
   this.objAddMinuteDetail.id = id
   this.objAddMinuteDetail.type = type
-  this.isShowPopup = true 
   this.objAddMinuteDetail.title = title
-  console.log(this.objAddMinuteDetail);
-  
+  this.isPopupDeleteMinutes = true
+ 
 }
+
 onSubmitMinutesDetail(){
 if(this.objAddMinuteDetail.atc == "Thêm mới"){
   this.addMinutesDetail()
@@ -124,21 +141,13 @@ if(this.objAddMinuteDetail.atc == "Thêm mới"){
 }
 addMinutesDetail(){
   console.log('input',this.objAddMinuteDetail);
-  let cate:string 
-  this.objAddMinuteDetail.type == ' '? cate = 'vendor' : ''
-  console.log(cate);
-  
-  let idmax = 0
-  for (var i = 0; i < this.masterData.length;i++){
-  idmax = this.masterData[i].objectId > idmax? this.masterData[i].objectId : idmax;
-  }
-  idmax++;
-  console.log('id',idmax);
-   this.adminService.insertListMasterData(this.objAddMinuteDetail.name,'partner','vendor')
+   this.adminService.insertListMasterData(this.objAddMinuteDetail.name,this.objAddMinuteDetail.code,this.objAddMinuteDetail.type ,this.objAddMinuteDetail.cate)
    .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
+      this.objAddMinuteDetail.code = ''
+      this.objAddMinuteDetail.name = ''
       this.objAddMinuteDetail={
         title:'',
         name:'',
@@ -174,11 +183,16 @@ addMinutesDetail(){
  
 }
 updateMinutesMinutes(){
-  this.adminService.updateListMasterData(this.objAddMinuteDetail.id,this.objAddMinuteDetail.name,this.objAddMinuteDetail.type)
+  let cate:string 
+  
+
+  this.adminService.updateListMasterData(this.objAddMinuteDetail.id,this.objAddMinuteDetail.name,this.objAddMinuteDetail.type,this.objAddMinuteDetail.cate)
   .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
+      this.objAddMinuteDetail.code = ''
+      this.objAddMinuteDetail.name = ''
       this.objAddMinuteDetail={
         title:'',
         name:'',
@@ -234,7 +248,7 @@ deleteMinutesMinutes(){
       }
   console.log(this.dataTypeMinutes);
   this.isConfirmDelete = false 
-  this.isShowPopup = false 
+  this.isPopupDeleteMinutes = false 
   this.toast.success('','Xóa thành công')
     }else{
       this.objAddMinuteDetail={
@@ -248,7 +262,7 @@ deleteMinutesMinutes(){
         isValid:false
       }
       this.isConfirmDelete = false 
-    this.isShowPopup = false
+      this.isPopupDeleteMinutes = false
       this.toast.error('',data._message)
     }
   })

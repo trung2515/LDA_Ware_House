@@ -4,13 +4,14 @@
         <div>
           {{item.name}}
         </div>
-        <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)="showAddMinutesDetail(item.name,item.type)">
+        <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)="showAddMinutesDetail(item.name,item.type,item.cate)">
       </div>
       <div class="configuration__content__body" style='margin-top: var(--padding);'>
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>STT</th>
+              <th style="width:80px">STT</th>
+              <th >Mã {{item.name}}</th>
               <th>{{item.name}}</th>
               <th>Thao tác</th>
             </tr>
@@ -18,11 +19,12 @@
           <tbody>
             <tr *ngFor='let detail of item.listDetail; let i = index'>
               <td style='width: 80px;'>{{i+1}}</td>
+              <td>{{detail.detailCode}}</td>
               <td>{{detail.detailName}}</td>
               <td style='width: 150px;text-align: center;'>
                 <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'
                   attr.data-order="{{i}" 
-                  (click)="showEditDetailMinute(detail.detailId,detail.detailName,item.name,item.type)"
+                  (click)="showEditDetailMinute(detail.detailId,detail.detailName,item.name,item.type,detail.detailCode,item.cate)"
                  >
                 <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'
                  (click)="showDeleteDetailMinute(detail.detailId,detail.detailName,item.name,item.type)"  attr.data-order="{{i}"
@@ -34,17 +36,23 @@
       </div>
     </ng-container>
   </div>
-  <!-- ------------------------------/popup/----------------------------------  -->
+  <!-- ------------------------------/popup add edit/----------------------------------  -->
    <dx-popup [(visible)]="isShowPopup" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objAddMinuteDetail.atc}} {{objAddMinuteDetail.title}}" [height]='250' [width]="500" [resizeEnabled]="true">
+  title="{{objAddMinuteDetail.atc}} {{objAddMinuteDetail.title}}" [height]='250' [width]="530" [resizeEnabled]="true">
     <div class="" style="width:90%;margin:auto">
       <form (ngSubmit)="onSubmitMinutesDetail()" autocomplete="off" >
         <div class="wrap-input" >
             <div class='d-flex' style='justify-content: space-between;'>
-              <label for="FAPU-dvd" *ngIf="objAddMinuteDetail.atc!=='Xóa'"class="form-label">{{objAddMinuteDetail.title}}</label>
-              <label for="FAPU-dvd" *ngIf="objAddMinuteDetail.atc=='Xóa'" class="form-label">Xóa {{objAddMinuteDetail.title}} {{objAddMinuteDetail.name}} ?</label>
-             
-              <input (keydown)="onChangeInput()" [(ngModel)]='objAddMinuteDetail.name' name="dvd"  type="text"  class="form-control"   >
+              <label for="FAPU-code" *ngIf="objAddMinuteDetail.atc!=='Xóa'"class="form-label">Mã {{objAddMinuteDetail.title}}</label>
+              <input [disabled]="isDisable" (keydown)="onChangeInput()" [(ngModel)]='objAddMinuteDetail.code' name="code"  type="text"  class="form-control"   >
+            </div>
+           
+          </div>
+        <div class="wrap-input" >
+            <div class='d-flex' style='justify-content: space-between;'>
+              <label for="FAPU-dvd" class="form-label">{{objAddMinuteDetail.title}}</label>
+  
+              <input *ngIf="objAddMinuteDetail.atc!=='Xóa'" (keydown)="onChangeInput()" [(ngModel)]='objAddMinuteDetail.name' name="dvd"  type="text"  class="form-control"   >
             </div>
            
           </div>
@@ -53,21 +61,32 @@
             <div  class="btn btn-light btn-cancel mr-3" (click)="closePop()">Hủy</div>
             <button type="submit" *ngIf="objAddMinuteDetail.atc=='Thêm mới'" [disabled]='activeBtn'  class="btn btn-primary btn-blue   " > Thêm</button>
             <button type="submit" *ngIf="objAddMinuteDetail.atc=='Chỉnh sửa'"  class="btn btn-primary btn-blue" >  Chỉnh Sửa</button>
-            <button type="button" *ngIf="objAddMinuteDetail.atc=='Xóa'" (click)="isConfirmDelete = !isConfirmDelete"  class="btn btn-primary btn-blue" >  Xóa</button>
           </div>
       </form>
     </div>
-    <dx-popup [(visible)]="isConfirmDelete" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
-      <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <span>Bạn có chắc chắn xóa mục này ?</span>
-        </div>
-        
+  </dx-popup>
+
+    <!-- -----------------------------/popup delete/---------------------------------------------  -->
+  <dx-popup [(visible)]="isPopupDeleteMinutes" [closeOnOutsideClick]="true" [showTitle]="true"
+  title="Xác nhận" [height]='180' [width]="380" [resizeEnabled]="true">
+  <form  autocomplete="off">
+    <p>
+      Xóa {{objAddMinuteDetail.name}}?
+    </p>
+    <div class='d-flex justify-content-around py-2'>
+      <button type="button" class="btn btn-light btn-cancel" >Hủy</button>
+      <button type="button" (click)="isConfirmDelete = !isConfirmDelete" class="btn btn-primary btn-blue mr-3">Xóa</button>
+    </div>
+  </form>
+  <dx-popup [(visible)]="isConfirmDelete" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <span>Bạn có chắc chắn xóa mục này ?</span>
       </div>
-      <div class='d-flex justify-content-end mt-4' >
-        <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDelete = !isConfirmDelete">Đóng</div>
-        <button type="button" (click)="onSubmitMinutesDetail()"  class="btn btn-primary btn-danger" >  Xóa</button>
-      </div>
-    </dx-popup>
-  </dx-popup> 
- 
+      
+    </div>
+    <div class='d-flex justify-content-end mt-4' >
+      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDelete = !isConfirmDelete">Đóng</div>
+      <button type="button" (click)="deleteMinutesMinutes()"  class="btn btn-primary btn-danger" >  Xóa</button>
+    </div>
+  </dx-popup>

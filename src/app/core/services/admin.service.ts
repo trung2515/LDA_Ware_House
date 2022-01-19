@@ -602,20 +602,20 @@ export class AdminService {
   }
 
   getListMasterData() {
-    let request: MasterRequest = new MasterRequest()
-    return this.administratorClient.getListMasterData(request).pipe(
+    let request: MasterDataInfo= new MasterDataInfo()
+    return this.administratorClient.getListMaster(request).pipe(
       map((reply) => {
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }
       ));
   }
-  insertListMasterData(name:any, type:any, cate:any){
+  insertListMasterData(name:any,code:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo() 
-    // req.objectId = id;
+
     req.objectName = name;
+    req.objectCode = code;
     req.objectType = type
     req.objectCate = cate
-
     console.log('rq',req);
     return this.administratorClient.insertMaster(req).pipe(
       map((reply) => {
@@ -624,11 +624,12 @@ export class AdminService {
       ));
   }
   
-  updateListMasterData(id:number, name:any, type:any){
+  updateListMasterData(id:number, name:any, type:any,cate:any){
     console.log(name,type);
     let req:MasterDataInfo = new MasterDataInfo() 
     req.objectId= id;
     req.objectName = name;
+    req.objectCate = cate;
     req.objectType =type
     console.log('rq',req);
     return this.administratorClient.updateMaster(req).pipe(
