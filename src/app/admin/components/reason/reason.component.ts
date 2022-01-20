@@ -56,6 +56,17 @@ export class ReasonComponent implements OnInit {
     this.togglePopupAddReason()
   }
   togglePopupAddReason(){
+    this.objAddReason={
+      title:'Thêm nguyên nhân',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mnn:{value:'',isValid:false},
+        tnn:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddReason=!this.isPopupAddReason
   }
   onSubmitAddReason(e:any){

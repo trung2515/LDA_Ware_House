@@ -62,6 +62,17 @@ export class PacketUnitComponent implements OnInit {
     this.togglePopupAddPackingUnit();
   }
   togglePopupAddPackingUnit() {
+    this.objAddPackingUnit = {
+      title: 'Thêm đơn vị đóng',
+      mess: '',
+      formErrMess: '',
+      formSuccMess: '',
+      input: {
+        dvd: { value: '', isValid: false },
+        code: { value: '', isValid: false }
+      },
+      isValid: false
+    };
     this.isPopupAddPackingUnit = !this.isPopupAddPackingUnit;
   }
   onSubmitAddPackingUnit(e: any) {

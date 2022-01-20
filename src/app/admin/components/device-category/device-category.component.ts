@@ -95,6 +95,18 @@ export class DeviceCategoryComponent implements OnInit {
     
   }
   togglePopupAddEquipment(){
+    this.objAddEquipment={
+      title:'Thêm thiết bị',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        ttb:{value:'',isValid:false},
+        code:{value:'',isValid:false},
+      },
+      isValid:false,
+      nameTypeEquipment:''
+    }
     this.isPopupAddEquipment=!this.isPopupAddEquipment
   }
   onSubmitAddEquipment(e:any){

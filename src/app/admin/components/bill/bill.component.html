@@ -34,7 +34,7 @@
 </div>
 <!-- Add TypeBill -->
 <dx-popup [(visible)]="isPopupAddTypeBill" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objAddTypeBill.title}}" [height]='250' [width]="500" [resizeEnabled]="true">
+  title="{{objAddTypeBill.title}}" [height]='300' [width]="500" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitAddTypeBill($event)" autocomplete="off" *ngIf='isPopupAddTypeBill'>
       <div class="wrap-input">
@@ -64,7 +64,7 @@
 </dx-popup>
 <!-- Edit TypeBill -->
 <dx-popup [(visible)]="isPopupEditTypeBill" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objEditTypeBill.title}}" [height]='250' [width]="500" [resizeEnabled]="true">
+  title="{{objEditTypeBill.title}}" [height]='280' [width]="500" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitEditTypeBill($event)" autocomplete="off" *ngIf='isPopupEditTypeBill'>
       <div class="wrap-input">

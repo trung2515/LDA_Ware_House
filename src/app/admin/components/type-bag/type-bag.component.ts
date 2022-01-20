@@ -61,6 +61,17 @@ export class TypeBagComponent implements OnInit {
     this.togglePopupAddTypePacket()
   }
   togglePopupAddTypePacket(){
+    this.objAddTypePacket={
+      title:'Thêm loại sản phẩm',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        code:{value:'',isValid:false},
+        tlb:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddTypePacket=!this.isPopupAddTypePacket
   }
   onSubmitAddTypePacket(e:any){
@@ -98,6 +109,7 @@ export class TypeBagComponent implements OnInit {
     formErrMess:'',
     formSuccMess:'',
     input:{
+      code:{value:'',isValid:false},
       tlb:{value:'',isValid:false}
     },
     isValid:false
@@ -107,6 +119,7 @@ export class TypeBagComponent implements OnInit {
     console.log(order)
     this.itemTypePacketClicked=this.listTypePacket[order]
     this.objEditTypePacket.title=`Chỉnh sửa loại sản phẩm ${this.itemTypePacketClicked.nameTypePacket}`
+    this.objEditTypePacket.input.code={value:this.itemTypePacketClicked.codeTypePacket,isValid:true}
     this.objEditTypePacket.input.tlb={value:this.itemTypePacketClicked.nameTypePacket,isValid:true}
     this.objEditTypePacket.isValid=true
     console.log(this.objEditTypePacket.input)
