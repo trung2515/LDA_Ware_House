@@ -174,9 +174,12 @@ export class ProductCategoryComponent implements OnInit {
     isValid: false
   }
   clickAddProduct(e: any) {
+    console.log('obj',this.objAddProduct);
+    
     this.togglePopupAddProduct()
   }
   togglePopupAddProduct() {
+    console.log('tgobj',this.objAddProduct);
     this.isPopupAddProduct = !this.isPopupAddProduct
   }
   onSubmitAddProduct(e:any){

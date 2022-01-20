@@ -103,6 +103,13 @@ demoData(){
   
 }
 showAddMinutesDetail(name:any, type:any, cate:any){
+  this.objAddMinuteDetail={
+    input:{
+      code:{value:'',isValid:false},
+      name:{value:'',isValid:false},
+    },
+    isValid: false
+  }
   this.name = name
   this.type = type
   this.cate = cate
