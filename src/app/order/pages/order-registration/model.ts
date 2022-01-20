@@ -12,7 +12,7 @@ export class OptionModel {
       data.nameTypeBill ||
       data.namePackingUnit ||
       data.codeParcel ||
-      data.idTypeProduct ||
+      'Loại '+data.idTypeProduct ||
       '';
     this.value =
       data.codeProduct ||
