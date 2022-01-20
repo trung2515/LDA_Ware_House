@@ -32,6 +32,7 @@ export class ProductCategoryComponent implements OnInit {
   isWeight:any
   isConfirmDeleteProduct:boolean = false
   isConfirmDeleteType:boolean = false
+  isConfirmDeleteProductType:boolean = false
   listWeight:any = [
     {name: '50 kg' , weight: 50},
     {name: '1 tấn' , weight: 1000}]
@@ -285,12 +286,10 @@ export class ProductCategoryComponent implements OnInit {
     },
     isValid: false
   }
-  clickEditTypeProduct(e: any) {
-    let order = parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemTypeProductClicked = this.listTypeProduct[order]
-    this.objEditTypeProduct.title = `Chỉnh sửa loại sản phẩm ${this.itemTypeProductClicked.nameTypeProduct}`
-    this.objEditTypeProduct.input.tlsp = { value: this.itemTypeProductClicked.nameTypeProduct, isValid: true }
+  clickEditTypeProduct(id: any) {
+   
+    this.objEditTypeProduct.title = `Chỉnh sửa sản phẩm  loại id`
+    this.objEditTypeProduct.input.tlsp = { value: id, isValid: true }
     this.objEditTypeProduct.isValid = true
     console.log(this.objEditTypeProduct.input)
     this.togglePopupEditTypeProduct()
@@ -299,8 +298,8 @@ export class ProductCategoryComponent implements OnInit {
     this.isPopupEditTypeProduct = !this.isPopupEditTypeProduct
   }
   onSubmitEditTypeProduct(e: any) {
-    let idTypeProduct = this.itemTypeProductClicked.idTypeProduct
-    let nameTypeProduct = this.objEditTypeProduct.input.tlsp.value
+ 
+  
     // this.adminService.updateTypeProduct(idTypeProduct,nameTypeProduct).subscribe((data:any) => {
     //   console.log(data)
     //   if(data.state==ResponseState.SUCCESS){
@@ -335,19 +334,18 @@ export class ProductCategoryComponent implements OnInit {
     formErrMess: '',
     formSuccMess: ''
   }
-  clickDeleteTypeProduct(e: any) {
-    let order = parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemTypeProductClicked = this.listTypeProduct[order]
-    this.objDeleteTypeProduct.mess = `Xóa loại sản phẩm ${this.itemTypeProductClicked.nameTypeProduct}?`
+  idType:number
+  clickDeleteTypeProduct(id: any) {
+    this.idType = id
+    this.objDeleteTypeProduct.mess = `Xóa sản phẩm loại ${id}?`
     this.togglePopupDeleteTypeProduct()
   }
   togglePopupDeleteTypeProduct() {
     this.isPopupDeleteTypeProduct = !this.isPopupDeleteTypeProduct
   }
   onSubmitDeleteTypeProduct(){
-    let idTypeProduct=this.itemTypeProductClicked.idTypeProduct
-    this.adminService.deleteTypeProduct(idTypeProduct).subscribe((data:any) => {
+    
+    this.adminService.deleteTypeProduct(this.idType).subscribe((data:any) => {
       console.log(data)
       if (data.state == ResponseState.SUCCESS) {
         this.itemTypeProductClicked = null
@@ -363,10 +361,12 @@ export class ProductCategoryComponent implements OnInit {
           }
           if (this.isPopupDeleteTypeProduct) this.togglePopupDeleteTypeProduct()
           this.isConfirmDeleteType = false
+          this.isConfirmDeleteProductType = false
         this.toastr.success('',"Xóa thành công")
       } else {
         this.togglePopupDeleteTypeProduct()
         this.isConfirmDeleteType = false
+        this.isConfirmDeleteProductType = false
         this.toastr.error('',data._message)
       }
     })
