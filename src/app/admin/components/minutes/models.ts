@@ -17,6 +17,7 @@ export class ListTypeMinutes{
     listDetail : ListDetail[];
     name:string;
     type:string;
+    cate:string;
     constructor(){
         
     }
