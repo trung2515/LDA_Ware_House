@@ -11,6 +11,7 @@
       <thead>
         <tr>
           <th>STT</th>
+          <th>Mã đơn vị đóng</th>
           <th>Đơn vị đóng</th>
           <th>Thao tác</th>
         </tr>
@@ -18,6 +19,7 @@
       <tbody>
         <tr *ngFor='let item of listPackingUnit'>
           <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.codePackingUnit}}</td>
           <td>{{item.namePackingUnit}}</td>
           <td style='width: 150px;text-align: center;'>
             <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditPackingUnit($event)'>

@@ -11,6 +11,7 @@
       <thead>
         <tr>
           <th>STT</th>
+          <th>Mã Nguyên nhân</th>
           <th>Nguyên nhân</th>
           <th>Thao tác</th>
         </tr>
@@ -18,6 +19,7 @@
       <tbody>
         <tr *ngFor='let item of listReason'>
           <td style='width: 80px;'>{{item.index+1}}</td>
+          <td>{{item.codeReason}}</td>
           <td>{{item.nameReason}}</td>
           <td style='width: 150px;text-align: center;'>
             <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditReason($event)'>
