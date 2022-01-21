@@ -29,7 +29,7 @@ import {
   DxTreeListModule,
   DxValidationSummaryModule,
   DxValidatorModule,
-  
+
 } from 'devextreme-angular'
 import { FooterComponent } from './component/footer/footer.component'
 import { QRCodeModule } from 'angularx-qrcode'
@@ -106,6 +106,10 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     TextInputComponent,
     SelectOptionComponent,
     DxToastModule,
+    DxValidatorModule,
+    DxValidationSummaryModule
+
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

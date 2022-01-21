@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\shipping-unit",
+    "\\src\\app\\shipping-unit\\pages",
+    "\\src\\app\\shipping-unit\\pages\\add-packaging-fifty"
+  ],
+  "SelectedNode": "\\src\\app\\shipping-unit\\pages\\add-packaging-fifty\\add-packaging-fifty.component.ts",
+  "PreviewInSolutionExplorer": false
+}

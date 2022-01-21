@@ -74,34 +74,42 @@
               <dxi-column dataField="option" caption="Option" [formItem]="{}">
                 <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                <dxi-validation-rule type="required" ></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="type" caption="Loại phiếu">
                 <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="product" caption="Sản phẩm">
                 <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="productRange" caption="Loại sản phẩm">
                 <dxo-lookup [dataSource]="listProductRange" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="type_bag" caption="Loại bao">
                 <dxo-lookup [dataSource]="listPackaging" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="lot" caption="Lô">
-                <dxo-lookup [dataSource]="listLot" displayExpr="name" valueExpr="value">
+                <dxo-lookup [dataSource]="listLot" displayExpr="value" valueExpr="value">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="unit" caption="Đơn vị đóng">
-                <dxo-lookup [dataSource]="listUnit" displayExpr="name" valueExpr="name">
+                <dxo-lookup [dataSource]="listUnit" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="wareHouse" caption="Kho">
                 <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
                 </dxo-lookup>
+                 <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
                 [useIcons]="true">

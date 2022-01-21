@@ -60,15 +60,43 @@ export class WareHouseService {
       })
     );
   }
+  insert1000kg(data: ConfirmProduction1000Info) {
+    console.log(data);
+    return this.warehouseClient.insertConfirmProduct(data)
+  }
   update1000Kg(data: ConfirmProduction1000Info) {
+    console.log(data);
     return this.warehouseClient.updateConfirmProduct(data);
   }
-  getConfirmProduct(fromDate: string, toDate:string) {
+  getConfirmProduct(fromDate: string, toDate: string) {
     let req: MasterRequest = new MasterRequest();
     req.fromDate = fromDate;
     req.toDate = toDate;
 
     return this.warehouseClient.getConfirmProduct(req).pipe(
+      map((reply: ConfirmProductionResponse) => {
+        console.log(reply);
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : [];
+      })
+    );
+  }
+  getConfirmProductByShift(idShift: number) {
+    let req: MasterRequest = new MasterRequest();
+    req.idShift = idShift
+    console.log(req);
+
+    return this.warehouseClient.getConfirmProductByShift(req).pipe(
+      map((reply: ConfirmProductionResponse) => {
+        console.log(reply);
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : [];
+      })
+    );
+  }
+
+  getConfirmProductDisplayByShift(idShift:number) {
+    let req: MasterRequest = new MasterRequest();
+    req.idShift = idShift
+    return this.warehouseClient.getConfirmProductDisplayByShift(req).pipe(
       map((reply: ConfirmProductionResponse) => {
         console.log(reply);
         return reply.response.state == ResponseState.SUCCESS ? reply.data : [];
@@ -102,10 +130,15 @@ export class WareHouseService {
       })
     );
   }
+  insertCard50kg(data:InsertCardRequest) {
+    return this.cartClient.insertCard50kg(data)
+  }
   updateCard50kg(data: InsertCardRequest) {
-    console.log('req update50kg',data);
-
+    console.log('req update50kg', data);
     return this.cartClient.updateCard50kg(data);
+  }
+  updateOneCard50kg(data: CardDetailInfo) {
+    return this.cartClient.updateOneCard50kg(data);
   }
   deleteCard50kg(idCard: string) {
     let req: CardDetailInfo = new CardDetailInfo();
@@ -118,7 +151,15 @@ export class WareHouseService {
       })
     );
   }
- 
+
+  getListAllParcel() {
+    let req: MasterRequest = new MasterRequest();
+    return this.warehouseClient.getListAllParcel(req).pipe(
+      map((reply: ParcelResponse) => {
+        return reply.data;
+      })
+    );
+  }
 
   insertParcel(data: ParcelModel, detail: ParcelDetailModel[]) {
     let request: InsertParcelRequest = new InsertParcelRequest();

@@ -57,11 +57,9 @@
   background-color: #5079ff;
   border: 1px solid #4a80ff;
   z-index: 1;
-  opacity: 0.9;
   border-radius: 3px;
 }
 .btn-search:hover {
-  opacity: 1;
   background-color: #3a63ec;
 }
 

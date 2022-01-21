@@ -11,6 +11,9 @@
   box-shadow: none;
 }
 
+.select:disabled {
+  opacity: 0.5;
+}
 .select {
   position: relative;
   width: 100%;

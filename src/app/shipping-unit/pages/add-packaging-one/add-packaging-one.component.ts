@@ -1,8 +1,4 @@
-import {
-  ConfirmProduction1000,
-  ResponseState
-} from './../../../core/models/model.pb';
-import { ConfirmProduction1000Info } from 'src/app/core/models/model.pb';
+import { OptionDetail, ProductConfirm } from './../list-type-one/model';
 import { ToastrService } from 'ngx-toastr';
 
 import { Location } from '@angular/common';
@@ -19,6 +15,11 @@ import { ShippingUnitService } from '../../services/shipping-unit-service.servic
 import { AdminService } from 'src/app/core/services/admin.service';
 import { ShiftDetail } from '../model';
 import Utils from 'src/app/_lib/utils';
+import {
+  ConfirmProduction1000,
+  ConfirmProduction1000Info,
+  ResponseState
+} from 'src/app/core/models/model.pb';
 
 @Component({
   selector: 'app-add-packaging-one',
@@ -27,19 +28,22 @@ import Utils from 'src/app/_lib/utils';
 })
 export class AddPackagingOneComponent implements OnInit {
   popupVisible: boolean = false;
-  now: Date = new Date('1/1/2022');
+  now: Date = new Date('2022/01/01');
   ca_no_option: string = 'Ca 1';
+  shiftOptions: any = ['Ca 1', 'Ca 2', 'Ca 3'];
   aShiftList: ShiftDetail[] = [];
   formGroupProduct: any = {};
 
   message = 'Không có thông tin ca làm việc';
 
+  aOptionShiftList: OptionDetail[] = [];
+
   inputs_options: any = [
-    { label: 'Máy A', formControlName: 'machine_a' },
-    { label: 'Máy B', formControlName: 'machine_b' },
-    { label: 'Máy C', formControlName: 'machine_c' },
-    { label: 'Máy D', formControlName: 'machine_d' },
-    { label: 'Máy E', formControlName: 'machine_e' }
+    { label: 'Máy 1', formControlName: 'machine_1' },
+    { label: 'Máy 2', formControlName: 'machine_2' },
+    { label: 'Máy 3', formControlName: 'machine_3' },
+    { label: 'Máy 4', formControlName: 'machine_4' },
+    { label: 'Máy 5', formControlName: 'machine_5' }
   ];
   constructor(
     private formBuilder: FormBuilder,
@@ -69,6 +73,7 @@ export class AddPackagingOneComponent implements OnInit {
         for (const _data of data) {
           currentShifts.push(new ShiftDetail(_data));
         }
+
         const selectShift = currentShifts.filter(item => {
           return item.shift.toLowerCase() == this.ca_no_option.toLowerCase();
         });
@@ -81,10 +86,8 @@ export class AddPackagingOneComponent implements OnInit {
           this.aShiftList = currentShifts;
         } else {
           this.aShiftList = [];
-
           this.showError('Chưa có dữ liệu ca làm việc này!');
         }
-
         this.generationForm();
       });
   }
@@ -94,65 +97,180 @@ export class AddPackagingOneComponent implements OnInit {
       this.formGroupProduct['form-' + i] = this.initFormGroup();
     }
   }
-  // setOptionShiftValue = () => {
-  // for (const shiftDetail of this.currentAppointment.shiftDetail) {
-  //   for (const key in shiftDetail.machines_packaging) {
-  //     for (const _key of this.getKeyForm()) {
-  //       let form = this.formGroupProduct[_key];
-  //       form.get(key).setValue(shiftDetail.machines_packaging[key]);
-  //     }
-  //   }
-  // }
-  // };
 
   onSubmit(e: any) {
     if (this.isValidForm()) {
-
-
-      // this.wareHouseService
-      // .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
-      // .subscribe(data => {
-      //   const rs =data.filter(item=> item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase())
-      //   console.log('data: ', data);
-
-      // }
-      // )
-
-      const data: ConfirmProduction1000Info = new ConfirmProduction1000Info();
+      const dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
       let machine_list: ConfirmProduction1000[] = [];
 
       for (let i = 0; i < this.getKeyForm().length; i++) {
         const form = this.formGroupProduct[this.getKeyForm()[i]].value;
         for (const key in form) {
           let machine: ConfirmProduction1000 = new ConfirmProduction1000();
-          // console.log(this.aShiftList[i].idShiftDetail);
-          // console.log(this.aShiftList[i].idShiftDetail.toString());
-
-          machine.idShiftDetail = this.aShiftList[i].idShiftDetail+'';
-          machine.codeEquipment = key.split('_')[1];
+          machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
+          machine.codeEquipment = key.split('_')[1].toUpperCase();
           machine.quantity = Number(form[key]);
-
           machine_list.push(machine);
         }
       }
-      data.user = this.authService.getUser().id;
-      data.data = [...machine_list];
-      console.log(data);
+      dataInput.user = this.authService.getUser().id;
+      dataInput.data = machine_list;
+      dataInput.date = Utils.formatDate(this.now);
+      dataInput.nameShift = this.ca_no_option.toUpperCase();
 
-      this.warehouseService.update1000Kg(data).subscribe(reply => {
-        console.log(reply);
-        if (reply.state == ResponseState.SUCCESS) {
-          this.showSuccess('Thêm mới thành công');
-        } else {
-          this.showWarn(reply.message);
-        }
-      });
+      this.wareHouseService
+        .getConfirmProduct(
+          Utils.formatDate(this.now),
+          Utils.formatDate(this.now)
+        )
+        .subscribe(data => {
+          const rs = data.filter(
+            d => d.nameShift.toUpperCase() === this.ca_no_option.toUpperCase()
+          );
+          if (rs.length) {
+            console.log('update');
+            this.popupVisible = true;
+            this.wareHouseService
+              .getConfirmProduct(
+                Utils.formatDate(this.now),
+                Utils.formatDate(this.now)
+              )
+              .subscribe(data => {
+                this.setOptionData(data);
+              });
+          } else {
+            console.log('insert');
+            this.warehouseService.insert1000kg(dataInput).subscribe(reply => {
+              console.log(reply);
+              if (reply.state == ResponseState.SUCCESS) {
+                this.showSuccess('Thêm mới thành công');
+              }
+              // else {
+              //   this.popupVisible = true;
+              //   this.wareHouseService
+              //     .getConfirmProduct(
+              //       Utils.formatDate(this.now),
+              //       Utils.formatDate(this.now)
+              //     )
+              //     .subscribe(data => {
+              //       // console.log('data: ', data);
+              //       this.setOptionData(data);
+              //     });
+              // }
+            });
+          }
+        });
     }
+  }
+
+  handleUpdateConfirmProduct() {
+    const dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
+    let machine_list: ConfirmProduction1000[] = [];
+
+    for (let i = 0; i < this.getKeyForm().length; i++) {
+      const form = this.formGroupProduct[this.getKeyForm()[i]].value;
+      for (const key in form) {
+        let machine: ConfirmProduction1000 = new ConfirmProduction1000();
+        machine.idShiftDetail = this.aShiftList[i].idShiftDetail + '';
+        machine.codeEquipment = key.split('_')[1].toUpperCase();
+        machine.quantity = Number(form[key]);
+
+        machine_list.push(machine);
+      }
+    }
+    dataInput.user = this.authService.getUser().id;
+    dataInput.data = machine_list;
+    dataInput.date = Utils.formatDate(this.now);
+    dataInput.nameShift = this.ca_no_option.toUpperCase();
+
+    console.log(dataInput);
+
+    this.wareHouseService.update1000Kg(dataInput).subscribe(reply => {
+      if (reply.state == ResponseState.SUCCESS) {
+        this.showSuccess('Cập nhật thành công');
+      }
+    });
   }
   setNewAppointment(shift: any, form: any) {
     for (const key in shift.machines_packaging) {
       shift.machines_packaging[key] = Number(form.value[key]);
     }
+  }
+
+  setOptionData(data: any) {
+    let currentShifts: ProductConfirm[] = [];
+    for (const _data of data) {
+      currentShifts.push(new ProductConfirm(_data));
+    }
+    const selectShift = currentShifts.filter(item => {
+      return item.nameShift.toLowerCase() == this.ca_no_option.toLowerCase();
+    });
+
+    if (selectShift.length > 0) {
+      currentShifts = selectShift
+        .filter(
+          item =>
+            item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase()
+        )
+        .sort(
+          (a, b) =>
+            parseInt(a.option.split(' ')[1]) - parseInt(b.option.split(' ')[1])
+        );
+
+      let options: OptionDetail[] = [];
+      for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
+        const stringOpt = 'option ' + i;
+        let optionObj: OptionDetail = {
+          option: stringOpt,
+          idParcel: 0,
+          warehouse: '',
+          packagingUnit: '',
+          creator: '',
+          machine_list: [],
+          typeProduct: '',
+          nameProduct: '',
+          typePacket: '',
+          idShiftDetail: 0
+        };
+        currentShifts.forEach(item => {
+          if (item.option.toLowerCase() === stringOpt) {
+            optionObj.idShiftDetail = item.idShiftDetail;
+            optionObj.idParcel = parseInt(item.idParcel);
+            optionObj.warehouse = item.codeWareHouse;
+            optionObj.packagingUnit = item.codePackingUnit;
+            optionObj.creator = item.creator;
+            optionObj.typeProduct = item.typeProduct;
+            optionObj.nameProduct = item.nameProduct;
+            optionObj.typePacket = item.typePacket;
+
+            optionObj.machine_list.push({
+              code: item.codeEquipment,
+              qty: item.quantity
+            });
+            optionObj.machine_list.sort((a, b) =>
+              a.code > b.code ? 1 : b.code > a.code ? -1 : 0
+            );
+          }
+        });
+
+        options.push(optionObj);
+      }
+      console.log(options);
+
+      this.aOptionShiftList = options;
+    } else {
+      this.aOptionShiftList = [];
+      this.showError('Chưa có dữ liệu!');
+    }
+  }
+  getQtyOption(shifts: ProductConfirm[]): number {
+    let numOption: any = [];
+
+    shifts.forEach(item => {
+      numOption.push(item.option.toLowerCase());
+    });
+    numOption = [...new Set(numOption)].length;
+    return numOption;
   }
   isValidForm(): Boolean {
     let isValid = true;
@@ -173,11 +291,11 @@ export class AddPackagingOneComponent implements OnInit {
   }
   initFormGroup(): FormGroup {
     return this.formBuilder.group({
-      machine_a: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_b: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_c: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_d: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      machine_e: ['3', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      machine_1: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_2: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_3: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_4: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      machine_5: [0, [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }
   getForm(i: number) {
@@ -192,7 +310,13 @@ export class AddPackagingOneComponent implements OnInit {
     }
     return result;
   }
-
+  getCurrentDateDMY(date: Date) {
+    let year = date?.getFullYear();
+    let day, month;
+    day = date?.getDate();
+    month = date?.getMonth() + 1;
+    return [day, month, year].join('/');
+  }
   onDateValueChanged(e: any) {
     this.getData();
   }
@@ -205,27 +329,27 @@ export class AddPackagingOneComponent implements OnInit {
   }
   showSuccess(msg: string) {
     this.toastrService.success(msg, '', {
-      timeOut: 2000,
+      timeOut: 1500,
       closeButton: true,
       enableHtml: true
     });
   }
   showError(msg: string) {
     this.toastrService.error(msg, '', {
-      timeOut: 3000,
+      timeOut: 2000,
       closeButton: true,
       enableHtml: true
     });
   }
   showWarn(msg: string) {
     this.toastrService.warning(msg, '', {
-      timeOut: 3000,
+      timeOut: 2000,
       closeButton: true,
       enableHtml: true
     });
   }
   onConfirm = () => {
-    this.showSuccess('Thay đổi thành công!');
+    this.handleUpdateConfirmProduct();
     this.popupVisible = false;
   };
   onClosePopup = () => {

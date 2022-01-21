@@ -59,74 +59,7 @@ export class ListTypeOneComponent implements OnInit {
     this.wareHouseService
       .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
       .subscribe(data => {
-        console.log('data: ', data);
-
-        let currentShifts: ProductConfirm[] = [];
-        for (const _data of data) {
-          currentShifts.push(new ProductConfirm(_data));
-        }
-        const selectShift = currentShifts.filter(item => {
-          return (
-            item.nameShift.toLowerCase() == this.ca_no_option.toLowerCase()
-          );
-        });
-        if (selectShift.length > 0) {
-          currentShifts = selectShift
-            .filter(
-              item =>
-                item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase()
-            )
-            .sort(
-              (a, b) =>
-                parseInt(a.option.split(' ')[1]) -
-                parseInt(b.option.split(' ')[1])
-            );
-
-          let options: OptionDetail[] = [];
-          for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
-            const stringOpt = 'option ' + i;
-            let optionObj: OptionDetail = {
-              option: stringOpt,
-              idParcel: 0,
-              warehouse: '',
-              packagingUnit: '',
-              creator: '',
-              machine_list: [],
-              typeProduct: '',
-              nameProduct: '',
-              typePacket: '',
-              idShiftDetail: 0
-            };
-            currentShifts.forEach(item => {
-              if (item.option.toLowerCase() === stringOpt) {
-                optionObj.idShiftDetail = item.idShiftDetail;
-                optionObj.idParcel = parseInt(item.idParcel);
-                optionObj.warehouse = item.codeWareHouse;
-                optionObj.packagingUnit = item.codePackingUnit;
-                optionObj.creator = item.creator;
-                optionObj.typeProduct = item.typeProduct;
-                optionObj.nameProduct = item.nameProduct;
-                optionObj.typePacket = item.typePacket;
-
-                optionObj.machine_list.push({
-                  code: item.codeEquipment,
-                  qty: item.quantity
-                });
-                optionObj.machine_list.sort((a, b) =>
-                  a.code > b.code ? 1 : b.code > a.code ? -1 : 0
-                );
-              }
-            });
-
-            options.push(optionObj);
-          }
-          console.log(options);
-
-          this.aOptionShiftList = options;
-        } else {
-          this.aOptionShiftList = [];
-          this.showError('Chưa có dữ liệu!');
-        }
+        this.setOptionData(data);
       });
   }
   initForm(machineList: MachineModel[]) {
@@ -146,6 +79,75 @@ export class ListTypeOneComponent implements OnInit {
     }
     this.optionForm = this.formBuilder.group(_form_d);
   }
+
+  setOptionData(data: any) {
+    let currentShifts: ProductConfirm[] = [];
+    for (const _data of data) {
+      currentShifts.push(new ProductConfirm(_data));
+    }
+    const selectShift = currentShifts.filter(item => {
+      return item.nameShift.toLowerCase() == this.ca_no_option.toLowerCase();
+    });
+
+    if (selectShift.length > 0) {
+      currentShifts = selectShift
+        .filter(
+          item =>
+            item.nameShift.toLowerCase() === this.ca_no_option.toLowerCase()
+        )
+        .sort(
+          (a, b) =>
+            parseInt(a.option.split(' ')[1]) - parseInt(b.option.split(' ')[1])
+        );
+
+      let options: OptionDetail[] = [];
+      for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
+        const stringOpt = 'option ' + i;
+        let optionObj: OptionDetail = {
+          option: stringOpt,
+          idParcel: 0,
+          warehouse: '',
+          packagingUnit: '',
+          creator: '',
+          machine_list: [],
+          typeProduct: '',
+          nameProduct: '',
+          typePacket: '',
+          idShiftDetail: 0
+        };
+        currentShifts.forEach(item => {
+          if (item.option.toLowerCase() === stringOpt) {
+            optionObj.idShiftDetail = item.idShiftDetail;
+            optionObj.idParcel = parseInt(item.idParcel);
+            optionObj.warehouse = item.codeWareHouse;
+            optionObj.packagingUnit = item.codePackingUnit;
+            optionObj.creator = item.creator;
+            optionObj.typeProduct = item.typeProduct;
+            optionObj.nameProduct = item.nameProduct;
+            optionObj.typePacket = item.typePacket;
+
+            optionObj.machine_list.push({
+              code: item.codeEquipment,
+              qty: item.quantity
+            });
+            optionObj.machine_list.sort((a, b) =>
+              a.code > b.code ? 1 : b.code > a.code ? -1 : 0
+            );
+          }
+        });
+
+        options.push(optionObj);
+      }
+      console.log(options);
+
+      this.aOptionShiftList = options;
+    } else {
+      this.aOptionShiftList = [];
+      this.isEditing = false;
+      this.inputs_options = [];
+      this.showError('Chưa có dữ liệu!');
+    }
+  }
   getQtyOption(shifts: ProductConfirm[]): number {
     let numOption: any = [];
 
@@ -155,6 +157,7 @@ export class ListTypeOneComponent implements OnInit {
     numOption = [...new Set(numOption)].length;
     return numOption;
   }
+
   onUpdateData() {
     let dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
     let machine_list: ConfirmProduction1000[] = [];
@@ -172,33 +175,51 @@ export class ListTypeOneComponent implements OnInit {
       // machine list
       for (const key in this.optionForm.value) {
         let machine: ConfirmProduction1000 = new ConfirmProduction1000();
-        machine.idShiftDetail = this.optionEditing.idShiftDetail;
-        machine.codeEquipment = key.split('_')[1];
+        machine.idShiftDetail = this.optionEditing.idShiftDetail + '';
+        machine.codeEquipment = key.split('_')[1].toUpperCase();
         machine.quantity = this.optionForm.value[key];
 
         machine_list.push(machine);
       }
+      // add other shift
+      const otherOption = this.getOtherDataShift(
+        this.optionEditing.idShiftDetail
+      );
+      for (const option of otherOption) {
+        for (const machineOpt of option.machine_list) {
+          let _machine: ConfirmProduction1000 = new ConfirmProduction1000();
+          _machine.idShiftDetail = option.idShiftDetail + '';
+          _machine.codeEquipment = machineOpt.code;
+          _machine.quantity = machineOpt.qty;
+
+          machine_list.push(_machine);
+        }
+      }
 
       dataInput.user = this.authService.getUser().id;
       dataInput.data = machine_list;
+      dataInput.date = Utils.formatDate(this.now);
+      dataInput.nameShift = this.ca_no_option.toUpperCase();
 
       console.log(dataInput);
-
       this.wareHouseService.update1000Kg(dataInput).subscribe(reply => {
         console.log(reply);
-
         if (reply.state == ResponseState.SUCCESS) {
-          this.showSuccess('Sửa thành công');
           this.isEditing = false;
           this.inputs_options = [];
           this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
-        } else {
-          this.showError(reply.message);
+          this.showSuccess('Cập nhật thành công');
+          this.getData()
         }
       });
     }
   }
 
+  getOtherDataShift(idShiftDetail: number): OptionDetail[] {
+    return this.aOptionShiftList.filter(
+      item => item.idShiftDetail !== idShiftDetail
+    );
+  }
   onShiftOptionClicked = (option: any) => {
     this.optionEditing = option;
     this.initForm(option.machine_list);

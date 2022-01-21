@@ -8,23 +8,24 @@
 
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ngày</label>
-        <dx-date-box height="48" [(value)]="now" type="date" (onValueChanged)="onDateValueChanged($event)"
-          displayFormat="dd/MM/yyyy"></dx-date-box>
+        <dx-date-box height="48" [disabled]="isUpdating" [(value)]="now" type="date"
+          (onValueChanged)="onDateValueChanged($event)" displayFormat="dd/MM/yyyy"></dx-date-box>
       </div>
       <div class="select-date col-12 col-lg-3">
         <label class="select-label" for="">Ca làm việc</label>
-        <dx-select-box [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']" [(value)]="ca_no_option" height="48"
-          hoverStateEnabled="false" placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectShiftChange($event)">
+        <dx-select-box [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']" [disabled]="isUpdating" [(value)]="ca_no_option"
+          height="48" hoverStateEnabled="false" placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectShiftChange($event)">
         </dx-select-box>
       </div>
       <div *ngIf="isUpdating" class="select-group col-12 col-lg-3">
         <label class="select-label" for="">Loại phiếu</label>
-        <dx-select-box  height="48" [dataSource]="ballot_types" [(value)]="ballot_type"
+        <dx-select-box height="48" [dataSource]="ballot_types" [disabled]="isUpdating" [(value)]="ballot_type"
           displayExpr="name" valueExpr="code" hoverStateEnabled="false" placeholder="Chọn loại phiếu"></dx-select-box>
       </div>
       <div *ngIf="isUpdating" class="select-group col-12 col-lg-3">
         <label class="select-label" for="">Đơn vị đóng</label>
-        <dx-select-box  height="48" [dataSource]="packaging_units" [(value)]="packaging_unit"
+        <dx-select-box height="48" [dataSource]="packaging_units" [disabled]="isUpdating" [value]="packaging_unit"
           displayExpr="name" valueExpr="code" hoverStateEnabled="false" placeholder="Chọn đơn vị đóng"></dx-select-box>
       </div>
     </div>
@@ -63,7 +64,7 @@
           </div>
         </form>
       </div>
-      <button (click)="addNewForm()" class="btn-add-new-form">
+      <button *ngIf="false" (click)="addNewForm()" class="btn-add-new-form">
         <img src="assets/svg/add_png_active.svg" alt="add" />
         <span>Thêm sản phẩm</span>
       </button>

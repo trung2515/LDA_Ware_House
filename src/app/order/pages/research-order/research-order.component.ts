@@ -2,7 +2,12 @@ import { ShippingUnitService } from '../../../shipping-unit/services/shipping-un
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { OrderModel } from '../../../shipping-unit/models/shipping-model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/core/services/order.service';
 import { ResponseState } from 'src/app/core/models/model.pb';
@@ -19,7 +24,7 @@ export class ResearchOrderComponent implements OnInit {
   filterForm!: FormGroup;
 
   orderList: OrderModel[] = [];
-  orderResultSearch: any ;
+  orderResultSearch: any;
   hasOrder: boolean = false;
 
   constructor(
@@ -42,18 +47,33 @@ export class ResearchOrderComponent implements OnInit {
     this._location.back();
   }
   searchOrder(e: any) {
-    this.isSearching = true;
-    const _order_code = this.filterForm.value.order_code;
-    // const hasResult = this.orderList.find(order => order.id === _order_code);
-    this.order.getOrderByCode(_order_code).subscribe(reply => {
-      if(reply.order) {
-        this.orderResultSearch= reply.order
-        this.hasOrder = true;
-      } else {
-        this.hasOrder = false;
+    if (this.isValidForm()) {
+      this.isSearching = true;
+      const _order_code = this.filterForm.value.order_code;
+      // const hasResult = this.orderList.find(order => order.id === _order_code);
+      this.order.getOrderByCode(_order_code).subscribe(reply => {
+        if (reply.order) {
+          this.orderResultSearch = reply.order;
+          this.hasOrder = true;
+        } else {
+          this.hasOrder = false;
+        }
+      });
+    }
+  }
+  isValidForm():boolean {
+    let isValid = true;
+    const form = this.filterForm;
+
+    if (!form.valid) {
+      for (const key in form.controls) {
+        if (form.controls.hasOwnProperty(key)) {
+          const control: FormControl = <FormControl>form.controls[key];
+          control.markAsTouched();
+        }
       }
-    })
-
-
+      isValid = false;
+    }
+    return isValid
   }
 }

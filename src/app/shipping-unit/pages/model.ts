@@ -9,7 +9,7 @@ import {
 } from 'src/app/core/models/model.pb';
 
 export class ShiftDetail {
-  id: number;
+  idShift: number;
   idShiftDetail: number;
   shift: string;
   startDate: Date;
@@ -26,7 +26,7 @@ export class ShiftDetail {
   creator: string;
 
   constructor(data: ShiftDetailInfo) {
-    this.id = data.idShift;
+    this.idShift = data.idShift;
     this.idShiftDetail = data.idShiftDetail;
     this.shift = data.nameShift;
     this.startDate = new Date(data.date);
@@ -36,6 +36,7 @@ export class ShiftDetail {
     this.warehouse = data.codeWareHouse;
     this.option = data.optionName;
     this.nameProduct = data.nameProduct;
+    this.typeProduct = data.idTypeProduct+''
     this.typePacket = data.nameTypePacket;
     this.packingUnit = data.namePackingUnit;
     this.creator = data.nameCreatedPerson;
@@ -108,9 +109,10 @@ export class Option50Modal {
       data.nameTypeBill ||
       data.namePackingUnit ||
       data.nameProduct ||
-      data.idTypeProduct ||
       data.nameTypePacket ||
       data.nameWareHouse ||
+      data.codeParcel ||
+      "Loại "+data.idTypeProduct ||
       '';
     this.code =
       data.codeTypeBill ||
@@ -119,6 +121,7 @@ export class Option50Modal {
       data.idTypeProduct ||
       data.codeTypePacket ||
       data.codeWareHouse ||
+      data.codeParcel ||
       '';
   }
 }
@@ -198,7 +201,7 @@ export class Card50kgDetailModel {
     this.ballot_type = data.nameTypeBill;
     this.code_ballot_type = data.codeTypeBill
     this.packing_unit = data.namePackingUnit;
-    this.creator = data.namePerson;
+    this.creator = data.createdPerson;
     this.warehouse = data.nameWareHouse;
     this.codeWarehouse = data.codeWareHouse;
     this.product_name = data.nameProduct;
