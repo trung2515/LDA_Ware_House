@@ -48,7 +48,7 @@ export class TypeMinutesComponent implements OnInit {
       this.selectType.subtitle1 = 'SẢN PHẨM NHẬP KHO HÀNG CA'
       this.selectType.subtitle = ''
       this.selectType.inforMitues = ` Hôm nay, ngày ${this.now.getDate()} tháng ${this.now.getMonth() + 1} năm ${this.now.getFullYear()}, vào lúc ${this.now.getHours()} giờ ${this.now.getMinutes()} phút, tại kho Mở Rộng của Công ty TNHH MTV Nhôm Lâm Đồng - TKV, chúng tôi gồm có:`
-      this.selectType.contentMinute = `Tiến hành giao nhận sản phẩm Alumin đóng bao loại 1 tấn hoàn thành ca ${this.shift}, ngày ${this.now.getDate()} tháng ${this.now.getMonth()+1} năm ${this.now.getFullYear()}để nhập kho như sau:  `
+      this.selectType.contentMinute = `Tiến hành giao nhận sản phẩm Alumin đóng bao loại 1 tấn hoàn thành ca ${this.shift}, ngày ${this.now.getDate()} tháng ${this.now.getMonth()+1} năm ${this.now.getFullYear()} để nhập kho như sau:  `
       this.selectType.verify= `Ông (bà) Thủ kho sản phẩm có trách nhiệm quản lý và bảo quản sản phẩm đã nhận theo quy định kể từ ca ${this.shift} ngày ${this.now.getDate()} tháng ${this.now.getMonth()+1} năm  ${this.now.getFullYear()} Biên bản được lập thành 03 bản có giá trị pháp lý như nhau,  Phân xưởng Nung Hydrat giữ 01 bản, Thủ kho giữ 01 bản, 01 bản chuyển Phòng KTTC để làm phiếu nhập kho. Tất cả thành phần đều nhất trí thông qua vào lúc ${this.now.getHours()} giờ ${this.now.getMinutes()} phút cùng ngày./.`
     }else if(c == 2){
       this.selectType.header = [     

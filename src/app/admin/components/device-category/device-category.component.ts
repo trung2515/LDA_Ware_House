@@ -25,7 +25,10 @@ export class DeviceCategoryComponent implements OnInit {
   input(e:any,obj:any){
     _.input(e,obj)
   }
-  timeShowMess:any=3000
+ 
+  nameEquipment:any
+  idEquipment:any
+  codeEquipment:any
  // -----------------------------------------------------Equipment---------------------------------------
   listEquipment:any=[]
   isConfirmDelete:boolean = false
@@ -59,7 +62,7 @@ export class DeviceCategoryComponent implements OnInit {
   }
   getListTypeEquipment(){
     this.adminService.getListTypeEquipment().subscribe((data:any) => {
-      this.listTypeEquipment=data
+      this.listTypeEquipment=data.filter((f:any) => f.objectType == "equipment")
       this.listTypeEquipment.sort((a:any,b:any)=>{
         return a.objectName.toLowerCase().localeCompare(b.objectName.toLowerCase())
       })
@@ -75,7 +78,7 @@ export class DeviceCategoryComponent implements OnInit {
     formSuccMess:'',
     input:{
       ttb:{value:'',isValid:false},
-      ltb:{value:'',isValid:false},
+      code:{value:'',isValid:false},
     },
     isValid:false,
     nameTypeEquipment:''
@@ -92,12 +95,25 @@ export class DeviceCategoryComponent implements OnInit {
     
   }
   togglePopupAddEquipment(){
+    this.objAddEquipment={
+      title:'Thêm thiết bị',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        ttb:{value:'',isValid:false},
+        code:{value:'',isValid:false},
+      },
+      isValid:false,
+      nameTypeEquipment:''
+    }
     this.isPopupAddEquipment=!this.isPopupAddEquipment
   }
   onSubmitAddEquipment(e:any){
     let nameEquipment=this.objAddEquipment.input.ttb.value
+    let codeEquipment=this.objAddEquipment.input.code.value
     let type=this.objAddEquipment.input.ltb.value
-    this.adminService.insertEquipment(nameEquipment,type).subscribe((data:any) => {
+    this.adminService.insertEquipment(nameEquipment,codeEquipment).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.objAddEquipment.formSuccMess=data.message
@@ -132,47 +148,50 @@ export class DeviceCategoryComponent implements OnInit {
     formSuccMess:'',
     input:{
       ttb:{value:'',isValid:false},
-      ltb:{value:'',isValid:false},
     },
     isValid:false,
     nameTypeEquipment:''
   }
-  clickEditEquipment(e:any){
-    let arr:any=[]
-    let type=parseInt(e.target.dataset.type)
-    console.log(type)
-    this.objEditEquipment.input.ltb={value:type,isValid:true}
-    this.listTypeEquipment.forEach((item:any)=>{
-      if(item.objectId==type){
-        this.objEditEquipment.nameTypeEquipment=item.objectName
-        arr=item.listEquipment
-      } 
-    })
+  clickEditEquipment(id:any,name:any,code:any){
+    this.isPopupEditEquipment = true
+    this.idEquipment = id
+    this.nameEquipment = name
+    this.codeEquipment = code
+    // let arr:any=[]
+    // let type=parseInt(e.target.dataset.type)
+    // console.log(type)
+    // this.objEditEquipment.input.ltb={value:type,isValid:true}
+    // this.listTypeEquipment.forEach((item:any)=>{
+    //   if(item.objectId==type){
+    //     this.objEditEquipment.nameTypeEquipment=item.objectName
+    //     arr=item.listEquipment
+    //   } 
+    // })
 
-    let order=parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemEquipmentClicked=arr[order]
-    this.objEditEquipment.title=`Chỉnh sửa thiết bị ${this.itemEquipmentClicked.nameEquipment}`
-    this.objEditEquipment.input.ttb={value:this.itemEquipmentClicked.nameEquipment,isValid:true}
-    this.objEditEquipment.isValid=true
-    console.log(this.objEditEquipment.input)
-    this.togglePopupEditEquipment()
+    // let order=parseInt(e.target.dataset.order)
+    // console.log(order)
+    // this.itemEquipmentClicked=arr[order]
+    // this.objEditEquipment.title=`Chỉnh sửa thiết bị ${this.itemEquipmentClicked.nameEquipment}`
+    // this.objEditEquipment.input.ttb={value:this.itemEquipmentClicked.nameEquipment,isValid:true}
+    // this.objEditEquipment.isValid=true
+    // console.log(this.objEditEquipment.input)
+    // this.togglePopupEditEquipment()
   }
   togglePopupEditEquipment(){
     this.isPopupEditEquipment=!this.isPopupEditEquipment
   }
   onSubmitEditEquipment(e:any){
-    let idEquipment=this.itemEquipmentClicked.idEquipment
+    let idEquipment=this.idEquipment
     let nameEquipment=this.objEditEquipment.input.ttb.value
-    let type=this.objEditEquipment.input.ltb.value
-    this.adminService.updateEquipment(idEquipment,nameEquipment,type).subscribe((data:any) => {
+    
+    this.adminService.updateEquipment(idEquipment,nameEquipment).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.itemEquipmentClicked=null
         this.objEditEquipment.formSuccMess=data.message
         this.objEditEquipment.formErrMess=""
         this.getListEquipment()
-        setTimeout(()=>{
+    
           this.objEditEquipment={
             title:'Chỉnh thiết bị ',
             mess:'',
@@ -187,7 +206,7 @@ export class DeviceCategoryComponent implements OnInit {
           }
           if(this.isPopupEditEquipment) this.togglePopupEditEquipment()
           this.toastr.success('','Chỉnh sửa thành công')
-        },this.timeShowMess)
+        
       }else{
         this.togglePopupEditEquipment()
         this.toastr.error('',data._message)
@@ -202,28 +221,35 @@ export class DeviceCategoryComponent implements OnInit {
     formErrMess:'',
     formSuccMess:''
   }
-  clickDeleteEquipment(e:any){
-    let arr:any=[]
-    let type=parseInt(e.target.dataset.type)
-    console.log(type)
-    this.listTypeEquipment.forEach((item:any)=>{
-      if(item.objectId==type){
-        this.objDeleteEquipment.nameTypeEquipment=item.objectName
-        arr=item.listEquipment
-      } 
-    })
+ 
+  clickDeleteEquipment(id:any,name:any){
+    console.log(id);
+    this.isPopupDeleteEquipment = true
+    this.idEquipment = id
+    this.nameEquipment = name
+    // let arr:any=[]
+    // let type=parseInt(e.target.dataset.type)
+    // console.log(type)
+    // this.listTypeEquipment.forEach((item:any)=>{
+    //   if(item.objectId==type){
+    //     this.objDeleteEquipment.nameTypeEquipment=item.objectName
+    //     arr=item.listEquipment
+    //   } 
+    // })
 
-    let order=parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemEquipmentClicked=arr[order]
-    this.objDeleteEquipment.mess=`Xóa thiết bị ${this.itemEquipmentClicked.nameEquipment}?`
-    this.togglePopupDeleteEquipment()
+    // let order=parseInt(e.target.dataset.order)
+
+    // this.itemEquipmentClicked=arr[order]
+    // console.log('order',arr[order]);
+    
+    // this.objDeleteEquipment.mess=`Xóa thiết bị ${this.itemEquipmentClicked.nameEquipment}?`
+    // this.togglePopupDeleteEquipment()
   }
   togglePopupDeleteEquipment(){
     this.isPopupDeleteEquipment=!this.isPopupDeleteEquipment
   }
   onSubmitDeleteEquipment(e:any){
-    let idEquipment=this.itemEquipmentClicked.idEquipment
+    let idEquipment=this.idEquipment
     this.adminService.deleteEquipment(idEquipment).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
@@ -238,7 +264,7 @@ export class DeviceCategoryComponent implements OnInit {
             formErrMess:'',
             formSuccMess:''
           }
-          if(this.isPopupDeleteEquipment) this.togglePopupDeleteEquipment()
+         this.togglePopupDeleteEquipment()
           this.isConfirmDelete = false
           this.toastr.success('','Xóa thành công')
       }else{

@@ -31,7 +31,7 @@
     </table>
   </div>
 
-  <div class="configuration__content__title d-flex" style='justify-content: space-between;margin-top: var(--padding);'>
+  <!-- <div class="configuration__content__title d-flex" style='justify-content: space-between;margin-top: var(--padding);'>
     <div>
       Loại sản phẩm
     </div>
@@ -52,14 +52,14 @@
           <td>Loại {{item.idTypeProduct}}</td>
           <td style='width: 150px;text-align: center;'>
             <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}"
-              (click)='clickEditTypeProduct($event)'>
+              (click)='clickEditTypeProduct(item.idTypeProduct)'>
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' attr.data-order="{{item.index}}"
-              (click)='clickDeleteTypeProduct($event)'>
+              (click)='clickDeleteTypeProduct(item.idTypeProduct)'>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
 </div>
 <!-- Delete Product -->
 <dx-popup [(visible)]="isPopupDeleteProduct" [closeOnOutsideClick]="true" [showTitle]="true"
@@ -87,7 +87,7 @@
   </dx-popup>
 </dx-popup>
 <!-- Add Product -->
-<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="280" width="500"
+<dx-popup class="row" [(visible)]="isPopupAddProduct" [closeOnOutsideClick]="true" height="340" width="500"
   [showTitle]="true" title="{{objAddProduct.title}}" [resizeEnabled]="true">
   <form  autocomplete="off" *ngIf='isPopupAddProduct'>
     <div class="wrap-input">
@@ -102,10 +102,28 @@
       <div class='d-flex' style='justify-content: space-between;'>
         <label for="FAP-tsp" class="form-label">Tên sản phẩm</label>
         <input id="FAP-tsp" name="tsp" rules='required' type="text" class="form-control"
-          (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
+        (blur)='blur($event,objAddProduct)' (click)='click($event)' (input)='input($event,objAddProduct)'>
       </div>
       <span class="input-message"></span>
     </div>
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <label for="FAP-pl" class="form-label"> Khối lượng</label>
+        <dx-select-box
+          [dataSource]='listWeight'
+          valueExpr="weight"
+          displayExpr="name"
+          placeholder="Chọn Khối lượng"
+          [dropDownOptions]={maxHeight:200}
+          [searchEnabled]="true"
+          (onValueChanged)="selectWeight($event,objAddProduct)"
+          style='width:300px'
+        >
+        </dx-select-box>
+      </div>
+      <span class="input-message"></span>
+    </div>
+  
     <div class='formErrMess text-danger pt-2'>{{objAddProduct.formErrMess}}</div>
     
     <div class='d-flex justify-content-end py-2'>
@@ -121,7 +139,7 @@
     <div class="wrap-input">
       <div class='d-flex' style='justify-content: space-between;'>
         <label for="FAP-msp" class="form-label">Mã sản phẩm</label>
-        <input id="FAP-msp" name="msp" rules='required' [value]='objEditProduct.input.msp.value' type="text"
+        <input id="FAP-msp" name="msp" rules='required' [value]='objEditProduct.input.msp.value' type="text"  disabled
           class="form-control" (blur)='blur($event,objEditProduct)' (click)='click($event)'
           (input)='input($event,objEditProduct)'>
       </div>
@@ -154,7 +172,7 @@
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
-          <input id="FATP-tlsp" name="tlsp" rules='required' type="text" class="form-control"
+          <input id="FATP-tlsp" name="tlsp" rules='required' type="number" class="form-control"
             (blur)='blur($event,objAddTypeProduct)' (click)='click($event)' (input)='input($event,objAddTypeProduct)'>
         </div>
         <span class="input-message"></span>
@@ -169,13 +187,13 @@
 </dx-popup>
 <!-- Edit TypeProduct -->
 <dx-popup [(visible)]="isPopupEditTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objEditTypeProduct.title}}" [height]='280' [width]="550" [resizeEnabled]="true">
+  title="{{objEditTypeProduct.title}}" [height]='250' [width]="550" [resizeEnabled]="true">
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitEditTypeProduct($event)" autocomplete="off" *ngIf='isPopupEditTypeProduct'>
       <div class="wrap-input">
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlsp" class="form-label">Tên loại sản phẩm</label>
-          <input id="FATP-tlsp" name="tlsp" rules='required' [value]='objEditTypeProduct.input.tlsp.value' type="text"
+          <input id="FATP-tlsp" name="tlsp" rules='required' [value]='objEditTypeProduct.input.tlsp.value' type="number"
             class="form-control" (blur)='blur($event,objEditTypeProduct)' (click)='click($event)'
             (input)='input($event,objEditTypeProduct)'>
         </div>
@@ -190,19 +208,19 @@
     </form>
   </div>
 </dx-popup>
-<!-- Delete TypeProduct -->
+
 <dx-popup [(visible)]="isPopupDeleteTypeProduct" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objDeleteTypeProduct.title}}" [height]='220' [width]="380" [resizeEnabled]="true">
-  <div class="" style="width:90%;margin:auto">
-    <div class='title-from-delete'>{{objDeleteTypeProduct.mess}}</div>
-    <form autocomplete="off" *ngIf='isPopupDeleteTypeProduct'>
-      <div class='d-flex justify-content-around mt-4'>
-        <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteTypeProduct()'>Hủy</div>
-        <button type="button" (click)="isConfirmDeleteType = !isConfirmDeleteType" class="btn btn-primary btn-blue   mr-3"> Xóa</button>
-      </div>
-    </form>
-  </div>
-  <dx-popup [(visible)]="isConfirmDeleteType" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
+  title="{{objDeleteTypeProduct.title}}" [height]='180' [width]="380" [resizeEnabled]="true">
+  <div class='title-from-delete'>{{objDeleteTypeProduct.mess}}</div>
+  <form  autocomplete="off" >
+    <div class='formErrMess text-danger pt-2'>{{objDeleteProduct.formErrMess}}</div>
+    <div class='formSuccMess text-success pt-2'>{{objDeleteProduct.formSuccMess}}</div>
+    <div class='d-flex justify-content-around py-2'>
+      <button type="button" class="btn btn-light btn-cancel" (click)="isConfirmDeleteType = !isConfirmDeleteType">Hủy</button>
+      <button type="button" (click)="isConfirmDeleteProductType = !isConfirmDeleteProductType" class="btn btn-primary btn-blue mr-3">Xóa</button>
+    </div>
+  </form>
+  <dx-popup [(visible)]="isConfirmDeleteProductType" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
     <div class="wrap-input" >
       <div class='d-flex' style='justify-content: space-between;'>
         <span>Bạn có chắc chắn xóa mục này ?</span>
@@ -210,7 +228,7 @@
       
     </div>
     <div class='d-flex justify-content-end mt-4' >
-      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDeleteType = !isConfirmDeleteType">Đóng</div>
+      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDeleteProduct = !isConfirmDeleteProduct">Đóng</div>
       <button type="button" (click)="onSubmitDeleteTypeProduct()"  class="btn btn-primary btn-danger" >  Xóa</button>
     </div>
   </dx-popup>

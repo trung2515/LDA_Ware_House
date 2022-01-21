@@ -76,9 +76,22 @@ export class PartnerComponent implements OnInit {
     isValid:false
   }
   clickAddPartner(e:any){
+
     this.togglePopupAddPartner()
   }
   togglePopupAddPartner(){
+    this.objAddPartner={
+      title:'Thêm khách hàng',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mkh:{value:'',isValid:false},
+        tkh:{value:'',isValid:false},
+        pl:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddPartner=!this.isPopupAddPartner
   }
   onSubmitAddPartner(e:any){
@@ -109,6 +122,7 @@ export class PartnerComponent implements OnInit {
           if(this.isPopupAddPartner) this.togglePopupAddPartner()
         this.toastr.success('','Thêm mới thành công')
       }else{
+        this.togglePopupAddPartner()
         this.toastr.error('',data._message)
       }
     })
@@ -213,11 +227,11 @@ export class PartnerComponent implements OnInit {
             formErrMess:'',
             formSuccMess:''
           }
-          if(this.isPopupDeletePartner) this.togglePopupDeletePartner()
-         this.isConfirmDelete == false
+          this.togglePopupDeletePartner()
+         this.isConfirmDelete = false
         this.toastr.success('','Xóa thành công')
       }else{
-        this.isConfirmDelete == false
+        this.isConfirmDelete = false
         this.toastr.error('',data._message)
       }
     })

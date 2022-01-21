@@ -51,7 +51,7 @@ export class WarehouseCategoryComponent implements OnInit {
     input:{
       mk:{value:'',isValid:false},
       tk:{value:'',isValid:false},
-      sc:{value:'',isValid:false},
+      // sc:{value:'',isValid:false},
     },
     isValid:false
   }
@@ -59,13 +59,25 @@ export class WarehouseCategoryComponent implements OnInit {
     this.togglePopupAddWareHouse()
   }
   togglePopupAddWareHouse(){
+    this.objAddWareHouse={
+      title:'Thêm kho',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mk:{value:'',isValid:false},
+        tk:{value:'',isValid:false},
+        // sc:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddWareHouse=!this.isPopupAddWareHouse
   }
   onSubmitAddWareHouse(e:any){
     let nameWareHouse=this.objAddWareHouse.input.tk.value
     let codeWareHouse=this.objAddWareHouse.input.mk.value
-    let capacity=parseInt(this.objAddWareHouse.input.sc.value)
-    this.adminService.insertWareHouse(codeWareHouse,nameWareHouse,capacity).subscribe((data:any) => {
+    // let capacity=parseInt(this.objAddWareHouse.input.sc.value)
+    this.adminService.insertWareHouse(codeWareHouse,nameWareHouse,0).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.objAddWareHouse.formSuccMess=data.message
@@ -80,7 +92,7 @@ export class WarehouseCategoryComponent implements OnInit {
             input:{
               mk:{value:'',isValid:false},
               tk:{value:'',isValid:false},
-              sc:{value:'',isValid:false},
+              // sc:{value:'',isValid:false},
             },
             isValid:false
           }
@@ -102,7 +114,7 @@ export class WarehouseCategoryComponent implements OnInit {
     input:{
       mk:{value:'',isValid:false},
       tk:{value:'',isValid:false},
-      sc:{value:'',isValid:false}
+      // sc:{value:'',isValid:false}
     },
     isValid:false
   }
@@ -126,9 +138,9 @@ export class WarehouseCategoryComponent implements OnInit {
     let idWareHouse=this.itemWareHouseClicked.idWareHouse
     let nameWareHouse=this.objEditWareHouse.input.tk.value
     let codeWareHouse=this.objEditWareHouse.input.mk.value
-    let capacity=this.objEditWareHouse.input.sc.value
+    // let capacity=this.objEditWareHouse.input.sc.value
 
-    this.adminService.updateWareHouse(idWareHouse,codeWareHouse,nameWareHouse,capacity).subscribe((data:any) => {
+    this.adminService.updateWareHouse(idWareHouse,codeWareHouse,nameWareHouse,0).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.itemWareHouseClicked=null
@@ -144,7 +156,7 @@ export class WarehouseCategoryComponent implements OnInit {
             input:{
               mk:{value:'',isValid:false},
               tk:{value:'',isValid:false},
-              sc:{value:'',isValid:false}
+              // sc:{value:'',isValid:false}
             },
             isValid:false
           }
@@ -190,11 +202,13 @@ export class WarehouseCategoryComponent implements OnInit {
             formErrMess:'',
             formSuccMess:''
           }
-          if(this.isPopupDeleteWareHouse) this.togglePopupDeleteWareHouse()
+           this.togglePopupDeleteWareHouse()
+           this.isConfirmDelete = false
         this.toastr.success('','Xóa ')
       }else{
-        this.objDeleteWareHouse.formSuccMess=""
-        this.objDeleteWareHouse.formErrMess=data.message
+        this.togglePopupDeleteWareHouse()
+        this.isConfirmDelete = false
+        this.toastr.error('',data._message)
       }
     })
 

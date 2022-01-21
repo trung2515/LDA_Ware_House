@@ -43,6 +43,10 @@
     <form (ngSubmit)="onSubmitAddTypePacket($event)" autocomplete="off" *ngIf='isPopupAddTypePacket' >
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-code" class="form-label">Code</label>
+          <input id="FATP-code" name="code"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypePacket)' (click)='click($event)' (input)='input($event,objAddTypePacket)'>
+        </div>
+        <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlb" class="form-label">Tên loại bao</label>
           <input id="FATP-tlb" name="tlb"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddTypePacket)' (click)='click($event)' (input)='input($event,objAddTypePacket)'>
         </div>
@@ -71,6 +75,13 @@
     <form (ngSubmit)="onSubmitEditTypePacket($event)" autocomplete="off" *ngIf='isPopupEditTypePacket' >
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FATP-code" class="form-label">Mã loại bao</label>
+          <input disabled id="FATP-code" name="code"  rules='required' [value]='objEditTypePacket.input.code.value' type="text"  class="form-control" (blur)='blur($event,objEditTypePacket)' (click)='click($event)' (input)='input($event,objEditTypePacket)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
           <label for="FATP-tlb" class="form-label">Tên loại bao</label>
           <input id="FATP-tlb" name="tlb"  rules='required' [value]='objEditTypePacket.input.tlb.value' type="text"  class="form-control" (blur)='blur($event,objEditTypePacket)' (click)='click($event)' (input)='input($event,objEditTypePacket)'>
         </div>
@@ -85,6 +96,8 @@
 		</form>
   </div>
 </dx-popup>
+
+
 <!-- Delete TypePacket -->
 <dx-popup
   [(visible)]="isPopupDeleteTypePacket"
