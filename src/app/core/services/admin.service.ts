@@ -637,6 +637,7 @@ export class AdminService {
       }
       ));
   }
+  
   deleteListMasterData(id:number,type:any){
     let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
