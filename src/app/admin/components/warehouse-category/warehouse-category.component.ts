@@ -59,6 +59,18 @@ export class WarehouseCategoryComponent implements OnInit {
     this.togglePopupAddWareHouse()
   }
   togglePopupAddWareHouse(){
+    this.objAddWareHouse={
+      title:'Thêm kho',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mk:{value:'',isValid:false},
+        tk:{value:'',isValid:false},
+        // sc:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddWareHouse=!this.isPopupAddWareHouse
   }
   onSubmitAddWareHouse(e:any){

@@ -76,9 +76,22 @@ export class PartnerComponent implements OnInit {
     isValid:false
   }
   clickAddPartner(e:any){
+
     this.togglePopupAddPartner()
   }
   togglePopupAddPartner(){
+    this.objAddPartner={
+      title:'Thêm khách hàng',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mkh:{value:'',isValid:false},
+        tkh:{value:'',isValid:false},
+        pl:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddPartner=!this.isPopupAddPartner
   }
   onSubmitAddPartner(e:any){

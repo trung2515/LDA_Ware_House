@@ -236,72 +236,77 @@ export class ShiftComponent implements OnInit {
   }
   getDetail(idDetail: number) {
     const rs = this.shiftDetails.filter(d => d.id == idDetail && d.id != 0);
+    console.log(idDetail);
+
     return rs;
   }
 
   SaveShift = () => {
-    console.log('save shift');
     console.log(this.shiftDetail);
-    console.log(this.selectionDate);
-    console.log(this.selectionShift);
-    console.log(this.selectIdShift);
-    let nameShift = this.selectionShift;
-    let date = Utils.formatDate(this.selectionDate);
-    console.log('save shift', nameShift);
-    console.log('save shift', date);
 
-    let shiftDetailInfo: ShiftDetailInfo[] = [];
-    this.shiftDetail.forEach(s => {
-      let data: ShiftDetailInfo = new ShiftDetailInfo();
-      data.codeParcel = s.lot;
-      data.codeProduct = s.product;
-      data.codeTypeBill = s.type;
-      data.codeTypePacket = s.type_bag;
-      data.codeWareHouse = s.wareHouse;
-      data.idTypeProduct = s.productRange;
-      data.codePackingUnit = s.unit;
-      data.optionName = s.option;
-      shiftDetailInfo = [...shiftDetailInfo, data];
-    });
-    let countShiftDetail: number = this.shiftDetails.filter(
-      s =>
-        this.selectShift == s.nameShift &&
-        Utils.formatDate(this.selectDate) == s.date
-    ).length;
-    console.log(countShiftDetail);
-    if (countShiftDetail > 0 && this.selectIdShift > 0) {
-      console.log('update', this.selectIdShift);
-      this.adminService
-        .newUpdateShift(this.selectIdShift, shiftDetailInfo)
-        .subscribe(reply => {
-          console.log(reply);
-          if (reply.state == ResponseState.SUCCESS) {
-            this.toastr.success(reply.message);
-            this.popupVisible = false;
-            this.getData();
-          } else {
-            this.toastr.warning(reply.message);
-          }
-        });
-    } else {
-      console.log('new');
-      this.adminService
-        .newInsertShift(
-          date,
-          nameShift,
-          this.authService.getUser().id,
-          shiftDetailInfo
-        )
-        .subscribe(reply => {
-          if (reply.state == ResponseState.SUCCESS) {
-            this.toastr.success(reply.message);
-            this.popupVisible = false;
-            this.getData();
-          } else {
-            this.toastr.warning(reply.message);
-          }
-        });
-    }
+    // console.log('save shift');
+    // console.log(this.shiftDetail);
+    // console.log(this.selectDate);
+    // console.log(this.selectionShift);
+    // console.log(this.selectIdShift);
+    let nameShift = this.selectionShift;
+    let date = Utils.formatDate(this.selectDate);
+    // console.log('save shift', nameShift);
+    // console.log('save shift', date);
+    if (this.shiftDetail.length > 0) {
+      let shiftDetailInfo: ShiftDetailInfo[] = [];
+      this.shiftDetail.forEach(s => {
+        let data: ShiftDetailInfo = new ShiftDetailInfo();
+        data.codeParcel = s.lot;
+        data.codeProduct = s.product;
+        data.codeTypeBill = s.type;
+        data.codeTypePacket = s.type_bag;
+        data.codeWareHouse = s.wareHouse;
+        data.idTypeProduct = s.productRange;
+        data.codePackingUnit = s.unit;
+        data.optionName = s.option;
+        shiftDetailInfo = [...shiftDetailInfo, data];
+      });
+      let countShiftDetail: number = this.shiftDetails.filter(
+        s =>
+          this.selectShift == s.nameShift &&
+          Utils.formatDate(this.selectDate) == s.date
+      ).length;
+      console.log(countShiftDetail);
+      if (countShiftDetail > 0 && this.selectIdShift > 0) {
+        console.log('update', this.selectIdShift);
+        this.adminService
+          .newUpdateShift(this.selectIdShift, shiftDetailInfo)
+          .subscribe(reply => {
+            // console.log(reply);
+            if (reply.state == ResponseState.SUCCESS) {
+              this.toastr.success(reply.message);
+              this.popupVisible = false;
+              this.getData();
+            } else {
+              this.toastr.warning(reply.message);
+            }
+          });
+      } else {
+        console.log('new');
+        this.adminService
+          .newInsertShift(
+            date,
+            nameShift,
+            this.authService.getUser().id,
+            shiftDetailInfo
+          )
+          .subscribe(reply => {
+            if (reply.state == ResponseState.SUCCESS) {
+              this.toastr.success(reply.message);
+              this.popupVisible = false;
+              this.getData();
+            } else {
+              this.toastr.warning(reply.message);
+            }
+          });
+      }
+    } else this.toastr.warning('Phải có ít nhất một option');
   };
 
   onAppointmentFormOpening(data: any) {

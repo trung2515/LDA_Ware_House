@@ -126,7 +126,9 @@ export class ConsumptionReportComponent implements OnInit {
       ],
       store: new CustomStore({
         load: (LoadOptions) => {
+          // return this.rawData.filter(s => s.ballot_type.includes('N'))
           return this.rawData.filter(s => s.ballot_type.includes('N'))
+
         },
       }),
     })
@@ -300,7 +302,7 @@ export class ConsumptionReportComponent implements OnInit {
       )
       .subscribe((data) => {
         this.rawData = data.map((d) => new ProductionStatisticalModel(d))
-        this.statistics = this.rawData.filter(d => !d.ballot_type.toLowerCase().includes('t'));
+        this.statistics = this.rawData.filter(d => !d.ballot_type.toLowerCase().includes('t') || d.ballot_type.toLowerCase() == 'xtt');
         this.loadPivotGrid()
       })
   }

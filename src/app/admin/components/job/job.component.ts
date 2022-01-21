@@ -57,6 +57,17 @@ export class JobComponent implements OnInit {
     this.togglePopupAddWork()
   }
   togglePopupAddWork(){
+    this.objAddWork={
+      title:'Thêm công việc',
+      mess:'',
+      formErrMess:'',
+      formSuccMess:'',
+      input:{
+        mcv:{value:'',isValid:false},
+        tcv:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddWork=!this.isPopupAddWork
   }
   onSubmitAddWork(e:any){

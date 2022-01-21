@@ -611,7 +611,6 @@ export class AdminService {
   }
   insertListMasterData(name:any,code:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo()
-
     req.objectName = name;
     req.objectCode = code;
     req.objectType = type
@@ -623,7 +622,6 @@ export class AdminService {
       }
       ));
   }
-
   updateListMasterData(id:number, name:any, type:any,cate:any){
     console.log(name,type);
     let req:MasterDataInfo = new MasterDataInfo()
@@ -638,6 +636,7 @@ export class AdminService {
       }
       ));
   }
+
   deleteListMasterData(id:number,type:any){
     let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
