@@ -58,7 +58,7 @@
         >
         <span class="shift-info"
           >{{ optionEditing.nameProduct }} -
-          {{ optionEditing.typeProduct }} -
+          Loại {{ optionEditing.typeProduct }} -
           {{ optionEditing.typePacket }}
         </span>
         <app-option-status></app-option-status>
@@ -86,7 +86,7 @@
           <div class="machine-control-qty">
             <app-text-input
               [formControlName]="input.formControlName"
-              [label]="input.label"
+              [label]="'Nhập ' +input.label"
               type="text"
             ></app-text-input>
           </div>

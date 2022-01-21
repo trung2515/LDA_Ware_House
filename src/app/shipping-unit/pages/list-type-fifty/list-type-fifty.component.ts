@@ -28,22 +28,24 @@ import {
 })
 export class ListTypeFiftyComponent implements OnInit {
   title: String = 'Danh sách sản lượng đóng bao loại 50kg';
-  now: Date = new Date('2022/01/01');
-  ca_no_option: string = 'Ca 1';
+  now: Date = new Date('1/1/2022');
   popupVisible: boolean = false;
   isUpdating: Boolean = false;
   optionSelected: any;
+
   productList: Option50Modal[] = [];
   typeProductList: Option50Modal[] = [];
   typePacketList: Option50Modal[] = [];
   warehouseList: Option50Modal[] = [];
   ballot_types: Option50Modal[] = [];
-  ballot_type: string = '';
+  parcelList: Option50Modal[] = [];
   packaging_units: Option50Modal[] = [];
+
+  ballot_type: string = '';
   packaging_unit = '';
+  ca_no_option: string = 'Ca 1';
 
   card50kgList: Card50kgDetailModel[] = [];
-
   inputs_options: any = [
     {
       label: 'Sản phẩm',
@@ -81,7 +83,7 @@ export class ListTypeFiftyComponent implements OnInit {
     private adminService: AdminService,
     private warehouseService: WareHouseService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getData();
@@ -119,9 +121,15 @@ export class ListTypeFiftyComponent implements OnInit {
     });
     this.adminService.getListPackingUnit().subscribe(data => {
       this.packaging_units = data.map(d => new Option50Modal(d));
+      this.setListOption();
     });
     this.adminService.getListTypeBill().subscribe(data => {
       this.ballot_types = data.map(d => new Option50Modal(d));
+      this.setListOption();
+    });
+    this.warehouseService.getListAllParcel().subscribe(data => {
+      this.parcelList = data.map(d => new Option50Modal(d));
+      this.setListOption();
     });
   }
 
@@ -151,7 +159,12 @@ export class ListTypeFiftyComponent implements OnInit {
         value: this.optionSelected?.bag_type
       },
       { label: 'Số lượng', formControlName: 'qty', type: 'text' },
-      { label: 'Lô', formControlName: 'consignments', type: 'text' },
+      {
+        label: 'Lô',
+        formControlName: 'consignments',
+        type: 'select',
+        options: this.parcelList
+      },
       {
         label: 'Kho',
         formControlName: 'warehouse',
@@ -162,43 +175,71 @@ export class ListTypeFiftyComponent implements OnInit {
   }
   onUpdateData() {
     if (this.isValidForm()) {
+      const userNameCur =
+        this.card50kgList[0]?.creator || this.authService.getUser().user;
+
       const data: InsertCardRequest = new InsertCardRequest();
       data.date = Utils.formatDate(this.now);
-      data.nameShift = this.ca_no_option;
-      data.user = this.authService.getUser().id;
+      data.nameShift = this.ca_no_option.toUpperCase();
+      data.user = userNameCur;
+      data.codePackingUnit = this.packaging_unit;
+      data.codeTypeBill = this.ballot_type;
 
       for (const key of this.getKeyForm()) {
         const valueForm = this.formGroupProduct[key].value;
-        console.log(valueForm);
-
-
         const cardDetail: CardDetailInfo = new CardDetailInfo();
-        cardDetail.codeProduct = valueForm.product_name;
-        cardDetail.codeTypePacket = valueForm.product_type;
-        cardDetail.codeTypePacket = valueForm.bag_type;
+
+        cardDetail.codeProduct = this.optionSelected.product_code;
+        cardDetail.idTypeProduct = this.optionSelected.product_type;
+        cardDetail.codeTypePacket = this.optionSelected.code_bag_type;
         cardDetail.quantity = valueForm.qty;
-        cardDetail.codeParcel = valueForm.consignments;
-        cardDetail.codeWareHouse = valueForm.warehouse;
+        cardDetail.codeParcel = this.optionSelected.parcel;
+        cardDetail.codeWareHouse = this.optionSelected.codeWarehouse;
         cardDetail.codeTypeBill = this.ballot_type;
         cardDetail.codePackingUnit = this.packaging_unit;
         cardDetail.idCard = this.optionSelected.idCard;
 
         data.cardDetails.push(cardDetail);
       }
-      console.log(data);
+      const otherItem = this.getOtherDataShift(this.optionSelected.idCard);
+      data.cardDetails = data.cardDetails.concat(otherItem);
 
-      this.warehouseService.updateCard50kg(data).subscribe(reply => {
-        console.log(reply);
-        if (reply.state === ResponseState.SUCCESS) {
-          this.showSuccess('Cập nhật thành công');
-          this.getData();
-        } else {
-          this.showWarn(reply.message);
-        }
-      });
-
+      if (
+        this.formGroupProduct['form-1'].value['qty'] !== this.optionSelected.qty
+      ) {
+        // console.log(data);
+        this.warehouseService.updateCard50kg(data).subscribe(reply => {
+          if (reply.state === ResponseState.SUCCESS) {
+            this.showSuccess('Cập nhật thành công');
+            this.getData();
+          } else {
+            this.showWarn(reply.message);
+          }
+        });
+      } else this.showSuccess('Cập nhật thành công');
       this.isUpdating = false;
     }
+  }
+  getOtherDataShift(idCard: string): CardDetailInfo[] {
+    let rs: CardDetailInfo[] = [];
+    this.card50kgList.forEach(item => {
+      if (item.idCard !== idCard) {
+        const cardDetail: CardDetailInfo = new CardDetailInfo();
+
+        cardDetail.codeProduct = item.product_code;
+        cardDetail.idTypeProduct = Number(item.product_type);
+        cardDetail.codeTypePacket = item.code_bag_type;
+        cardDetail.quantity = item.qty + '';
+        cardDetail.codeParcel = item.parcel;
+        cardDetail.codeWareHouse = item.codeWarehouse;
+        cardDetail.codeTypeBill = item.ballot_type;
+        cardDetail.codePackingUnit = item.packing_unit;
+        cardDetail.idCard = item.idCard;
+
+        rs.push(cardDetail);
+      }
+    });
+    return rs;
   }
   onOptionEditClicked(option: any) {
     this.optionSelected = option;
@@ -206,21 +247,15 @@ export class ListTypeFiftyComponent implements OnInit {
     this.packaging_unit = option.packing_unit;
     const _option: CardDetailInfo = new CardDetailInfo();
     _option.idCard = option.idCard;
-    _option.isChangable = true;
 
-    // this.warehouseService.setChangeableCard(_option).subscribe((reply: any) => {
-    //   console.log(reply);
-    // });
-
-    for (let i = 1; i <= 1; i++) {
-      this.formGroupProduct['form-' + i] = this.initFormGroup(option);
-    }
+    this.formGroupProduct = {};
+    this.formGroupProduct['form-1'] = this.initFormGroup(option);
 
     this.isUpdating = true;
   }
   onOptionDeleteClicked(option: any) {
     this.popupVisible = true;
-    console.log(option);
+    // console.log(option);
     this.optionSelected = option;
   }
   onClosePopup = () => {
@@ -230,10 +265,10 @@ export class ListTypeFiftyComponent implements OnInit {
     this.warehouseService
       .deleteCard50kg(this.optionSelected.idCard)
       .subscribe(reply => {
-        console.log(reply);
+        // console.log(reply);
         if (reply.state === ResponseState.SUCCESS) {
           this.toastrService.success('Xoá thành công', '');
-          this.getData()
+          this.getData();
         } else {
           this.toastrService.warning(reply.message);
         }
@@ -282,18 +317,30 @@ export class ListTypeFiftyComponent implements OnInit {
   }
   initFormGroup(option?: any): FormGroup {
     return this.formBuilder.group({
-      product_name: [option?.product_code || '', [Validators.required]],
-      product_type: ['1' || '', [Validators.required]],
-      bag_type: [option?.code_bag_type || '', [Validators.required]],
+      product_name: [
+        { value: option?.product_code || '', disabled: true },
+        [Validators.required]
+      ],
+      product_type: [
+        { value: option?.product_type || '', disabled: true },
+        [Validators.required]
+      ],
+      bag_type: [
+        { value: option?.code_bag_type || '', disabled: true },
+        [Validators.required]
+      ],
       qty: [
         option?.qty || '0',
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
       consignments: [
-        option?.parcel || '',
+        { value: option?.parcel || '', disabled: true },
         [Validators.required, Validators.pattern('^[0-9]*$')]
       ],
-      warehouse: [option?.codeWarehouse || '', [Validators.required]]
+      warehouse: [
+        { value: option?.codeWarehouse || '', disabled: true },
+        [Validators.required]
+      ]
     });
   }
   showError(msg: string) {

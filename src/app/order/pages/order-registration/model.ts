@@ -1,6 +1,6 @@
 export class OptionModel {
-  name: string
-  value: string
+  name: string;
+  value: string;
   constructor(data: any) {
     this.name =
       data.nameProduct ||
@@ -9,11 +9,11 @@ export class OptionModel {
       data.nameWareHouse ||
       data.namePartner ||
       data.objectName ||
-      data.idTypeProduct.toString() || '' ||
-      data.codeParcel ||
       data.nameTypeBill ||
       data.namePackingUnit ||
-      ''
+      data.codeParcel ||
+      'Loại '+data.idTypeProduct ||
+      '';
     this.value =
       data.codeProduct ||
       data.codeTypePacket ||
@@ -22,9 +22,9 @@ export class OptionModel {
       data.codePartner ||
       data.objectCode ||
       data.idTypeProduct ||
-      data.codeTypeBill||
-      data.codeParcel ||
+      data.codeTypeBill ||
       data.codePackingUnit ||
-      ''
+      data.codeParcel ||
+      '';
   }
 }

@@ -536,7 +536,7 @@ export class AdminService {
     )
   }
 
-  
+
 
   updateWork(idWork: any, codeWork: any, nameWork: any) {
     let req: WorkInfo = new WorkInfo()
@@ -611,7 +611,6 @@ export class AdminService {
   }
   insertListMasterData(name:any,code:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo() 
-
     req.objectName = name;
     req.objectCode = code;
     req.objectType = type
@@ -626,7 +625,7 @@ export class AdminService {
   
   updateListMasterData(id:number, name:any, type:any,cate:any){
     console.log(name,type);
-    let req:MasterDataInfo = new MasterDataInfo() 
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
     req.objectName = name;
     req.objectCate = cate;
@@ -638,8 +637,9 @@ export class AdminService {
       }
       ));
   }
+  
   deleteListMasterData(id:number,type:any){
-    let req:MasterDataInfo = new MasterDataInfo() 
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
     req.objectType= type;
     return this.administratorClient.setDeletedMaster(req).pipe(
