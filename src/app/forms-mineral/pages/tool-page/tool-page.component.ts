@@ -91,13 +91,16 @@ export class ToolPageComponent implements OnInit {
   isArrReceiverDepartment:any=[{}];
 
   initSelectControl() {
+    
     this.adminService.getListMasterData().subscribe((masterData) => {
-      this.sender = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new OptionModel(m))
-      this.receiver = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new OptionModel(m))
-      this.senderDepartment = masterData.filter((e:any)=>e.objectType == 'role').map(m => new OptionModel(m))
-      this.receiverDepartment = masterData.filter((e:any)=>e.objectType == 'role').map(m => new OptionModel(m))
-      this.senderPerson = masterData.map(m => new OptionModel(m))
-      this.receiverPerson = masterData.map(m => new OptionModel(m))
+      console.log('master',masterData);
+      
+      this.sender = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate !== "TYPE_PACKET").map(m => new OptionModel(m))
+      this.receiver = masterData.filter((e:any)=>e.objectType == 'PARTNER'&& e.objectCate !== "TYPE_PACKET").map(m => new OptionModel(m))
+      this.senderDepartment = masterData.filter((e:any)=>e.objectType == 'POSITION').map(m => new OptionModel(m))
+      this.receiverDepartment = masterData.filter((e:any)=>e.objectType == 'POSITION').map(m => new OptionModel(m))
+      this.senderPerson = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate == "TYPE_PACKET").map(m => new OptionModel(m))
+      this.receiverPerson = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate == "TYPE_PACKET").map(m => new OptionModel(m))
     });
     this.adminService.getListProduct().subscribe((productData) => { this.listProduct = productData.map(m => new ListProduct(m))})
     this.adminService.getListTypeProduct().subscribe((data) => { this.listProductType = data.map(m => new ListProductType(m))})

@@ -21,8 +21,12 @@ export class MinutesComponent implements OnInit {
   }
 dataTypeMinutes:ListTypeMinutes[]=[]
 dataMinutes:any=[]
-isShowPopup:boolean = false
-
+isPopupAddMinutes:boolean = false
+isPopupEditMinutes:boolean = false
+idDetail:number
+name:string
+type:string
+cate:string
 minutesDetail:any = {}
 objAddMinuteDetail:any={
   title:'',
@@ -30,20 +34,39 @@ objAddMinuteDetail:any={
   formErrMess:'',
   formSuccMess:'',
   input:{
-    dvd:{value:'',isValid:false},
+    code:{value:'',isValid:false},
+    name:{value:'',isValid:false},
   },
   isValid:false
 }
 masterData:any
 department:ListDetail[]
 represent:ListDetail[]
+representPeson:ListDetail[]
+decision:ListDetail[]
 isConfirmDelete:boolean = false
+isPopupDeleteMinutes:boolean = false
+
+
+blur(e: any, obj: any) {
+  _.blur(e, obj)
+  console.log(obj.input)
+}
+click(e: any) {
+  _.click(e)
+}
+input(e: any, obj: any) {
+  _.input(e, obj)
+}
+
 getDetail() {
   this.adminService.getListMasterData().subscribe((masterData) => {
-    console.log('mt',masterData);
+    console.log('masterData',masterData);
     this.masterData = masterData
-    this.represent = masterData.filter((e:any)=>e.objectType == 'partner').map(m => new ListDetail(m))
-    this.department = masterData.filter((e:any)=>e.objectType == 'role').map(m => new ListDetail(m))
+    this.represent = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate !== 'TYPE_PACKET' ).map(m => new ListDetail(m))
+    this.representPeson = masterData.filter((e:any)=>e.objectType == 'PARTNER' && e.objectCate == 'TYPE_PACKET').map(m => new ListDetail(m))
+    this.department = masterData.filter((e:any)=>e.objectType == 'POSITION').map(m => new ListDetail(m))
+    this.decision = masterData.filter((e:any)=>e.objectType == 'DECISION').map(m => new ListDetail(m))
     this.demoData()
   });
 }
@@ -52,210 +75,158 @@ demoData(){
     {
       listDetail:this.represent,
       name:'Các bên đại diện',
-      type:'partner'
+      type:'PARTNER',
+      cate:'CUSTOMER'
     },
     {
-      listDetail:[],
+      listDetail:this.representPeson,
       name:'Ông/bà đại diện',
-      type:'role'
+      type:'PARTNER',
+      cate:'TYPE_PACKET'
+
     },
     {
       listDetail:this.department,
       name:'Chức vụ',
-      type:'department'
+      type:'POSITION',
+      cate:'CUSTOMER'
+
     },
     {
-      listDetail:[],
+      listDetail:this.decision,
       name:'Quyết định',
-      type:'decision'
+      type:'DECISION',
+      cate:'CUSTOMER'
     }
   ]
   console.log(this.dataTypeMinutes);
 
 }
-
-blur(e:any,obj:any){
-  console.log(e, obj);
-
-  _.blur(e,obj)
-}
-click(e:any){
-  _.click(e)
-}
-input(e:any,obj:any){
-  _.input(e,obj)
-}
-showAddMinutesDetail(data:any,type:number){
-  this.isShowPopup = true
-  this.objAddMinuteDetail.title = data
-  this.objAddMinuteDetail.atc = "Thêm mới"
-  this.objAddMinuteDetail.type = type
-}
-showEditDetailMinute(id:number,name:string,title:any,type:any){
-  this.objAddMinuteDetail.atc = "Chỉnh sửa"
-  this.objAddMinuteDetail.id = id
-  this.objAddMinuteDetail.name = name
-  this.objAddMinuteDetail.type = type
-  this.isShowPopup = true
-  this.objAddMinuteDetail.title = title
-  console.log(this.objAddMinuteDetail);
-
-
-}
-showDeleteDetailMinute(id:number, name:string, title:any, type:any){
-  this.objAddMinuteDetail.atc = "Xóa"
-  this.objAddMinuteDetail.name = name
-  this.objAddMinuteDetail.id = id
-  this.objAddMinuteDetail.type = type
-  this.isShowPopup = true
-  this.objAddMinuteDetail.title = title
-  console.log(this.objAddMinuteDetail);
-
-}
-onSubmitMinutesDetail(){
-if(this.objAddMinuteDetail.atc == "Thêm mới"){
-  this.addMinutesDetail()
-}else if(this.objAddMinuteDetail.atc == "Chỉnh sửa"){
-  this.updateMinutesMinutes()
-}else{
-  this.deleteMinutesMinutes()
-}
+showAddMinutesDetail(name:any, type:any, cate:any){
+  this.name = name
+  this.type = type
+  this.cate = cate
+  this.isPopupAddMinutes = true
 }
 addMinutesDetail(){
-  console.log(this.objAddMinuteDetail);
-  let cate:string
-  this.objAddMinuteDetail.type == 'partner'? cate = 'vendor' : ''
-  console.log(cate);
-
-  let idmax = 0
-  for (var i = 0; i < this.masterData.length;i++){
-  idmax = this.masterData[i].objectId > idmax? this.masterData[i].objectId : idmax;
-  }
-  idmax++;
-  console.log('id',idmax);
-   this.adminService.insertListMasterData(idmax,this.objAddMinuteDetail.input.dvd.value,this.objAddMinuteDetail.type,cate)
+  console.log('input',this.objAddMinuteDetail);
+  let code = this.objAddMinuteDetail.input.code.value
+  let name = this.objAddMinuteDetail.input.name.value
+   this.adminService.insertListMasterData(name,code,this.type ,this.cate)
    .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
-
       this.objAddMinuteDetail={
-        title:'',
-        name:'',
-        index:'',
-        id:0,
-        atc:'',
+        title:'Thêm sản phẩm',
+        mess:'',
+        formErrMess:'',
+        formSuccMess:'',
         input:{
-          dvd:{value:'',isValid:false},
+          code:{value:'',isValid:false},
+          name:{value:'',isValid:false},
         },
-        isValid:false
+        isValid: false
       }
   console.log(this.dataTypeMinutes);
-  this.isShowPopup = false
+  this.isPopupAddMinutes = false
   this.toast.success('','Thêm mới thành công')
     }else{
-      this.isShowPopup = false
+      this.isPopupAddMinutes = false
       this.toast.error('',data._message)
     }
 
-  this.objAddMinuteDetail={
-    title:'',
-    name:'',
-    index:'',
-    id:0,
-    atc:'',
-    input:{
-      dvd:{value:'',isValid:false},
-    },
-    isValid:false
-  }
   })
-
+}
+showEditMinutes(id:number,name:any,code:any,cate:any,type:any){
+this.isPopupEditMinutes = true;
+this.idDetail=id;
+this.cate=cate;
+this.type=type;
+this.objAddMinuteDetail.input.code = { value: code, isValid: true }
+this.objAddMinuteDetail.input.name = { value: name, isValid: true }
+this.objAddMinuteDetail.isValid = true
+console.log(this.objAddMinuteDetail);
 
 }
-updateMinutesMinutes(){
-  this.adminService.updateListMasterData(this.objAddMinuteDetail.id,this.objAddMinuteDetail.name,this.objAddMinuteDetail.type)
-  .subscribe((data:any) => {
-    console.log('success',data)
-    if(data.state==ResponseState.SUCCESS){
-      this.getDetail()
-      this.objAddMinuteDetail={
-        title:'',
-        name:'',
-        id:0,
-        atc:'',
-        input:{
-          dvd:{value:'',isValid:false},
-        },
-        isValid:false
+editMinutesDetail(){
+  let name = this.objAddMinuteDetail.input.name.value
+    this.adminService.updateListMasterData(this.idDetail,name,this.type,this.cate)
+    .subscribe((data:any) => {
+      console.log('success',data)
+      if(data.state==ResponseState.SUCCESS){
+        this.getDetail()
+        this.objAddMinuteDetail={
+          input:{
+            code:{value:'',isValid:false},
+            name:{value:'',isValid:false},
+          },
+          isValid:false
+        }
+    console.log(this.dataTypeMinutes);
+    this.isPopupEditMinutes = false
+
+    this.toast.success('','Chỉnh sửa thành công')
+      }else{
+        this.objAddMinuteDetail={
+          title:'',
+          name:'',
+          id:0,
+          atc:'',
+          input:{
+            code:{value:'',isValid:false},
+            name:{value:'',isValid:false},
+          },
+          isValid:false
+        }
+        this.isPopupEditMinutes = false
+        this.toast.error('',data._message)
       }
-
-  console.log(this.dataTypeMinutes);
-  this.isShowPopup = false
-
-  this.toast.success('','Chỉnh sửa thành công')
-    }else{
-      this.objAddMinuteDetail={
-        title:'',
-        name:'',
-        id:0,
-        atc:'',
-        input:{
-          dvd:{value:'',isValid:false},
-        },
-        isValid:false
-      }
-      this.isShowPopup = false
-
-      this.toast.error('',data._message)
-    }
-  })
-
+    })
+}
+showDeleteDetail(id:number,name:string,type:any){
+  this.idDetail = id;
+  this.name = name
+  this.type = type
+  this.isPopupDeleteMinutes = true
+  console.log(id,type);
 
 }
-
 deleteMinutesMinutes(){
-  console.log(this.objAddMinuteDetail.id,this.objAddMinuteDetail.type);
-
-  this.adminService.deleteListMasterData(this.objAddMinuteDetail.id,this.objAddMinuteDetail.type)
+  this.adminService.deleteListMasterData(this.idDetail,this.type)
   .subscribe((data:any) => {
     console.log('success',data)
     if(data.state==ResponseState.SUCCESS){
       this.getDetail()
       this.objAddMinuteDetail={
-        title:'',
-        name:'',
-        id:0,
-        atc:'',
         input:{
-          dvd:{value:'',isValid:false},
+          code:{value:'',isValid:false},
+          name:{value:'',isValid:false},
         },
         isValid:false
       }
   console.log(this.dataTypeMinutes);
   this.isConfirmDelete = false
-  this.isShowPopup = false
+  this.isPopupDeleteMinutes = false
   this.toast.success('','Xóa thành công')
     }else{
       this.objAddMinuteDetail={
-        title:'',
-        name:'',
-        id:0,
-        atc:'',
         input:{
-          dvd:{value:'',isValid:false},
+          code:{value:'',isValid:false},
+          name:{value:'',isValid:false},
         },
         isValid:false
       }
       this.isConfirmDelete = false
-    this.isShowPopup = false
+      this.isPopupDeleteMinutes = false
       this.toast.error('',data._message)
     }
   })
-
 }
-closePop(){
-  this.isShowPopup = false
-  this.isShowPopup == false
+closePopup(){
+  this.isConfirmDelete = false
+  this.isPopupAddMinutes = false
+  this.isPopupDeleteMinutes = false
+  this.isPopupEditMinutes = false
 }
 }

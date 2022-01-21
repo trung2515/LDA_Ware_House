@@ -56,7 +56,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objAddReason.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objAddReason.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddReason()' >Hủy</div>
         <button type="submit" [disabled]='!objAddReason.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
       </div>
@@ -78,7 +78,7 @@
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FER-mnn" class="form-label">Mã nguyên nhân</label>
-          <input id="FER-mnn" name="mnn"  rules='required'  type="text"  class="form-control" [value]='objEditReason.input.mnn.value' (blur)='blur($event,objEditReason)' (click)='click($event)' (input)='input($event,objEditReason)'>
+          <input disabled id="FER-mnn" name="mnn"  rules='required'  type="text"  class="form-control" [value]='objEditReason.input.mnn.value' (blur)='blur($event,objEditReason)' (click)='click($event)' (input)='input($event,objEditReason)'>
         </div>
         <span class="input-message"></span>
       </div>
@@ -91,7 +91,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objEditReason.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objEditReason.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4' >
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditReason()' >Hủy</div>
         <button type="submit" [disabled]='!objEditReason.isValid' class="btn btn-primary btn-blue" > Sửa</button>
       </div>
@@ -113,7 +113,7 @@
     <form  autocomplete="off" *ngIf='isPopupDeleteReason'>
       <div class='formErrMess text-danger mt-2'>{{objDeleteReason.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeleteReason.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4' >
         <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteReason()' >Hủy</div>
         <button type="button" (click)="isConfirmDelete = !isConfirmDelete"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
       </div>

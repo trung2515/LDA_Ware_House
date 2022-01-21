@@ -90,10 +90,11 @@ export class AdminService {
       }),
     )
   }
-  insertProduct(codeProduct: any, nameProduct: any) {
+  insertProduct(codeProduct: any, nameProduct: any,weight:any) {
     let req: ProductInfo = new ProductInfo()
     req.codeProduct = codeProduct
     req.nameProduct = nameProduct
+    req.weight = weight
     return this.administratorClient.insertProduct(req).pipe(
       map((reply: Response) => {
         return reply
@@ -151,10 +152,10 @@ export class AdminService {
       }),
     )
   }
-  insertTypePacket(nameTypePacket: any) {
+  insertTypePacket(nameTypePacket: any, code : any) {
     let req: TypePacketInfo = new TypePacketInfo()
     req.nameTypePacket = nameTypePacket
-    req.codeTypePacket =  nameTypePacket
+    req.codeTypePacket = code
     return this.administratorClient.insertTypePacket(req).pipe(
       map((reply: Response) => {
         return reply
@@ -380,9 +381,10 @@ export class AdminService {
     )
   }
 
-  insertPackingUnit(namePackingUnit: any) {
+  insertPackingUnit(namePackingUnit: any,code:any) {
     let req: PackingUnitInfo = new PackingUnitInfo()
     req.namePackingUnit = namePackingUnit
+    req.codePackingUnit = code
     return this.administratorClient.insertPackingUnit(req).pipe(
       map((reply: Response) => {
         return reply
@@ -435,9 +437,10 @@ export class AdminService {
     )
   }
 
-  insertEquipment(nameEquipment: any, type: any) {
+  insertEquipment(nameEquipment: any, code: any) {
     let req: EquipmentInfo = new EquipmentInfo()
     req.nameEquipment = nameEquipment
+    req.codeEquipment = code
     console.log(req)
     return this.administratorClient.insertEquipment(req).pipe(
       map((reply: Response) => {
@@ -446,10 +449,11 @@ export class AdminService {
     )
   }
 
-  updateEquipment(idEquipment: any, nameEquipment: any, type: any) {
+  updateEquipment(idEquipment: any, nameEquipment: any) {
     let req: EquipmentInfo = new EquipmentInfo()
     req.idEquipment = idEquipment
     req.nameEquipment = nameEquipment
+
     return this.administratorClient.updateEquipment(req).pipe(
       map((reply: Response) => {
         return reply
@@ -521,10 +525,10 @@ export class AdminService {
       }),
     )
   }
-  insertWork(codeWork: any, nameWork: any) {
+  insertWork( nameWork: any,codeWork: any) {
     let req: WorkInfo = new WorkInfo()
-    req.codeWork = codeWork
     req.nameWork = nameWork
+    req.codeWork = codeWork
     return this.administratorClient.insertWork(req).pipe(
       map((reply: Response) => {
         return reply
@@ -598,19 +602,18 @@ export class AdminService {
   }
 
   getListMasterData() {
-    let request: MasterRequest = new MasterRequest()
-    return this.administratorClient.getListMasterData(request).pipe(
+    let request: MasterDataInfo= new MasterDataInfo()
+    return this.administratorClient.getListMaster(request).pipe(
       map((reply) => {
         return reply.response.state == ResponseState.SUCCESS ? reply.data : []
       }
       ));
   }
-  insertListMasterData(id:number, name:any, type:any, cate:any){
-
-
+  insertListMasterData(name:any,code:any, type:any, cate:any){
     let req:MasterDataInfo = new MasterDataInfo()
-    req.objectId = id;
+
     req.objectName = name;
+    req.objectCode = code;
     req.objectType = type
     req.objectCate = cate
     console.log('rq',req);
@@ -621,11 +624,12 @@ export class AdminService {
       ));
   }
 
-  updateListMasterData(id:number, name:any, type:any){
+  updateListMasterData(id:number, name:any, type:any,cate:any){
     console.log(name,type);
     let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;
     req.objectName = name;
+    req.objectCate = cate;
     req.objectType =type
     console.log('rq',req);
     return this.administratorClient.updateMaster(req).pipe(

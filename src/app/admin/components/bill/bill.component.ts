@@ -94,7 +94,6 @@ export class BillComponent implements OnInit {
     formErrMess:'',
     formSuccMess:'',
     input:{
-      mp:{value:'',isValid:false},
       tp:{value:'',isValid:false},
     },
     isValid:false

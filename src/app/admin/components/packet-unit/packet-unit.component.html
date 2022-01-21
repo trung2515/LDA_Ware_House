@@ -34,12 +34,19 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objAddPackingUnit.title}}"
-  [height]='220'
+  [height]='300'
   [width]="500"
   [resizeEnabled]="true"
 >
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitAddPackingUnit($event)" autocomplete="off" *ngIf='isPopupAddPackingUnit' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FAPU-code" class="form-label">Mã đơn vị đóng</label>
+          <input id="FAPU-code" name="code"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddPackingUnit)' (click)='click($event)' (input)='input($event,objAddPackingUnit)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FAPU-dvd" class="form-label">Tên đơn vị đóng</label>
@@ -62,12 +69,19 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objEditPackingUnit.title}}"
-  [height]='220'
+  [height]='300'
   [width]="500"
   [resizeEnabled]="true"
 >
   <div class="" style="width:90%;margin:auto">
     <form (ngSubmit)="onSubmitEditPackingUnit($event)" autocomplete="off" *ngIf='isPopupEditPackingUnit' >
+      <div class="wrap-input" >
+        <div class='d-flex' style='justify-content: space-between;'>
+          <label for="FEPU-code" class="form-label">Mã đơn vị đóng</label>
+          <input disabled  id="FEPU-code" name="code"  rules='required'  type="text"  class="form-control" [value]='objEditPackingUnit.input.code.value' (blur)='blur($event,objEditPackingUnit)' (click)='click($event)' (input)='input($event,objEditPackingUnit)'>
+        </div>
+        <span class="input-message"></span>
+      </div>
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FEPU-dvd" class="form-label">Tên đơn vị đóng</label>

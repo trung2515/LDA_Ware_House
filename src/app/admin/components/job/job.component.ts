@@ -62,7 +62,7 @@ export class JobComponent implements OnInit {
   onSubmitAddWork(e:any){
     let codeWork=this.objAddWork.input.mcv.value
     let nameWork=this.objAddWork.input.tcv.value
-    this.adminService.insertWork(codeWork,nameWork).subscribe((data:any) => {
+    this.adminService.insertWork(nameWork,codeWork).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.objAddWork.formSuccMess=data.message
