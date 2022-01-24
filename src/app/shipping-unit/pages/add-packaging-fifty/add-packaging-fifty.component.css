@@ -2,6 +2,7 @@
   background-color: #f8f8f9;
 }
 .content {
+  min-height: calc(var(--contentHeight) - 20px);
   background-color: #ffffff;
   padding: 28px;
   font-family: "Roboto", sans-serif;
