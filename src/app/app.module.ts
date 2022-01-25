@@ -10,10 +10,12 @@ import { LoginModule } from './login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
 import { OrderModule } from './order/order.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -24,7 +26,8 @@ import { OrderModule } from './order/order.module';
     FormsMineralModule,
     ShippingUnitModule,
     LoginModule,
-    OrderModule
+    OrderModule,
+    HttpClientModule
     // GrpcCoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],

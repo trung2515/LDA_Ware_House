@@ -5,6 +5,9 @@ import { type } from 'os';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { ResponseState } from 'src/app/core/models/model.pb';
+import { MainService } from 'src/app/mainservice.service';
+
+
 @Component({
   selector: 'app-minutes',
   templateUrl: './minutes.component.html',
@@ -13,8 +16,10 @@ import { ResponseState } from 'src/app/core/models/model.pb';
 export class MinutesComponent implements OnInit {
 
 
-  constructor(private toast: ToastrService, private adminService: AdminService) { }
-
+  constructor( private toast: ToastrService, private adminService: AdminService,private callApi: MainService) { }
+  testService(){
+    this.callApi.get('https://office.stvg.vn:51008/api/InfoLDA/dssanpham').subscribe((data: any) => console.log('data',data))
+  }
   ngOnInit(): void {
     this.getDetail()
 
