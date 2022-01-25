@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th>STT</th>
+            <th>Mã Thiết bị</th>
             <th>Thiết bị</th>
             <th>Thao tác</th>
           </tr>
@@ -20,6 +21,7 @@
         <tbody>
           <tr *ngFor='let itemEquipment of listEquipment'>
             <td style='width: 80px;'>{{itemEquipment.index+1}}</td>
+            <td>{{itemEquipment.codeEquipment}}</td>
             <td>{{itemEquipment.nameEquipment}}</td>
             <td style='width: 150px;text-align: center;'>
               <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'

@@ -1,8 +1,9 @@
 <div class="configuration">
+  <button class="btn-primary btn" (click)="testService()">test service</button>
     <ng-container *ngFor='let item of dataTypeMinutes'>
       <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
         <div>
-          {{item.name}}
+          {{item.name}} 
         </div>
         <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)="showAddMinutesDetail(item.name,item.type,item.cate)" >
       </div>

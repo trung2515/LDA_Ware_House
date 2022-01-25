@@ -169,7 +169,7 @@ export class TypeBagComponent implements OnInit {
     let order=parseInt(e.target.dataset.order)
     console.log(order)
     this.itemTypePacketClicked=this.listTypePacket[order]
-    this.objDeleteTypePacket.mess=`Xóa loại sản phẩm ${this.itemTypePacketClicked.nameTypePacket}?`
+    this.objDeleteTypePacket.mess=`Xóa loại bao ${this.itemTypePacketClicked.nameTypePacket}?`
     this.togglePopupDeleteTypePacket()
   }
   togglePopupDeleteTypePacket(){
