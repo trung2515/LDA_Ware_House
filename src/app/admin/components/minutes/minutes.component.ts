@@ -17,9 +17,7 @@ export class MinutesComponent implements OnInit {
 
 
   constructor( private toast: ToastrService, private adminService: AdminService,private callApi: MainService) { }
-  testService(){
-    this.callApi.get('https://office.stvg.vn:51008/api/InfoLDA/dssanpham').subscribe((data: any) => console.log('data',data))
-  }
+ 
   ngOnInit(): void {
     this.getDetail()
 
