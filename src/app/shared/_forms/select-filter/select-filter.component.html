@@ -1,0 +1,8 @@
+<form [formGroup]="someForm">
+  <ng-select class="custom" [items]="dataSource" [searchable]="true" [bindLabel]="bindLabel" [bindValue]="bindValue"
+    [formControlName]="controlName" [placeholder]="'Nhập '+ controlName">
+  </ng-select>
+  <span *ngIf="!someForm.get(controlName)?.valid && someForm.get(controlName)?.touched">
+    <span class="danger" *ngIf="isError">Không được bỏ trống</span>
+  </span>
+  </form>

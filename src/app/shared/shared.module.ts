@@ -31,11 +31,13 @@ import {
   DxValidatorModule,
 
 } from 'devextreme-angular'
+import { NgSelectModule } from '@ng-select/ng-select';
 import { FooterComponent } from './component/footer/footer.component'
 import { QRCodeModule } from 'angularx-qrcode'
-import { SelectOptionComponent } from './_forms/select-option/select-option.component'
+import { SelectOptionComponent } from './_forms/select-option/select-option.component';
+import { SelectFilterComponent } from './_forms/select-filter/select-filter.component'
 @NgModule({
-  declarations: [TextInputComponent, FooterComponent, SelectOptionComponent],
+  declarations: [TextInputComponent, FooterComponent, SelectOptionComponent, SelectFilterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -71,6 +73,9 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     QRCodeModule,
     DxToastModule,
     // SampleModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    // NgSelectModule
   ],
 
   exports: [
@@ -105,11 +110,10 @@ import { SelectOptionComponent } from './_forms/select-option/select-option.comp
     FooterComponent,
     TextInputComponent,
     SelectOptionComponent,
+    SelectFilterComponent,
     DxToastModule,
     DxValidatorModule,
     DxValidationSummaryModule
-
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
