@@ -83,17 +83,17 @@ export class OrderRegistrationComponent implements OnInit {
   async initFilterForm() {
     // get romooc
     this.commonService.getNumberRomoocList().subscribe((d: any) => {
-      this.romoocs = d?.listr.map((d: any) => new RoMooc(d));
+      this.romoocs =  d?.listr.map((d: any) => new RoMooc(d));
     });
     // get list driver
-    // this.commonService.getDriverList().subscribe((d: any) => {
-    //   this.drivers = d?.listtx.map((d: any) => new DriverModel(d));
-    //   this.cmnd_list = d?.listtx.map((d: any) => new CMNDModel(d));
-    // });
-    // this.adminService.getListProduct().subscribe((d) => {
-    //   this.product_options = d.map((d) => new OptionModel(d))
-    //   console.log(this.product_options)
-    // })
+    this.commonService.getDriverList().subscribe((d: any) => {
+      this.drivers = d?.listtx.map((d: any) => new DriverModel(d));
+      this.cmnd_list = d?.listtx.map((d: any) => new CMNDModel(d));
+    });
+    this.adminService.getListProduct().subscribe((d) => {
+      this.product_options = d.map((d) => new OptionModel(d))
+      console.log(this.product_options)
+    })
     this.commonService.getProducts().subscribe((d: any) => {
       this.product_options = d.data.map((d: any) => new OptionModel(d));
     });
@@ -123,7 +123,7 @@ export class OrderRegistrationComponent implements OnInit {
     this.commonService.getDVVC().subscribe((data:any) => {
       this.transport_unit_options = data?.listvc.map((d:any) => new ShippingUnitModel(d))
 
-      console.log('dvvc:',data)
+      // console.log('dvvc:',data)
     })
 
     this.adminService.getListWareHouse().subscribe(d => {
@@ -138,12 +138,14 @@ export class OrderRegistrationComponent implements OnInit {
     this.adminService.getMasterData('partner').subscribe(d => {
       this.partner_type_options = d.map(d => new OptionModel(d));
     });
+
   }
 
   hasError: Boolean = false;
   ngOnInit(): void {
     this.initFilterForm();
-    setTimeout(() => this.initializeForm(), 2000);
+    // setTimeout(() => this.initializeForm(), 2000);
+    this.initializeForm()
     this.driverForm = new FormGroup({
       name: new FormControl(null, Validators.required)
     });
