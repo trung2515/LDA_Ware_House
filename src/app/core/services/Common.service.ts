@@ -47,6 +47,10 @@ export class CommonService {
     return this.mainService.get(this.baseURL + '/Loadcell/dsromooc');
   }
 
+  // get dvvc
+  getDVVC() {
+    return this.mainService.get(this.baseURL + '/Loadcell/dsvantai');
+  }
   // regis driver ballot
   insertDriverBallot(param:OrderInfo){
     return this.mainService.post(this.baseURL + 'Loadcell/dkphieutaixe', param)

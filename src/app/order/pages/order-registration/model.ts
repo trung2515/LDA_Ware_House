@@ -1,9 +1,9 @@
 export class OptionModel {
   name: string;
-  value: string;
+  code: string;
   constructor(data: any) {
     this.name =
-      // data.nameProduct ||
+      data.nameProduct ||
       data.nameTypePacket ||
       data.nameTransportationUnit ||
       data.nameWareHouse ||
@@ -13,19 +13,19 @@ export class OptionModel {
       data.namePackingUnit ||
       data.codeParcel ||
       data.name ||
-      'Loại '+data.idTypeProduct ||
+      'Loại ' + data.idTypeProduct ||
       '';
-    this.value =
+    this.code =
       // data.codeProduct ||
+      data.nameProduct ||
       data.nameTypePacket ||
-      // data.codeTypePacket ||
+      data.codeTypePacket ||
       data.nameTransportationUnit ||
       // data.idTransportationUnit ||
-      data.codeWareHouse ||
+      // data.codeWareHouse ||
       data.codePartner ||
       data.objectCode ||
       data.idTypeProduct ||
-      // data.idTypeProduct ||
       data.codeTypeBill ||
       data.namePackingUnit ||
       // data.codePackingUnit ||
@@ -36,15 +36,56 @@ export class OptionModel {
 }
 export class DriverModel {
   name: string;
-  cmnd: string;
-  constructor(data:any) {
-    this.name= data.name,
-    this.cmnd = data.cccd
+  value: string;
+  constructor(data: any) {
+    this.name = data.name
+    this.value = data.cccd
+  }
+}
+export class CMNDModel {
+  name: string;
+  value: string;
+  nameOwn: string
+  constructor(data: any) {
+    this.name = data.cccd
+    this.value = data.cccd
+    this.nameOwn =  data.name
   }
 }
 export class RoMooc {
+  name: string;
+  value: string;
+  constructor(d: any) {
+    this.value = d.bsx;
+    this.name = d.bsx;
+  }
+}
+export class NumberPlateModel {
+  name: string;
+  value: string;
+  constructor(d: any) {
+    this.value = d.bsx;
+    this.name = d.bsx;
+  }
+}
+export class DVVC {
+  name: string;
+  value: string;
+  constructor(d: any) {
+    this.value = d.name;
+    this.name = d.name;
+  }
+}
+export class DriverInfoModel {
+  name: string;
+  cccd: string;
+}
+
+export class ShippingUnitModel {
+  name: string
   value: string
-  constructor(d:any) {
-    this.value = d.bsx
+  constructor(data:any) {
+    this.name = data.name
+    this.value = data.name
   }
 }

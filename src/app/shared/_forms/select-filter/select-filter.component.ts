@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-select-filter',
@@ -9,29 +9,21 @@ export class SelectFilterComponent implements OnInit {
   @Input() dataSource: any[] = [];
   @Input() someForm: any;
   @Input() controlName: any;
-  @Input() field: 'name' | 'cmnd' | string;
+  @Input() label:string
+  @Output() onChange = new EventEmitter()
   constructor() {}
   isError: Boolean = false;
 
   ngOnInit(): void {
     this.isError = this.someForm.get(this.controlName)?.errors?.['required'];
-    this.getFiled()
   }
-  bindLabel: string = 'name';
-  bindValue: string = 'value';
-  getFiled() {
-    if (this.field === 'name') {
-      this.bindLabel = 'name';
-      this.bindValue = 'name';
-    }
-    if (this.field === 'cmnd') {
-      this.bindLabel = 'cmnd';
-      this.bindValue = 'cmnd';
-    }
-     if(this.field === 'romooc') {
-      this.bindLabel = 'value';
-      this.bindValue = 'value';
-    }
 
+  onSelectChange(e:any){
+    // console.log('change', e);
+    const sender = {
+      formValue:e,
+      field: this.controlName
+    }
+    this.onChange.emit(sender)
   }
 }
