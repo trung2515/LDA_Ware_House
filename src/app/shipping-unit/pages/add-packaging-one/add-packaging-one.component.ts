@@ -218,8 +218,9 @@ export class AddPackagingOneComponent implements OnInit {
         );
 
       let options: OptionDetail[] = [];
-      for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
-        const stringOpt = 'option ' + i;
+      for (let i = 0; i <= this.getQtyOption(currentShifts) - 1; i++) {
+        // const stringOpt = 'option ' + i;
+        const stringOpt = this.getOptions(currentShifts)[i];
         let optionObj: OptionDetail = {
           option: stringOpt,
           idParcel: 0,
@@ -266,11 +267,14 @@ export class AddPackagingOneComponent implements OnInit {
   getQtyOption(shifts: ProductConfirm[]): number {
     let numOption: any = [];
 
-    shifts.forEach(item => {
-      numOption.push(item.option.toLowerCase());
-    });
-    numOption = [...new Set(numOption)].length;
+    let options = shifts.map(item => item.option);
+
+    numOption = [...new Set(options)].length;
     return numOption;
+  }
+  getOptions(shifts: ProductConfirm[]): any {
+    let options = shifts.map(item => item.option.toLowerCase());
+    return [...new Set(options)];
   }
   isValidForm(): Boolean {
     let isValid = true;

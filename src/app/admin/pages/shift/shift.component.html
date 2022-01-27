@@ -23,8 +23,9 @@
             {{(model.appointmentData.startDate | date: "dd/MM/yyyy")}}
           </div>
           <div class=" d-flex flex-column ">
-            <ul *ngFor="let item of getDetail(model.appointmentData.idDetail)" class="detail-resource">
-              <li>{{item.option}}: {{item.product}}-{{item.productRange}}-{{item.wareHouse}}-{{item.type}} -
+            <ul class="detail-resource">
+              <li *ngFor="let item of getDetail(model.appointmentData.idDetail)">{{item.option}}:
+                {{item.product}}-{{item.productRange}}-{{item.wareHouse}}-{{item.type}} -
                 {{item.type_bag}}
               </li>
             </ul>
@@ -72,9 +73,9 @@
           <div class="p-3">
             <dx-data-grid #detailGrid id="gridContainer" [(dataSource)]="shiftDetail" [showBorders]="true">
               <dxi-column dataField="option" caption="Option" [formItem]="{}">
-                <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value">
+                <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value" placeholder="Chọn option">
                 </dxo-lookup>
-                <dxi-validation-rule type="required" ></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="type" caption="Loại phiếu">
                 <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="value">
@@ -84,32 +85,32 @@
               <dxi-column dataField="product" caption="Sản phẩm">
                 <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="productRange" caption="Loại sản phẩm">
                 <dxo-lookup [dataSource]="listProductRange" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="type_bag" caption="Loại bao">
                 <dxo-lookup [dataSource]="listPackaging" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="lot" caption="Lô">
                 <dxo-lookup [dataSource]="listLot" displayExpr="value" valueExpr="value">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="unit" caption="Đơn vị đóng">
                 <dxo-lookup [dataSource]="listUnit" displayExpr="name" valueExpr="value">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxi-column dataField="wareHouse" caption="Kho">
                 <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
                 </dxo-lookup>
-                 <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
               </dxi-column>
               <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
                 [useIcons]="true">
@@ -136,7 +137,7 @@
                 </dxo-popup>
                 <dxo-form>
                   <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
-                    <dxi-item dataField="option" caption="Option"></dxi-item>
+                    <dxi-item dataField="option" caption="Option" ></dxi-item>
                     <dxi-item dataField="lot" caption="Lô"></dxi-item>
                     <dxi-item dataField="type" caption="Loại phiếu"></dxi-item>
                     <dxi-item dataField="product" caption="Sản phẩm"></dxi-item>

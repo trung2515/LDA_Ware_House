@@ -3,7 +3,7 @@ export class OptionModel {
   value: string;
   constructor(data: any) {
     this.name =
-      data.nameProduct ||
+      // data.nameProduct ||
       data.nameTypePacket ||
       data.nameTransportationUnit ||
       data.nameWareHouse ||
@@ -12,19 +12,39 @@ export class OptionModel {
       data.nameTypeBill ||
       data.namePackingUnit ||
       data.codeParcel ||
+      data.name ||
       'Loại '+data.idTypeProduct ||
       '';
     this.value =
-      data.codeProduct ||
-      data.codeTypePacket ||
-      data.idTransportationUnit ||
+      // data.codeProduct ||
+      data.nameTypePacket ||
+      // data.codeTypePacket ||
+      data.nameTransportationUnit ||
+      // data.idTransportationUnit ||
       data.codeWareHouse ||
       data.codePartner ||
       data.objectCode ||
       data.idTypeProduct ||
+      // data.idTypeProduct ||
       data.codeTypeBill ||
-      data.codePackingUnit ||
+      data.namePackingUnit ||
+      // data.codePackingUnit ||
       data.codeParcel ||
+      data.code ||
       '';
+  }
+}
+export class DriverModel {
+  name: string;
+  cmnd: string;
+  constructor(data:any) {
+    this.name= data.name,
+    this.cmnd = data.cccd
+  }
+}
+export class RoMooc {
+  value: string
+  constructor(d:any) {
+    this.value = d.bsx
   }
 }

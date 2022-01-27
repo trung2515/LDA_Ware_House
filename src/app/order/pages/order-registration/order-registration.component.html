@@ -1,5 +1,8 @@
 <div class="wrapper">
   <app-header-bar (onBackClicked)="onBackClicked($event)" [title]="title"></app-header-bar>
+
+<!-- <button class="btn btn-primary" (click)="submit()" type="submit">Submit</button> -->
+
   <div class="content mainCol" *ngIf="isSuccessLoading">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
       <div *ngIf="!isAddingSuccessful" class="input-group">
@@ -11,6 +14,49 @@
                 <p class="info-field">{{ field.caption + ":" }}</p>
                 <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
                 </app-text-input>
+              </div>
+            </div>
+            <div  class="col-12 col-lg-3 info-col">
+              <div class="form-groups">
+           
+                <p class="info-field">Số Rơ Mooc</p>
+                <app-select-filter
+                [dataSource]="romoocs"
+                [someForm]="rommocForm"
+                controlName="romooc"
+                field="romooc"
+           
+                >
+                
+                </app-select-filter>
+           
+              </div>
+            </div>
+            <div  class="col-12 col-lg-3 info-col">
+              <div class="form-groups">
+                <p class="info-field">Tên tài xế</p>
+                <app-select-filter
+                [dataSource]="drivers"
+                [someForm]="driverForm"
+                controlName="name"
+                field="name"
+     
+                >
+
+                </app-select-filter>
+              </div>
+            </div>
+            <div  class="col-12 col-lg-3 info-col">
+              <div class="form-groups">
+                <p class="info-field"> Số CCCD/CMND:</p>
+                <app-select-filter
+                [dataSource]="drivers"
+                [someForm]="this.cmndForm"
+                controlName="cmnd"
+                field="cmnd"
+                >
+
+                </app-select-filter>
               </div>
             </div>
           </div>

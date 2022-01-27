@@ -453,7 +453,7 @@ export class AdminService {
     let req: EquipmentInfo = new EquipmentInfo()
     req.idEquipment = idEquipment
     req.nameEquipment = nameEquipment
- 
+
     return this.administratorClient.updateEquipment(req).pipe(
       map((reply: Response) => {
         return reply
@@ -610,7 +610,7 @@ export class AdminService {
       ));
   }
   insertListMasterData(name:any,code:any, type:any, cate:any){
-    let req:MasterDataInfo = new MasterDataInfo() 
+    let req:MasterDataInfo = new MasterDataInfo()
     req.objectName = name;
     req.objectCode = code;
     req.objectType = type
@@ -622,7 +622,6 @@ export class AdminService {
       }
       ));
   }
-  
   updateListMasterData(id:number, name:any, type:any,cate:any){
     console.log(name,type);
     let req:MasterDataInfo = new MasterDataInfo()
@@ -637,7 +636,7 @@ export class AdminService {
       }
       ));
   }
-  
+
   deleteListMasterData(id:number,type:any){
     let req:MasterDataInfo = new MasterDataInfo()
     req.objectId= id;

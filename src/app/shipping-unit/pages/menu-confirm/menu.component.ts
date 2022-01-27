@@ -19,7 +19,7 @@ export class MenuConfirmComponent implements OnInit {
     },
     {
       linkTo: '../list-packaging-one',
-      title: 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn',
+      title: 'Danh sách sản lượng đóng bao loại 1 tấn',
       icon_class: 'list-view'
     },
     {

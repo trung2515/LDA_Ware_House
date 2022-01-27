@@ -59,6 +59,8 @@ export class ListTypeOneComponent implements OnInit {
     this.wareHouseService
       .getConfirmProduct(Utils.formatDate(this.now), Utils.formatDate(this.now))
       .subscribe(data => {
+        console.log(data);
+
         this.setOptionData(data);
       });
   }
@@ -101,8 +103,11 @@ export class ListTypeOneComponent implements OnInit {
         );
 
       let options: OptionDetail[] = [];
-      for (let i = 1; i <= this.getQtyOption(currentShifts); i++) {
-        const stringOpt = 'option ' + i;
+      for (let i = 0; i <= this.getQtyOption(currentShifts) - 1; i++) {
+        // const stringOpt = 'option ' +i
+        const stringOpt = this.getOptions(currentShifts)[i];
+        console.log(stringOpt);
+
         let optionObj: OptionDetail = {
           option: stringOpt,
           idParcel: 0,
@@ -151,13 +156,15 @@ export class ListTypeOneComponent implements OnInit {
   getQtyOption(shifts: ProductConfirm[]): number {
     let numOption: any = [];
 
-    shifts.forEach(item => {
-      numOption.push(item.option.toLowerCase());
-    });
-    numOption = [...new Set(numOption)].length;
+    let options = shifts.map(item => item.option);
+
+    numOption = [...new Set(options)].length;
     return numOption;
   }
-
+  getOptions(shifts: ProductConfirm[]): any {
+    let options = shifts.map(item => item.option.toLowerCase());
+    return [...new Set(options)];
+  }
   onUpdateData() {
     let dataInput: ConfirmProduction1000Info = new ConfirmProduction1000Info();
     let machine_list: ConfirmProduction1000[] = [];
@@ -209,7 +216,7 @@ export class ListTypeOneComponent implements OnInit {
           this.inputs_options = [];
           this.title = 'Danh sách sản lượng ghi nhận đóng bao loại 1 tấn';
           this.showSuccess('Cập nhật thành công');
-          this.getData()
+          this.getData();
         }
       });
     }
