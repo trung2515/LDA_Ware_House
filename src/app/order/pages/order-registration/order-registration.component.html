@@ -16,6 +16,20 @@
                 </app-text-input>
               </div>
             </div>
+
+            <div  class="col-12 col-lg-3 info-col">
+              <div class="form-groups">
+                <p class="info-field">Số Rơ Mooc</p>
+                <app-select-filter
+                [dataSource]="number_plate_list"
+                [someForm]="numPlateForm"
+                controlName="numPlate"
+                label="Biển số xe"
+                >
+
+                </app-select-filter>
+              </div>
+            </div>
             <div  class="col-12 col-lg-3 info-col">
               <div class="form-groups">
            
@@ -24,8 +38,7 @@
                 [dataSource]="romoocs"
                 [someForm]="rommocForm"
                 controlName="romooc"
-                field="romooc"
-           
+                label="romooc"
                 >
                 
                 </app-select-filter>
@@ -39,8 +52,8 @@
                 [dataSource]="drivers"
                 [someForm]="driverForm"
                 controlName="name"
-                field="name"
-     
+                label="Tên tài xế"
+                (onChange) ="onSelectChange($event)"
                 >
 
                 </app-select-filter>
@@ -50,10 +63,11 @@
               <div class="form-groups">
                 <p class="info-field"> Số CCCD/CMND:</p>
                 <app-select-filter
-                [dataSource]="drivers"
+                [dataSource]="cmnd_list"
                 [someForm]="this.cmndForm"
                 controlName="cmnd"
-                field="cmnd"
+                label="cccd/cmnd"
+                (onChange) ="onSelectChange($event)"
                 >
 
                 </app-select-filter>
