@@ -83,19 +83,23 @@ export class OrderRegistrationComponent implements OnInit {
   async initFilterForm() {
     // get romooc
     this.commonService.getNumberRomoocList().subscribe((d: any) => {
-      this.romoocs =  d?.listr.map((d: any) => new RoMooc(d));
+      this.romoocs = d?.listr.map((d: any) => new RoMooc(d));
+      this.initializeForm();
     });
     // get list driver
     this.commonService.getDriverList().subscribe((d: any) => {
       this.drivers = d?.listtx.map((d: any) => new DriverModel(d));
       this.cmnd_list = d?.listtx.map((d: any) => new CMNDModel(d));
+      this.initializeForm();
     });
-    this.adminService.getListProduct().subscribe((d) => {
-      this.product_options = d.map((d) => new OptionModel(d))
-      console.log(this.product_options)
-    })
+    this.adminService.getListProduct().subscribe(d => {
+      this.product_options = d.map(d => new OptionModel(d));
+      console.log(this.product_options);
+      this.initializeForm();
+    });
     this.commonService.getProducts().subscribe((d: any) => {
       this.product_options = d.data.map((d: any) => new OptionModel(d));
+      this.initializeForm();
     });
     // this.adminService.getListTypePacket().subscribe((d) => {
     //   this.bagging_type_options = d.map((d) => new OptionModel(d))
@@ -104,48 +108,56 @@ export class OrderRegistrationComponent implements OnInit {
     this.commonService.getTypePacket().subscribe((d: any) => {
       console.log('typeof', d);
       this.bagging_type_options = d.data.map((d: any) => new OptionModel(d));
+      this.initializeForm();
     });
     this.commonService.getVehicleList().subscribe((d: any) => {
+      console.log(d);
+
       this.number_plate_list = d?.listx.map(
         (d: any) => new NumberPlateModel(d)
       );
+      this.initializeForm();
     });
 
     this.adminService.getListTypeProduct().subscribe(d => {
       this.product_type_options = d.map(d => new OptionModel(d));
       console.log(this.product_type_options);
+      this.initializeForm();
     });
 
     // this.adminService.getListTransportUnit().subscribe(d => {
     //   this.transport_unit_options = d.map(d => new OptionModel(d));
     //   console.log(this.transport_unit_options);
     // });
-    this.commonService.getDVVC().subscribe((data:any) => {
-      this.transport_unit_options = data?.listvc.map((d:any) => new ShippingUnitModel(d))
+    this.commonService.getDVVC().subscribe((data: any) => {
+      this.transport_unit_options = data?.listvc.map(
+        (d: any) => new ShippingUnitModel(d)
+      );
 
+      this.initializeForm();
       // console.log('dvvc:',data)
-    })
+    });
 
     this.adminService.getListWareHouse().subscribe(d => {
       this.warehouse_options = d.map(d => new OptionModel(d));
       console.log(this.warehouse_options);
+      this.initializeForm();
     });
 
     this.adminService.getListPartner().subscribe(d => {
       this.partner_options = d.map(d => new OptionModel(d));
+      this.initializeForm();
     });
 
     this.adminService.getMasterData('partner').subscribe(d => {
       this.partner_type_options = d.map(d => new OptionModel(d));
+      this.initializeForm();
     });
-
   }
 
   hasError: Boolean = false;
   ngOnInit(): void {
     this.initFilterForm();
-    // setTimeout(() => this.initializeForm(), 2000);
-    this.initializeForm()
     this.driverForm = new FormGroup({
       name: new FormControl(null, Validators.required)
     });
@@ -327,16 +339,15 @@ export class OrderRegistrationComponent implements OnInit {
     console.log(data);
     const { formValue, field } = data;
     // console.log(formValue);
-if(formValue) {
+    if (formValue) {
+      if (field === 'name') {
+        this.cmndForm.controls['cmnd'].setValue(formValue.value);
+      } else {
+        console.log(formValue.nameOwn);
 
-    if (field === 'name') {
-      this.cmndForm.controls['cmnd'].setValue(formValue.value);
-    } else {
-      console.log(formValue.nameOwn);
-
-      this.driverForm.controls['name'].setValue(formValue.value);
+        this.driverForm.controls['name'].setValue(formValue.value);
+      }
     }
-}
     // field =='name'
     //   ? this.cmndForm.controls['cmnd'].setValue(formValue.value)
     //   : this.driverForm.controls['name'].setValue(formValue.nameOwn);
@@ -358,7 +369,7 @@ if(formValue) {
       order.cmnd = this.cmndForm.value.cmnd;
       order.tenlaixe = this.driverForm.value.name;
       order.soroMooc = this.rommocForm.value.romooc;
-      order.soXe = this.numPlateForm.value.soxe;
+      order.soXe = this.numPlateForm.value.numPlate;
 
       order.tenSanPham = this.registerForm.value.code_product; //
       order.tenLoaiBao = this.registerForm.value.bagging_type; //

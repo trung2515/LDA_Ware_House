@@ -83,9 +83,11 @@ export class DriverInfoModel {
 
 export class ShippingUnitModel {
   name: string
+  code: string
   value: string
   constructor(data:any) {
     this.name = data.name
+    this.code = data.name
     this.value = data.name
   }
 }
