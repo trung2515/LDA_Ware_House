@@ -40,7 +40,7 @@ export class WareHouseService {
     console.log(req);
     return this.warehouseClient.getListParcel(req).pipe(
       map((reply: ParcelResponse) => {
-        console.log(reply);
+        console.log('lohang',reply);
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data;
         } else return [];

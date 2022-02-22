@@ -30,7 +30,8 @@ export class ParcelModel {
     this.date = data.createdDate || ''
     this.createdPerson = data.nameCreatedPerson || ''
     this.createdBy = data.createdPerson
-    this.quantity = 0
+    this.quantity = Math.floor(Math.random() * 1000);
+  
   }
 }
 

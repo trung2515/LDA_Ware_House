@@ -126,8 +126,85 @@ export class DashboardComponent implements OnInit {
         tabName: 'Thống kê vận chuyển'
       }
     ];
+    this.nhapKho = [
+      {
+      date: 'ngày 2/9',
+      AO1T: 850,
+      AH1T: 757,
+     }, 
+      {
+      date: 'ngày 3/9',
+      AO1T: 951,
+      AH1T: 569,
+     }, 
+      {
+      date: 'ngày 4/9',
+      AO1T: 567,
+      AH1T: 786,
+     }, 
+      {
+      date: 'ngày 5/9',
+      AO1T: 423,
+      AH1T: 897,
+     }, 
+      {
+      date: 'ngày 6/9',
+      AO1T: 842,
+      AH1T: 652,
+     }, 
+      {
+      date: 'ngày 7/9',
+      AO1T: 757,
+      AH1T: 712,
+     }, 
+      {
+      date: 'ngày 8/9',
+      AO1T: 569,
+      AH1T: 759,
+     }, 
+    ];
+    
+    this.xuatKho= [
+      {
+      date: 'ngày 2/9',
+      AO1T: 745,
+      AH1T: 656,
+     }, 
+      {
+      date: 'ngày 3/9',
+      AO1T: 631,
+      AH1T: 152,
+     }, 
+      {
+      date: 'ngày 4/9',
+      AO1T: 415,
+      AH1T: 336,
+     }, 
+      {
+      date: 'ngày 5/9',
+      AO1T: 132,
+      AH1T: 476,
+     }, 
+      {
+      date: 'ngày 6/9',
+      AO1T: 451,
+      AH1T: 454,
+     }, 
+      {
+      date: 'ngày 7/9',
+      AO1T: 231,
+      AH1T: 545,
+     }, 
+      {
+      date: 'ngày 8/9',
+      AO1T: 421,
+      AH1T: 242,
+     }, 
+    ];
+    this.calTonKho()
   }
-
+  nhapKho:any
+  xuatKho:any
   getStartDate() {
     const startDate = new Date(
       parseInt(this.filterController.year),
@@ -295,9 +372,25 @@ export class DashboardComponent implements OnInit {
     }
     this.getData();
   }
+
+  tonKho:any 
+calTonKho(){
+  console.log('avc');
+  let itemTonKho:any = []
+  for(var i = 0 ; i<7;i++){
+    let item:any = {}
+    item.date = this.xuatKho[i].date
+    item.AO1T = this.nhapKho[i].AO1T - this.xuatKho[i].AO1T
+    item.AH1T = this.nhapKho[i].AH1T - this.xuatKho[i].AH1T
+    itemTonKho.push(item)
+  }
+  console.log('itk',itemTonKho);
+  this.tonKho = itemTonKho
+  console.log('tk',this.tonKho);
+  
 }
 
-
+}
 interface LooseObject {
   [key: string]: any
 }

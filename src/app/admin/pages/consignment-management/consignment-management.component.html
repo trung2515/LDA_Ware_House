@@ -10,7 +10,7 @@
     <div class="filter-bar">
       <div class="research-group mr-2">
         <img src="assets/svg/search.svg" alt="search" />
-        <input #inputSearch type="text" placeholder="Tìm kiếm lô hàng" (change)="onFilterChange(inputSearch)"
+        <input #inputSearch type="text" placeholder="Tìm kiếm lô hàng" (input)="onFilterChange(inputSearch)"
           class="research_control" />
         <!-- <div *ngIf="filterForm.status === 'VALID'" class="form-message"></div> -->
       </div>

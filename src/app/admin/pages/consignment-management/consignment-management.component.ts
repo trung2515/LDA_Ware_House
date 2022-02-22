@@ -169,7 +169,7 @@ export class ConsignmentManagementComponent implements OnInit {
     this.warehouseService.getListParcel(Utils.formatDate(firstDay), Utils.formatDate(lastDay)).subscribe(data => {
       this.consignments = data.map(d => new ParcelModel(d))
       this.rawData = this.consignments
-      console.log(this.consignments)
+      console.log('res',this.consignments)
     })
   }
   onSubmit(): void {
