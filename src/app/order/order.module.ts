@@ -5,7 +5,8 @@ import { MenuOrderComponent } from './pages/menu-order/menu-order.component'
 import { ResearchOrderComponent } from './pages/research-order/research-order.component'
 import { OrderRegistrationComponent } from './pages/order-registration/order-registration.component'
 import { HeaderBarComponent } from './pages/components/header-bar/header-bar.component'
-import { OrderRoutingModule } from './order-routing.module'
+import { OrderRoutingModule } from './order-routing.module';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,8 @@ import { OrderRoutingModule } from './order-routing.module'
     MenuOrderComponent,
     ResearchOrderComponent,
     OrderRegistrationComponent,
+    RegistrationComponent,
+   
   ],
   imports: [CommonModule, OrderRoutingModule, SharedModule],
   schemas: [NO_ERRORS_SCHEMA],

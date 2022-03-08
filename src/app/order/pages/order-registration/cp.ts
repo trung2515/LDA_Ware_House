@@ -44,7 +44,7 @@ export class OrderRegistrationComponent implements OnInit {
   product_type_options: OptionModel[];
 
   partner_type_options: OptionModel[];
-  amountClass1:number = 0
+
   romoocs: RoMooc[] = [];
   popupVisible:boolean = false
   orderFields: any = {};
@@ -55,16 +55,20 @@ export class OrderRegistrationComponent implements OnInit {
     name: '',
     cccd: ''
   };
-  drivers: DriverModel[] = [];
-  cmnd_list: CMNDModel[] = [];
+  drivers: DriverModel[] = [
+    // { name: 'a', value: '1' },
+    // { name: 'b', value: '2' },
+    // { name: 'c', value: '3' }
+  ];
+  cmnd_list: CMNDModel[] = [
+    // { name: '1', value: '1', nameOwn: 'a' },
+    // { name: '2', value: '2', nameOwn: 'b' },
+    // { name: '3', value: '3', nameOwn: 'c' }
+  ];
   driverForm!: FormGroup;
   cmndForm!: FormGroup;
   rommocForm!: FormGroup;
   numPlateForm!: FormGroup;
-  productList:any = []
-  packagingList:any = []
-  transportList:any = []
-  bsx:OrderRegistrationComponent
   constructor(
     private _location: Location,
     private orderService: ShippingUnitService,
@@ -73,8 +77,7 @@ export class OrderRegistrationComponent implements OnInit {
     private toastr: ToastrService,
     private adminService: AdminService,
     private mainService: MainService,
-    private commonService: CommonService,
-    private apiService :MainService
+    private commonService: CommonService
   ) {}
 
   async initFilterForm() {
@@ -98,22 +101,7 @@ export class OrderRegistrationComponent implements OnInit {
       this.product_options = d.data.map((d: any) => new OptionModel(d));
       this.initializeForm();
     });
-    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dssp').subscribe(
-      (data:any) => {
-        this.productList = data.lissp
-        console.log('list product',this.productList);
-    })
-    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dslb').subscribe(
-      (data:any) => {
-        this.packagingList = data.lislb
-        console.log('list packaging',this.packagingList);
-    })
-    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dsvantai').subscribe(
-      (data:any) => {
-        this.transportList = data.listvc
-        console.log('list transport',this.packagingList);
-    })
-        // this.adminService.getListTypePacket().subscribe((d) => {
+    // this.adminService.getListTypePacket().subscribe((d) => {
     //   this.bagging_type_options = d.map((d) => new OptionModel(d))
     //   // console.log(this.bagging_type_options)
     // })
@@ -215,27 +203,26 @@ export class OrderRegistrationComponent implements OnInit {
           label: 'sản phẩm',
           controlName: 'code_product',
           type: 'select',
-          options: this.productList
+          options: this.product_options
         },
+        // {
+        //   caption: 'Loại sản phẩm',
+        //   label: 'loại sản phẩm',
+        //   controlName: 'code_product_type',
+        //   type: 'select',
+        //   options: this.product_type_options,
+        // },
         {
           caption: 'Loại bao',
           label: 'loại bao',
           controlName: 'bagging_type',
           type: 'select',
-          options: this.packagingList
-        },
-        
-
-        {
-          caption: 'Số bao lớp 1',
-          label: 'Nhập số bao',
-          controlName: 'grade_1',
-          type: 'input'
+          options: this.bagging_type_options
         },
         {
-          caption: 'Số bao lớp 1',
-          label: 'Nhập số bao',
-          controlName: 'grade_2',
+          caption: 'Số bao',
+          label: 'Số lượng',
+          controlName: 'qty',
           type: 'input'
         },
         {
@@ -243,14 +230,81 @@ export class OrderRegistrationComponent implements OnInit {
           label: 'tên đơn vị vận chuyển ',
           controlName: 'shipping_unit_code',
           type: 'select',
-          options: this.transportList
+          options: this.transport_unit_options
         },
+        // {
+        //   caption: 'Kho',
+        //   label: 'tên kho',
+        //   controlName: 'warehouse_code',
+        //   type: 'select',
+        //   options: this.warehouse_options,
+        // },
+        // {
+        //   caption: 'Khách hàng',
+        //   label: 'khách hàng',
+        //   controlName: 'partner_code',
+        //   type: 'select',
+        //   options: this.partner_options,
+        // },
+        // {
+        //   caption: 'Loại Khách hàng',
+        //   label: 'loại khách hàng',
+        //   controlName: 'partner_type',
+        //   type: 'select',
+        //   options: this.partner_type_options,
+        // },
+        {
+          caption: 'Lớp 1',
+          label: 'Lớp 1',
+          controlName: 'grade_1',
+          type: 'input'
+        },
+        {
+          caption: 'Lớp 2',
+          label: 'Lớp 2',
+          controlName: 'grade_2',
+          type: 'input'
+        }
       ]
     };
     this.driverFields = {
       title: 'Thông tin tài xế',
       fields: [
-
+        // {
+        //   caption: 'Số xe',
+        //   label: 'Số xe',
+        //   controlName: 'soxe'
+        // }
+        // {
+        //   caption: 'CCCD/CMND',
+        //   label: 'Số CCCD/CMND',
+        //   controlName: 'identity_card_num',
+        // },
+        // {
+        //   caption: 'Tên tài xế',
+        //   label: 'Tên tài xế: ',
+        //   controlName: 'driver_name',
+        // },
+        // {
+        //   caption: 'Số Rơ mooc',
+        //   label: 'Số Rơ mooc: ',
+        //   controlName: 'ro_mooc_number',
+        // },
+        // {
+        //   caption: 'Biển số xe',
+        //   label: 'Biển số xe: ',
+        //   controlName: 'number_plate',
+        // },
+        // {
+        //   caption: 'KL đăng kiểm',
+        //   label: 'KL đăng kiểm',
+        //   controlName: 'weight_registry',
+        // },
+        // {
+        //   caption: 'KL cho phép chở',
+        //   label: 'KL cho phép chở',
+        //   controlName: 'net_weight',
+        // },
       ]
     };
     this.registerForm = this.formBuilder.group({
@@ -259,10 +313,19 @@ export class OrderRegistrationComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(9), Validators.maxLength(12)]
       ],
-
+      // weight_registry: [
+      //   '',
+      //   [Validators.required, Validators.pattern('^[0-9]*$')],
+      // ],
+      // driver_name: ['', [Validators.required]],
+      // net_weight: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      // warehouse_code: ['', [Validators.required]],
+      // partner_type: ['', [Validators.required]],
+      // partner_code: ['', [Validators.required]],
       code_product_type: ['', [Validators.required]],
 
-
+      // ro_mooc_number: ['', [Validators.required]],
+      // number_plate: ['', [Validators.required, Validators.minLength(7)]], //biển số xe
       code_product: ['', [Validators.required]],
       bagging_type: ['', Validators.required],
       shipping_unit_code: ['', [Validators.required]],
@@ -275,7 +338,7 @@ export class OrderRegistrationComponent implements OnInit {
   onSelectChange(data: any) {
     console.log(data);
     const { formValue, field } = data;
-
+    // console.log(formValue);
     if (formValue) {
       if (field === 'name') {
         this.cmndForm.controls['cmnd'].setValue(formValue.value);
@@ -285,11 +348,22 @@ export class OrderRegistrationComponent implements OnInit {
         this.driverForm.controls['name'].setValue(formValue.value);
       }
     }
-    
+    // field =='name'
+    //   ? this.cmndForm.controls['cmnd'].setValue(formValue.value)
+    //   : this.driverForm.controls['name'].setValue(formValue.nameOwn);
   }
   onSubmit(e: any): void {
-    let total:any = (Number(this.registerForm.value.grade_1)  +  Number(this.registerForm.value.grade_2))
-    total = total.toString()
+    if (!this.registerForm.valid && !this.isDriverFormValid()) {
+      console.log('fail', this.registerForm.value);
+      for (const key in this.registerForm.controls) {
+        if (this.registerForm.controls.hasOwnProperty(key)) {
+          const control: FormControl = <FormControl>(
+            this.registerForm.controls[key]
+          );
+          control.markAsTouched();
+        }
+      }
+    } else {
       console.log('ok');
       const order: OrderInfo = new OrderInfo();
       order.cmnd = this.cmndForm.value.cmnd;
@@ -300,31 +374,82 @@ export class OrderRegistrationComponent implements OnInit {
       order.tenSanPham = this.registerForm.value.code_product; //
       order.tenLoaiBao = this.registerForm.value.bagging_type; //
       order.tenDVVC = this.registerForm.value.shipping_unit_code;
-      order.soBao = total
+      order.soBao = this.registerForm.value.qty;
       order.soLop1 = this.registerForm.value.grade_1;
       order.soLop2 = this.registerForm.value.grade_2;
+
       console.log(order);
 
-    this.apiService.post('http://office.stvg.vn:51008/api/Loadcell/dkphieutaixe',order).subscribe(
-      (data:any) =>{
-        console.log('data',data);
-        if (data == null){
-          const order: OrderInfo = new OrderInfo();
-          this.closePop()
-          this.toastr.success('Tạo đơn hàng thành công')
-        }
-        
-      }
-    )
-     
-    }
+      this.commonService.insertDriverBallot(order).subscribe(reply => {
+        console.log(reply);
+      });
 
-    
-  
+      // const newOrder = {
+      //   id: this.orderService.generateId(),
+      //   driverInfo: {
+      //     name: this.registerForm.value.driver_name,
+      //     identity_card_num: this.registerForm.value.identity_card_num,
+      //     ro_mooc_number: this.registerForm.value.ro_mooc_number,
+      //     weight_registry: this.registerForm.value.weight_registry,
+      //     net_weight: this.registerForm.value.net_weight,
+      //     number_plate: this.registerForm.value.number_plate,
+      //   },
+      //   orderInfo: {
+      //     code_product: this.registerForm.value.code_product,
+      //     code_product_type: this.registerForm.value.code_product_type,
+      //     name: this.registerForm.value.order_name,
+      //     qty: this.registerForm.value.qty,
+      //     grade_1: this.registerForm.value.grade_1,
+      //     grade_2: this.registerForm.value.grade_2,
+      //     bagging_type: this.registerForm.value.bagging_type,
+      //     shipping_unit_code: this.registerForm.value.shipping_unit_code,
+      //     warehouse_code: this.registerForm.value.warehouse_code,
+      //     partner_code: this.registerForm.value.partner_code,
+      //     partner_type: this.registerForm.value.partner_type,
+      //   },
+      // }
+
+      // const order = new OrderInfo()
+
+      // //  order.codeOrder = newOrder.orderInfo.
+      // order.identityDriver = newOrder.driverInfo.identity_card_num
+      // order.nameDriver = newOrder.driverInfo.name
+      // order.vehicleNumber = newOrder.driverInfo.number_plate
+      // order.weightAllow = newOrder.driverInfo.net_weight
+      // order.weightRegistration = newOrder.driverInfo.weight_registry
+      // order.roMooc = newOrder.driverInfo.ro_mooc_number
+      // // order.class1 = newOrder.orderInfo.grade_1
+      // // order.class2 = newOrder.orderInfo.grade_2
+      // order.quantity = newOrder.orderInfo.qty
+      // order.idTransportationUnit = newOrder.orderInfo.shipping_unit_code
+      // order.codeTypePacket = newOrder.orderInfo.bagging_type
+      // order.codeProduct = newOrder.orderInfo.code_product
+      // order.wareHouse = newOrder.orderInfo.warehouse_code
+      // order.typeCustomer = newOrder.orderInfo.partner_type
+      // order.customer = newOrder.orderInfo.partner_code
+      // order.idTypeProduct = newOrder.orderInfo.code_product_type
+
+      // console.log(order)
+
+      // this.order.insertOrder(order).subscribe((reply) => {
+      //   if (reply.response.state == ResponseState.SUCCESS) {
+      //     this.toastr.success(reply.response.message)
+      //     this.order_Code = reply.order.codeOrder
+      //     this.isAddingSuccessful = true
+      //   } else {
+      //     this.toastr.error(reply.response.message)
+      //   }
+      // })
+
+      // this.orderList.push(newOrder);
+    }
+  }
   onBackClicked(e: any) {
     this._location.back();
   }
+  SaveShift(){
 
+  }
   closePop = () => {
     this.popupVisible = false;
   };

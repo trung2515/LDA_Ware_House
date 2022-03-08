@@ -1,6 +1,7 @@
 .wrapper {
   background-color: #f8f8f9;
   font-family: "Roboto", sans-serif;
+  min-height:100vh;
 }
 .content {
   height: calc(var(--contentHeight) - 20px);

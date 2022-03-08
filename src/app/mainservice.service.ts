@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  
+import { HttpClient ,HttpHeaders} from '@angular/common/http';  
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +7,22 @@ import { HttpClient } from '@angular/common/http';
 export class MainService {
 
   constructor(public http: HttpClient) { }
+  headers = new HttpHeaders({
+    "Content-Type": "application/json",
+    // "accept":"text/json",
+    
+  });
+  options ={
+    headers:this.headers,
+    // responseType :"text" as const,
+  } 
+
 
   post(url:string,param:any){
       return this.http.post(url, param)
   }
   get(url:string) {
-      return this.http.get(url)
+      return this.http.get(url,this.options)
   }
   put(uri:string,param:any) {
       let url = uri+ '/' + param['id']
