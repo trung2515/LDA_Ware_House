@@ -36,15 +36,15 @@ export class OrderRegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   isAddingSuccessful: boolean = false;
   order_Code: string = '';
-  product_options: OptionModel[];
-  bagging_type_options: OptionModel[];
-  transport_unit_options: OptionModel[];
+  product_options: any;
+  bagging_type_options: any;
+  transport_unit_options: any;
   warehouse_options: OptionModel[];
   partner_options: OptionModel[];
   product_type_options: OptionModel[];
 
   partner_type_options: OptionModel[];
-
+  toggleBtn:boolean = false
   romoocs: RoMooc[] = [];
   popupVisible:boolean = false
   orderFields: any = {};
@@ -65,6 +65,7 @@ export class OrderRegistrationComponent implements OnInit {
     // { name: '2', value: '2', nameOwn: 'b' },
     // { name: '3', value: '3', nameOwn: 'c' }
   ];
+  viewBag:any
   driverForm!: FormGroup;
   cmndForm!: FormGroup;
   rommocForm!: FormGroup;
@@ -77,7 +78,8 @@ export class OrderRegistrationComponent implements OnInit {
     private toastr: ToastrService,
     private adminService: AdminService,
     private mainService: MainService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private apiService : MainService
   ) {}
 
   async initFilterForm() {
@@ -92,24 +94,44 @@ export class OrderRegistrationComponent implements OnInit {
       this.cmnd_list = d?.listtx.map((d: any) => new CMNDModel(d));
       this.initializeForm();
     });
-    this.adminService.getListProduct().subscribe(d => {
-      this.product_options = d.map(d => new OptionModel(d));
-      console.log(this.product_options);
-      this.initializeForm();
-    });
-    this.commonService.getProducts().subscribe((d: any) => {
-      this.product_options = d.data.map((d: any) => new OptionModel(d));
-      this.initializeForm();
-    });
+
+    // this.commonService.getProducts().subscribe((d: any) => {
+    //   this.product_options = d.data.map((d: any) => new OptionModel(d));
+      
+    //   this.initializeForm();
+    // });
     // this.adminService.getListTypePacket().subscribe((d) => {
     //   this.bagging_type_options = d.map((d) => new OptionModel(d))
-    //   // console.log(this.bagging_type_options)
+   
     // })
-    this.commonService.getTypePacket().subscribe((d: any) => {
-      console.log('typeof', d);
-      this.bagging_type_options = d.data.map((d: any) => new OptionModel(d));
-      this.initializeForm();
-    });
+    // this.commonService.getTypePacket().subscribe((d: any) => {
+    //   console.log('typeof', d);
+    //   this.bagging_type_options = d.data.map((d: any) => new OptionModel(d));
+    //   this.initializeForm();
+    // });
+    // this.adminService.getListProduct().subscribe(d => {
+    //   this.product_options = d.map(d => new OptionModel(d));
+    //   console.log(this.product_options);
+    //   this.initializeForm();
+    // });
+    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dssp').subscribe(
+      (data:any) => {
+        this.product_options = data.lissp
+        this.product_options.forEach((element : any) => element.code = element.name)
+        console.log('list product',this.product_options);
+    })
+    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dslb').subscribe(
+      (data:any) => {
+        this.bagging_type_options = data.lislb
+        this.bagging_type_options.forEach((element : any) => element.code = element.name)
+        console.log('list packaging',this.bagging_type_options);
+    })
+    this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dsvantai').subscribe(
+      (data:any) => {
+        this.transport_unit_options = data.listvc
+       
+        console.log('list transport',this.transport_unit_options);
+    })
     this.commonService.getVehicleList().subscribe((d: any) => {
       console.log(d);
 
@@ -157,6 +179,7 @@ export class OrderRegistrationComponent implements OnInit {
 
   hasError: Boolean = false;
   ngOnInit(): void {
+    this.timeBtnShow()
     this.initFilterForm();
     this.driverForm = new FormGroup({
       name: new FormControl(null, Validators.required)
@@ -283,16 +306,13 @@ export class OrderRegistrationComponent implements OnInit {
     if (formValue) {
       if (field === 'name') {
         this.cmndForm.controls['cmnd'].setValue(formValue.value);
-        this.cmndForm.controls['name'].setValue(formValue.name);
+        this.driverForm.controls['name'].setValue(formValue.name);
       } else {
         console.log(formValue.nameOwn);
         this.cmndForm.controls['cmnd'].setValue(formValue.value);
-        this.cmndForm.controls['name'].setValue(formValue.name);
+        this.driverForm.controls['name'].setValue(formValue.value);
       }
     }
-    // field =='name'
-    //   ? this.cmndForm.controls['cmnd'].setValue(formValue.value)
-    //   : this.driverForm.controls['name'].setValue(formValue.nameOwn);
   }
   onSubmit(e: any): void {
      
@@ -311,11 +331,15 @@ export class OrderRegistrationComponent implements OnInit {
       order.soBao = total
       order.soLop1 = this.registerForm.value.grade_1;
       order.soLop2 = this.registerForm.value.grade_2;
-      this.isAddingSuccessful = true
+      
       console.log(order);
-      this.commonService.insertDriverBallot(order).subscribe(reply => {
-        console.log(reply);
-      });
+      this.apiService.postOrder('http://office.stvg.vn:51008/api/Loadcell/dkphieutaixe',order).subscribe(
+        (data:any) =>{
+          console.log(data);
+          this.order_Code = data
+          this.isAddingSuccessful = true
+        }
+      )
 
     
   }
@@ -330,5 +354,16 @@ export class OrderRegistrationComponent implements OnInit {
   };
   closeRes(){
 
+  }
+
+
+  view(e:any){
+    console.log(e.target);
+    
+  }
+  timeBtnShow(){
+    setTimeout(()=>{
+      this.toggleBtn = true
+    },1000)
   }
 }
