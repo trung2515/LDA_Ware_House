@@ -6,7 +6,7 @@ import { ResearchOrderComponent } from './pages/research-order/research-order.co
 import { OrderRegistrationComponent } from './pages/order-registration/order-registration.component'
 import { HeaderBarComponent } from './pages/components/header-bar/header-bar.component'
 import { OrderRoutingModule } from './order-routing.module';
-import { RegistrationComponent } from './pages/registration/registration.component';
+// import { RegistrationComponent } from './pages/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     MenuOrderComponent,
     ResearchOrderComponent,
     OrderRegistrationComponent,
-    RegistrationComponent,
+   
    
   ],
   imports: [CommonModule, OrderRoutingModule, SharedModule],

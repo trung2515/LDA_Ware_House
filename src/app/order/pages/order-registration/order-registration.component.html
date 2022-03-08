@@ -1,105 +1,135 @@
-<div class="wrapper">
+<div class="">
   <app-header-bar (onBackClicked)="onBackClicked($event)" [title]="title"></app-header-bar>
 
   <div class="d-flex justify-content-center align-items-center w-100 " style="min-height:80vh;">
     <button class="btn btn-primary fs-3 " style="padding: 10px 80px;" (click)="popupVisible = true">Đăng ký</button>
   </div>
 
-  <dx-popup [width]="1024" [height]="650" [showTitle]="true" title="Đăng ký đơn hàng" [dragEnabled]="false"
+  <dx-popup [width]="1024" [height]="680" [showTitle]="true" title="Đăng ký đơn hàng" [dragEnabled]="false"
     [closeOnOutsideClick]="true" [showCloseButton]="false" container=".dx-viewport" [(visible)]="popupVisible">
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
-  <div *ngIf="!isAddingSuccessful" class="input-group">
-    <div class="info-wrap">
-      <h4 class="title-info">{{ driverFields.title }}</h4>
-      <div class="row info-row">
-        <div *ngFor="let field of driverFields.fields" class="col-12 col-md-6 info-col">
-          <div class="form-groups">
-            <p class="info-field">{{ field.caption + ":" }}</p>
-            <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
-            </app-text-input>
-          </div>
-        </div>
 
-        <div class="col-12 col-md-6 info-col">
-          <div class="form-groups">
-            <p class="info-field">Biển số xe</p>
-            <app-select-filter [dataSource]="number_plate_list" [someForm]="numPlateForm" controlName="numPlate"
-              label="Biển số xe">
+   
+      <form  [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+        <div *ngIf="!isAddingSuccessful">
 
-            </app-select-filter>
+        
+        <div class="input-group">
+          <div class="info-wrap">
+            <h4 class="title-info">Đăng ký đơn hàng</h4>
+            <div class="row info-row">
+              <div *ngFor="let field of driverFields.fields" class="col-12 col-md-6 info-col">
+                <div class="form-groups">
+                  <p class="info-field">{{ field.caption + ":" }}</p>
+                  <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
+                  </app-text-input>
+                </div>
+              </div>
+  
+              <div  class="col-12 col-md-6 info-col">
+                <div class="form-groups">
+                  <p class="info-field">Biển số xe</p>
+                  <app-select-filter
+                  [dataSource]="number_plate_list"
+                  [someForm]="numPlateForm"
+                  controlName="numPlate"
+                  label="Biển số xe"
+                  >
+  
+                  </app-select-filter>
+                </div>
+              </div>
+              <div  class="col-12 col-md-6 info-col">
+                <div class="form-groups">
+                  <p class="info-field">Số Rơ Mooc</p>
+                  <app-select-filter
+                  [dataSource]="romoocs"
+                  [someForm]="rommocForm"
+                  controlName="romooc"
+                  label="romooc"
+                  >
+  
+                  </app-select-filter>
+                </div>
+              </div>
+              <div  class="col-12 col-md-6 info-col">
+                <div class="form-groups">
+                  <p class="info-field">Tên tài xế</p>
+                  <app-select-filter
+                  [dataSource]="drivers"
+                  [someForm]="driverForm"
+                  controlName="name"
+                  label="Tên tài xế"
+                  (onChange) ="onSelectChange($event)"
+                  >
+  
+                  </app-select-filter>
+                </div>
+              </div>
+              <div  class="col-12 col-md-6 info-col">
+                <div class="form-groups">
+                  <p class="info-field"> Số CCCD/CMND:</p>
+                  <app-select-filter
+                  [dataSource]="cmnd_list"
+                  [someForm]="this.cmndForm"
+                  controlName="cmnd"
+                  label="cccd/cmnd"
+                  (onChange) ="onSelectChange($event)"
+                  >
+  
+                  </app-select-filter>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-6 info-col">
-          <div class="form-groups">
-            <p class="info-field">Số Rơ Mooc</p>
-            <app-select-filter [dataSource]="romoocs" [someForm]="rommocForm" controlName="romooc" label="romooc">
-            </app-select-filter>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 info-col">
-          <div class="form-groups">
-            <p class="info-field">Tên tài xế</p>
-            <app-select-filter [dataSource]="drivers" [someForm]="driverForm" controlName="name" label="Tên tài xế"
-              (onChange)="onSelectChange($event)">
-
-            </app-select-filter>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 info-col">
-          <div class="form-groups">
-            <p class="info-field"> Số CCCD/CMND:</p>
-            <app-select-filter [dataSource]="cmnd_list" [someForm]="this.cmndForm" controlName="cmnd"
-              label="cccd/cmnd" (onChange)="onSelectChange($event)">
-
-            </app-select-filter>
+          <!-- order info -->
+          <div class="info-wrap">
+            <h4 class="title-info">{{ orderFields.title }}</h4>
+            <div class="row info-row">
+              <div *ngFor="let field of orderFields.fields" class="col-12 col-md-6 info-col">
+                <div *ngIf="field.type === 'input'" class="form-groups">
+                  <p class="info-field">{{ field.caption + ":" }}</p>
+                  <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
+                  </app-text-input>
+                </div>
+                <div *ngIf="field.type === 'select'" class="form-groups">
+                  <p class="info-field">{{ field.caption }}</p>
+                  <app-select-option [formControlName]="field.controlName" [label]="field.label" [type]="'select'"
+                    [options]="field.options"></app-select-option>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- order info -->
-    
-    <div class="info-wrap">
-      <h4 class="title-info">{{ orderFields.title }}</h4>
-      <div class="row info-row">
-        <div *ngFor="let field of orderFields.fields" class="col-12 col-md-6 info-col">
-          <div *ngIf="field.type === 'input'" class="form-groups">
-            <p class="info-field">{{ field.caption + ":" }}</p>
-            <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
-            </app-text-input>
+        <!-- notification -->
+  
+        <div *ngIf="isAddingSuccessful" class="successfully-notification" style="padding-top:80px;">
+          <img class="circle_check" src="assets/img/check-circle.png" alt="Check Circle" />
+          <h3 class="notif-title text-center">Đã đăng ký phiếu đơn hàng thành công!</h3>
+          <div class="horizontal-line"></div>
+          <div class="notif-info" >
+            <span class="title-done" >Mã đơn hàng:</span>
+            <span class="title-done" >{{order_Code}}</span>
           </div>
-          <div *ngIf="field.type === 'select'" class="form-groups">
-            <p class="info-field">{{ field.caption }}</p>
-            <app-select-option [formControlName]="field.controlName" [label]="field.label" [type]="'select'"
-              [options]="field.options"></app-select-option>
+          <div class="qr-code-wrap">
+            <p class="title-done qr-title">Mã QR Code:</p>
+            <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
+            <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
+            <button class="btn-ship btn-done btn-primary"  type="button" (click)="popupVisible = false; isAddingSuccessful = false">Xong</button>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- notification -->
-
-  <div *ngIf="isAddingSuccessful" class="successfully-notification">
-    <img class="circle_check" src="assets/img/check-circle.png" alt="Check Circle" />
-    <h3 class="notif-title">Đã đăng ký phiếu đơn hàng thành công!</h3>
-    <div class="horizontal-line"></div>
-    <div class="notif-info">
-      <span class="title-done">Mã đơn hàng:</span>
-      <span class="title-done">{{order_Code}}</span>
-    </div>
-    <div class="qr-code-wrap">
-      <p class="title-done qr-title">Mã QR Code:</p>
-      <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
-      <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
-      <button (click)="onBackClicked($event)" class="btn-ship btn-done" type="button">Xong</button>
-    </div>
-  </div>
-  <div class="d-flex" >
-    <button  class="btn btn-light ms-auto"(click)='closePop()' >Đóng</button>
-    <button  class="btn btn-light ms-3" type="submit">Đăng ký</button>
-  </div>
-</form>
-  </dx-popup>
-</div>
+        <div *ngIf="!isAddingSuccessful" class="d-flex pt-3">
+          <button  class="ms-auto btn btn-light px-4" (click)="popupVisible = false"  >Đóng</button>
+          <button  class="ms-3 btn btn-light px-4" type="submit">Đăng ký</button>
+        </div>
+      </form>
+  
 
 
- 
+  </dx-popup> 
+
+
+
+
+
+
