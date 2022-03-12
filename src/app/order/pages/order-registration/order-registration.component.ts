@@ -42,9 +42,9 @@ export class OrderRegistrationComponent implements OnInit {
   warehouse_options: OptionModel[];
   partner_options: OptionModel[];
   product_type_options: OptionModel[];
-
+  timeLoading:number = 3000
   partner_type_options: OptionModel[];
-  toggleBtn:boolean = false
+  disableBtn:boolean = false
   romoocs: RoMooc[] = [];
   popupVisible:boolean = false
   orderFields: any = {};
@@ -70,6 +70,7 @@ export class OrderRegistrationComponent implements OnInit {
   cmndForm!: FormGroup;
   rommocForm!: FormGroup;
   numPlateForm!: FormGroup;
+  statusErrorApi:boolean = false
   constructor(
     private _location: Location,
     private orderService: ShippingUnitService,
@@ -83,37 +84,32 @@ export class OrderRegistrationComponent implements OnInit {
   ) {}
 
   async initFilterForm() {
+    // get number_plate
+    this.commonService.getVehicleList().subscribe((d: any) => {
+      console.log(d);
+      this.number_plate_list = d?.listx.map(
+        (d: any) => new NumberPlateModel(d)
+      );
+      this.initializeForm();
+    });
     // get romooc
     this.commonService.getNumberRomoocList().subscribe((d: any) => {
+      console.log('list romooc',d);
+      if(d == null){
+        this.statusErrorApi = true
+        this.toastr.error('Lỗi khi xác thực API ')
+      }
       this.romoocs = d?.listr.map((d: any) => new RoMooc(d));
       this.initializeForm();
     });
     // get list driver
     this.commonService.getDriverList().subscribe((d: any) => {
+      console.log('list driver',d);
+   
       this.drivers = d?.listtx.map((d: any) => new DriverModel(d));
       this.cmnd_list = d?.listtx.map((d: any) => new CMNDModel(d));
       this.initializeForm();
     });
-
-    // this.commonService.getProducts().subscribe((d: any) => {
-    //   this.product_options = d.data.map((d: any) => new OptionModel(d));
-      
-    //   this.initializeForm();
-    // });
-    // this.adminService.getListTypePacket().subscribe((d) => {
-    //   this.bagging_type_options = d.map((d) => new OptionModel(d))
-   
-    // })
-    // this.commonService.getTypePacket().subscribe((d: any) => {
-    //   console.log('typeof', d);
-    //   this.bagging_type_options = d.data.map((d: any) => new OptionModel(d));
-    //   this.initializeForm();
-    // });
-    // this.adminService.getListProduct().subscribe(d => {
-    //   this.product_options = d.map(d => new OptionModel(d));
-    //   console.log(this.product_options);
-    //   this.initializeForm();
-    // });
     this.apiService.get('http://office.stvg.vn:51008/api/Loadcell/dssp').subscribe(
       (data:any) => {
         this.product_options = data.lissp
@@ -132,25 +128,12 @@ export class OrderRegistrationComponent implements OnInit {
        
         console.log('list transport',this.transport_unit_options);
     })
-    this.commonService.getVehicleList().subscribe((d: any) => {
-      console.log(d);
-
-      this.number_plate_list = d?.listx.map(
-        (d: any) => new NumberPlateModel(d)
-      );
-      this.initializeForm();
-    });
 
     this.adminService.getListTypeProduct().subscribe(d => {
       this.product_type_options = d.map(d => new OptionModel(d));
       console.log(this.product_type_options);
       this.initializeForm();
     });
-
-    // this.adminService.getListTransportUnit().subscribe(d => {
-    //   this.transport_unit_options = d.map(d => new OptionModel(d));
-    //   console.log(this.transport_unit_options);
-    // });
     this.commonService.getDVVC().subscribe((data: any) => {
       this.transport_unit_options = data?.listvc.map(
         (d: any) => new ShippingUnitModel(d)
@@ -160,26 +143,12 @@ export class OrderRegistrationComponent implements OnInit {
       // console.log('dvvc:',data)
     });
 
-    this.adminService.getListWareHouse().subscribe(d => {
-      this.warehouse_options = d.map(d => new OptionModel(d));
-      console.log(this.warehouse_options);
-      this.initializeForm();
-    });
 
-    this.adminService.getListPartner().subscribe(d => {
-      this.partner_options = d.map(d => new OptionModel(d));
-      this.initializeForm();
-    });
-
-    this.adminService.getMasterData('partner').subscribe(d => {
-      this.partner_type_options = d.map(d => new OptionModel(d));
-      this.initializeForm();
-    });
   }
 
   hasError: Boolean = false;
   ngOnInit(): void {
-    this.timeBtnShow()
+    
     this.initFilterForm();
     this.driverForm = new FormGroup({
       name: new FormControl(null, Validators.required)
@@ -228,13 +197,6 @@ export class OrderRegistrationComponent implements OnInit {
           type: 'select',
           options: this.product_options
         },
-        // {
-        //   caption: 'Loại sản phẩm',
-        //   label: 'loại sản phẩm',
-        //   controlName: 'code_product_type',
-        //   type: 'select',
-        //   options: this.product_type_options,
-        // },
         {
           caption: 'Loại bao',
           label: 'loại bao',
@@ -242,8 +204,6 @@ export class OrderRegistrationComponent implements OnInit {
           type: 'select',
           options: this.bagging_type_options
         },
-       
-      
         {
           caption: 'Lớp 1',
           label: 'Nhập số bao',
@@ -299,21 +259,27 @@ export class OrderRegistrationComponent implements OnInit {
     });
     this.isSuccessLoading = true;
   }
+  nameDriver:any
   onSelectChange(data: any) {
     console.log(data);
+    console.log(data.formValue.name);
     const { formValue, field } = data;
     // console.log(formValue);
     if (formValue) {
       if (field === 'name') {
         this.cmndForm.controls['cmnd'].setValue(formValue.value);
-        this.driverForm.controls['name'].setValue(formValue.name);
+        this.driverForm.controls['name'].setValue(formValue.value);
+        this.nameDriver = data.formValue.name;
       } else {
         console.log(formValue.nameOwn);
         this.cmndForm.controls['cmnd'].setValue(formValue.value);
         this.driverForm.controls['name'].setValue(formValue.value);
+        this.nameDriver = data.formValue.nameOwn;
       }
     }
   }
+  inforOrder:any = {}
+  popupVisibleConfirm:boolean = false
   onSubmit(e: any): void {
      
       console.log('ok');
@@ -321,7 +287,7 @@ export class OrderRegistrationComponent implements OnInit {
           total = total.toString()
       const order: OrderInfo = new OrderInfo();
       order.cmnd = this.cmndForm.value.cmnd;
-      order.tenlaixe = this.driverForm.value.name;
+      order.tenlaixe = this.nameDriver
       order.soroMooc = this.rommocForm.value.romooc;
       order.soXe = this.numPlateForm.value.numPlate;
 
@@ -331,15 +297,19 @@ export class OrderRegistrationComponent implements OnInit {
       order.soBao = total
       order.soLop1 = this.registerForm.value.grade_1;
       order.soLop2 = this.registerForm.value.grade_2;
+      this.inforOrder = order
       
+      console.log(this.popupVisibleConfirm);
       console.log(order);
-      this.apiService.postOrder('http://office.stvg.vn:51008/api/Loadcell/dkphieutaixe',order).subscribe(
-        (data:any) =>{
-          console.log(data);
-          this.order_Code = data
-          this.isAddingSuccessful = true
-        }
-      )
+      console.log('infor',this.inforOrder);
+      this.popupVisibleConfirm = true
+      // this.apiService.postOrder('http://office.stvg.vn:51008/api/Loadcell/dkphieutaixe',order).subscribe(
+      //   (data:any) =>{
+      //     console.log(data);
+      //     this.order_Code = data
+      //     this.isAddingSuccessful = true
+      //   }
+      // )
 
     
   }
@@ -356,14 +326,15 @@ export class OrderRegistrationComponent implements OnInit {
 
   }
 
+  submitOrder(){
+       this.apiService.postOrder('http://office.stvg.vn:51008/api/Loadcell/dkphieutaixe',this.inforOrder).subscribe(
+        (data:any) =>{
+          console.log(data);
+          this.order_Code = data
+          this.disableBtn = true
+          this.isAddingSuccessful = true
+        }
+      )
+  }
 
-  view(e:any){
-    console.log(e.target);
-    
-  }
-  timeBtnShow(){
-    setTimeout(()=>{
-      this.toggleBtn = true
-    },1000)
-  }
 }

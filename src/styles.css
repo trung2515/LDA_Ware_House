@@ -162,4 +162,9 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}

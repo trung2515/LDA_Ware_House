@@ -11,6 +11,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/core/services/order.service';
 import { ResponseState } from 'src/app/core/models/model.pb';
+import { MainService } from 'src/app/mainservice.service';
 
 @Component({
   selector: 'app-research-order',
@@ -32,7 +33,8 @@ export class ResearchOrderComponent implements OnInit {
     orderService: ShippingUnitService,
     private _formBuilder: FormBuilder,
     private order: OrderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private apiService :MainService
   ) {
     this.orderList = orderService.getOrderList();
   }
@@ -51,14 +53,31 @@ export class ResearchOrderComponent implements OnInit {
       this.isSearching = true;
       const _order_code = this.filterForm.value.order_code;
       // const hasResult = this.orderList.find(order => order.id === _order_code);
-      this.order.getOrderByCode(_order_code).subscribe(reply => {
-        if (reply.order) {
-          this.orderResultSearch = reply.order;
-          this.hasOrder = true;
-        } else {
-          this.hasOrder = false;
-        }
-      });
+      // this.order.getOrderByCode(_order_code).subscribe(reply => {
+      //   console.log(reply.order);
+        
+      //   if (reply.order) {
+      //     this.orderResultSearch = reply.order;
+      //     this.hasOrder = true;
+      //   } else {
+      //     this.hasOrder = false;
+      //   }
+      // });
+      let orderUrl= 'http://office.stvg.vn:51008/api/Loadcell/donhang?code='+this.filterForm.value.order_code
+      console.log('url',orderUrl);
+      
+      this.apiService.get(orderUrl).subscribe(reply => {
+          console.log(reply);
+          let orderObj:any = reply
+          if (reply) {
+            this.orderResultSearch = orderObj;
+            console.log('searhObj',this.orderResultSearch);
+            
+            this.hasOrder = true;
+          } else {
+            this.hasOrder = false;
+          }
+        });
     }
   }
   isValidForm():boolean {

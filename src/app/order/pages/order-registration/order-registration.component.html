@@ -1,134 +1,200 @@
-<div class="">
+<div class="wrapper">
   <app-header-bar (onBackClicked)="onBackClicked($event)" [title]="title"></app-header-bar>
+  <div class="content" >
+  <form  [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+    <div *ngIf="!isAddingSuccessful">
 
-  <div class="d-flex justify-content-center align-items-center w-100 " style="min-height:80vh;">
-    <button *ngIf="toggleBtn" class="btn btn-primary fs-3 " style="padding: 10px 80px;" (click)="popupVisible = true">Đăng ký</button>
-  </div>
-
-
-  <dx-popup [width]="1024" [height]="680" [showTitle]="true" title="Đăng ký đơn hàng" [dragEnabled]="false"
-    [closeOnOutsideClick]="true" [showCloseButton]="false" container=".dx-viewport" [(visible)]="popupVisible">
-
-   
-      <form  [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
-        <div *ngIf="!isAddingSuccessful">
-
-        
-        <div class="input-group">
-          <div class="info-wrap">
-            <h4 class="title-info">Đăng ký đơn hàng</h4>
-            <div class="row info-row">
-              <div *ngFor="let field of driverFields.fields" class="col-12 col-md-6 info-col">
-                <div class="form-groups">
-                  <span class="info-field">{{ field.caption + ":" }}</span>
-                  <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
-                  </app-text-input>
-                </div>
-              </div>
-  
-              <div  class="col-12 col-md-6 info-col">
-                <div class="form-groups">
-                  <span class="info-field">Biển số xe</span>
-                  <app-select-filter
-                  [dataSource]="number_plate_list"
-                  [someForm]="numPlateForm"
-                  controlName="numPlate"
-                  label="Biển số xe"
-                  >
-  
-                  </app-select-filter>
-                </div>
-              </div>
-              <div  class="col-12 col-md-6 info-col">
-                <div class="form-groups">
-                  <span class="info-field">Số Rơ Mooc</span>
-                  <app-select-filter
-                  [dataSource]="romoocs"
-                  [someForm]="rommocForm"
-                  controlName="romooc"
-                  label="romooc"
-                  >
-  
-                  </app-select-filter>
-                </div>
-              </div>
-              <div  class="col-12 col-md-6 info-col">
-                <div class="form-groups">
-                  <span class="info-field">Tên tài xế</span>
-                  <app-select-filter
-                  [dataSource]="drivers"
-                  [someForm]="driverForm"
-                  controlName="name"
-                  label="Tên tài xế"
-                  (onChange) ="onSelectChange($event)"
-                  >
-  
-                  </app-select-filter>
-                </div>
-              </div>
-              <div  class="col-12 col-md-6 info-col">
-                <div class="form-groups">
-                  <span class="info-field"> Số CCCD/CMND:</span>
-                  <app-select-filter
-                  [dataSource]="cmnd_list"
-                  [someForm]="cmndForm"
-                  controlName="cmnd"
-                  label="cccd/cmnd"
-                  (onChange) ="onSelectChange($event)"
-                  >
-  
-                  </app-select-filter>
-                </div>
-              </div>
+    <div class="input-group">
+      <div class="info-wrap">
+        <h4 class="title-info pt-4">Thông tin tài xế</h4>
+        <div class="row info-row">
+          <div *ngFor="let field of driverFields.fields" class="col-12 col-md-3 info-col">
+            <div class="form-groups">
+              <span class="info-field">{{ field.caption + ":" }}</span>
+              <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
+              </app-text-input>
             </div>
           </div>
-          <!-- order info -->
-          <div class="info-wrap">
-            <h4 class="title-info">{{ orderFields.title }}</h4>
-            <div class="row info-row">
-              <div *ngFor="let field of orderFields.fields" class="col-12 col-md-6 info-col">
-                <div *ngIf="field.type === 'input'" class="form-groups">
-                  <span class="info-field">{{ field.caption + ":" }}</span>
-                  <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
-                  </app-text-input>
-                </div>
-                <div *ngIf="field.type === 'select'" class="form-groups">
-                  <p class="info-field">{{ field.caption }}</p>
-                  <app-select-option [formControlName]="field.controlName" [label]="field.label" [type]="'select'"
-                    [options]="field.options"></app-select-option>
-                </div>
-              </div>
+
+          <div  class="col-12 col-md-3 info-col">
+            <div class="form-groups">
+              <span class="info-field">Biển số xe</span>
+              <app-select-filter
+              [dataSource]="number_plate_list"
+              [someForm]="numPlateForm"
+              controlName="numPlate"
+              label="Biển số xe"
+              >
+
+              </app-select-filter>
             </div>
           </div>
-         
+          <div  class="col-12 col-md-3 info-col">
+            <div class="form-groups">
+              <span class="info-field">Số Rơ Mooc</span>
+              <app-select-filter
+              [dataSource]="romoocs"
+              [someForm]="rommocForm"
+              controlName="romooc"
+              label="romooc"
+              >
+
+              </app-select-filter>
+            </div>
+          </div>
+          <div  class="col-12 col-md-3 info-col">
+            <div class="form-groups">
+              <span class="info-field">Tên tài xế</span>
+              <app-select-filter
+              [dataSource]="drivers"
+              [someForm]="driverForm"
+              controlName="name"
+              label="Tên tài xế"
+              (onChange) ="onSelectChange($event)"
+              >
+
+              </app-select-filter>
+            </div>
+          </div>
+          <div  class="col-12 col-md-3 info-col">
+            <div class="form-groups">
+              <span class="info-field"> Số CCCD/CMND:</span>
+              <app-select-filter
+              [dataSource]="cmnd_list"
+              [someForm]="cmndForm"
+              controlName="cmnd"
+              label="cccd/cmnd"
+              (onChange) ="onSelectChange($event)"
+              >
+
+              </app-select-filter>
+            </div>
+          </div>
         </div>
       </div>
-        <!-- notification -->
-  
-        <div *ngIf="isAddingSuccessful" class="successfully-notification" style="padding-top:50px;">
-          <img class="circle_check" src="assets/img/check-circle.png" alt="Check Circle" />
-          <h3 class="notif-title text-center">Đã đăng ký phiếu đơn hàng thành công!</h3>
-          <div class="horizontal-line"></div>
-          <div class="notif-info" >
-            <span class="title-done" >Mã đơn hàng:</span>
-            <span class="title-done" >{{order_Code}}</span>
-          </div>
-          <div class="qr-code-wrap">
-            <span class="title-done qr-title">Mã QR Code:</span>
-            <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
-            <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
-            <button class="btn-ship btn-done btn-primary"  type="button" (click)="popupVisible = false; isAddingSuccessful = false">Xong</button>
+      <!-- order info -->
+      <div class="info-wrap">
+        <h4 class="title-info pt-4">{{ orderFields.title }}</h4>
+        <div class="row info-row">
+          <div *ngFor="let field of orderFields.fields" class="col-12 col-md-3 info-col">
+            <div *ngIf="field.type === 'input'" class="form-groups">
+              <span class="info-field">{{ field.caption + ":" }}</span>
+              <app-text-input [formControlName]="field.controlName" [label]="field.label" [type]="'text'">
+              </app-text-input>
+            </div>
+            <div *ngIf="field.type === 'select'" class="form-groups">
+              <p class="info-field">{{ field.caption }}</p>
+              <app-select-option [formControlName]="field.controlName" [label]="field.label" [type]="'select'"
+                [options]="field.options"></app-select-option>
+            </div>
           </div>
         </div>
-        <div *ngIf="!isAddingSuccessful" class="d-flex pt-3">
-          <button  class="ms-auto btn btn-light px-4" (click)="popupVisible = false"  >Đóng</button>
-          <button  class="ms-3 btn btn-light px-4" type="submit">Đăng ký</button>
-        </div>
-      </form>
+      </div>
+     
+    </div>
+  </div>
+    <!-- notification -->
+
+    <div *ngIf="isAddingSuccessful" class="successfully-notification" >
+      <img class="circle_check" src="assets/img/check-circle.png" alt="Check Circle" />
+      <h3 class="notif-title text-center">Đã đăng ký phiếu đơn hàng thành công!</h3>
+      <div class="horizontal-line d-none d-sm-block"></div>
+      <div class="notif-info" >
+        <span class="title-done" >Mã đơn hàng:</span>
+        <span class="title-done" >{{order_Code}}</span>
+      </div>
+      <div class="qr-code-wrap">
+        <span class="title-done qr-title">Mã QR Code:</span>
+        <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
+        <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
+        <button class="btn-ship btn-done btn-primary"  type="button" (click)="popupVisible = false; isAddingSuccessful = false">Xong</button>
+      </div>
+    </div>
+    <div *ngIf="!isAddingSuccessful" class="d-flex justify-content-center pt-3">
+      <button  class="btn btn-outline-primary button-submit-step1  px-4" type="submit" (click)="popupVisible = true;" [disabled]="statusErrorApi">Đăng ký</button>
+    
+    </div>
+    <div class="d-flex justify-content-center pt-3" *ngIf="statusErrorApi">
+      <div class="text-danger">Lỗi khi xác thực API</div>
+    </div>
+  </form>
+</div>
   
+ 
 
 
+  <dx-popup [showTitle]="true" title="Xác nhận đăng ký" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [showCloseButton]="false" container=".dx-viewport" [(visible)]="popupVisible">
+    <div *ngIf="!isAddingSuccessful">
+      <h4 class="title-info py-md-2 py-1">Thông tin tài xế</h4>
+      <div class="row info-row">
+        <div class="col-12 col-md-6 mb-sm-2 mt-sm-4 mb-2 mt-0">
+          <span>Biển số xe :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.soXe}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-sm-2 mt-sm-4 mb-2 mt-0">
+          <span>Biển số romooc :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.soroMooc}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>Tên tài xế:</span>
+          <span class="ms-3 fw-bold">{{inforOrder.tenlaixe}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>CMND/CCCD :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.cmnd}}</span>
+        </div>
+      </div>
+      <h4 class="title-info pb-md-2 pt-md-4 py-1">Thông tin Đơn Hàng</h4>
+      <div class="row info-row">
+        <div class="col-12 col-md-6 mb-sm-2 mt-sm-4 mb-2 mt-0">
+          <span>Sản phẩm :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.tenSanPham}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-sm-2 mt-sm-4 mb-2 mt-0">
+          <span>Loại bao :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.tenLoaiBao}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>Số bao lớp 1:</span>
+          <span class="ms-3 fw-bold">{{inforOrder.soLop1}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>Số bao lớp 2 :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.soLop2}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>Tổng số bao :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.soBao == 0? '':inforOrder.soBao}}</span>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <span>Đơn vị vận chuyển :</span>
+          <span class="ms-3 fw-bold">{{inforOrder.tenDVVC}}</span>
+        </div>
+      </div>
+    </div>
+      <div *ngIf="isAddingSuccessful" class="successfully-notification" >
+        <img class="circle_check" src="assets/img/check-circle.png" alt="Check Circle" />
+        <h3 class="notif-title text-center">Đã đăng ký phiếu đơn hàng thành công!</h3>
+        <div class="horizontal-line d-none d-sm-block"></div>
+        <div class="notif-info" >
+          <span class="title-done" >Mã đơn hàng:</span>
+          <span class="title-done" >{{order_Code}}</span>
+        </div>
+        <div class="qr-code-wrap">
+          <span class="title-done qr-title">Mã QR Code:</span>
+          <!-- <img src="assets/img/qr_code_demo.png" alt="qr code"> -->
+          <qrcode *ngIf="order_Code" [qrdata]="order_Code" [width]="193" [errorCorrectionLevel]="'M'"></qrcode>
+          <button class="btn btn-outline-primary " style="width:155px"  type="button" (click)="popupVisible = false; isAddingSuccessful = false;disableBtn = false">Xong</button>
+        </div>
+      </div>
+      <div *ngIf="!isAddingSuccessful" class="d-flex pt-3 btn-confirm">
+        <button  class="ms-auto btn btn-light " (click)="popupVisible = false;disableBtn = false"  >Đóng</button>
+        <button  class="ms-3 btn btn-light " (click)="submitOrder();disableBtn = true"  [disabled]="disableBtn">Đăng ký</button>
+      </div>
   </dx-popup> 
+
+ 
 
 
 
