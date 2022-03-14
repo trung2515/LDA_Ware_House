@@ -4,6 +4,7 @@ import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 import { ToastrService } from 'ngx-toastr';
+import { MainService } from 'src/app/mainservice.service';
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
@@ -11,378 +12,118 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductCategoryComponent implements OnInit {
 
-  constructor(private adminService:AdminService ,private toastr:ToastrService) { }
+  constructor( private toastr:ToastrService,private apiService:MainService,private toast : ToastrService) { }
 
   ngOnInit(): void {
     this.getListProduct()
     this.getListTypeProduct()
-  }
-
-  blur(e: any, obj: any) {
-    _.blur(e, obj)
-    console.log(obj.input)
-  }
-  click(e: any) {
-    _.click(e)
-  }
-  input(e: any, obj: any) {
-    _.input(e, obj)
-  }
-  timeShowMess: any = 3000
-  isWeight:any
-  isConfirmDeleteProduct:boolean = false
-  isConfirmDeleteType:boolean = false
-  isConfirmDeleteProductType:boolean = false
-  listWeight:any = [
-    {name: '50 kg' , weight: 50},
-    {name: '1 tấn' , weight: 1000}]
-  // -----------------------------------------------------PRODUCT---------------------------------------
-  listProduct: any = []
-  itemProductClicked: any = {}
-  selectWeight(e:any,obj:any){
-    let  value = e.value;
-    obj.input.pl={value,isValid:true}
-    console.log(obj.input)
-    _.setValid(obj);
-  }
-  getListProduct() {
-    this.adminService.getListProduct().subscribe((data: any) => {
-      this.listProduct = data
-      console.log('listProduct ', this.listProduct)
-      this.listProduct.sort((a: any, b: any) => {
-        return a.nameProduct.toLowerCase().localeCompare(b.nameProduct.toLowerCase())
-      })
-      this.listProduct.forEach((item: any, index: any) => {
-        item.index = index
-      })
-    })
-  }
-  // delete product ---------------------------------------
-  isPopupDeleteProduct: any = false
-  objDeleteProduct: any = {
-    title: 'Xác nhận',
-    mess: 'Xóa ',
-    formErrMess: '',
-    formSuccMess: ''
-  }
-  clickDeleteProduct(e: any) {
-    let order = parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemProductClicked = this.listProduct[order]
-    this.objDeleteProduct.mess = `Xóa sản phẩm ${this.itemProductClicked.nameProduct}?`
-    this.togglePopupDeleteProduct()
-  }
-  togglePopupDeleteProduct() {
-    this.isPopupDeleteProduct = !this.isPopupDeleteProduct
-  }
-  onSubmitDeleteProduct(){
-    let id=this.itemProductClicked.idProduct
-    this.adminService.deleteProduct(id).subscribe((data:any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.itemProductClicked = null
-        this.objDeleteProduct.formSuccMess = data.message
-        this.objDeleteProduct.formErrMess = ""
-        this.getListProduct()
-          this.objDeleteProduct={
-            title:'Xác nhận',
-            mess:'Xóa ',
-            formErrMess:'',
-            formSuccMess:''
-          }
-          if(this.isPopupDeleteProduct) this.togglePopupDeleteProduct()
-          this.isConfirmDeleteProduct = false
-          this.toastr.success('','Xóa thành công')
-      
-      }else{
-        this.togglePopupDeleteProduct()
-        this.toastr.error('',data._message)
-      }
-    })
-
-  }
-  // edit product---------------------------------
-  isPopupEditProduct: any = false
-  objEditProduct: any = {
-    title: 'Chỉnh sửa sản phẩm',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    input: {
-      msp: { value: '', isValid: false },
-      tsp: { value: '', isValid: false }
-    },
-    isValid: false
-  }
-  clickEditProduct(e: any) {
-    let order = parseInt(e.target.dataset.order)
-    console.log(order)
-    this.itemProductClicked = this.listProduct[order]
-    this.objEditProduct.title = `Chỉnh sửa sản phẩm ${this.itemProductClicked.nameProduct}`
-    this.objEditProduct.input.tsp = { value: this.itemProductClicked.nameProduct, isValid: true }
-    this.objEditProduct.input.msp = { value: this.itemProductClicked.codeProduct, isValid: true }
-    this.objEditProduct.isValid = true
-    console.log(this.objEditProduct.input)
-    this.togglePopupEditProduct()
-  }
-  togglePopupEditProduct() {
-    this.isPopupEditProduct = !this.isPopupEditProduct
-  }
-  onSubmitEditProduct(e: any) {
-    let idProduct = this.itemProductClicked.idProduct
-    let nameProduct = this.objEditProduct.input.tsp.value
-    let codeProduct = this.objEditProduct.input.msp.value
-    this.adminService.updateProduct(idProduct, codeProduct, nameProduct).subscribe((data: any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.itemProductClicked = null
-        this.objEditProduct.formSuccMess = data.message
-        this.objEditProduct.formErrMess = ""
-        this.getListProduct()
-        
-          this.objEditProduct={
-            title:'Chỉnh sửa sản phẩm',
-            mess:'',
-            formErrMess:'',
-            formSuccMess:'',
-            input:{
-              msp:{value:'',isValid:false},
-              tsp:{value:'',isValid:false}
-            },
-            isValid: false
-          }
-          if(this.isPopupEditProduct) this.togglePopupEditProduct()
-          this.toastr.success('','Chỉnh sửa thành công')
-      }else{
-        this.togglePopupEditProduct()
-        this.toastr.error('',data._message)
-      }
-    })
-  }
-  // add product---------------------------------
-  isPopupAddProduct: any = false
-  objAddProduct: any = {
-    title: 'Thêm sản phẩm',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    input: {
-      msp: { value: '', isValid: false },
-      tsp: { value: '', isValid: false },
-      pl: { value: '', isValid: false },
-    },
-    isValid: false
-  }
-  clickAddProduct(e: any) {
-    this.togglePopupAddProduct()
-  }
-  togglePopupAddProduct() {
-    this.objAddProduct = {
-      title: 'Thêm sản phẩm',
-      mess: '',
-      formErrMess: '',
-      formSuccMess: '',
-      input: {
-        msp: { value: '', isValid: false },
-        tsp: { value: '', isValid: false },
-        pl: { value: '', isValid: false },
-      },
-      isValid: false
-    }
-    this.isPopupAddProduct = !this.isPopupAddProduct
-  }
-  onSubmitAddProduct(e:any){
-    let nameProduct=this.objAddProduct.input.tsp.value
-    let codeProduct=this.objAddProduct.input.msp.value
-    let weight = this.objAddProduct.input.pl.value
-    console.log(nameProduct,codeProduct);
-    
-    this.adminService.insertProduct(codeProduct,nameProduct,weight).subscribe((data:any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.objAddProduct.formSuccMess = data.message
-        this.objAddProduct.formErrMess = ""
-        this.getListProduct()
-      
-          this.objAddProduct={
-            title:'Thêm sản phẩm',
-            mess:'',
-            formErrMess:'',
-            formSuccMess:'',
-            input:{
-              msp:{value:'',isValid:false},
-              tsp:{value:'',isValid:false},
-            },
-            isValid: false
-          }
-          if(this.isPopupAddProduct) this.togglePopupAddProduct()
-          this.toastr.success('',"Thêm mới thành công")
-       
-      }else{
-        this.togglePopupAddProduct()
-        this.toastr.error('',data._message)
-      }
-    })
-
-  }
-
-
-  // -----------------------------------------------------TYPE PRODUCT---------------------------------------
-  listTypeProduct: any = []
-  itemTypeProductClicked: any = {}
-  getListTypeProduct() {
-    this.adminService.getListTypeProduct().subscribe((data: any) => {
-      this.listTypeProduct = data
-      // this.listTypeProduct.sort((a: any, b: any) => {
-      //   return a.nameTypeProduct.toLowerCase().localeCompare(b.nameTypeProduct.toLowerCase())
-      // })
-      console.log('listTypeProduct ', this.listTypeProduct)
-      this.listTypeProduct.forEach((item: any, index: any) => {
-        item.index = index
-      })
-    })
-  }
-  // add Typeproduct---------------------------------
-  isPopupAddTypeProduct: any = false
-  objAddTypeProduct: any = {
-    title: 'Thêm loại sản phẩm',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    input: {
-      tlsp: { value: '', isValid: false },
-    },
-    isValid: false
-  }
-  clickAddTypeProduct(e: any) {
-    this.togglePopupAddTypeProduct()
-  }
-  togglePopupAddTypeProduct() {
-    this.isPopupAddTypeProduct = !this.isPopupAddTypeProduct
-  }
-  onSubmitAddTypeProduct(e: any) {
-    let nameTypeProduct = this.objAddTypeProduct.input.tlsp.value
-    this.adminService.insertTypeProduct(nameTypeProduct).subscribe((data: any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.objAddTypeProduct.formSuccMess = data.message
-        this.objAddTypeProduct.formErrMess = ""
-        this.getListTypeProduct()
-          this.objAddTypeProduct = {
-            title: 'Thêm loại sản phẩm',
-            mess: '',
-            formErrMess: '',
-            formSuccMess: '',
-            input: {
-              tlsp: { value: '', isValid: false },
-            },
-            isValid: false
-          }
-          if (this.isPopupAddTypeProduct) this.togglePopupAddTypeProduct()
-          this.toastr.success('',"Thêm mới thành công")
-      } else {
-        this.togglePopupAddTypeProduct()
-        this.toastr.error('',data._message)
-      }
-    })
-  }
-  // edit Typeproduct---------------------------------
-  isPopupEditTypeProduct: any = false
-  objEditTypeProduct: any = {
-    title: 'Chỉnh sửa loại sản phẩm',
-    mess: '',
-    formErrMess: '',
-    formSuccMess: '',
-    input: {
-      tlsp: { value: '', isValid: false }
-    },
-    isValid: false
-  }
-  clickEditTypeProduct(id: any) {
    
-    this.objEditTypeProduct.title = `Chỉnh sửa sản phẩm  loại id`
-    this.objEditTypeProduct.input.tlsp = { value: id, isValid: true }
-    this.objEditTypeProduct.isValid = true
-    console.log(this.objEditTypeProduct.input)
-    this.togglePopupEditTypeProduct()
   }
-  togglePopupEditTypeProduct() {
-    this.isPopupEditTypeProduct = !this.isPopupEditTypeProduct
-  }
-  onSubmitEditTypeProduct(e: any) {
- 
-  
-    // this.adminService.updateTypeProduct(idTypeProduct,nameTypeProduct).subscribe((data:any) => {
-    //   console.log(data)
-    //   if(data.state==ResponseState.SUCCESS){
-    //     this.itemTypeProductClicked=null
-    //     this.objEditTypeProduct.formSuccMess=data.message
-    //     this.objEditTypeProduct.formErrMess=""
-    //     this.getListTypeProduct()
-    //     setTimeout(()=>{
-    //       this.objEditTypeProduct={
-    //         title:'Chỉnh sửa loại sản phẩm',
-    //         mess:'',
-    //         formErrMess:'',
-    //         formSuccMess:'',
-    //         input:{
-    //           tlsp:{value:'',isValid:false}
-    //         },
-    //         isValid:false
-    //       }
-    //       if(this.isPopupEditTypeProduct) this.togglePopupEditTypeProduct()
-    //     },this.timeShowMess)
-    //   }else{
-    //     this.objEditTypeProduct.formSuccMess=""
-    //     this.objEditTypeProduct.formErrMess=data.message
-    //   }
-    // })
-  }
-  // delete Typeproduct ---------------------------------------
-  isPopupDeleteTypeProduct: any = false
-  objDeleteTypeProduct: any = {
-    title: 'Xác nhận',
-    mess: 'Xóa ',
-    formErrMess: '',
-    formSuccMess: ''
-  }
-  idType:number
-  clickDeleteTypeProduct(id: any) {
-    this.idType = id
-    this.objDeleteTypeProduct.mess = `Xóa sản phẩm loại ${id}?`
-    this.togglePopupDeleteTypeProduct()
-  }
-  togglePopupDeleteTypeProduct() {
-    this.isPopupDeleteTypeProduct = !this.isPopupDeleteTypeProduct
-  }
-  onSubmitDeleteTypeProduct(){
-    
-    this.adminService.deleteTypeProduct(this.idType).subscribe((data:any) => {
-      console.log(data)
-      if (data.state == ResponseState.SUCCESS) {
-        this.itemTypeProductClicked = null
-        this.objDeleteTypeProduct.formSuccMess = data.message
-        this.objDeleteTypeProduct.formErrMess = ""
-        this.getListTypeProduct()
-       
-          this.objDeleteTypeProduct = {
-            title: 'Xác nhận',
-            mess: 'Xóa ',
-            formErrMess: '',
-            formSuccMess: ''
-          }
-          if (this.isPopupDeleteTypeProduct) this.togglePopupDeleteTypeProduct()
-          this.isConfirmDeleteType = false
-          this.isConfirmDeleteProductType = false
-        this.toastr.success('',"Xóa thành công")
-      } else {
-        this.togglePopupDeleteTypeProduct()
-        this.isConfirmDeleteType = false
-        this.isConfirmDeleteProductType = false
-        this.toastr.error('',data._message)
+  listProduct:any = []
+  listProductType:any = []
+  popAddProduct:boolean = false
+  popAddProductType:boolean = false
+  popDeleteProduct:boolean = false
+  popDeleteProductType:boolean = false
+  itemInfor:any = {}
+  itemInforType:any = {}
+  newProduct:any={}
+  newProductType:any={}
+  getListProduct(){
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
+      (data:any) => {
+        this.listProduct = data.data
+        console.log('listProduct',this.listProduct);
       }
-    })
-
+    )
+  }
+  getListTypeProduct(){
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachloaisanpham').subscribe(
+      (data:any) => {
+        this.listProductType = data.data
+        console.log('listTypeProduct',this.listProductType);
+      }
+    )
   }
 
+
+  addProduct(){
+    this.apiService.post('http://office.stvg.vn:51008/api/InfoLDA/taosanpham',this.newProduct).subscribe(
+      (data:any) => { console.log(data);
+        if(data == null){
+          this.getListProduct()
+          this.popAddProduct = false
+          this.toast.success('Tạo mới thành công')
+          this.newProduct = {}
+        }else{
+          this.popAddProduct = false
+          this.toast.success('Tạo mới Thất bại')
+        }
+      }
+    )
+  }
+  addProductType(){
+    this.apiService.post('http://office.stvg.vn:51008/api/InfoLDA/taoloaisanpham',this.newProductType).subscribe(
+      (data:any) => { console.log(data);
+        if(data == null){
+          this.getListTypeProduct()
+          this.popAddProductType = false
+          this.toast.success('Tạo mới thành công')
+          this.newProductType = {}
+        }else{
+          this.popAddProduct = false
+          this.toast.success('Tạo mới Thất bại')
+        }
+      }
+    )
+  }
+  
+
+  getInforDelete(value:any){
+    this.itemInfor = value
+    this.popDeleteProduct = true
+  }
+  getInforDeleteType(value:any){
+    this.itemInforType = value
+    this.popDeleteProductType = true
+  }
+  deleteProduct(){
+    console.log(this.itemInfor);
+    let itemDelete :any = {}
+    itemDelete.data = this.itemInfor.code
+    this.apiService.post('http://office.stvg.vn:51008/api/InfoLDA/xoasanpham',itemDelete).subscribe(
+      (data:any) => {
+        if(data  == null){
+          this.getListProduct()
+          this.popDeleteProduct = false
+          this.toast.success('Xóa thành công')
+        }
+      }
+    )
+  }
+  deleteProductType(){
+    console.log(this.itemInforType);
+    let itemDelete :any = {}
+    itemDelete.data = this.itemInforType.code.toString()
+    console.log(itemDelete);
+    
+    this.apiService.post('http://office.stvg.vn:51008/api/InfoLDA/xoaloaisanpham',itemDelete).subscribe(
+      (data:any) => {
+        if(data  == null){
+          this.getListTypeProduct()
+          this.popDeleteProductType = false
+          this.toast.success('Xóa thành công')
+        }
+      }
+    )
+  }
+  showPopupAdd(){
+    this.popAddProduct = true
+  }
+  closePop(){
+    this.popAddProduct = false
+    this.popAddProductType = false
+    this.newProduct = {}
+    this.newProductType = {}
+  }
 }

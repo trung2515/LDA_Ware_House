@@ -47,6 +47,7 @@ import { DetailTransportComponent } from './pages/transportation-report/componen
 import { DetailOrderComponent } from './pages/order/component/detail-order.component';
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 import { MinutesComponent } from './components/minutes/minutes.component';
+import { LineComponent } from './components/line/line.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { MinutesComponent } from './components/minutes/minutes.component';
     DetailTransportComponent,
     DetailOrderComponent,
     WorkflowManagementComponent,
-    MinutesComponent
+    MinutesComponent,
+    LineComponent
   ],
   imports: [
     CommonModule,

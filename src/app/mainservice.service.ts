@@ -24,14 +24,20 @@ export class MainService {
 
   post(url:string,data:any){
     let params = JSON.stringify(data)
-      return this.http.post(url,JSON.stringify(data),this.options ) 
+      return this.http.post(url,JSON.stringify(data),this.options ) .pipe(
+        catchError((e) => {
+          if (e.status === 400) {
+            this.toast.error("Thất bại");
+          }
+          // return observableOf(e.error || { Success: false, Data: e.statusText});
+          return observableOf();
+        }))
       }
   postOrder(url:string,data:any){
    let orderOptions ={
       headers:this.headers,
       responseType :"text" as const,
     } 
-  
       return this.http.post(url,JSON.stringify(data),orderOptions) .pipe(
         catchError((e) => {
           if (e.status === 400) {

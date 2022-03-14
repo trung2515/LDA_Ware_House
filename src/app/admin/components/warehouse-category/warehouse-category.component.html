@@ -1,10 +1,10 @@
+
 <div class="configuration">
   <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
     <div>
-      
       Danh mục kho
     </div>
-    <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddWareHouse()'>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)='showPopupAdd()'>
   </div>
   <div class="configuration__content__body" style='margin-top: var(--padding);'>
     <table class="table table-bordered">
@@ -12,140 +12,59 @@
         <tr>
           <th>STT</th>
           <th>Mã kho</th>
-          <th>Kho</th>
+          <th>Tên kho</th>
+          <th>Mô tả</th>
           <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let item of listWareHouse'>
-          <td style='width: 80px;'>{{item.index+1}}</td>
-          <td>{{item.codeWareHouse}}</td>
-          <td>{{item.nameWareHouse}}</td>
+        <tr *ngFor='let item of listWareHouse;let i = index'>
+          <td style='width: 80px;'>{{i+1}}</td>
+          <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.des}}</td>
+
           <td style='width: 150px;text-align: center;'>
-            <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table' attr.data-order="{{item.index}}" (click)='clickEditWareHouse($event)'>
-            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'  attr.data-order="{{item.index}}" (click)='clickDeleteWareHouse($event)'>
+          
+            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
+            
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-<!-- Add WareHouse -->
-<dx-popup
-  [(visible)]="isPopupAddWareHouse"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objAddWareHouse.title}}"
-  [height]='300'
-  [width]="500"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto">
-    <form (ngSubmit)="onSubmitAddWareHouse($event)" autocomplete="off" *ngIf='isPopupAddWareHouse' >
-      <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FAW-mk" class="form-label">Mã kho</label>
-          <input id="FAW-mk" name="mk"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FAW-tk" class="form-label">Tên kho</label>
-          <input id="FAW-tk" name="tk"  rules='required'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <!-- <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FAW-sc" class="form-label">Sức chứa</label>
-          <input id="FAW-sc" name="sc"  rules='required|digitAll'  type="text"  class="form-control" (blur)='blur($event,objAddWareHouse)' (click)='click($event)' (input)='input($event,objAddWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div> -->
-      <div class='formErrMess text-danger mt-2'>{{objAddWareHouse.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objAddWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' >
-        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddWareHouse()' >Hủy</div>
-        <button type="submit" [disabled]='!objAddWareHouse.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
-      </div>
-		</form>
+
+<dx-popup class="row" [(visible)]="popAddWareHouse" [closeOnOutsideClick]="false" height="300" width="500"  [showCloseButton]="false"
+  [showTitle]="true" title="Thêm mới kho" [resizeEnabled]="true">
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 80px;" >Mã kho</span>
+    <input type="text" class="form-control" placeholder="Nhập mã kho" [(ngModel)]="newWareHouse.code">
   </div>
-</dx-popup>
-<!-- Edit WareHouse -->
-<dx-popup
-  [(visible)]="isPopupEditWareHouse"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objEditWareHouse.title}}"
-  [height]='300'
-  [width]="500"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto">
-    <form (ngSubmit)="onSubmitEditWareHouse($event)" autocomplete="off" *ngIf='isPopupEditWareHouse' >
-      <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FEW-mk" class="form-label">Mã kho</label>
-          <input disabled id="FEW-mk" name="mk"  rules='required'  type="text"  class="form-control" [value]='objEditWareHouse.input.mk.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FEW-tk" class="form-label">Tên kho</label>
-          <input id="FEW-tk" name="tk"  rules='required'  type="text"  class="form-control" [value]='objEditWareHouse.input.tk.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <!-- <div class="wrap-input" >
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FEW-sc" class="form-label">Sức chứa</label>
-          <input id="FEW-sc" name="sc"  rules='required|digitAll'  type="text"  class="form-control" [value]='objEditWareHouse.input.sc.value' (blur)='blur($event,objEditWareHouse)' (click)='click($event)' (input)='input($event,objEditWareHouse)'>
-        </div>
-        <span class="input-message"></span>
-      </div> -->
-      <div class='formErrMess text-danger mt-2'>{{objEditWareHouse.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objEditWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' >
-        <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditWareHouse()' >Hủy</div>
-        <button type="submit" [disabled]='!objEditWareHouse.isValid' class="btn btn-primary btn-blue" > Sửa</button>
-      </div>
-		</form>
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 80px;" >Tên kho</span>
+    <input type="text" class="form-control " placeholder="Nhập tên kho" [(ngModel)]="newWareHouse.name">
   </div>
-</dx-popup>
-<!-- Delete WareHouse -->
-<dx-popup
-  [(visible)]="isPopupDeleteWareHouse"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objDeleteWareHouse.title}}"
-  [height]='180'
-  [width]="380"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto">
-    <div class='title-from-delete'>{{objDeleteWareHouse.mess}}</div>
-    <form   autocomplete="off" *ngIf='isPopupDeleteWareHouse'>
-      <div class='formErrMess text-danger mt-2'>{{objDeleteWareHouse.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objDeleteWareHouse.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' >
-        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteWareHouse()' >Hủy</div>
-        <button type="button"  (click)="isConfirmDelete = !isConfirmDelete" class="btn btn-primary btn-blue   mr-3" > Xóa</button>
-      </div>
-    </form>
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 80px;">Mô tả</span>
+    <input type="text" class="form-control " placeholder="Nhập tên kho" [(ngModel)]="newWareHouse.des">
   </div>
-  <dx-popup [(visible)]="isConfirmDelete" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
-    <div class="wrap-input" >
-      <div class='d-flex' style='justify-content: space-between;'>
-        <span>Bạn có chắc chắn xóa mục này ?</span>
-      </div>
-      
-    </div>
-    <div class='d-flex justify-content-end mt-4' >
-      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDelete = !isConfirmDelete">Đóng</div>
-      <button type="button" (click)="onSubmitDeleteWareHouse()"  class="btn btn-primary btn-danger" >  Xóa</button>
-    </div>
-  </dx-popup>
+  <div class="btn-popup-position">
+    <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>
+    <button type="button" class="btn btn-outline-primary" (click)="addWareHouse()" >Thêm mới</button>
+  </div>
 </dx-popup>
 
+
+<dx-popup class="row" [(visible)]="popDelete" [closeOnOutsideClick]="true" height="200" width="500"  [showCloseButton]="false"
+  [showTitle]="true" title="Xác nhận xóa" [resizeEnabled]="true">
+
+    <div class=" mt-3">
+      Bạn chắc chắn xóa kho <span class="fw-bold text-danger"> {{ itemInfor.name}} </span> ?
+    </div>
+  <div class="btn-popup-position">
+    <button type="button" class="btn btn-outline-secondary me-3" (click)="popDelete = false">Đóng</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteWareHouse()" >Xóa</button>
+  </div>
+</dx-popup>

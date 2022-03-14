@@ -1,0 +1,83 @@
+<div class="configuration">
+    <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+      <div>
+        Danh mục line
+      </div>
+      <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)='showPopupAdd()'>
+    </div>
+    <div class="configuration__content__body" style='margin-top: var(--padding);'>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã line</th>
+            <th>Tên line</th>
+            <th>Máy in</th>
+            <th>Mô tả</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let item of listLine;let i = index'>
+            <td style='width: 80px;'>{{i+1}}</td>
+            <td>{{item.code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.printer}}</td>
+            <td>{{item.des}}</td>
+  
+            <td style='width: 150px;text-align: center;'>
+            
+              <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+              <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <dx-popup class="row" [(visible)]="popAddLine" [closeOnOutsideClick]="false" height="350" width="500"  [showCloseButton]="false"
+    [showTitle]="true" title="Thêm mới line" [resizeEnabled]="true">
+    <div class="input-group mb-3">
+      <span class="input-group-text"  style="width: 80px;" >Mã line</span>
+      <input type="text" class="form-control" placeholder="Nhập mã line" [(ngModel)]="newLine.code">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"  style="width: 80px;" >Tên line</span>
+      <input type="text" class="form-control " placeholder="Nhập tên line" [(ngModel)]="newLine.name">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text"  style="width: 80px;">Mô tả</span>
+        <input type="text" class="form-control " placeholder="Nhập tên line" [(ngModel)]="newLine.des">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 80px;" >Máy in</span> 
+        <select class="form-select form-select-sm"  [(ngModel)]="newLine.printer" >
+
+          <option value="BIXOLON_1">Bixolon 1</option>
+          <option value="BIXOLON_2">Bixolon 2</option>
+          <option value="BIXOLON_3">Bixolon 3</option>
+          <option value="BIXOLON_4">Bixolon 4</option>
+          <option value="BIXOLON_5">Bixolon 5</option>
+        </select>
+      </div>
+
+    <div class="btn-popup-position">
+        <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>
+      <button type="button" class="btn btn-outline-primary" (click)="addLine()" >Thêm mới</button>
+    </div>
+  </dx-popup>
+  
+  
+  <dx-popup class="row" [(visible)]="popDelete" [closeOnOutsideClick]="true" height="200" width="500"  [showCloseButton]="false"
+    [showTitle]="true" title="Xác nhận xóa" [resizeEnabled]="true">
+  
+      <div class=" mt-3">
+        Bạn chắc chắn xóa line <span class="fw-bold text-danger"> {{ itemInfor.name}} </span> ?
+      </div>
+    <div class="btn-popup-position">
+      <button type="button" class="btn btn-outline-secondary me-3" (click)="popDelete = false">Đóng</button>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteLine()" >Xóa</button>
+    </div>
+  </dx-popup>

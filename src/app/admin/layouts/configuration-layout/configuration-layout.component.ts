@@ -24,6 +24,7 @@ export class ConfigurationLayoutComponent implements OnInit {
     {link:'/configuration/job',name:'Công việc'},
     {link:'/configuration/reason',name:'Nguyên nhân'},
     {link:'/configuration/minutes',name:'Biên bản'},
+    {link:'/configuration/line',name:'Line'},
   ]
 
 }

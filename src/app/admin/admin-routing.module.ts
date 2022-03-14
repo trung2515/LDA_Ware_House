@@ -29,6 +29,7 @@ import { WareHouseInventoryComponent } from './pages/warehouse-report-pda/report
 import { OrderComponent } from './pages/order/report/order.component'
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component'
 import { MinutesComponent } from './components/minutes/minutes.component';
+import { LineComponent } from './components/line/line.component'
 ReasonComponent
 JobComponent
 BillComponent
@@ -64,6 +65,7 @@ const routes: Routes = [
           { path: 'job', component: JobComponent },
           { path: 'reason', component: ReasonComponent },
           { path: 'minutes', component: MinutesComponent },
+          { path: 'line', component:  LineComponent},
           { path: '**', pathMatch: 'full', redirectTo: 'product-category' },
         ],
       },

@@ -1,125 +1,69 @@
 <div class="configuration">
-  <ng-container>
-    <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
-      <div>
+  <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
+    <div>
+      Danh mục Thiết bị
+    </div>
+    <img src="/assets/svg/add.svg" alt="" class='icon-add' (click)='showPopupAdd()'>
+  </div>
+  <div class="configuration__content__body" style='margin-top: var(--padding);'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã Thiết bị</th>
+          <th>Tên Thiết bị</th>
+          <th>Mô tả</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of listDevice;let i = index'>
+          <td style='width: 80px;'>{{i+1}}</td>
+          <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.des}}</td>
 
-       Danh mục thiết bị
-      </div>
-      <img src="/assets/svg/add.svg" alt="" class='icon-add' attr.data-type=""
-        (click)='clickAddEquipment($event)'>
-    </div>
-    <div class="configuration__content__body" style='margin-top: var(--padding);'>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Mã Thiết bị</th>
-            <th>Thiết bị</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor='let itemEquipment of listEquipment'>
-            <td style='width: 80px;'>{{itemEquipment.index+1}}</td>
-            <td>{{itemEquipment.codeEquipment}}</td>
-            <td>{{itemEquipment.nameEquipment}}</td>
-            <td style='width: 150px;text-align: center;'>
-              <img src="/assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'
-                attr.data-order="{{itemEquipment.index}}" 
-                (click)='clickEditEquipment(itemEquipment.idEquipment,itemEquipment.nameEquipment,itemEquipment.codeEquipment)'>
-              <img src="/assets/svg/delete.svg" alt="" class='icon-update-table'
-                attr.data-order="{{itemEquipment.index}}" 
-                (click)='clickDeleteEquipment(itemEquipment.idEquipment,itemEquipment.nameEquipment)'>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </ng-container>
+          <td style='width: 150px;text-align: center;'>
+          
+            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<!-- Add Equipment -->
-<dx-popup [(visible)]="isPopupAddEquipment" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="{{objAddEquipment.title}}" [height]='300' [width]="500" [resizeEnabled]="true">
-  <div class="" style="width:90%;margin:auto">
-    <form (ngSubmit)="onSubmitAddEquipment($event)" autocomplete="off" *ngIf='isPopupAddEquipment'>
-      <div class="wrap-input">
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FAE-code" class="form-label">Mã thiết bị</label>
-          <input id="FAE-code" name="code" rules='required' type="text" class="form-control"
-            (blur)='blur($event,objAddEquipment)' (click)='click($event)' (input)='input($event,objAddEquipment)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class="wrap-input">
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FAE-ttb" class="form-label">Tên thiết bị</label>
-          <input id="FAE-ttb" name="ttb" rules='required' type="text" class="form-control"
-            (blur)='blur($event,objAddEquipment)' (click)='click($event)' (input)='input($event,objAddEquipment)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class='formErrMess text-danger mt-2'>{{objAddEquipment.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objAddEquipment.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4'>
-        <div class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddEquipment()'>Hủy</div>
-        <button type="submit" [disabled]='!objAddEquipment.isValid' class="btn btn-primary btn-blue   "> Thêm</button>
-      </div>
-    </form>
+
+<dx-popup class="row" [(visible)]="popAddDevice" [closeOnOutsideClick]="false" height="300" width="500"  [showCloseButton]="false"
+  [showTitle]="true" title="Thêm mới Thiết bị" [resizeEnabled]="true">
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 110px;" >Mã Thiết bị</span>
+    <input type="text" class="form-control" placeholder="Nhập mã Thiết bị" [(ngModel)]="newDevice.code">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 110px;" >Tên Thiết bị</span>
+    <input type="text" class="form-control " placeholder="Nhập tên Thiết bị" [(ngModel)]="newDevice.name">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text"  style="width: 110px;">Mô tả</span>
+    <input type="text" class="form-control " placeholder="Nhập tên Thiết bị" [(ngModel)]="newDevice.des">
+  </div>
+  <div class="btn-popup-position">
+    <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>
+    <button type="button" class="btn btn-outline-primary" (click)="addDevice()" >Thêm mới</button>
   </div>
 </dx-popup>
-<!-- Edit Equipment -->
-<dx-popup [(visible)]="isPopupEditEquipment" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="Chinh sửa thiết bị {{nameEquipment}}" [height]='300' [width]="500" [resizeEnabled]="true">
-  <div class="" style="width:90%;margin:auto">
-    <form (ngSubmit)="onSubmitEditEquipment($event)" autocomplete="off" *ngIf='isPopupEditEquipment'>
-      <div class="wrap-input">
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FEW-ltb" class="form-label">Mã thiết bị</label>
-          <input id="FEW-ltb" name="ltb" disabled [value]='codeEquipment' class="form-control">
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class="wrap-input">
-        <div class='d-flex' style='justify-content: space-between;'>
-          <label for="FEW-ttb" class="form-label">Tên thiết bị</label>
-          <input id="FEW-ttb" name="ttb" rules='required' type="text" class="form-control"
-            [value]='nameEquipment' (blur)='blur($event,objEditEquipment)' (click)='click($event)'
-            (input)='input($event,objEditEquipment)'>
-        </div>
-        <span class="input-message"></span>
-      </div>
-      <div class='formErrMess text-danger mt-2'>{{objEditEquipment.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objEditEquipment.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4'>
-        <div class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditEquipment()'>Hủy</div>
-        <button type="submit" [disabled]='!objEditEquipment.isValid' class="btn btn-primary btn-blue"> Sửa</button>
-      </div>
-    </form>
-  </div>
-</dx-popup>
-<!-- Delete Equipment -->
-<dx-popup [(visible)]="isPopupDeleteEquipment" [closeOnOutsideClick]="true" [showTitle]="true"
-  title="Xác nhận" [height]='180' [width]="380" [resizeEnabled]="true">
-  <div class="" style="width:90%;margin:auto">
-    
-    <form  autocomplete="off" *ngIf='isPopupDeleteEquipment'>
-        <p>Xóa thiết bị {{nameEquipment}}?</p>
-      <div class='d-flex justify-content-around mt-4'>
-        <div class="btn btn-light btn-cancel " (click)='togglePopupDeleteEquipment()'>Hủy</div>
-        <button type="button" (click)="isConfirmDelete = !isConfirmDelete"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
-      </div>
-    </form>
-  </div>
-  <dx-popup [(visible)]="isConfirmDelete" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
-    <div class="wrap-input" >
-      <div class='d-flex' style='justify-content: space-between;'>
-        <span>Bạn có chắc chắn xóa mục này ?</span>
-      </div>
-      
+
+
+<dx-popup class="row" [(visible)]="popDelete" [closeOnOutsideClick]="true" height="200" width="500"  [showCloseButton]="false"
+  [showTitle]="true" title="Xác nhận xóa" [resizeEnabled]="true">
+
+    <div class=" mt-3">
+      Bạn chắc chắn xóa Thiết bị <span class="fw-bold text-danger"> {{ itemInfor.name}} </span> ?
     </div>
-    <div class='d-flex justify-content-end mt-4' >
-      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDelete = !isConfirmDelete">Đóng</div>
-      <button type="button" (click)="onSubmitDeleteEquipment($event)"  class="btn btn-primary btn-danger" >  Xóa</button>
-    </div>
-  </dx-popup>
+  <div class="btn-popup-position">
+    <button type="button" class="btn btn-outline-secondary me-3" (click)="popDelete = false">Đóng</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteWareHouse()" >Xóa</button>
+  </div>
 </dx-popup>
