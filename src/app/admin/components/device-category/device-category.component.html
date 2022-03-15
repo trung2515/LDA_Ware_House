@@ -25,7 +25,8 @@
 
           <td style='width: 150px;text-align: center;'>
           
-            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <!-- <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  -->
+             <!-- btn  edit  -->
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
             
           </td>
@@ -47,7 +48,7 @@
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text"  style="width: 110px;">Mô tả</span>
-    <input type="text" class="form-control " placeholder="Nhập tên Thiết bị" [(ngModel)]="newDevice.des">
+    <input type="text" class="form-control " placeholder="Nhập mô tả" [(ngModel)]="newDevice.des">
   </div>
   <div class="btn-popup-position">
     <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>

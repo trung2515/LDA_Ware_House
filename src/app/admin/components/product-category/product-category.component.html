@@ -27,7 +27,8 @@
           <td>{{item.weight}}</td>
           <td style='width: 150px;text-align: center;'>
           
-            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <!-- <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  -->
+             <!-- btn  edit  -->
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
             
           </td>
@@ -62,7 +63,8 @@
           <td>{{item.des}}</td>
           <td style='width: 150px;text-align: center;'>
           
-            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <!-- <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  -->
+             <!-- btn  edit  -->
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDeleteType(item)"> <!-- btn  delete  -->
             
           </td>
@@ -75,19 +77,19 @@
 <dx-popup class="row" [(visible)]="popAddProduct" [closeOnOutsideClick]="false" height="350" width="500"  [showCloseButton]="false"
   [showTitle]="true" title="Thêm mới loại sản phẩm" [resizeEnabled]="true">
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 150px;" >Mã loại sản phẩm</span>
-    <input type="text" class="form-control" placeholder="Nhập mã loại sản phẩm" [(ngModel)]="newProduct.code"  >
+    <span class="input-group-text"  style="width: 120px;" >Mã sản phẩm</span>
+    <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" [(ngModel)]="newProduct.code"  >
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 150px;" >Tên loại sản phẩm</span>
-    <input type="text" class="form-control " placeholder="Nhập tên loại sản phẩm" [(ngModel)]="newProduct.name">
+    <span class="input-group-text"  style="width: 120px;" >Tên sản phẩm</span>
+    <input type="text" class="form-control " placeholder="Nhập tên sản phẩm" [(ngModel)]="newProduct.name">
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 150px;">Mô tả</span>
-    <input type="text" class="form-control " placeholder="Mô tả loại sản phẩm" [(ngModel)]="newProduct.des">
+    <span class="input-group-text"  style="width: 120px;">Mô tả</span>
+    <input type="text" class="form-control " placeholder="Nhập mô tả" [(ngModel)]="newProduct.des">
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text" style="width: 150px;" >Khối lượng</span> 
+    <span class="input-group-text" style="width: 120px;" >Khối lượng</span> 
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="newProduct.weight">
       <option value="50">50 kg</option>
       <option value="100">1 tấn</option>
@@ -119,15 +121,15 @@
   [showTitle]="true" title="Thêm mới sản phẩm" [resizeEnabled]="true">
   <div class="input-group mb-3">
     <span class="input-group-text"  style="width: 150px;" >Mã loại sản phẩm</span>
-    <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" [(ngModel)]="newProductType.code"  >
+    <input type="text" class="form-control" placeholder="Nhập mã loại sản phẩm" [(ngModel)]="newProductType.code"  >
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text"  style="width: 150px;" >Tên loại sản phẩm</span>
-    <input type="text" class="form-control " placeholder="Nhập tên sản phẩm" [(ngModel)]="newProductType.name">
+    <input type="text" class="form-control " placeholder="Nhập tên loại sản phẩm" [(ngModel)]="newProductType.name">
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text"  style="width: 150px;">Mô tả</span>
-    <input type="text" class="form-control " placeholder="Mô tả sản phẩm" [(ngModel)]="newProductType.des">
+    <input type="text" class="form-control " placeholder="Nhập mô tả" [(ngModel)]="newProductType.des">
   </div>
   <div class="btn-popup-position">
     <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>

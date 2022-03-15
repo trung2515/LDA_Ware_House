@@ -105,7 +105,7 @@ export class ProductCategoryComponent implements OnInit {
     console.log(this.itemInforType);
     let itemDelete :any = {}
     itemDelete.data = this.itemInforType.code.toString()
-    console.log(itemDelete);
+
     
     this.apiService.post('http://office.stvg.vn:51008/api/InfoLDA/xoaloaisanpham',itemDelete).subscribe(
       (data:any) => {

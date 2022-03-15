@@ -315,7 +315,6 @@ export class TransportationReportComponent implements OnInit {
 
     this.startDate = e
     console.log(this.startDate)
-
     if (this.startDate <= this.endDate) {
       this.getData()
     } else {

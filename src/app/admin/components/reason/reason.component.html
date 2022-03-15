@@ -10,8 +10,8 @@
       <thead>
         <tr>
           <th>STT</th>
-          <th>Mã mã lỗi</th>
-          <th>Tên mã lỗi</th>
+          <th>Mã lỗi</th>
+          <th>Tên lỗi</th>
           <th>Mô tả</th>
           <th>Thao tác</th>
         </tr>
@@ -25,7 +25,8 @@
 
           <td style='width: 150px;text-align: center;'>
           
-            <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
+            <!-- <img src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  -->
+             <!-- btn  edit  -->
             <img src="/assets/svg/delete.svg" alt="" class='icon-update-table' (click)="getInforDelete(item)"> <!-- btn  delete  -->
             
           </td>
@@ -38,16 +39,16 @@
 <dx-popup class="row" [(visible)]="popAddReason" [closeOnOutsideClick]="false" height="300" width="500"  [showCloseButton]="false"
   [showTitle]="true" title="Thêm mới mã lỗi" [resizeEnabled]="true">
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 95px;" >Mã mã lỗi</span>
-    <input type="text" class="form-control" placeholder="Nhập mã mã lỗi" [(ngModel)]="newReason.code">
+    <span class="input-group-text"  style="width: 80px;" >Mã lỗi</span>
+    <input type="text" class="form-control" placeholder="Nhập mã lỗi" [(ngModel)]="newReason.code">
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 95px;" >Tên mã lỗi</span>
-    <input type="text" class="form-control " placeholder="Nhập tên mã lỗi" [(ngModel)]="newReason.name">
+    <span class="input-group-text"  style="width: 80px;" >Tên  lỗi</span>
+    <input type="text" class="form-control " placeholder="Nhập tên lỗi" [(ngModel)]="newReason.name">
   </div>
   <div class="input-group mb-3">
-    <span class="input-group-text"  style="width: 95px;">Mô tả</span>
-    <input type="text" class="form-control " placeholder="Nhập tên mã lỗi" [(ngModel)]="newReason.des">
+    <span class="input-group-text"  style="width: 80px;">Mô tả</span>
+    <input type="text" class="form-control " placeholder="Nhập mô tả" [(ngModel)]="newReason.des">
   </div>
   <div class="btn-popup-position">
     <button type="button" class="btn btn-outline-secondary me-3" (click)="closePop()">Đóng</button>
