@@ -30,6 +30,15 @@ import { OrderComponent } from './pages/order/report/order.component'
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component'
 import { MinutesComponent } from './components/minutes/minutes.component';
 import { LineComponent } from './components/line/line.component'
+import { ImportWareHouseComponent } from './pages/report-component/import-ware-house/import-ware-house.component'
+import { ExportWareHouseComponent } from './pages/report-component/import-ware-house/export-ware-house/export-ware-house.component'
+import { UnloadUploadByDeviceComponent } from './pages/report-component/import-ware-house/transportation/unload-upload-by-device/unload-upload-by-device.component'
+import { TransportationComponent } from './pages/report-component/import-ware-house/transportation/transportation.component'
+import { ReportInventoryComponent } from './pages/report-component/report-inventory/report-inventory.component'
+import { ErrorReportComponent } from './pages/report-component/error-report/error-report.component'
+import { ReportLotComponent } from './pages/report-component/report-lot/report-lot.component'
+import { ReportOrderComponent } from './pages/report-component/report-order/report-order.component'
+import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component'
 ReasonComponent
 JobComponent
 BillComponent
@@ -102,13 +111,6 @@ const routes: Routes = [
         component: ConsignmentManagementComponent,
       },
 
-      {
-        path: 'warehouse-inventory',
-        data: {
-          breadcrumb: 'Báo cáo tồn kho'
-        },
-        component: WareHouseInventoryComponent
-      },
       { path: '**', pathMatch: 'full', redirectTo: 'shift' },
     ],
   },
@@ -127,7 +129,7 @@ const routes: Routes = [
         component: ErrorBagComponent,
       },
       {
-        path: 'transportation-report',
+        path: 'transportation-report1',
         data: {
           breadcrumb: 'Báo cáo vận chuyển',
         },
@@ -153,6 +155,62 @@ const routes: Routes = [
           breadcrumb: 'Báo cáo đơn hàng',
         },
         component: OrderComponent,
+      },
+      {
+        path: 'import-report',
+        data: {
+          breadcrumb: 'Báo cáo nhập kho',
+        },
+        component: ImportWareHouseComponent,
+      }, 
+      {
+        path: 'export-report',
+        data: {
+          breadcrumb: 'Báo cáo xuất kho',
+        },
+        component: ExportWareHouseComponent,
+      },
+      {
+        path: 'transportation-report',
+        data: {
+          breadcrumb: 'Báo cáo vận chuyển',
+        },
+        component:TransportationComponent ,
+      }, 
+      {
+        path: 'inventory-report',
+        data: {
+          breadcrumb: 'Báo cáo tồn kho',
+        },
+        component:ReportInventoryComponent ,
+      },
+      {
+        path: 'newerror-report',
+        data: {
+          breadcrumb: 'Báo cáo lỗi',
+        },
+        component:ErrorReportComponent ,
+      },
+      {
+        path: 'lot-report',
+        data: {
+          breadcrumb: 'Báo cáo lô hàng',
+        },
+        component:ReportLotComponent ,
+      },
+      {
+        path: 'newOrder-report',
+        data: {
+          breadcrumb: 'Báo cáo đơn hàng',
+        },
+        component:ReportOrderComponent ,
+      },
+      {
+        path: 'transfer-report',
+        data: {
+          breadcrumb: 'Báo cáo điều chuyển',
+        },
+        component:ReportTransferComponent ,
       },
     ],
   },

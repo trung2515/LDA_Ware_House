@@ -21,6 +21,14 @@ export class LineComponent implements OnInit {
   popDelete : boolean = false
   itemInfor:any ={}
   newLine:any = {}
+  listPrinter :any =[
+    {name: 'Bixolon 1', value: 'BIXOLON_1'},
+    {name: 'Bixolon 2', value: 'BIXOLON_2'},
+    {name: 'Bixolon 3', value: 'BIXOLON_3'},
+    {name: 'Bixolon 4', value: 'BIXOLON_4'},
+    {name: 'Bixolon 5', value: 'BIXOLON_5'},
+    {name: 'Bixolon 6', value: 'BIXOLON_6'},
+  ]
   getListLine(){
     this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachline').subscribe(
       (data:any) => {

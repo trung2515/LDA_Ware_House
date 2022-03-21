@@ -54,13 +54,8 @@
     <div class="input-group mb-3">
         <span class="input-group-text" style="width: 80px;" >Máy in</span> 
         <select class="form-select form-select-sm"  [(ngModel)]="newLine.printer" >
-
-          <option value="BIXOLON_1">Bixolon 1</option>
-          <option value="BIXOLON_2">Bixolon 2</option>
-          <option value="BIXOLON_3">Bixolon 3</option>
-          <option value="BIXOLON_4">Bixolon 4</option>
-          <option value="BIXOLON_5">Bixolon 5</option>
-          <option value="BIXOLON_6">Bixolon 6 </option>
+        
+          <option *ngFor="let item of listPrinter" value="{{item.value}}">{{item.name}}</option>
         </select>
       </div>
 

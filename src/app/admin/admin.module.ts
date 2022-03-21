@@ -48,6 +48,19 @@ import { DetailOrderComponent } from './pages/order/component/detail-order.compo
 import { WorkflowManagementComponent } from './pages/workflow-management/workflow-management.component';
 import { MinutesComponent } from './components/minutes/minutes.component';
 import { LineComponent } from './components/line/line.component';
+import { ImportWareHouseComponent } from './pages/report-component/import-ware-house/import-ware-house.component';
+import { ExportWareHouseComponent } from './pages/report-component/import-ware-house/export-ware-house/export-ware-house.component';
+import { TransportationComponent } from './pages/report-component/import-ware-house/transportation/transportation.component';
+
+import { UploadComponent } from './pages/report-component/import-ware-house/transportation/upload/upload.component';
+import { UnloadComponent } from './pages/report-component/import-ware-house/transportation/unload/unload.component';
+import { UnloadUploadByDeviceComponent } from './pages/report-component/import-ware-house/transportation/unload-upload-by-device/unload-upload-by-device.component';
+import { SelectDateReportComponent } from './pages/report-component/select-date-report/select-date-report.component';
+import { ReportInventoryComponent } from './pages/report-component/report-inventory/report-inventory.component';
+import { ErrorReportComponent } from './pages/report-component/error-report/error-report.component';
+import { ReportLotComponent } from './pages/report-component/report-lot/report-lot.component';
+import { ReportOrderComponent } from './pages/report-component/report-order/report-order.component';
+import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +101,20 @@ import { LineComponent } from './components/line/line.component';
     DetailOrderComponent,
     WorkflowManagementComponent,
     MinutesComponent,
-    LineComponent
+    LineComponent,
+    ImportWareHouseComponent,
+    ExportWareHouseComponent,
+    TransportationComponent,
+
+    UploadComponent,
+    UnloadComponent,
+    UnloadUploadByDeviceComponent,
+    SelectDateReportComponent,
+    ReportInventoryComponent,
+    ErrorReportComponent,
+    ReportLotComponent,
+    ReportOrderComponent,
+    ReportTransferComponent
   ],
   imports: [
     CommonModule,

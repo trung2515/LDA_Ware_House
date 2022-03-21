@@ -1,0 +1,29 @@
+.body-table{
+    padding-top: 50px ;
+}
+.text-thead{
+    text-align: center ;
+    vertical-align: middle 
+}
+
+table {
+    background-color: #fff;
+    letter-spacing: -0.045em !important;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  table thead {
+      background-color: lightblue;
+  }
+  table thead th {
+    padding: 5px;
+    letter-spacing: -0.045em;
+    text-transform: capitalize;
+    font-weight: 700 !important;
+  }
+
+  tr th, td {
+    padding: 3px;
+    border: 0.5px solid #191919;
+    text-align: center;
+  }
