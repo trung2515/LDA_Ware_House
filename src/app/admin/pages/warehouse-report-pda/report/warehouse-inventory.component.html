@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <app-header-report [title_nav]="'Tồn kho'" [isFilterDate]="false"> </app-header-report>
+</div>
+<div class="content mb-5">
+  <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true">
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-scrolling mode="standard"></dxo-scrolling>
+    <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="false"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+    <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+    <dxi-column dataField="product_name" caption="Sản phẩm"></dxi-column>
+    <dxi-column dataField="product_type" caption="Loại sản phẩm"></dxi-column>
+    <dxi-column dataField="package_type_name" caption="Loại bao"></dxi-column>
+    <dxi-column dataField="ballot_name" caption="Lô">
+    </dxi-column>
+    <dxi-column dataField="warehouse" caption="Kho" groupIndex="0"></dxi-column>
+    <dxi-column dataField="quantity" caption="Số lượng"></dxi-column>
+    <dxo-summary>
+      <dxi-total-item column="quantity" summaryType="sum" displayFormat="Tổng cộng: {0}"> </dxi-total-item>
+    </dxo-summary>
+  </dx-data-grid>
+</div>

@@ -1,5 +1,12 @@
 <app-navbar></app-navbar>
 <div style='height:var(--heightHeader)'></div>
-<div class="mainCol" style='min-height: var(--contentHeight);'>
-  <router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row px-1 py-1">
+    <div class="col-12">
+      <app-breadcrumb></app-breadcrumb>
+      <router-outlet></router-outlet>
+    </div>
+
+
+  </div>
 </div>

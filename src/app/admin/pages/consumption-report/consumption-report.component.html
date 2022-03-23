@@ -1,1 +1,139 @@
-<p>consumption-report works!</p>
+<div class="wrapper">
+  <app-header-report [title_nav]="title_nav" [startDate]="startDate" [endDate]="endDate"
+    (getStartDate)="getStartDate($event)" (getEndDate)="getEndDate($event)">
+  </app-header-report>
+
+  <!-- content -->
+  <div class="content" style="padding-bottom: 50px;">
+    <dx-tab-panel #tabPanel [dataSource]="tabCaptions" [selectedIndex]="0" [loop]="false" [animationEnabled]="true"
+      [swipeEnabled]="false">
+      <div *dxTemplate="let tabTitle of 'title'" [ngClass]="'tab-title ' + 'tab-title-' + tabTitle.id">
+        <p>{{ tabTitle.tabName }}</p>
+      </div>
+      <div *dxTemplate="let tabPanel of 'item'">
+        <div *ngIf="tabPanel.id === 1">
+          <div class="row px-1">
+            <div class="col-12">
+              <dx-data-grid id="production_table" noDataText="Không có dữ liệu" [dataSource]="statistics" keyExpr="shiftID" [showRowLines]="true"
+                [showBorders]="true" (onExporting)="onExportingGrid($event)" [remoteOperations]="false"
+                [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true">
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxi-column dataField="shiftID" [fixed]="true" caption="Ca" alignment="left"></dxi-column>
+                <dxi-column dataField="date" [fixed]="true" caption="Ngày">
+                </dxi-column>
+               
+                <dxi-column dataField="name" [fixed]="true" caption="Sản phẩm">
+                </dxi-column>
+                <dxi-column dataField="type_product" caption="Loại sản phẩm">
+                </dxi-column>
+                <dxi-column dataField="type_bag" caption="Loại bao">
+                </dxi-column>
+                <dxi-column dataField="bag_unit" caption="Đơn vị đóng bao">
+                </dxi-column>
+                <dxi-column dataField="ballot_type" caption="Loại phiếu">
+                </dxi-column>
+                <dxi-column dataField="consumer" caption="Khách Hàng">
+                </dxi-column>
+                <dxi-column dataField="consumer_detail" caption="Chi tiết KHND">
+                </dxi-column>
+                <dxi-column dataField="trips_number" caption="Số chuyến">
+                </dxi-column>
+                <dxi-column dataField="consignments_number" caption="Số lô" alignment="left"></dxi-column>
+                <dxi-column dataField="bag_number" alignment="left" caption="Số bao"></dxi-column>
+<<<<<<< HEAD
+                <dxi-column dataField="ton_number" caption="Khối lượng (Kg)" alignment="left"></dxi-column>
+=======
+                <dxi-column dataField="ton_number" caption="Khối lượng (kg)" alignment="left"></dxi-column>
+>>>>>>> origin/main
+                <dxi-column dataField="warehouse" caption="Kho"></dxi-column>
+                <dxi-column dataField="reason" caption="Nguyên nhân">
+                </dxi-column>
+                <dxi-column dataField="user" caption="Tên tài khoản">
+                </dxi-column>
+                <dxi-column dataField="note" caption="Ghi chú">
+                </dxi-column>
+                <!-- <dxi-column dataField="time" caption="Ngày giờ" alignment="left" cellTemplate="time"></dxi-column>
+                <div *dxTemplate="let item of 'time'">
+                  {{item.value | date: 'yyyy-MM-dd HH:mm:ss'}}
+                </div> -->
+                <dxo-summary>
+                  <dxi-total-item column="bag_number" summaryType="sum" displayFormat="Tổng cộng: {0}">
+                  </dxi-total-item>
+                </dxo-summary>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 2">
+          <div class="row p-1">
+            <div class="col-12">
+              <dx-pivot-grid id="pivotgridNSP" [allowSortingBySummary]="true" [allowSorting]="true"
+                [texts]="{ grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputN" searchExpr="name">
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
+                </dxo-header-filter>
+                <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
+              </dx-pivot-grid>
+            </div>
+          </div>
+          <div class="row p-1">
+            <div class="col-12">
+              <dx-pivot-grid id="pivotgridXSP" [allowSortingBySummary]="true" [allowSorting]="true"
+                [texts]="{ grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="detailInputX" searchExpr="name">
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
+                </dxo-header-filter>
+                <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
+              </dx-pivot-grid>
+            </div>
+
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 3">
+          <div class="row p-1">
+            <div class="col-12">
+              <dx-pivot-grid id="pivotgridNXTSM" [allowSortingBySummary]="false" [allowSorting]="true"
+                [texts]="{'grandTotal': 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="false"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                [allowExpandAll]="true" [dataSource]="detailImExInventoryReport"
+                (onExporting)="onExportingPivot($event, tabPanel)" searchExpr="name">
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
+                </dxo-header-filter>
+                <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
+              </dx-pivot-grid>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 4">
+          <div class="row p-1">
+            <div class="col-12">
+              <dx-pivot-grid id="pivotgridParcel" [allowSortingBySummary]="true" [allowSorting]="true"
+                [texts]="{grandTotal: 'Tổng cộng', noData: 'Không có dữ liệu'}" [showBorders]="true" [showColumnGrandTotals]="true"
+                [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [allowFiltering]="true"
+                (onExporting)="onExportingPivot($event, tabPanel)" [dataSource]="pipotParcelReport" searchExpr="name">
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-export [enabled]="true"></dxo-export>
+                <dxo-header-filter [allowSearch]="true" [showRelevantValues]="true" [width]="300" [height]="400">
+                </dxo-header-filter>
+                <dxo-field-panel [visible]="true" [showFilterFields]="false"> </dxo-field-panel>
+              </dx-pivot-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dx-tab-panel>
+  </div>
+</div>

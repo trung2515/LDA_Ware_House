@@ -1,0 +1,56 @@
+<div class="wrapper">
+    <app-header-report [title_nav]="'Đơn hàng'" [startDate]="startDate" [endDate]="endDate"
+        (getStartDate)="onStartDateChanged($event)" (getEndDate)="onEndDateChanged($event)">
+    </app-header-report>
+</div>
+<div class="content pb-5">
+    <dx-data-grid [dataSource]="data" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+        [remoteOperations]="false" [allowColumnReordering]="false" [rowAlternationEnabled]="true"
+        [wordWrapEnabled]="true" [showBorders]="true">
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-export [enabled]="true"></dxo-export>
+        <dxo-scrolling mode="standard"></dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="20"> </dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [showNavigationButtons]="true">
+        </dxo-pager>
+        <!-- <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail> -->
+        <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter>
+        <dxi-column dataField="orderCode" cellTemplate="detailTemplate" [fixed]="true" fixedPosition="left"
+            caption="Mã đơn hàng"></dxi-column>
+        <dxi-column dataField="idCardDriver" [fixed]="true" fixedPosition="left" caption="CMND Tài xế"></dxi-column>
+        <dxi-column dataField="nameDriver" [fixed]="true" fixedPosition="left" caption="Tên tài xế"></dxi-column>
+        <dxi-column dataField="vehicleNumber" [fixed]="true" fixedPosition="left" caption="Biển số xe">
+        </dxi-column>
+        <dxi-column dataField="weightAllow" caption="Trọng tải cho phép"></dxi-column>
+        <dxi-column dataField="weightRegister" caption="Trọng tải đăng kiểm"></dxi-column>
+        <!-- <dxi-column dataField="lop1" caption="Lớp 1"></dxi-column>
+        <dxi-column dataField="lop2" caption="Lớp 2"></dxi-column> -->
+        <dxi-column dataField="dvvc" caption="DVVC"></dxi-column>
+        <dxi-column dataField="romoocNumber" caption="Số romoc"></dxi-column>
+        <dxi-column dataField="product" caption="Sản phẩm"></dxi-column>
+        <dxi-column dataField="type_packet" caption="Loại bao"></dxi-column>
+        <dxi-column dataField="quantity" caption="Số lượng đăng kí"></dxi-column>
+        <dxi-column dataField="quantity_actual" caption="Số lượng xuất kho thực tế"></dxi-column>
+        <dxi-column dataField="weight_actual" caption="Khối lượng xuất kho thực tế"></dxi-column>
+        <dxi-column dataField="timecreated" caption="Thời gian bắt đầu" cellTemplate="time"></dxi-column>
+        <dxi-column dataField="timelasted" caption="Thời gian kết thúc" cellTemplate="time"></dxi-column>
+        <dxi-column dataField="status" caption="Trạng thái"></dxi-column>
+        <!-- <dxi-column dataField="weight_estimate" caption="Thời gian"></dxi-column> -->
+        <div *dxTemplate="let cell of 'detailTemplate'">
+            <a style="color: #2466d1; cursor: pointer; text-decoration: underline;" (click)="openPopup(cell.value)">
+                {{cell.value}}</a>
+        </div>
+        <div *dxTemplate="let item of 'time'">
+            {{ item.value | date: "dd/MM/yyyy HH:mm:ss" }}
+          </div>
+        <dxo-summary>
+            <dxi-total-item column="orderCode" summaryType="count" displayFormat="Tổng: {0} đơn hàng"> </dxi-total-item>
+        </dxo-summary>
+    </dx-data-grid>
+</div>
+
+<dx-popup [width]="800" [height]="650" [showTitle]="true" title="Chi tiết đơn hàng {{selectOrder}}"
+    [dragEnabled]="false" [closeOnOutsideClick]="false" [showCloseButton]="true" [(visible)]="popupVisible">
+    <detail-order [code]="selectOrder"></detail-order>
+</dx-popup>

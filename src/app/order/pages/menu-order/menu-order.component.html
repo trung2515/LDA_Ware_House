@@ -1,0 +1,63 @@
+<img alt="" class="bg_img_login" />
+<div class="wrapper">
+  <div class="head-menu">
+    <label class="node-control-nav" for="nav-control">
+      <img class="nav-icon" src="assets/svg/menu-burger.svg" alt="menu" />
+    </label>
+    <input type="checkbox" name="nav-control" id="nav-control" />
+    <label for="nav-control" class="overlay-nav"></label>
+    <div class="menu-nav">
+      <div class="user-name-text">Username</div>
+      <div class="logout-box"  (click)="logOut($event)" style="cursor: pointer;">
+        <div class="icon-around">
+          <img src="assets/svg/log-out.svg" alt="log out icon" />
+        </div>
+        <span>Đăng xuất</span>
+      </div>
+    </div>
+
+    <img src="assets/img/lda_icon.png" alt="lda_brand" class="brand" />
+    <div class="company-name">
+      <p>TẬP ĐOÀN CÔNG NGHIỆP THAN - KHOÁNG SẢN VIỆT NAM</p>
+      <p>CÔNG TY TNHH MTV NHÔM LÂM ĐỒNG - TKVs</p>
+    </div>
+  </div>
+  <div class="mainCol ">
+    <!-- registration -->
+    <div class="menu-group search-menu">
+      <div class="menu-item">
+        <div
+          routerLink="order-registration"
+          class="menu-item-content "
+        >
+          <div class="img-around">
+            <img src="assets/svg/file-plus.svg" alt="file-plus" />
+          </div>
+          <h3 class="menu-title">Đăng ký</h3>
+          <img
+            src="assets/svg/arrow-right.svg"
+            alt="arrow-right"
+            class="arrow-right-menu"
+          />
+        </div>
+      </div>
+      <div class="menu-item">
+        <div
+          routerLink="research-order"
+          class="menu-item-content registration"
+        >
+          <div class="img-around">
+            <img src="assets/svg/search.svg" alt="file-plus" />
+          </div>
+          <h3 class="menu-title">Tìm kiếm đơn hàng</h3>
+          <img
+            src="assets/svg/arrow-right.svg"
+            alt="arrow-right"
+            class="arrow-right-menu"
+          />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

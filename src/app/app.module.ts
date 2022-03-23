@@ -1,23 +1,41 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { SharedModule } from './shared/shared.module';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
+import { FormsMineralModule } from './forms-mineral/forms-mineral.module';
+import { LoginModule } from './login/login.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
+import { OrderModule } from './order/order.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+    SharedModule,
     CoreModule,
     AdminModule,
+    FormsMineralModule,
+    ShippingUnitModule,
+    LoginModule,
+    OrderModule,
+    HttpClientModule,
+   
     // GrpcCoreModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
+
 })
 export class AppModule { }

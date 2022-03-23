@@ -1,0 +1,24 @@
+<dx-data-grid [dataSource]="dataSource" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+  [remoteOperations]="false" [allowColumnReordering]="false" [rowAlternationEnabled]="true" [wordWrapEnabled]="true"
+  [showBorders]="true">
+  <dxo-pager [allowedPageSizes]="[5, 10, 20]"></dxo-pager>
+  <!-- <dxo-header-filter [allowSearch]="true" [visible]="true"></dxo-header-filter> -->
+  <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
+  <dxi-column caption="STT" cellTemplate="cellSTT" width="80"></dxi-column>
+  <dxi-column dataField="qrcode" width="120" [allowFiltering]="false" alignment="center" caption="QRCode"
+    cellTemplate="cellQrCode"></dxi-column>
+  <dxi-column dataField="seri" caption="Số seri" width="160"></dxi-column>
+  <dxi-column dataField="time" caption="Thời gian" [allowFiltering]="false" cellTemplate="time"></dxi-column>
+  <dxo-summary>
+    <dxi-total-item column="qrcode" summaryType="count" displayFormat="Tổng: {0}"> </dxi-total-item>
+  </dxo-summary>
+  <div *dxTemplate="let item of 'cellQrCode'">
+    <qrcode [qrdata]="item.value" [width]="64" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <div *dxTemplate="let item of 'cellSTT';">
+    {{item.rowIndex + 1}}
+  </div>
+  <div *dxTemplate="let item of 'time'">
+    {{ item.value | date: "dd/MM/yyyy HH:mm:ss" }}
+  </div>
+</dx-data-grid>

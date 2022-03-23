@@ -1,7 +1,7 @@
 <div class="configuration">
   <div class="configuration__content__title d-flex" style='justify-content: space-between;'>
     <div>
-      <img src="/assets/svg/arrow_down.svg" alt="" style='position: relative;top:-2px;'>
+      
       Khách hàng/Đơn vị đóng bao
     </div>
     <img src="/assets/svg/add.svg" alt="" class='icon-add'  (click)='togglePopupAddPartner()'>
@@ -38,7 +38,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objAddPartner.title}}"
-  [height]='380'
+  [height]='350'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -77,7 +77,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objAddPartner.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objAddPartner.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4'>
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupAddPartner()' >Hủy</div>
         <button type="submit" [disabled]='!objAddPartner.isValid' class="btn btn-primary btn-blue   " > Thêm</button>
       </div>
@@ -90,7 +90,7 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objEditPartner.title}}"
-  [height]='380'
+  [height]='350'
   [width]="500"
   [resizeEnabled]="true"
 >
@@ -99,7 +99,7 @@
       <div class="wrap-input" >
         <div class='d-flex' style='justify-content: space-between;'>
           <label for="FEP-mkh" class="form-label">Mã khách hàng</label>
-          <input id="FEP-mkh" name="mkh"  rules='required'  type="text"  class="form-control" [value]='objEditPartner.input.mkh.value' (blur)='blur($event,objEditPartner)' (click)='click($event)' (input)='input($event,objEditPartner)'>
+          <input disabled id="FEP-mkh" name="mkh"  rules='required'  type="text"  class="form-control" [value]='objEditPartner.input.mkh.value' (blur)='blur($event,objEditPartner)' (click)='click($event)' (input)='input($event,objEditPartner)'>
         </div>
         <span class="input-message"></span>
       </div>
@@ -130,7 +130,7 @@
       </div>
       <div class='formErrMess text-danger mt-2'>{{objEditPartner.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objEditPartner.formSuccMess}}</div>
-      <div class='d-flex justify-content-end mt-4' style=''>
+      <div class='d-flex justify-content-end mt-4'>
         <div  class="btn btn-light btn-cancel mr-3" (click)='togglePopupEditPartner()' >Hủy</div>
         <button type="submit" [disabled]='!objEditPartner.isValid' class="btn btn-primary btn-blue" > Sửa</button>
       </div>
@@ -143,19 +143,31 @@
   [closeOnOutsideClick]="true"
   [showTitle]="true"
   title="{{objDeletePartner.title}}"
-  [height]='220'
+  [height]='180'
   [width]="380"
   [resizeEnabled]="true"
 >
   <div class="" style="width:90%;margin:auto">
     <div class='title-from-delete'>{{objDeletePartner.mess}}</div>
-    <form  (ngSubmit)="onSubmitDeletePartner($event)" autocomplete="off" *ngIf='isPopupDeletePartner'>
+    <form  autocomplete="off" *ngIf='isPopupDeletePartner'>
       <div class='formErrMess text-danger mt-2'>{{objDeletePartner.formErrMess}}</div>
       <div class='formSuccMess text-success mt-2'>{{objDeletePartner.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
+      <div class='d-flex justify-content-around mt-4'>
         <div  class="btn btn-light btn-cancel " (click)='togglePopupDeletePartner()' >Hủy</div>
-        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
+        <button type="button" (click)="isConfirmDelete = !isConfirmDelete"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
       </div>
     </form>
   </div>
+  <dx-popup [(visible)]="isConfirmDelete" [closeOnOutsideClick]="true" [showTitle]="true" title="Xác nhận" [height]='180' [width]="400" >
+    <div class="wrap-input" >
+      <div class='d-flex' style='justify-content: space-between;'>
+        <span>Bạn có chắc chắn xóa mục này ?</span>
+      </div>
+      
+    </div>
+    <div class='d-flex justify-content-end mt-4' >
+      <div  class="btn btn-light btn-cancel mr-3" (click)="isConfirmDelete = !isConfirmDelete">Đóng</div>
+      <button type="button" (click)="onSubmitDeletePartner()"  class="btn btn-primary btn-danger" >  Xóa</button>
+    </div>
+  </dx-popup>
 </dx-popup>

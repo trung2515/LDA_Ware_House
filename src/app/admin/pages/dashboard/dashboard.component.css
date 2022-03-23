@@ -1,0 +1,40 @@
+.wrapper {
+  padding-top: 25px;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+}
+.filter-bar {
+  position: flex;
+  flex-direction: column;
+  /* overflow-y: auto; */
+  /* height: 80vh; */
+  width: 300px;
+  background-color: #fff;
+}
+.content {
+  position: relative;
+  flex: 1;
+}
+.chart-container {
+  padding: 10px;
+}
+
+
+/* tab decoration */
+/* ::ng-deep #tab-panel-dashboard .tab-title:hover p {
+  color: #3459e6;
+}
+
+::ng-deep #tab-panel-dashboard .dx-tab.dx-tab-selected p {
+  color: #3459e6;
+}
+
+::ng-deep #tab-panel-dashboard .dx-tabpanel > .dx-tabpanel-tabs .dx-tabs {
+  background-color: #e7f0ff;
+  word-break: break-all;
+  word-wrap: wrap;
+}
+::ng-deep .dx-tab {
+  background-color: #e7f0ff;
+} */

@@ -1,0 +1,187 @@
+<div class="wrapper">
+  <div class="header">
+    <h4>Quản lý lô hàng</h4>
+  </div>
+  <!-- table part -->
+  <!-- select some year -->
+  <!-- filtering -->
+
+  <div class="content">
+    <div class="filter-bar">
+      <div class="research-group mr-2">
+        <img src="assets/svg/search.svg" alt="search" />
+        <input #inputSearch type="text" placeholder="Tìm kiếm lô hàng" (input)="onFilterChange(inputSearch)"
+          class="research_control" />
+        <!-- <div *ngIf="filterForm.status === 'VALID'" class="form-message"></div> -->
+      </div>
+      <!-- <dx-date-box [value]="currentDate" displayFormat="monthAndYear" type="date"
+        (onValueChanged)="onValueChanged($event)">
+        <dxo-calendar-options displayFormat='monthAndYear' maxZoomLevel='year' minZoomLevel='century'>
+        </dxo-calendar-options>
+      </dx-date-box> -->
+
+      <!-- filter & add new -->
+      <div class="filter_add">
+        <button (click)="showInfo(null)" class="btn btn-info pl-2" style="background-color: #3459e6;">Thêm mới lô hàng
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <!-- content -->
+  <div class="content pt-3">
+    <!-- <div *ngFor="let consignmentList of ConsignmentWithTimeLine" class="row-table"> -->
+    <!-- <div class="time-point">
+      <img src="assets/svg/ellipse.svg" alt="ellipse" />
+      <span> Tháng {{ currentDate | date:'MM-yyyy' }}</span>
+    </div> -->
+    <div class="data-table">
+      <div *ngFor="let consignment of consignments" class="con-item">
+        <img src="assets/svg/box.svg" alt="box" />
+        <div class="info">
+          <p class="info-label">Lô {{ consignment.name }}</p>
+          <!-- <p>{{ consignment.date | date: 'dd/MM/yyyy' }}</p> -->
+          <h6>{{ consignment.quantity }}</h6>
+        </div>
+        <dx-button class="btn-show-popup" (onClick)="showInfo(consignment)"></dx-button>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+
+<!-- popup editing -->
+<dx-popup [width]="900" [height]="500" [showTitle]="true" [title]="popupTitle" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [showCloseButton]="true" [(visible)]="popupVisible" [toolbarItems]="[
+      {
+        widget: 'dxButton',
+        location: 'after',
+        options: {
+          text: 'Lưu thay đổi'
+        },
+        toolbar: 'bottom',
+        onClick: onSaveReplace
+      },
+      {
+        widget: 'dxButton',
+        location: 'after',
+        options: {
+          text: 'Đóng'
+        },
+        toolbar: 'bottom',
+        onClick: onClosePopupPr
+      }
+    ]">
+  <div class="popup-head">
+    <div *ngIf="isEditParcel == false" class="d-flex align-items-center" style="width:300px;">
+      <label style="margin: 0; padding: 0;" class="day pr-2">Tên lô hàng: </label>
+      <input style="padding: 3px;" [(ngModel)]="new_parcel_name" placeholder="Nhập lô hàng" />
+    </div>
+    <p class="day pl-2">
+      Ngày: <span>{{ currentConsignment.date | date: 'dd/MM/yyyy' }}</span>
+    </p>
+    <p class="creator pl2">
+      Người tạo: <span>{{ currentConsignment.createdPerson }}</span>
+    </p>
+  </div>
+
+  <div id="data-grid-demo" class="pt-2">
+    <dx-data-grid #detailGrid id="con-gridContainer" [dataSource]="consigmentDetail" [showBorders]="true"
+      showRowLines="true" noDataText="Không có dữ liệu" showColumnLines="true">
+      <dxo-paging [enabled]="true"></dxo-paging>
+      <dxo-editing mode="popup" [confirmDelete]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true"
+        [confirmDelete]="false">
+        <dxo-popup title="Thêm mới" [showTitle]="true" [width]="671" [height]="434" [toolbarItems]="[
+              {
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                  text: 'Lưu'
+                },
+                toolbar: 'bottom',
+                onClick: onClickSave
+              },
+              {
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                  text: 'Đóng'
+                },
+                toolbar: 'bottom',
+                onClick: onClickCancel
+              }
+            ]">
+        </dxo-popup>
+        <dxo-form>
+          <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+            <dxi-item dataField="code_product" caption="Sản phẩm"></dxi-item>
+            <!-- <dxi-item dataField="code_product_type" caption="Loại sản phẩm" [colSpan]="1" [editorOptions]="{ height: 45 }">
+            </dxi-item> -->
+            <dxi-item dataField="code_bag" caption="Loại bao" [colSpan]="1" [editorOptions]="{ height: 45 }">
+            </dxi-item>
+          </dxi-item>
+        </dxo-form>
+      </dxo-editing>
+      <dxi-column dataField="code_product" caption="Sản phẩm">
+        <dxi-validation-rule type="required" message="Tên sản phẩm không được bỏ trống"></dxi-validation-rule>
+        <dxo-lookup [dataSource]="products" displayExpr="name" valueExpr="value" placeholder="Chọn sản phẩm">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="code_product_type" caption="Loại sản phẩm">
+        <!-- <dxi-validation-rule type="required" message="Loại sản phẩm không được bỏ trống"></dxi-validation-rule> -->
+        <dxo-lookup [dataSource]="product_types" displayExpr="name" valueExpr="value"></dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="code_bag" caption="Loại bao">
+        <dxi-validation-rule type="required" message="Loại không được bỏ trống"></dxi-validation-rule>
+        <dxo-lookup [dataSource]="bag_types" displayExpr="name" valueExpr="value"></dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="quantity" [ngClass]="'quantity-column'" caption="Số lượng">
+      </dxi-column>
+      <!-- <dxi-column dataField="status" cellTemplate="statusCellTemplate" caption="Trạng thái"></dxi-column> -->
+      <!-- statusCellTemplate -->
+      <div *dxTemplate="let cell of 'statusCellTemplate'">
+        <div [class]="
+              cell.value === 'Mới'
+                ? 'con-status con-status-bl'
+                : cell.value === 'Đang sản xuất'
+                ? 'con-status con-status-yl'
+                : 'con-status con-status-gr'
+            ">
+          <span>
+            {{ cell.value }}
+          </span>
+        </div>
+      </div>
+      <dxo-summary>
+        <dxi-total-item column="quantity" summaryType="sum" displayFormat="Tổng cộng: {0}"> </dxi-total-item>
+      </dxo-summary>
+
+    </dx-data-grid>
+  </div>
+</dx-popup>
+
+<!--
+<dx-popup [width]="300" [height]="200" [showTitle]="true" title="Xác nhận thay đổi" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [showCloseButton]="true" [(visible)]="confirmPopupVisible" [toolbarItems]="[
+  {
+    widget: 'dxButton',
+    location: 'after',
+    options: {
+      text: 'Lưu thay đổi'
+    },
+    toolbar: 'bottom',
+    onClick: onConfirm
+  },
+  {
+    widget: 'dxButton',
+    location: 'after',
+    options: {
+      text: 'Không'
+    },
+    toolbar: 'bottom',
+    onClick: onCloseConfirm
+  }
+]">
+
+  <p>Bạn có muốn giữ lại những thay đổi không?</p>
+</dx-popup> -->

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'src/app/_lib/longLib'
 import { AdminService } from 'src/app/core/services/admin.service'
 import { Response ,ResponseState} from 'src/app/core/models/model.pb';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
@@ -9,7 +10,7 @@ import { Response ,ResponseState} from 'src/app/core/models/model.pb';
 })
 export class BillComponent implements OnInit {
 
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getListTypeBill()
@@ -24,6 +25,7 @@ export class BillComponent implements OnInit {
     _.input(e,obj)
   }
   timeShowMess:any=3000
+  isConfirmDelete:boolean=false
   // -----------------------------------------------------TypeBill---------------------------------------
   listTypeBill:any=[]
   itemTypeBillClicked:any={}
@@ -41,8 +43,6 @@ export class BillComponent implements OnInit {
   objAddTypeBill:any={
     title:'Thêm phiếu',
     mess:'',
-    formErrMess:'',
-    formSuccMess:'',
     input:{
       mp:{value:'',isValid:false},
       tp:{value:'',isValid:false},
@@ -50,9 +50,18 @@ export class BillComponent implements OnInit {
     isValid:false
   }
   clickAddTypeBill(e:any){
+    
     this.togglePopupAddTypeBill()
   }
   togglePopupAddTypeBill(){
+    this.objAddTypeBill={
+      title:'Thêm phiếu',
+      input:{
+        mp:{value:'',isValid:false},
+        tp:{value:'',isValid:false},
+      },
+      isValid:false
+    }
     this.isPopupAddTypeBill=!this.isPopupAddTypeBill
   }
   onSubmitAddTypeBill(e:any){
@@ -61,26 +70,13 @@ export class BillComponent implements OnInit {
     this.adminService.insertTypeBill(codeTypeBill,nameTypeBill).subscribe((data:any) => {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
-        this.objAddTypeBill.formSuccMess=data.message
-        this.objAddTypeBill.formErrMess=""
+        
         this.getListTypeBill()
-        setTimeout(()=>{
-          this.objAddTypeBill={
-            title:'Thêm phiếu',
-            mess:'',
-            formErrMess:'',
-            formSuccMess:'',
-            input:{
-              mp:{value:'',isValid:false},
-              tp:{value:'',isValid:false},
-            },
-            isValid:false
-          }
-          if(this.isPopupAddTypeBill) this.togglePopupAddTypeBill()
-        },this.timeShowMess)
+         this.togglePopupAddTypeBill()
+          this.toastr.success('','Thêm mới thành công')
       }else{
-        this.objAddTypeBill.formSuccMess=""
-        this.objAddTypeBill.formErrMess=data.message
+        this.togglePopupAddTypeBill()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -92,12 +88,12 @@ export class BillComponent implements OnInit {
     formErrMess:'',
     formSuccMess:'',
     input:{
-      mp:{value:'',isValid:false},
       tp:{value:'',isValid:false},
     },
     isValid:false
   }
   clickEditTypeBill(e:any){
+    this.togglePopupEditTypeBill()
     let order=parseInt(e.target.dataset.order)
     console.log(order)
     this.itemTypeBillClicked=this.listTypeBill[order]
@@ -106,9 +102,10 @@ export class BillComponent implements OnInit {
     this.objEditTypeBill.input.tp={value:this.itemTypeBillClicked.nameTypeBill,isValid:true}
     this.objEditTypeBill.isValid=true
     console.log(this.objEditTypeBill.input)
-    this.togglePopupEditTypeBill()
+ 
   }
   togglePopupEditTypeBill(){
+    
     this.isPopupEditTypeBill=!this.isPopupEditTypeBill
   }
   onSubmitEditTypeBill(e:any){
@@ -119,26 +116,14 @@ export class BillComponent implements OnInit {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.itemTypeBillClicked=null
-        this.objEditTypeBill.formSuccMess=data.message
-        this.objEditTypeBill.formErrMess=""
+
         this.getListTypeBill()
-        setTimeout(()=>{
-          this.objEditTypeBill={
-            title:'Chỉnh sửa phiếu ',
-            mess:'',
-            formErrMess:'',
-            formSuccMess:'',
-            input:{
-              mp:{value:'',isValid:false},
-              tp:{value:'',isValid:false},
-            },
-            isValid:false
-          }
-          if(this.isPopupEditTypeBill) this.togglePopupEditTypeBill()
-        },this.timeShowMess)
+         this.togglePopupEditTypeBill()
+          this.toastr.success('','Chỉnh sửa thành công')
+        
       }else{
-        this.objEditTypeBill.formSuccMess=""
-        this.objEditTypeBill.formErrMess=data.message
+        this.togglePopupEditTypeBill()
+        this.toastr.error('',data._message)
       }
     })
   }
@@ -158,6 +143,7 @@ export class BillComponent implements OnInit {
     this.togglePopupDeleteTypeBill()
   }
   togglePopupDeleteTypeBill(){
+
     this.isPopupDeleteTypeBill=!this.isPopupDeleteTypeBill
   }
   onSubmitDeleteTypeBill(e:any){
@@ -166,21 +152,15 @@ export class BillComponent implements OnInit {
       console.log(data)
       if(data.state==ResponseState.SUCCESS){
         this.itemTypeBillClicked=null
-        this.objDeleteTypeBill.formSuccMess=data.message
-        this.objDeleteTypeBill.formErrMess=""
         this.getListTypeBill()
-        setTimeout(()=>{
-          this.objDeleteTypeBill={
-            title:'Xác nhận',
-            mess:'Xóa ',
-            formErrMess:'',
-            formSuccMess:''
-          }
-          if(this.isPopupDeleteTypeBill) this.togglePopupDeleteTypeBill()
-        },this.timeShowMess)
+       this.togglePopupDeleteTypeBill()
+          this.isConfirmDelete = false
+        
       }else{
-        this.objDeleteTypeBill.formSuccMess=""
-        this.objDeleteTypeBill.formErrMess=data.message
+        this.isConfirmDelete = false
+        this.togglePopupDeleteTypeBill()
+        this.toastr.error('',data._message)
+        
       }
     })
   }

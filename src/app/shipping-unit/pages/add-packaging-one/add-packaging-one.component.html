@@ -1,0 +1,156 @@
+<div class="wrapper">
+  <app-header-bar (onBackClicked)="onBackClicked()" title="Nhập sản lượng đóng bao loại 1 tấn"></app-header-bar>
+  <div class="content mainCol">
+    <h3 class="heading-title">
+      Ca làm việc:
+    </h3>
+
+    <div class="horizontal-line"></div>
+    <div class="select-group row">
+      <div class="select-date col-12 col-lg-3">
+        <label for="">Ngày</label>
+        <dx-date-box [(value)]="now" type="date" (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"></dx-date-box>
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label for="">Ca làm việc</label>
+        <dx-select-box id="dxSelectShift" [dataSource]="shiftOptions" [(value)]="ca_no_option" hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc" (onSelectionChanged)="onSelectShiftChange($event)">
+        </dx-select-box>
+      </div>
+    </div>
+    <h3 *ngIf="aShiftList.length > 0" class="heading-title pt-4">
+      Số lượng máy đóng bao
+    </h3>
+    <div *ngIf="aShiftList.length > 0" class="horizontal-line"></div>
+
+    <div class="option-group">
+      <div class="option-item" *ngFor="
+        let optionItem of aShiftList;
+        let i = index
+      ">
+        <div class="option-head">
+          <span>{{ optionItem.option }}:</span>
+          <span class="option-title">
+            {{ optionItem.nameProduct }} - Loại {{ optionItem.typeProduct }} -
+            {{ optionItem.typePacket }}</span>
+          <app-option-status [type]="optionItem.ballot_type"></app-option-status>
+        </div>
+        <div class="option-location-info row d-none d-lg-flex">
+          <div class="col-lg-4">
+            <p>Lô</p>
+            <p>{{ optionItem.idParcel }}</p>
+          </div>
+          <div class="col-lg-4">
+            <p>Kho</p>
+            <p>{{ optionItem.wareHouse }}</p>
+          </div>
+          <div class="col-lg-4">
+            <p>Đơn vị đóng</p>
+            <p>{{ optionItem.packingUnit }}</p>
+          </div>
+        </div>
+
+        <form [formGroup]="getForm(i)" class="form-info-group row">
+          <div *ngFor="let input of inputs_options" class="col-12 col-lg-3 form-item">
+            <p class="info-field">{{ input.label + ":" }}</p>
+            <app-text-input [formControlName]="input.formControlName" [label]="'Nhập số lượng '+input.label" type="text">
+            </app-text-input>
+          </div>
+        </form>
+        <div [class]="'horizontal-line dotted option-' + optionItem.option"></div>
+      </div>
+      <button *ngIf="aShiftList.length > 0" class="btn-ship btn-completed" (click)="onSubmit($event)">
+        Hoàn tất
+      </button>
+    </div>
+
+  </div>
+</div>
+<!-- popup confirm -->
+
+<dx-popup [showTitle]="true" width="90%" title="Xác nhận thay đổi" [dragEnabled]="false" [closeOnOutsideClick]="false"
+  [showCloseButton]="true" container=".dx-viewport" [(visible)]="popupVisible" shadingColor="rgba(0,0,0,0.3)"
+  id="popUpAddPackaging" [toolbarItems]="[
+    {
+      widget: 'dxButton',
+      location: 'after',
+      options: {
+        text: 'Đóng'
+      },
+      toolbar: 'bottom',
+      onClick: onClosePopup
+    },
+    {
+      widget: 'dxButton',
+      location: 'after',
+      options: {
+        text: 'Xác nhận'
+      },
+      toolbar: 'bottom',
+      onClick: onConfirm
+    }
+  ]">
+  <div class="popup-head">
+    <p>
+      Số lượng máy đóng bao của ca này đã được ghi nhận trước đó, gồm:
+    </p>
+  </div>
+  <div class="popup-content">
+
+    <div class="item-info row">
+      <div class="item-wrap col-6 col-lg-3">
+        <div class="item-title">Ca</div>
+        <div class="item-value">{{ ca_no_option }}</div>
+      </div>
+      <div class="item-wrap col-6 col-lg-3">
+        <div class="item-title">Ngày</div>
+        <div class="item-value">
+          {{ getCurrentDateDMY(aShiftList[0]?.startDate) }}
+        </div>
+      </div>
+      <div class="item-wrap col-6 col-lg-3">
+        <div class="item-title">Người lập phiếu:</div>
+        <div class="item-value">{{ aShiftList[0]?.creator }}</div>
+      </div>
+      <div class="item-wrap col-6 col-lg-3">
+        <div class="item-title">Đơn vị đóng:</div>
+        <div class="item-value">
+          {{ aShiftList[0]?.packingUnit }}
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let shift of aOptionShiftList; let i = index" class="option-wrap">
+      <div class="option-info">
+        <span class="option-p">{{ shift?.option }}</span>
+        <span class="option-name-bag">
+          {{shift.nameProduct}}
+        </span>
+
+        <div class="d-none d-lg-inline-block">
+          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new">Nhập đóng mới</span>
+          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old">Nhập đóng lại</span>
+        </div>
+        <div class="d-lg-none d-inline-block">
+          <span *ngIf="shift.ballot_type === 'NDM'" class="option-status new">NDM</span>
+          <span *ngIf="shift.ballot_type === 'NDL'" class="option-status old">NDL</span>
+        </div>
+      </div>
+
+      <div class="row option-group ">
+        <div *ngFor="let machine of shift.machine_list" class="option-item col-6 col-lg-3">
+          <p class="option-title">Máy {{machine.code}}:</p>
+          <p class="option-qty">
+            {{machine.qty}}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="popup-footer">
+    <p>Xác nhận thay đổi thành thông tin vừa nhập?</p>
+  </div>
+</dx-popup>

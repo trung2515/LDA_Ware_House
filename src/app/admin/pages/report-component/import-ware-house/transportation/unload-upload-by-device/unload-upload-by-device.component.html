@@ -1,0 +1,315 @@
+
+<div class="row py-3 px-4">
+    <div class="col-md-6">
+        <div class="row mb-4">
+            <div class="col-6 pe-4">    
+                 <span>Từ ngày</span>
+                <dx-date-box type="date" id="selected-date-time" 
+                 displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+            <div class="col-6 pe-4">    
+                <span>Đến ngày</span>
+                <dx-date-box type="date" id="selected-date-time"
+                   displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <hr>
+      <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
+      <div class="col-3 pe-4">
+        <span > Ca</span>
+        <select class="custom-select" >
+          <option value= '0' selected>Tất cả</option>
+          <option value="1">Ca 1</option>
+          <option value="2">Ca 2</option>
+          <option value="3">Ca 3</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span > Sản phẩm</span>
+        <select class="custom-select">
+          <option value="0" selected>Tất cả</option>
+        
+
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >Loại bao</span>
+        <select class="custom-select" >
+          <option selected>Tất cả</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >Công việc</span>
+        <select class="custom-select" >
+          <option selected>Tất cả</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >Nơi bốc</span>
+        <select class="custom-select" >
+          <option selected>Tất cả</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >Nơi dỡ</span>
+        <select class="custom-select" >
+          <option selected>Tất cả</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >TB bốc</span>
+        <select class="custom-select" >
+          <option selected>Tất cả</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+
+    </div>
+    <div class="body-table">
+          
+        <table class=" w-100  ">
+          <thead class="table-head" >
+            <tr>
+              <th rowspan="2" style="width: 50px;" >STT</th>
+              <th rowspan="2">Thiết bị/chỉ tiêu</th>
+              <th rowspan="2">Sản phẩm</th>
+              <th rowspan="2">Loại bao</th>
+              <th rowspan="2">Loại SP</th>
+              <th rowspan="2">Công việc</th>
+              <th rowspan="2">Nơi bốc</th>
+              <th rowspan="2">Nơi dỡ</th>
+              <th rowspan="2">TB bốc</th>
+             
+              <th colspan="2">SL ca</th>
+              <th colspan="2">SL ngày</th>
+              <th colspan="2">LK tuần</th>
+              <th colspan="2">LK tháng</th>
+            </tr>
+            <tr>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+            </tr>
+        
+          </thead>
+          <tbody >
+                 <tr>
+                     <td>1</td>
+                     <td>Alumin 1 tấn</td>
+                     <td>đáy liền</td>
+                     <td>1</td>
+                     <td>chất cây</td>
+                     <td>Kho 1</td>
+                     <td>Kho 1</td>
+                     <td>Pa Lăng</td>
+                     <td>Pa Lăng</td>
+                     <td>0</td>
+                     <td>0</td>
+                     <td>125</td>
+                     <td>125</td>
+                     <td>657</td>
+                     <td>657</td>
+                     <td>1258</td>
+                     <td>1258</td>
+                 </tr>
+                 <tr>
+                     <td>1</td>
+                     <td>Alumin 1 tấn</td>
+                     <td>đáy liền</td>
+                     <td>1</td>
+                     <td>chất cây</td>
+                     <td>Kho 1</td>
+                     <td>Kho 1</td>
+                     <td>Pa Lăng</td>
+                     <td>Pa Lăng</td>
+                     <td>0</td>
+                     <td>0</td>
+                     <td>125</td>
+                     <td>125</td>
+                     <td>657</td>
+                     <td>657</td>
+                     <td>1258</td>
+                     <td>1258</td>
+                 </tr>
+                 <tr>
+                     <td>2</td>
+                     <td>Alumin 1 tấn</td>
+                     <td>đáy liền</td>
+                     <td>1</td>
+                     <td>chất cây</td>
+                     <td>Kho 1</td>
+                     <td>Kho TT</td>
+                     <td>Pa Lăng</td>
+                     <td>Pa Lăng</td>
+                     <td>0</td>
+                     <td>0</td>
+                     <td>253</td>
+                     <td>253</td>
+                     <td>982</td>
+                     <td>982</td>
+                     <td>1894</td>
+                     <td>1894</td>
+                 </tr>
+                 <tr>
+                     <td>3</td>
+                     <td>Alumin 1 tấn</td>
+                     <td>đáy liền</td>
+                     <td>1</td>
+                     <td>chất cây</td>
+                     <td>Kho 1</td>
+                     <td>Kho TT</td>
+                     <td>Pa Lăng</td>
+                     <td>Pa Lăng</td>
+                     <td>0</td>
+                     <td>0</td>
+                     <td>253</td>
+                     <td>253</td>
+                     <td>982</td>
+                     <td>982</td>
+                     <td>1894</td>
+                     <td>1894</td>
+                 </tr>
+                 <tr>
+                     <td>4</td>
+                     <td>Alumin 1 tấn</td>
+                     <td>đáy liền</td>
+                     <td>1</td>
+                     <td>chất cây</td>
+                     <td>Kho 1</td>
+                     <td>Kho 2</td>
+                     <td>Pa Lăng</td>
+                     <td>Pa Lăng</td>
+                     <td>157</td>
+                     <td>157</td>
+                     <td>253</td>
+                     <td>253</td>
+                     <td>982</td>
+                     <td>982</td>
+                     <td>1894</td>
+                     <td>1894</td>
+                 </tr>
+                 
+                </tbody>
+                <tr>
+                    <td>5</td>
+                    <td>Alumin 1 tấn</td>
+                    <td>đáy liền</td>
+                    <td>1</td>
+                    <td>chất cây</td>
+                    <td>Kho MR</td>
+                    <td>Kho 1</td>
+                    <td>Pa Lăng</td>
+                    <td>Pa Lăng</td>
+                    <td>235</td>
+                    <td>235</td>
+                    <td>423</td>
+                    <td>423</td>
+                    <td>890</td>
+                    <td>890</td>
+                    <td>1524</td>
+                    <td>1524</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Alumin 1 tấn</td>
+                    <td>đáy liền</td>
+                    <td>1</td>
+                    <td>chất cây</td>
+                    <td>Kho MR</td>
+                    <td>Kho 1</td>
+                    <td>Pa Lăng</td>
+                    <td>Pa Lăng</td>
+                    <td>524</td>
+                    <td>524</td>
+                    <td>989</td>
+                    <td>989</td>
+                    <td>1146</td>
+                    <td>1146</td>
+                    <td>2312</td>
+                    <td>2312</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Alumin 1 tấn</td>
+                    <td>đáy liền</td>
+                    <td>1</td>
+                    <td>chất cây</td>
+                    <td>Kho MR</td>
+                    <td>Kho 1</td>
+                    <td>Pa Lăng</td>
+                    <td>Pa Lăng</td>
+                    <td>235</td>
+                    <td>235</td>
+                    <td>423</td>
+                    <td>423</td>
+                    <td>890</td>
+                    <td>890</td>
+                    <td>1524</td>
+                    <td>1524</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Alumin 1 tấn</td>
+                    <td>đáy liền</td>
+                    <td>1</td>
+                    <td>chất cây</td>
+                    <td>Kho 1</td>
+                    <td>Kho 2</td>
+                    <td>Pa Lăng</td>
+                    <td>Pa Lăng</td>
+                    <td>157</td>
+                    <td>157</td>
+                    <td>253</td>
+                    <td>253</td>
+                    <td>982</td>
+                    <td>982</td>
+                    <td>1894</td>
+                    <td>1894</td>
+                </tr>
+          <tbody>
+            <tr style="font-weight: bold;background-color:silver" >
+              <td   colspan="9">Tổng cộng</td>
+           
+              <td>1251</td>
+              <td>1251</td>
+              <td>5698</td>
+              <td>5698</td>
+              <td>11253</td>
+              <td>11253</td>
+              <td>32568</td>
+              <td>32568</td>
+           
+            </tr>
+          </tbody>
+        </table>
+         
+      </div>
+
+
+
+    </div>
+ 

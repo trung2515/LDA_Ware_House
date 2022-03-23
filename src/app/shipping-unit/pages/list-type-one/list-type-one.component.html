@@ -1,0 +1,102 @@
+<div class="wrapper">
+  <app-header-bar
+    (onBackClicked)="onBackClicked()"
+    [title]="title"
+  ></app-header-bar>
+  <div class="content mainCol">
+
+    <div class="select-group row">
+      <div *ngIf="isEditing" class="detail-title shift-title">
+        Ca làm việc
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ngày</label>
+        <dx-date-box
+          [(value)]="now"
+          type="date"
+          (onValueChanged)="onDateValueChanged($event)"
+          displayFormat="dd/MM/yyyy"
+        ></dx-date-box>
+      </div>
+      <div class="select-date col-12 col-lg-3">
+        <label class="select-label" for="">Ca làm việc</label>
+        <dx-select-box
+          [dataSource]="['Ca 1', 'Ca 2', 'Ca 3']"
+          [(value)]="ca_no_option"
+          hoverStateEnabled="false"
+          placeholder="Chọn ca làm việc"
+          (onSelectionChanged)="onSelectShiftChange($event)"
+        ></dx-select-box>
+      </div>
+    </div>
+
+    <div *ngIf="!isEditing" class="content-list">
+      <div class="row ">
+
+        <div
+          class="col-lg-4 col-12 shift-option"
+          *ngFor="let option of aOptionShiftList"
+        >
+          <app-option-item
+            [objItem]="option"
+            [creator]="option.creator"
+            (onClickItem)="onShiftOptionClicked($event)"
+            [visibleBtnDelete]="false"
+          ></app-option-item>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="isEditing" class="detail-shift-option">
+      <div class="detail-title">
+        Số lượng máy đóng bao
+      </div>
+      <div class="option-shift-info">
+        <span class="option-num"
+          >{{ optionEditing.option }}: </span
+        >
+        <span class="shift-info"
+          >{{ optionEditing.nameProduct }} -
+          Loại {{ optionEditing.typeProduct }} -
+          {{ optionEditing.typePacket }}
+        </span>
+        <app-option-status></app-option-status>
+      </div>
+      <div class="row shift-info-common">
+        <div class="col-lg-4">
+          <div class="shift-label">Lô</div>
+          <div class="shift-value">{{ optionEditing.idParcel }}</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="shift-label">Kho</div>
+          <div class="shift-value">{{ optionEditing.warehouse }}</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="shift-label">Đơn vị đóng</div>
+          <div class="shift-value">{{ optionEditing.packingUnit }}</div>
+        </div>
+      </div>
+      <form [formGroup]="optionForm" class="row machine-qty">
+        <div
+          *ngFor="let input of inputs_options"
+          class="col-12 col-lg-3 machine-item"
+        >
+          <div class="machine-label">{{ input.label + ":" }}</div>
+          <div class="machine-control-qty">
+            <app-text-input
+              [formControlName]="input.formControlName"
+              [label]="'Nhập ' +input.label"
+              type="text"
+            ></app-text-input>
+          </div>
+        </div>
+      </form>
+
+      <button (click)="onUpdateData()" class="btn-ship btn-update">
+        Cập nhật
+      </button>
+    </div>
+
+  </div>
+</div>

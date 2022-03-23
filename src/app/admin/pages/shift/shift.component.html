@@ -1,323 +1,156 @@
-<div class='d-flex' style='justify-content: space-between;'>
-  <div class='title'>Ca làm việc</div>
-  <div style='align-self: center;'>
-    <button class='btn btn-primary' style='border-radius: 0;' (click)='clickAddShift($event)'>Thêm mới</button>
+<div>
+  <div class="title">Ca làm việc</div>
+  <div>
+    <div class="d-flex py-3">
+      <button class="btn btn-primary ms-auto px-4" data-target="#addShift" (click)="showDetailShift(null)">Tạo
+        ca</button>
+    </div>
+    <!-- ----------------------------------/popup create shift/---------------------------------  -->
+
+    <dx-scheduler [dataSource]="appointments" [views]="['Month']" currentView="month" [(currentDate)]="currentDate"
+      [height]="700" [firstDayOfWeek]="1" (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
+      appointmentTooltipTemplate="tooltip-template">
+      <dxi-resource fieldExpr="shift" label="shift" [dataSource]="resources">
+      </dxi-resource>
+      <div class="tool-tip p-3" *dxTemplate="let model of 'tooltip-template'">
+        <div>
+          <div class="d-flex justify-content-start align-items-center fw-bold">
+            <div class="elip me-2 "></div>
+            <div>{{model.appointmentData.text}}</div>
+          </div>
+          <div class="d-flex justify-content-start align-items-center mt-2 ">
+            <img class="me-2" src="../../../../assets/svg/calendar.svg" alt="">
+            {{(model.appointmentData.startDate | date: "dd/MM/yyyy")}}
+          </div>
+          <div class=" d-flex flex-column ">
+            <ul class="detail-resource">
+              <li *ngFor="let item of getDetail(model.appointmentData.idDetail)">{{item.option}}:
+                {{item.product}}-{{item.productRange}}-{{item.wareHouse}}-{{item.type}} -
+                {{item.type_bag}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </dx-scheduler>
+    <dx-popup [width]="1024" [height]="512" [showTitle]="true" [title]="titlePopup" shadingColor='rgba(0,0,0,0.2)'
+      [dragEnabled]="false" [closeOnOutsideClick]="false" [showCloseButton]="true" [(visible)]="popupVisible"
+      [toolbarItems]="[
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Đóng'
+            },
+            toolbar: 'bottom',
+            onClick: closePop
+          },
+          {
+            widget: 'dxButton',
+            location: 'after',
+            options: {
+              text: 'Lưu thay đổi'
+            },
+            toolbar: 'bottom',
+            onClick: SaveShift
+          }
+        ]">
+      <div>
+        <div class="row">
+          <div class="col-6 p-3">
+            <label>Ngày:</label>
+            <dx-date-box [disabled]="isDisabled" [value]="selectDate" type="date"
+              (onValueChanged)="selectDateChanged($event)">
+            </dx-date-box>
+          </div>
+          <div class="col-6 p-3">
+            <label>Ca:</label>
+            <dx-select-box [disabled]="isDisabled" placeholder="Chọn ca" [(value)]="selectShift"
+              (onValueChanged)="selectShiftChanged($event)" displayExpr="name" valueExpr="name"
+              [dataSource]="listShift"></dx-select-box>
+          </div>
+          <div class="p-3">
+            <dx-data-grid #detailGrid id="gridContainer" [(dataSource)]="shiftDetail" [showBorders]="true">
+              <dxi-column dataField="option" caption="Option" [formItem]="{}">
+                <dxo-lookup [dataSource]="listOptions" displayExpr="name" valueExpr="value" placeholder="Chọn option">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="type" caption="Loại phiếu">
+                <dxo-lookup [dataSource]="listType" displayExpr="name" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="product" caption="Sản phẩm">
+                <dxo-lookup [dataSource]="listProduct" displayExpr="name" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="productRange" caption="Loại sản phẩm">
+                <dxo-lookup [dataSource]="listProductRange" displayExpr="name" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="type_bag" caption="Loại bao">
+                <dxo-lookup [dataSource]="listPackaging" displayExpr="name" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="lot" caption="Lô">
+                <dxo-lookup [dataSource]="listLot" displayExpr="value" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="unit" caption="Đơn vị đóng">
+                <dxo-lookup [dataSource]="listUnit" displayExpr="name" valueExpr="value">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="wareHouse" caption="Kho">
+                <dxo-lookup [dataSource]="listWareHouse" displayExpr="name" valueExpr="name">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
+                [useIcons]="true">
+                <dxo-popup title="Thêm mới option " [showTitle]="true" [width]="671" [height]="549" [toolbarItems]="[
+              {
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                  text: 'Lưu'
+                },
+                toolbar: 'bottom',
+                onClick: onClickSave
+              },
+              {
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                  text: 'Đóng'
+                },
+                toolbar: 'bottom',
+                onClick: onClickCancel
+              }
+            ]">
+                </dxo-popup>
+                <dxo-form>
+                  <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                    <dxi-item dataField="option" caption="Option" ></dxi-item>
+                    <dxi-item dataField="lot" caption="Lô"></dxi-item>
+                    <dxi-item dataField="type" caption="Loại phiếu"></dxi-item>
+                    <dxi-item dataField="product" caption="Sản phẩm"></dxi-item>
+                    <dxi-item dataField="productRange" caption="Loại sản phẩm"></dxi-item>
+                    <dxi-item dataField="type_bag" caption="Loại bao"></dxi-item>
+                    <dxi-item dataField="unit" caption="Đơn vị đóng"></dxi-item>
+                    <dxi-item dataField="wareHouse" caption="Kho"></dxi-item>
+                  </dxi-item>
+                </dxo-form>
+              </dxo-editing>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </dx-popup>
   </div>
-</div>
-<div class="">
-  <dx-data-grid id="dataGrid"
-    [dataSource]="listShift"
-    [columnAutoWidth]="true"
-    [showBorders]="true"
-    [allowColumnResizing]="true"
-    rowTemplate="rowTemplateName"
-  >
-    <dxi-column dataField="nameShift" caption="Ca" [width]="100" [allowHeaderFiltering]="false"></dxi-column>
-    <dxi-column dataField="date" caption="Thời gian" dataType="date"></dxi-column>
-    <dxi-column dataField="nameCratePerson" caption="Người lập phiếu" [allowHeaderFiltering]="false"></dxi-column>
-    <dxi-column  caption="Thao tác" [width]="150" [allowHeaderFiltering]="false"></dxi-column>
-
-
-    <tbody class="employee dx-row" [ngClass]="{'dx-row-alt': item.rowIndex % 2}" *dxTemplate="let item of 'rowTemplateName'" >
-      <tr class="main-row">
-          <td>{{item.data.nameShift}}</td>
-          <td>{{item.data.date2}}</td>
-          <td>{{item.data.nameCratePerson}}</td>
-          <td class='text-center'>
-            <img class="icon-update-table" src='/assets/svg/eye.svg' style='padding:0 10px;'  attr.data-order="{{item.data.order}}" (click)='clickDetailShift($event)'>
-            <img class="icon-update-table" src='/assets/svg/deleteShift.svg' style='padding:0 10px' attr.data-order="{{item.data.order}}" (click)='clickDelete($event)' >
-          </td>
-       </tr>
-
-  </tbody>
-
-    <dxo-header-filter [visible]="true"></dxo-header-filter>
-    <dxo-selection
-      mode="single">
-    </dxo-selection>
-    <dxo-paging
-      [pageSize]="10">
-    </dxo-paging>
-    <dxo-pager
-      [visible]="true"
-      [showNavigationButtons]="true">
-    </dxo-pager>
-  </dx-data-grid>
-</div>
-
-
-
-
-<!-- Detail Shift -->
-<dx-popup
-  [(visible)]="isPopupDetailShift"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objDetailShift.title}}"
-  [height]='600'
-  [width]="1100"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto" *ngIf=isPopupDetailShift >
-    <div class="d-flex">
-      <div class='title__detail mr-4'>
-        <span class='title__detail__label'>Thời gian:</span>
-        <span class='title__detail__content'>{{itemShiftClicked.date2}}</span>
-      </div>
-      <div class='title__detail'>
-        <span class='title__detail__label'>Người lập phiếu:</span>
-        <span class='title__detail__content'>{{itemShiftClicked.nameCratePerson}}</span>
-      </div>
-    </div>
-    <div class='d-flex mt-4' >
-      <span style='align-self: center;width:35px;display:inline-block'>Ca:</span>
-      <dx-select-box *ngIf='listShiftInDay.length'
-        [dataSource]='listShiftInDay'
-        valueExpr="nameShift"
-        displayExpr="nameShift"
-        [value]='itemShiftClicked.nameShift'
-        [dropDownOptions]={maxHeight:200}
-        [searchEnabled]="true"
-        (onValueChanged)="onValueChangeShiftInDateForDetail($event)"
-        style='width:300px'
-      >
-      </dx-select-box>
-    </div>
-
-    <div class='mt-4'>
-      <dx-data-grid 
-        [dataSource]="listShiftDetail"
-        [allowColumnReordering]="true"
-        [columnAutoWidth]="true"
-        [showBorders]="true"
-        [allowColumnResizing]="true"
-      >
-        <dxi-column dataField="optionName" caption="Option" [width]='90' >
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypeBill" caption="Loại phiếu" >
-          <dxo-lookup 
-            [dataSource]="listTypeBill"
-            displayExpr="nameTypeBill"
-            valueExpr="idTypeBill"
-          >
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idProduct" caption="Sản phẩm" >
-          <dxo-lookup
-            [dataSource]="listProduct"
-            displayExpr="nameProduct"
-            valueExpr="idProduct">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypeProduct" caption="Loại sản phẩm" [width]='120' >
-          <dxo-lookup
-            [dataSource]="listTypeProduct"
-            displayExpr="nameTypeProduct"
-            valueExpr="idTypeProduct"
-          >
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypePacket" caption="Loại bao" >
-          <dxo-lookup
-            [dataSource]="listTypePacket"
-            displayExpr="nameTypePacket"
-            valueExpr="idTypePacket">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idParcel" caption="Lô" >
-          <dxo-lookup
-            [dataSource]="listParcel"
-            displayExpr="nameParcel"
-            valueExpr="idParcel">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idWareHouse" caption="Kho" >
-          <dxo-lookup
-            [dataSource]="listWareHouse"
-            displayExpr="nameWareHouse"
-            valueExpr="idWareHouse">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-
-        <dxo-editing
-          mode="row"
-          [allowUpdating]="true"
-          [allowDeleting]="true"
-          [allowAdding]="true"
-        >
-        </dxo-editing>
-
-        <dxo-selection
-          mode="single">
-        </dxo-selection>     
-
-      </dx-data-grid>
-    </div>
-    <div class="d-flex justify-content-end mt-5">
-      <div class='text-danger mt-2'>{{objDetailShift.formErrMess}}</div>
-      <div class='text-success mt-2'>{{objDetailShift.formSuccMess}}</div>
-    </div>
-    <div class="d-flex justify-content-end mt-5">
-      <button class='btn btn-light btn-cancel mr-4' style='border-radius: 0;' (click)='togglePopupDetailShift()'>Đóng</button>
-      <button class='btn btn-primary' style='border-radius: 0;' (click)='onSubmitDetailShift($event)'>Lưu thay đổi</button>
-    </div>
-  </div>
-
-</dx-popup>
-
-
-
-<!-- Add Shift -->
-<dx-popup
-  [(visible)]="isPopupAddShift"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objAddShift.title}}"
-  [height]='600'
-  [width]="1100"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto" *ngIf='isPopupAddShift'>
-    <div class="d-flex mt-4">
-      <div class='d-flex mr-4' >
-        <span style='align-self: center;width:35px;display:inline-block'>Ca:</span>
-        <dx-select-box 
-          [dataSource]='listFakeShift'
-          [dropDownOptions]={maxHeight:200}
-          [searchEnabled]="true"
-          (onValueChanged)="onValueChangeShiftInDateForAdd($event)"
-          style='width:200px'
-        >
-        </dx-select-box>
-      </div>
-      <div class='d-flex ' >
-        <span style='align-self: center;width:50px;display:inline-block'>Ngày:</span>
-        <dx-date-box
-            [min]='now'
-            type="date"
-            (onValueChanged)="onValueChangedTime($event)"
-            style='width:200px'
-            >
-        </dx-date-box>
-      </div>
-    </div>
-    <div class='mt-4'>
-      <dx-data-grid 
-        [dataSource]="listShiftDetail"
-        [allowColumnReordering]="true"
-        [columnAutoWidth]="true"
-        [showBorders]="true"
-        [allowColumnResizing]="true"
-        [hoverStateEnabled]="true"
-      >
-
-        <dxi-column dataField="optionName" caption="Option" [width]='90' >
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypeBill" caption="Loại phiếu" >
-          <dxo-lookup 
-            [dataSource]="listTypeBill"
-            displayExpr="nameTypeBill"
-            valueExpr="idTypeBill"
-          >
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idProduct" caption="Sản phẩm" >
-          <dxo-lookup
-            [dataSource]="listProduct"
-            displayExpr="nameProduct"
-            valueExpr="idProduct">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypeProduct" caption="Loại sản phẩm" [width]='120' >
-          <dxo-lookup
-            [dataSource]="listTypeProduct"
-            displayExpr="nameTypeProduct"
-            valueExpr="idTypeProduct"
-          >
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idTypePacket" caption="Loại bao" >
-          <dxo-lookup
-            [dataSource]="listTypePacket"
-            displayExpr="nameTypePacket"
-            valueExpr="idTypePacket">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idParcel" caption="Lô" >
-          <dxo-lookup
-            [dataSource]="listParcel"
-            displayExpr="nameParcel"
-            valueExpr="idParcel">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-        <dxi-column dataField="idWareHouse" caption="Kho" >
-          <dxo-lookup
-            [dataSource]="listWareHouse"
-            displayExpr="nameWareHouse"
-            valueExpr="idWareHouse">
-          </dxo-lookup>
-          <dxi-validation-rule type="required" message="Không được bỏ trống"></dxi-validation-rule>
-        </dxi-column>
-
-        <dxo-editing
-          mode="row"
-          [allowUpdating]="true"
-          [allowDeleting]="true"
-          [allowAdding]="true"
-        >
-        </dxo-editing>
-
-        <dxo-selection
-          mode="single">
-        </dxo-selection>
-
-      </dx-data-grid>
-    </div>
-    
-    <div class="d-flex justify-content-end mt-5">
-      <div class='text-danger mt-2'>{{objAddShift.formErrMess}}</div>
-      <div class='text-success mt-2'>{{objAddShift.formSuccMess}}</div>
-    </div>
-    <div class="d-flex justify-content-end mt-5">
-      <button class='btn btn-light btn-cancel mr-4' style='border-radius: 0;' (click)='togglePopupAddShift()'>Đóng</button>
-      <button class='btn btn-primary' style='border-radius: 0;' (click)='onSubmitAddShift($event)'>Lưu thay đổi</button>
-    </div>
-  </div>
-</dx-popup>
-
-
-<!-- Delete Shift -->
-<dx-popup
-  [(visible)]="isPopupDeleteShift"
-  [closeOnOutsideClick]="true"
-  [showTitle]="true"
-  title="{{objDeleteShift.title}}"
-  [height]='220'
-  [width]="380"
-  [resizeEnabled]="true"
->
-  <div class="" style="width:90%;margin:auto">
-    <div class='title-from-delete'>{{objDeleteShift.mess}}</div>
-    <form  (ngSubmit)="onSubmitDeleteShift($event)" autocomplete="off" *ngIf='isPopupDeleteShift'>
-      <div class='formErrMess text-danger mt-2'>{{objDeleteShift.formErrMess}}</div>
-      <div class='formSuccMess text-success mt-2'>{{objDeleteShift.formSuccMess}}</div>
-      <div class='d-flex justify-content-around mt-4' style=''>
-        <div  class="btn btn-light btn-cancel " (click)='togglePopupDeleteShift()' >Hủy</div>
-        <button type="submit"  class="btn btn-primary btn-blue   mr-3" > Xóa</button>
-      </div>
-    </form>
-  </div>
-</dx-popup>

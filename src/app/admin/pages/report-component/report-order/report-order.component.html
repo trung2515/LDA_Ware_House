@@ -1,0 +1,98 @@
+
+<div >
+    <h4 class="py-3">Báo cáo chi tiết đơn hàng:</h4>
+    <div class="row">
+
+        <div class="row">
+          <hr>
+          <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
+   
+          <div class="col-3 pe-4">
+            <span >Mã đơn hàng</span>
+            <select class="custom-select" >
+              <option value="0" selected>Tất cả</option>
+              <option ></option>
+            </select>
+          </div>
+   
+          <div class="col-3 pe-4">
+            <span > Sản phẩm</span>
+            <select class="custom-select" >
+              <option value="0" selected>Tất cả</option>
+              <option ></option>
+            </select>
+          </div>
+          <div class="col-3 pe-4">
+            <span > loại sản phẩm</span>
+            <select class="custom-select" >
+              <option value="0" selected>Tất cả</option>
+              <option ></option>
+            </select>
+          </div>
+
+        </div>
+          
+        <div class="body-table">
+          
+          <table class=" w-100  ">
+            <thead class="table-head" >
+              <tr>
+                <th rowspan="2" style="width: 50px;" >STT</th>
+                <th rowspan="2">Mã đơn hàng</th>
+      
+                <th rowspan="2">Sản phẩm</th>
+                <th rowspan="2">Loại SP</th>
+                <th rowspan="2">Loại bao</th>
+                <th rowspan="2">Kho</th>
+                <th rowspan="2">Khách hàng</th>
+                <th rowspan="2">Loại khách hàng</th>
+                <th rowspan="2">Đặt hàng</th>
+              
+                <th colspan="2">Số lượng</th>
+                <th rowspan="2">Trạng thái</th>
+     
+             
+              </tr>
+              <tr>
+                <th>Bao</th>
+                <th>kg</th>
+              </tr>
+          
+            </thead>
+            <tbody  *ngFor="let item of dataOrder;let i = index">
+                    <tr >
+                        <td>{{i+1}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.sanpham}}</td>
+                        <td>{{item.loaisanpham}}</td>
+                        <td>{{item.loaibao}}</td>
+                        <td>{{item.loaibao}}</td>
+                        <td>{{item.kho}}</td>
+                        <td>{{item.khachhang}}</td>
+                        <td>{{item.loaikhachhang}}</td>
+                        <td>{{item.soluong}}</td>
+                        <td>{{item.khoiluong}}</td>
+                        <td>{{item.trangthai}}</td>
+                       
+                    </tr>
+                 
+                   
+            </tbody>
+          
+          </table>
+          <!-- <div class="d-flex">
+            1231312
+            <pagination-controls class="ms-auto"
+                  id="pUser"
+                  previousLabel=""
+                  nextLabel=""
+                  (pageChange)="pUser = $event">
+            </pagination-controls>
+          </div> -->
+           
+        </div>
+
+    </div>
+
+    
+</div>

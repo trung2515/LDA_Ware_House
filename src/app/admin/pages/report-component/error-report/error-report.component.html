@@ -1,0 +1,92 @@
+
+<div >
+    <h4 class="py-3">Báo cáo chi tiết lỗi:</h4>
+    <div class="row">
+        <div class="col-6">
+        <div class="row mb-4">
+            <div class="col-6 pe-4">    
+                 <span>Từ ngày</span>
+                <dx-date-box type="date" id="selected-date-time" 
+                  (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+            <div class="col-6 pe-4">    
+                <span>Đến ngày</span>
+                <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
+                   displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+          <hr>
+          <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
+   
+          <div class="col-3 pe-4">
+            <span > Ca</span>
+            <select class="custom-select" >
+              <option value="0" selected>Tất cả</option>
+              <option ></option>
+            </select>
+          </div>
+          <div class="col-3 pe-4">
+            <span > Sản phẩm</span>
+            <select class="custom-select" >
+              <option value="0" selected>Tất cả</option>
+              <option ></option>
+            </select>
+          </div>
+     
+    
+
+ 
+        </div>
+          
+        <div class="body-table">
+          
+          <table class=" w-100  ">
+            <thead class="table-head" >
+              <tr>
+                <th rowspan="2" style="width: 50px;" >STT</th>
+                <th rowspan="2">Ngày</th>
+                <th rowspan="2">Ca</th>
+                <th rowspan="2">Lô</th>
+                <th rowspan="2">Serial</th>
+                <th rowspan="2">sản phẩm</th>
+                <th rowspan="2">Loại SP</th>
+                <th rowspan="2">Loại bao</th>
+                <th rowspan="2">Lỗi</th>
+                
+                
+             
+     
+             
+              </tr>
+          
+          
+            </thead>
+            <tbody  >
+                    <tr *ngFor="let item of dataError;let i = index">
+                      <td>{{i+1}}</td>
+                      <td >{{item.date}}</td>
+                      <td >{{item.shift}}</td>
+                      <td>{{item.lot }}</td>
+                      <td>{{item.serial}}</td>
+                      <td>{{item.product}}</td>
+                      <td>{{item.typeProduct}}</td>
+                      <td>{{item.packging}}</td>
+                      <td>{{item.error}}</td>
+                    
+                    </tr>
+                   
+            </tbody>
+          
+          </table>
+           
+        </div>
+
+    </div>
+
+    
+</div>
+

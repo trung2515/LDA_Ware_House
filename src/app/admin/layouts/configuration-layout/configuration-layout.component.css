@@ -22,8 +22,8 @@
   border-bottom:1px solid #ddd;
 }
 .active{
-  color:#fff;
-  background: var(--mainColor);
+  color:#4A80FF;
+  background: #DBE5FF;
 }
 
 /* ------------------------------ */

@@ -1,0 +1,45 @@
+.select-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+.invalid-feedback {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+
+.select:disabled {
+  opacity: 0.5;
+}
+.select {
+  position: relative;
+  width: 100%;
+  font-size: 15px;
+  color: #000000;
+  font-family: "Roboto";
+  border-radius: 3px;
+  border: 1px solid #cbd3ee;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: url("../../../../assets/svg/arrow_down.svg") no-repeat right #fff;
+  background-size: 28px 18px;
+  padding: 10.78px 6px;
+  cursor: pointer;
+}
+.is-invalid {
+  border-color: #da292e;
+}
+.select:after {
+  content: "";
+}
+.select:focus {
+  outline: none;
+  border: 1px solid #9aacf3;
+}
+.select option:active {
+  background-color: red;
+}

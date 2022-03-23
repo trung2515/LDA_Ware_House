@@ -1,1 +1,106 @@
-<p>dashboard works!</p>
+<div class="d-flex flex-column align-items-center pb-3">
+  <!-- <div class="filter-bar pr-2">
+    <app-filter-bar-dashboard [filterControl]="filterController" (onFilterChanges)="onFilterChange($event)"
+      (onRadioChanges)="onRadioFilterChange($event)">
+    </app-filter-bar-dashboard>
+  </div>
+  <div class="content">
+    <dx-tab-panel id="tab-panel-dashboard" #tabPanel [dataSource]="tabInfo" [selectedIndex]="0" [loop]="false"
+      [animationEnabled]="true" [swipeEnabled]="false" [hoverStateEnabled]="true" [animationEnabled]="true"
+      [focusStateEnabled]="false">
+      <div *dxTemplate="let tabTitle of 'title'">
+        <p>{{ tabTitle.tabName }}</p>
+      </div>
+      <div *dxTemplate="let tabPanel of 'item'">
+        <div *ngIf="tabPanel.id === 1" class="tab-1">
+         
+          <div class="chart-container">
+            <app-bar-char chartID="chart-db" [products]="dataSourceN" [configChart]="configChartDB"></app-bar-char>
+          </div>
+    
+          <div class="chart-container">
+            <app-bar-char chartID="chart-tt" [products]="dataSourceX" [configChart]="configChartTT"></app-bar-char>
+          </div>
+        </div>
+        <div *ngIf="tabPanel.id === 2" class="tab-2">
+          <div class="chart-container">
+            <app-line-char [configChart]="configLineChartDB" idChartLine="lineChart-db"
+              [products]="dataSource_transportation"></app-line-char>
+          </div>
+          <div class="chart-container">
+            <app-line-char [configChart]="configLineChartTT" idChartLine="lineChart-tt"
+              [products]="dataSource_transportationXTT"></app-line-char>
+          </div>
+        </div>
+      </div>
+    </dx-tab-panel>
+  </div> -->
+  <div class="w-100 ">
+    <h3>Báo cáo tổng quan 7 ngày gần nhất</h3>
+  </div>
+  <div style="width:50% ;height: 500px;">
+      <!-- --------------------------/ Tồn kho/------------------------------  -->
+    <dx-chart id="chart" title="Biểu đồ tồn kho" [dataSource]="tonKho"  palette="Soft Blue">
+      <dxi-series valueField="AO1T" name="AO1T"></dxi-series>
+      <dxi-series valueField="AH1T" name="AH1T"></dxi-series>
+      <dxi-value-axis [maxValueMargin]="0.1" ></dxi-value-axis>
+      <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"  [ignoreEmptyPoints]="true" 
+        selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+        type: 'fixedPoint',
+        precision: '0'
+      }"
+      backgroundColor="none">
+        </dxo-label>
+      </dxo-common-series-settings>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+      </dxo-legend>
+      <dxo-export [enabled]="true"></dxo-export>
+    </dx-chart>
+  </div>
+
+
+  <!-- --------------------------/ Nhập kho/------------------------------  -->
+  
+  <div style="width:50% ;height: 500px;">
+    <dx-chart id="chart" title="Biểu đồ nhập kho"   palette="Soft Blue" [dataSource]="nhapKho">
+      <dxi-series valueField="AO1T" name="AO1T"></dxi-series>
+      <dxi-series valueField="AH1T" name="AH1T"></dxi-series>
+      <dxi-value-axis [maxValueMargin]="0.1" >  </dxi-value-axis>
+      <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
+        selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+        type: 'fixedPoint',
+        precision: '0'
+      }"
+      backgroundColor="none">>
+        </dxo-label>
+      </dxo-common-series-settings>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+      </dxo-legend>
+      <dxo-export [enabled]="true"></dxo-export>
+    </dx-chart>
+  </div>
+
+
+  <!-- --------------------------/ Xuất kho/------------------------------  -->
+  <div style="width:50% ;height: 500px;">
+    <dx-chart id="chart" title="Biểu đồ xuất kho"  palette="Soft Blue" [dataSource]="xuatKho">
+      <dxi-series valueField="AO1T" name="AO1T"></dxi-series>
+      <dxi-series valueField="AH1T" name="AH1T"></dxi-series>
+      <dxi-value-axis [maxValueMargin]="0.1" >  </dxi-value-axis>
+      <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
+        selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+        type: 'fixedPoint',
+        precision: '0'
+      }"
+      backgroundColor="none">>
+        </dxo-label>
+      </dxo-common-series-settings>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+      </dxo-legend>
+      <dxo-export [enabled]="true"></dxo-export>
+    </dx-chart>
+  </div>
+</div>

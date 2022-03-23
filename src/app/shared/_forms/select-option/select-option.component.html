@@ -1,0 +1,12 @@
+<div class="select-wrap">
+  <select [class.is-invalid]="ngControl.invalid && ngControl.touched" class="select "
+    [class.is-invalid]="ngControl.invalid && ngControl.touched" [formControl]="ngControl.control">
+    <option value="">Chọn {{ label }}</option>
+    <option *ngFor="let option of options" [value]="option.code">{{
+      option.name
+    }}</option>
+  </select>
+  <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback">
+    Vui lòng nhập {{ label }}
+  </div>
+</div>

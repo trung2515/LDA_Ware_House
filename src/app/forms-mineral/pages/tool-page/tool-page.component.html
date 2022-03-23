@@ -1,0 +1,294 @@
+<div class="page-body">
+  <div >
+    <p class="fw-700 name-minute">{{nameMinutes}}</p>
+  </div>
+  <div>
+    <div class="d-flex justify-content-center py-4">
+      <ul class="progressbar">
+        <li class="complete">Chọn biên bản</li>
+        <li [ngClass]="step == 2 || step == 3 ? 'complete' : ''">
+          Nhập thông tin
+        </li>
+        <li [ngClass]="step == 3 ? 'complete' : ''">Xem trước</li>
+      </ul>
+    </div>
+  </div>
+  <!-- <button class="btn-warning" (click)="testToggleColum()">show Data</button>
+  <button class="btn-primay" (click)="step = 1">step 1</button>
+  <button class="btn-danger" (click)="step = 2">step 2</button>
+  <button class="btn-dark" (click)="step = 3">step 3</button> -->
+  <div>
+    <!-- ----------------step1-------------------- -->
+    <div *ngIf="step == 1">
+      <type-minutes (checkType)="getType($event)"> </type-minutes>
+    </div>
+    <!-- ---------------step2---------------- -->
+    <div class="container " style="padding: 30px 120px;" *ngIf="step == 2">
+
+      <div  class="row " *ngIf="selectType == 1 || selectType == 2">
+        <div class="col-6">
+          <div>Ca:</div>
+          <dx-select-box placeholder="Chọn ca" displayExpr="name" valueExpr="shift" [(value)]="isShift" [(dataSource)]="listShift"  (onValueChanged)="selectShiftFilter($event)"></dx-select-box>
+        </div>
+        <div class="col-6">
+          <div>Ngày:</div>
+          <div>
+            <dx-date-box type="date" placeholder="Chọn ngày" [(value)]="isDate"  (onValueChanged)="selectDateFilter($event)">
+            </dx-date-box>
+          </div>
+        </div>
+
+        <div class="py-4">
+          <dx-data-grid (onSelectionChanged)="selectionChanged($event)" [columnAutoWidth]="true"
+            [dataSource]="dataTableMinuteFilter" noDataText="Không có dữ liệu" [showBorders]="true">
+            <dxi-column *ngFor="let item of header" dataField="{{ item.source }}" caption="{{ item.caption }}"></dxi-column>
+            <!-- <dxi-column dataField="product" caption="sản phẩm"></dxi-column> -->
+            <dxo-selection mode="multiple"></dxo-selection>
+          </dx-data-grid>
+        </div>
+      </div>
+      <!-- -------------------------------------------------------------/select biên bản đề nghị/-------------------------------------------------  -->
+      <div *ngIf="selectType == 3">
+      <div *ngFor="let item of suggest;let i= index">
+        <span>Đề nghị sản phẩm</span>
+        <hr />
+        <div class="row pb-4">
+          <div class="col-4">
+            <div>Sản phầm:</div>
+            <dx-select-box placeholder="Chọn sản phẩm" displayExpr="name"  valueExpr="name"  [(value)]="isArrProduct[i]" [(dataSource)]="listProduct"  (onValueChanged)="selectSuggestProduct($event,i)" ></dx-select-box>
+          </div>
+          <div class="col-4">
+            <div>Loại sản phẩm:</div>
+            <dx-select-box placeholder="Chọn loại sản phẩm" displayExpr="name" valueExpr="id" [(value)]="isArrProductType[i]"  [(dataSource)]="listProductType" (onValueChanged)="selectSuggestProductType($event,i)" ></dx-select-box>
+          </div>
+          <div class="col-4">
+            <div>Loại bao:</div>
+            <dx-select-box placeholder="Chọn loại bao" displayExpr="name" valueExpr="name" [(value)]="isArrPackaging[i]" [(dataSource)]="listPackaging" (onValueChanged)="selectSuggestPackaging($event,i)"  ></dx-select-box>
+          </div>
+          <div class="col-4 pt-3">
+            <div>Đơn vị tính:</div>
+            <input type="text" class="form-control" placeholder="Nhập đơn vị tính" [(ngModel)]="suggest[i].unit" />
+          </div>
+          <div class="col-4 pt-3">
+            <div>Mục đích sử dụng:</div>
+            <input type="text" class="form-control" placeholder="Mục đích sử dụng" [(ngModel)]="suggest[i].uses"/>
+          </div>
+          <div class="col-4 pt-3">
+            <div>Số lượng:</div>
+            <input type="text" class="form-control" placeholder="Nhập số lượng" [(ngModel)]="suggest[i].quantity"/>
+          </div>
+          <div class="d-flex poiter">
+            <img [ngClass]="i == 0 ? 'd-none' : ''" class="ms-auto icon-remove" ng
+              (click)="removeSuggest(i)" src="../../../../assets/svg/remove.svg" alt="" />
+          </div>
+          <div class="col-4 pt-3">
+            <div>Số lượng chủ quản duyệt:</div>
+            <input type="text" class="form-control" placeholder="Số lượng chủ quản duyệt" [(ngModel)]="suggest[i].quantityConfirm"/>
+          </div>
+          <div class="col-4 pt-3">
+            <div>Số lượng theo phiếu nhập:</div>
+            <input type="text" class="form-control" placeholder="Số lượng theo phiếu nhập" [(ngModel)]="suggest[i].quantityBill"/>
+          </div>
+          <div class="col-4 pt-3">
+            <div>Ghi chú:</div>
+            <input type="text" class="form-control" placeholder="Nhập ghi chú" [(ngModel)]="suggest[i].note" />
+          </div>
+        </div>
+
+      </div>
+      <!-- <div class="d-flex">
+        <div class="ms-auto addSurrogate" (click)="addSuggest()">
+          <div>
+            <i class="fa fa-plus me-2"></i><span>Thêm người đại diện</span>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+      <div>
+        <span>Thông tin biên bản</span>
+        <hr />
+        <div *ngIf="selectType == 1" class="form-check form-switch">
+          <input class="form-check-input " type="checkbox" id="switchInternal" [(ngModel)]="switchInternal" />
+          <label class="form-check-label ms-2 labelOption" for="switchInternal">ĐƠN VỊ THUÊ NGOÀI</label>
+        </div>
+        <br />
+        <div  *ngIf="selectType == 3">
+        <div>Quyết định số:</div>
+        <dx-select-box placeholder="Chọn quyết định" [(dataSource)]="listDecision" [(value)]="isDecision" (onValueChanged)="selectDecision($event)"></dx-select-box>
+        <br>
+          <dx-text-area [height]="90" [(ngModel)]="request">
+          </dx-text-area>
+        </div>
+        <div  *ngIf="selectType !== 3">
+          <dx-text-area  [height]="90" [(ngModel)]="dataBinding.inforMitues">
+          </dx-text-area>
+        </div>
+        <div>
+          <!-- -------------------------------------/select người đại diện/-----------------------------  -->
+          <div *ngIf="selectType == 1">
+            <div>
+              <br />
+              <div>Đại diện bên giao:</div>
+              <dx-select-box placeholder="Chọn đại diện bên giao" [(value)]="isSender" displayExpr="name" [(dataSource)]="sender"
+                (onValueChanged)="selectSender($event)">
+              </dx-select-box>
+              <br />
+              <!-- -----------------------/Người Giao/-----------------------------  -->
+              <div *ngFor="let person of surrogateSender; let i = index">
+                <div class="row p-1">
+                  <div class=" col-6 form-group px-2">
+                    <label >Ông/Bà:</label>
+                    <dx-select-box placeholder="Chọn tên"  displayExpr="name" valueExpr="name" [(dataSource)]="senderPerson"
+                     [(value)]="isArrSenderName[i]" (onValueChanged)="selectsenderPersonName($event, i)">
+                    </dx-select-box>
+                  </div>
+                  <div class="col-6">
+                    <label>Chức Vụ:</label>
+                    <dx-select-box placeholder="Chọn chức vụ" displayExpr="name" valueExpr="name" [(dataSource)]="senderDepartment"
+                     [(value)]="isArrSenderDeparment[i]" (onValueChanged)="selectsenderPersonDepartment($event, i)">
+                    </dx-select-box>
+                    <div class="d-flex poiter">
+                      <img [ngClass]="i == 0 ? 'd-none' : ''" class="ms-auto icon-remove" ng
+                        (click)="removeSurrogateSender(i)" src="../../../../assets/svg/remove.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ms-auto addSurrogate" (click)="addSurrogateSender()">
+                  <div>
+                    <i class="fa fa-plus me-2"></i><span>Thêm người đại diện</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="selectType == 1">
+              <br />
+              <div>Đại diện bên nhận:</div>
+              <dx-select-box placeholder="Chọn đại diện bên nhận" displayExpr="name" valueExpr="name"  [(value)]="isReceiver"  [(dataSource)]="receiver" 
+              [(value)]="customer" (onValueChanged)="selectReceiver($event)">
+              </dx-select-box>
+              <br />
+              <!-- -------------------------------------/Người Nhận/-----------------------------  -->
+              <div *ngFor="let person of surrogateReceiver; let i = index">
+                <div class="row p-1">
+                  <div class=" col-6 form-group px-2">
+                    <label>Ông/Bà:</label>
+                    <dx-select-box placeholder="Chọn Tên" displayExpr="name" valueExpr="name" [(value)]="isArrReceiverName[i]" [(dataSource)]="receiverPerson" (onValueChanged)="selectreceiverPersonName($event, i)">
+                    </dx-select-box>
+                  </div>
+                  <div class="col-6 form-group px-2">
+                    <label>Chức Vụ:</label>
+                    <dx-select-box placeholder="Chọn chức vụ" displayExpr="name" valueExpr="name"  [(value)]="isArrReceiverDepartment[i]"  [(dataSource)]="receiverDepartment" (onValueChanged)="selectreceiverPersonDepartment($event, i)">
+                    </dx-select-box>
+                    <div class="d-flex poiter">
+                      <img [ngClass]="i == 0 ? 'd-none' : ''" class="ms-auto icon-remove" ng
+                        (click)="removeSurrogateReceiver(i)" src="../../../../assets/svg/remove.svg" alt="" />
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ms-auto poiter addSurrogate" (click)="addSurrogateReceiver()">
+                  <div>
+                    <i class="fa fa-plus me-2"></i><span>Thêm người đại diện</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------/slect for minuteType 2/-----------------------------------------  -->
+          <br />
+          <div *ngIf=" selectType==2 ">
+          <div *ngFor="let person of surrogateSender; let i = index">
+            <div class="row p-1">
+              <div class=" col-6 form-group px-2">
+                <label >Ông/Bà:</label>
+                <dx-select-box placeholder="Chọn tên"  displayExpr="name" valueExpr="name" [(dataSource)]="senderPerson"
+                 [(value)]="isArrSenderName[i]" (onValueChanged)="selectsenderPersonName($event, i)">
+                </dx-select-box>
+              </div>
+              <div class="col-6">
+                <label>Chức Vụ:</label>
+                <dx-select-box placeholder="Chọn chức vụ" displayExpr="name" valueExpr="name" [(dataSource)]="senderDepartment"
+                 [(value)]="isArrSenderDeparment[i]" (onValueChanged)="selectsenderPersonDepartment($event, i)">
+                </dx-select-box>
+                <div class="d-flex poiter">
+                  <img [ngClass]="i == 0 ? 'd-none' : ''" class="ms-auto icon-remove" ng
+                    (click)="removeSurrogateSender(i)" src="../../../../assets/svg/remove.svg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="ms-auto addSurrogate" (click)="addSurrogateSender()">
+              <div>
+                <i class="fa fa-plus me-2"></i><span>Thêm người đại diện</span>
+              </div>
+            </div>
+          </div>
+        </div>
+          <br />
+          <div *ngIf="selectType != 3">
+            <div>
+              <dx-text-area [height]="60" [(ngModel)]="dataBinding.contentMinute">
+              </dx-text-area>
+            </div>
+            <div class=" pt-4">
+              <dx-text-area [height]="80" [(ngModel)]="dataBinding.verify">
+              </dx-text-area>
+            </div>
+          </div>
+          <div class="d-flex align-center justify-content-center pb-5 pt-4">
+            <div>
+              <button (click)="step = 1;resetData()" type="button" class="btn-back me-2">
+                Quay lại
+              </button>
+              <button (click)="step = 3" type="button" class="btn-next ms-2">
+                Xem mẫu in
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ------------------------------/step3/-------------------------- -->
+  <div *ngIf="step == 3 ">
+    <div  *ngIf="selectType !== 3">
+    <page-minutes
+      [checkMinute]="checkMinuteType"
+      [data]="dataSelect"
+      [totalAllQuantity]="totalAllQuantity"
+      [totalAllMass]="totalAllMass"
+      [binding]="dataBinding"
+      [surrogateReceiver]="surrogateReceiver"
+      [surrogateSender]="surrogateSender"
+      [suggest]="suggest"
+      [switchInternal]="switchInternal"
+      [request]="request"
+      [decision]="decision"
+      ></page-minutes>
+    </div>
+      <page-minutes-suggest *ngIf="selectType == 3"
+      [checkMinute]="checkMinuteType"
+      [binding]="dataBinding"
+      [suggest]="suggest"
+      [request]="request"
+      [decision]="decision"
+      ></page-minutes-suggest>
+  </div>
+  <div *ngIf="step == 3" class="d-flex align-items-center justify-content-center footer  mt-5">
+    <div>
+      <button (click)="step = 2 " type="button" class="btn-back me-2">
+        Quay lại
+      </button>
+      <button type="button" class="btn-next ms-2" (click)="captureScreen()">
+        Tải Về PDF
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="header">
+  <h3 class="heading">{{ title_nav }}</h3>
+</div>
+<div class="filter-bar" *ngIf="isFilterDate">
+  <div class="start-end-date-wrap">
+    <div class="field-value">
+      <p>Từ ngày</p>
+      <dx-date-box type="date" id="selected-date-time" [(value)]="startDate"
+        (onValueChanged)="onStartDateChange($event)" displayFormat="dd/MM/yyyy">
+      </dx-date-box>
+    </div>
+    <div class="field-value">
+      <p>Đến ngày</p>
+      <dx-date-box type="date" id="selected-date-time" [(value)]="endDate" (onValueChanged)="onEndDateChange($event)"
+        [disabledDates]="disabledDates" displayFormat="dd/MM/yyyy">
+      </dx-date-box>
+    </div>
+  </div>
+  <!-- <div class="search-wrap">
+    <div class="xlsx">
+      <img (click)="onExportFile()" src="assets/svg/xlsx.svg" alt="xlsx" />
+    </div>
+    <div class="form-group">
+      <img src="assets/svg/search.svg" alt="search icon" />
+      <input (keyup)="handleKeydown($event)" name='search' type="text" class="input-control" />
+    </div>
+  </div> -->
+</div>

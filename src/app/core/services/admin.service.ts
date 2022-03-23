@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { identity } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service'
+import { Injectable } from '@angular/core'
+import { identity, Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { AdministratorClient,WareHouseClient } from '../models/admin.pbsc';
-import{
+import { AdministratorClient, WareHouseClient } from '../models/admin.pbsc'
+import {
   MasterRequest,
   ResponseState,
   CodePacketResponse,
@@ -35,708 +36,677 @@ import{
   InsertShiftRequest,
   ShiftDetailInfo,
   ShiftInfo,
-}from '../models/model.pb'
+  TransportationUnitResponse,
+  MasterDataInfo,
+} from '../models/model.pb'
 @Injectable()
 export class AdminService {
   constructor(
-    private administratorClient:AdministratorClient ,
-    private warehouseClient:WareHouseClient ,
-
+    private administratorClient: AdministratorClient,
+    private warehouseClient: WareHouseClient,
+    private authService: AuthService,
   ) { }
 
-
-
-  getListProduct( ){
-    let req:MasterRequest=new MasterRequest();    
-    return this.administratorClient.getListProduct(req).pipe(
-      map((reply: ProductResponse) => {
-        console.log(reply)
+  getListTransportUnit() {
+    let req: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListTransportationUnit(req).pipe(
+      map((reply: TransportationUnitResponse) => {
+        console.log(reply.data)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  deleteProduct( idProduct:any){
-    let req:ProductInfo=new ProductInfo();    
-    req.idProduct=idProduct
+
+  getListProduct() {
+    let req: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListProduct(req).pipe(
+      map((reply: ProductResponse) => {
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data
+        } else return []
+      }),
+    )
+  }
+  deleteProduct(idProduct: any) {
+    let req: ProductInfo = new ProductInfo()
+    req.idProduct = idProduct
     return this.administratorClient.deleteProduct(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updateProduct( idProduct:any,codeProduct:any,nameProduct:any){
-    let req:ProductInfo=new ProductInfo();    
-    req.idProduct=idProduct
-    req.codeProduct=codeProduct
-    req.nameProduct=nameProduct
+  updateProduct(idProduct: any, codeProduct: any, nameProduct: any) {
+    let req: ProductInfo = new ProductInfo()
+    req.idProduct = idProduct
+    req.codeProduct = codeProduct
+    req.nameProduct = nameProduct
     console.log(req)
     return this.administratorClient.updateProduct(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  insertProduct(codeProduct:any,nameProduct:any){
-    let req:ProductInfo=new ProductInfo();    
-    req.codeProduct=codeProduct
-    req.nameProduct=nameProduct
+  insertProduct(codeProduct: any, nameProduct: any,weight:any) {
+    let req: ProductInfo = new ProductInfo()
+    req.codeProduct = codeProduct
+    req.nameProduct = nameProduct
+    req.weight = weight
     return this.administratorClient.insertProduct(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-  getListTypeProduct( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListTypeProduct() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypeProduct(req).pipe(
       map((reply: TypeProductResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertTypeProduct(nameTypeProduct:any){
-    let req:TypeProductInfo=new TypeProductInfo();    
-    req.nameTypeProduct=nameTypeProduct
+  insertTypeProduct(nameTypeProduct: any) {
+    let req: TypeProductInfo = new TypeProductInfo()
+    req.idTypeProduct = nameTypeProduct
     return this.administratorClient.insertTypeProduct(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updateTypeProduct(idTypeProdcut:any,nameTypeProduct:any ){
-    let req:TypeProductInfo=new TypeProductInfo();   
-    req.idTypeProduct=idTypeProdcut 
-    req.nameTypeProduct=nameTypeProduct
-    return this.administratorClient.updateTypeProduct(req).pipe(
-      map((reply: Response) => {
-        return reply;
-      })
-    )
+  updateTypeProduct(idTypeProdcut: any, nameTypeProduct: any) {
+    let req: TypeProductInfo = new TypeProductInfo()
+    req.idTypeProduct = idTypeProdcut
+    // return this.administratorClient.updateTypeProduct(req).pipe(
+    //   map((reply: Response) => {
+    //     return reply
+    //   }),
+    // )
   }
-  deleteTypeProduct( idTypeProduct:any){
-    let req:TypeProductInfo=new TypeProductInfo();    
-    req.idTypeProduct=idTypeProduct
+  deleteTypeProduct(idTypeProduct: any) {
+    let req: TypeProductInfo = new TypeProductInfo()
+    req.idTypeProduct = idTypeProduct
     return this.administratorClient.deleteTypeProduct(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-  getListTypePacket( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListTypePacket() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypePacket(req).pipe(
       map((reply: TypePacketResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertTypePacket(nameTypePacket:any){
-    let req:TypePacketInfo=new TypePacketInfo();    
-    req.nameTypePacket=nameTypePacket
+  insertTypePacket(nameTypePacket: any, code : any) {
+    let req: TypePacketInfo = new TypePacketInfo()
+    req.nameTypePacket = nameTypePacket
+    req.codeTypePacket = code
     return this.administratorClient.insertTypePacket(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updateTypePacket(idTypeProdcut:any,nameTypePacket:any ){
-    let req:TypePacketInfo=new TypePacketInfo();   
-    req.idTypePacket=idTypeProdcut 
-    req.nameTypePacket=nameTypePacket
+  updateTypePacket(idTypeProdcut: any, nameTypePacket: any) {
+    let req: TypePacketInfo = new TypePacketInfo()
+    req.idTypePacket = idTypeProdcut
+    req.nameTypePacket = nameTypePacket
     return this.administratorClient.updateTypePacket(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteTypePacket( idTypePacket:any){
-    let req:TypePacketInfo=new TypePacketInfo();    
-    req.idTypePacket=idTypePacket
+  deleteTypePacket(idTypePacket: any) {
+    let req: TypePacketInfo = new TypePacketInfo()
+    req.idTypePacket = idTypePacket
     return this.administratorClient.deleteTypePacket(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
+  // getListCodePacket() {
+  //   let req: MasterRequest = new MasterRequest()
+  //   return this.administratorClient.getListCodePacket(req).pipe(
+  //     map((reply: CodePacketResponse) => {
+  //       console.log(reply)
+  //       if (reply.response?.state == ResponseState.SUCCESS) {
+  //         return reply.data
+  //       } else return []
+  //     }),
+  //   )
+  // }
+  // insertCodePacket(
+  //   codePacket: any,
+  //   nameProductPacket: any,
+  //   unit: any,
+  //   idTypePacket: any,
+  //   description: any,
+  // ) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.codePacket = codePacket
+  //   req.nameProductPacket = nameProductPacket
+  //   req.unit = unit
+  //   req.idTypePacket = idTypePacket
+  //   req.description = description
+  //   return this.administratorClient.insertCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
+  // updateCodePacket(
+  //   id: any,
+  //   codePacket: any,
+  //   nameProductPacket: any,
+  //   unit: any,
+  //   idTypePacket: any,
+  //   description: any,
+  // ) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.id = id
+  //   req.codePacket = codePacket
+  //   req.nameProductPacket = nameProductPacket
+  //   req.unit = unit
+  //   req.idTypePacket = idTypePacket
+  //   req.description = description
+  //   return this.administratorClient.updateCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
+  // deleteCodePacket(id: any) {
+  //   let req: CodePacketInfo = new CodePacketInfo()
+  //   req.id = id
+  //   return this.administratorClient.deleteCodePacket(req).pipe(
+  //     map((reply: Response) => {
+  //       return reply
+  //     }),
+  //   )
+  // }
 
-
-  getListCodePacket( ){
-    let req:MasterRequest=new MasterRequest();    
-    return this.administratorClient.getListCodePacket(req).pipe(
-      map((reply: CodePacketResponse) => {
-        console.log(reply)
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      })
-    )
-  }
-  insertCodePacket(codePacket:any,nameProductPacket:any,unit:any,idTypePacket:any,description:any){
-    let req:CodePacketInfo=new CodePacketInfo();      
-    req.codePacket=codePacket
-    req.nameProductPacket=nameProductPacket
-    req.unit=unit
-    req.idTypePacket=idTypePacket
-    req.description=description
-    return this.administratorClient.insertCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply;
-      })
-    )
-  }
-  updateCodePacket(id:any,codePacket:any,nameProductPacket:any,unit:any,idTypePacket:any,description:any ){
-    let req:CodePacketInfo=new CodePacketInfo();   
-    req.id=id
-    req.codePacket=codePacket
-    req.nameProductPacket=nameProductPacket
-    req.unit=unit
-    req.idTypePacket=idTypePacket
-    req.description=description
-    return this.administratorClient.updateCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply;
-      })
-    )
-  }
-  deleteCodePacket( id:any){
-    let req:CodePacketInfo=new CodePacketInfo();    
-    req.id=id
-    return this.administratorClient.deleteCodePacket(req).pipe(
-      map((reply: Response) => {
-        return reply;
-      })
-    )
-  }
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-  getListWareHouse( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListWareHouse() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListWareHouse(req).pipe(
       map((reply: WareHouseResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertWareHouse(codeWareHouse:any,nameWareHouse:any,capacity:any){
-    let req:WareHouseInfo=new WareHouseInfo();    
-    req.codeWareHouse=codeWareHouse
-    req.nameWareHouse=nameWareHouse
-    req.capacity=capacity
+  insertWareHouse(codeWareHouse: any, nameWareHouse: any, capacity: any) {
+    let req: WareHouseInfo = new WareHouseInfo()
+    req.codeWareHouse = codeWareHouse
+    req.nameWareHouse = nameWareHouse
+    req.capacity = capacity
     return this.administratorClient.insertWareHouse(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updateWareHouse( idWareHouse:any,codeWareHouse:any,nameWareHouse:any,capacity:any){
-    let req:WareHouseInfo=new WareHouseInfo();    
-    req.idWareHouse=idWareHouse
-    req.codeWareHouse=codeWareHouse
-    req.nameWareHouse=nameWareHouse
-    req.capacity=capacity
+  updateWareHouse(
+    idWareHouse: any,
+    codeWareHouse: any,
+    nameWareHouse: any,
+    capacity: any,
+  ) {
+    let req: WareHouseInfo = new WareHouseInfo()
+    req.idWareHouse = idWareHouse
+    req.codeWareHouse = codeWareHouse
+    req.nameWareHouse = nameWareHouse
+    req.capacity = capacity
     console.log(req)
     return this.administratorClient.updateWareHouse(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteWareHouse( idWareHouse:any){
-    let req:WareHouseInfo=new WareHouseInfo();    
-    req.idWareHouse=idWareHouse
+  deleteWareHouse(idWareHouse: any) {
+    let req: WareHouseInfo = new WareHouseInfo()
+    req.idWareHouse = idWareHouse
     return this.administratorClient.deleteWareHouse(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-
-  getListPartner( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListPartner() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListPartner(req).pipe(
       map((reply: PartnerResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  getListTypePartner( ){
-    let req:MasterRequest=new MasterRequest();    
+
+  getListTypePartner() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypePartner(req).pipe(
       map((reply: MasterDataResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertPartner(codePartner:any,namePartner:any,typePartner:any){
-    let req:PartnerInfo=new PartnerInfo();    
-    req.codePartner=codePartner
-    req.namePartner=namePartner
-    req.typePartner=typePartner
+
+  getMasterData(type: string) {
+    let req: MasterRequest = new MasterRequest()
+    return this.administratorClient.getListMasterData(req).pipe(
+      map((reply: MasterDataResponse) => {
+        console.log(reply)
+        if (reply.response?.state == ResponseState.SUCCESS) {
+          return reply.data.filter((d) => d.objectType === type)
+        } else return []
+      }),
+    )
+  }
+
+  insertPartner(codePartner: any, namePartner: any, typePartner: any) {
+    let req: PartnerInfo = new PartnerInfo()
+    req.codePartner = codePartner
+    req.namePartner = namePartner
+    req.typePartner = typePartner
     return this.administratorClient.insertPartner(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updatePartner( idPartner:any,codePartner:any,namePartner:any,typePartner:any){
-    let req:PartnerInfo=new PartnerInfo();    
-    req.idPartner=idPartner
-    req.codePartner=codePartner
-    req.namePartner=namePartner
-    req.typePartner=typePartner
+  updatePartner(
+    idPartner: any,
+    codePartner: any,
+    namePartner: any,
+    typePartner: any,
+  ) {
+    let req: PartnerInfo = new PartnerInfo()
+    req.idPartner = idPartner
+    req.codePartner = codePartner
+    req.namePartner = namePartner
+    req.typePartner = typePartner
     console.log(req)
     return this.administratorClient.updatePartner(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deletePartner( idPartner:any){
-    let req:PartnerInfo=new PartnerInfo();    
-    req.idPartner=idPartner
+
+  deletePartner(idPartner: any) {
+    let req: PartnerInfo = new PartnerInfo()
+    req.idPartner = idPartner
     return this.administratorClient.deletePartner(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-  getListPackingUnit( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListPackingUnit() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListPackingUnit(req).pipe(
       map((reply: PackingUnitResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertPackingUnit(namePackingUnit:any){
-    let req:PackingUnitInfo=new PackingUnitInfo();    
-    req.namePackingUnit=namePackingUnit
+
+  insertPackingUnit(namePackingUnit: any,code:any) {
+    let req: PackingUnitInfo = new PackingUnitInfo()
+    req.namePackingUnit = namePackingUnit
+    req.codePackingUnit = code
     return this.administratorClient.insertPackingUnit(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updatePackingUnit( idPackingUnit:any,namePackingUnit:any){
-    let req:PackingUnitInfo=new PackingUnitInfo();    
-    req.idPackingUnit=idPackingUnit
-    req.namePackingUnit=namePackingUnit
+
+  updatePackingUnit(idPackingUnit: any, namePackingUnit: any) {
+    let req: PackingUnitInfo = new PackingUnitInfo()
+    req.idPackingUnit = idPackingUnit
+    req.namePackingUnit = namePackingUnit
     return this.administratorClient.updatePackingUnit(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deletePackingUnit( idPackingUnit:any){
-    let req:PackingUnitInfo=new PackingUnitInfo();    
-    req.idPackingUnit=idPackingUnit
+
+  deletePackingUnit(idPackingUnit: any) {
+    let req: PackingUnitInfo = new PackingUnitInfo()
+    req.idPackingUnit = idPackingUnit
     return this.administratorClient.deletePackingUnit(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-  getListEquipment( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListEquipment() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListEquipment(req).pipe(
       map((reply: EquipmentResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  getListTypeEquipment( ){
-    let req:MasterRequest=new MasterRequest();    
+
+  getListTypeEquipment() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypeEquipment(req).pipe(
       map((reply: MasterDataResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertEquipment(nameEquipment:any,type:any){
-    let req:EquipmentInfo=new EquipmentInfo();    
-    req.nameEquipment=nameEquipment
-    req.type=type
+
+  insertEquipment(nameEquipment: any, code: any) {
+    let req: EquipmentInfo = new EquipmentInfo()
+    req.nameEquipment = nameEquipment
+    req.codeEquipment = code
     console.log(req)
     return this.administratorClient.insertEquipment(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  updateEquipment( idEquipment:any,nameEquipment:any,type:any){
-    let req:EquipmentInfo=new EquipmentInfo();    
-    req.idEquipment=idEquipment
-    req.nameEquipment=nameEquipment
-    req.type=type
+
+  updateEquipment(idEquipment: any, nameEquipment: any) {
+    let req: EquipmentInfo = new EquipmentInfo()
+    req.idEquipment = idEquipment
+    req.nameEquipment = nameEquipment
+
     return this.administratorClient.updateEquipment(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteEquipment( idEquipment:any){
-    let req:EquipmentInfo=new EquipmentInfo();    
-    req.idEquipment=idEquipment
+
+  deleteEquipment(idEquipment: any) {
+    let req: EquipmentInfo = new EquipmentInfo()
+    req.idEquipment = idEquipment
     return this.administratorClient.deleteEquipment(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-
-  getListTypeBill( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListTypeBill() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListTypeBill(req).pipe(
       map((reply: TypeBillResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertTypeBill(codeTypeBill:any,nameTypeBill:any){
-    let req:TypeBillInfo=new TypeBillInfo();   
-    req.codeTypeBill=codeTypeBill
-    req.nameTypeBill=nameTypeBill
+
+  insertTypeBill(codeTypeBill: any, nameTypeBill: any) {
+    let req: TypeBillInfo = new TypeBillInfo()
+    req.codeTypeBill = codeTypeBill
+    req.nameTypeBill = nameTypeBill
     return this.administratorClient.insertTypeBill(req).pipe(
       map((reply: Response) => {
         return reply
-      })
+      }),
     )
   }
-  updateTypeBill( idTypeBill:any,codeTypeBill:any,nameTypeBill:any){
-    let req:TypeBillInfo=new TypeBillInfo();    
-    req.idTypeBill=idTypeBill
-    req.codeTypeBill=codeTypeBill
-    req.nameTypeBill=nameTypeBill
+  updateTypeBill(idTypeBill: any, codeTypeBill: any, nameTypeBill: any) {
+    let req: TypeBillInfo = new TypeBillInfo()
+    req.idTypeBill = idTypeBill
+    req.codeTypeBill = codeTypeBill
+    req.nameTypeBill = nameTypeBill
     return this.administratorClient.updateTypeBill(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteTypeBill( idTypeBill:any){
-    let req:TypeBillInfo=new TypeBillInfo();    
-    req.idTypeBill=idTypeBill
+  deleteTypeBill(idTypeBill: any) {
+    let req: TypeBillInfo = new TypeBillInfo()
+    req.idTypeBill = idTypeBill
     return this.administratorClient.deleteTypeBill(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-
-  getListWork( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListWork() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListWork(req).pipe(
       map((reply: WorkResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertWork(codeWork:any,nameWork:any){
-    let req:WorkInfo=new WorkInfo();   
-    req.codeWork=codeWork
-    req.nameWork=nameWork
+  insertWork( nameWork: any,codeWork: any) {
+    let req: WorkInfo = new WorkInfo()
+    req.nameWork = nameWork
+    req.codeWork = codeWork
     return this.administratorClient.insertWork(req).pipe(
       map((reply: Response) => {
         return reply
-      })
+      }),
     )
   }
-  updateWork( idWork:any,codeWork:any,nameWork:any){
-    let req:WorkInfo=new WorkInfo();    
-    req.idWork=idWork
-    req.codeWork=codeWork
-    req.nameWork=nameWork
+
+
+
+  updateWork(idWork: any, codeWork: any, nameWork: any) {
+    let req: WorkInfo = new WorkInfo()
+    req.idWork = idWork
+    req.codeWork = codeWork
+    req.nameWork = nameWork
     return this.administratorClient.updateWork(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteWork( idWork:any){
-    let req:WorkInfo=new WorkInfo();    
-    req.idWork=idWork
+  deleteWork(idWork: any) {
+    let req: WorkInfo = new WorkInfo()
+    req.idWork = idWork
     return this.administratorClient.deleteWork(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
 
-
-
-
-  getListReason( ){
-    let req:MasterRequest=new MasterRequest();    
+  getListReason() {
+    let req: MasterRequest = new MasterRequest()
     return this.administratorClient.getListReason(req).pipe(
       map((reply: ReasonResponse) => {
         console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-  insertReason(codeReason:any,nameReason:any){
-    let req:ReasonInfo=new ReasonInfo();   
-    req.codeReason=codeReason
-    req.nameReason=nameReason
+  insertReason(codeReason: any, nameReason: any) {
+    let req: ReasonInfo = new ReasonInfo()
+    req.codeReason = codeReason
+    req.nameReason = nameReason
     return this.administratorClient.insertReason(req).pipe(
       map((reply: Response) => {
         return reply
-      })
+      }),
     )
   }
-  updateReason( idReason:any,codeReason:any,nameReason:any){
-    let req:ReasonInfo=new ReasonInfo();    
-    req.idReason=idReason
-    req.codeReason=codeReason
-    req.nameReason=nameReason
+  updateReason(idReason: any, codeReason: any, nameReason: any) {
+    let req: ReasonInfo = new ReasonInfo()
+    req.idReason = idReason
+    req.codeReason = codeReason
+    req.nameReason = nameReason
     return this.administratorClient.updateReason(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
+        return reply
+      }),
     )
   }
-  deleteReason( idReason:any){
-    let req:ReasonInfo=new ReasonInfo();    
-    req.idReason=idReason
+  deleteReason(idReason: any) {
+    let req: ReasonInfo = new ReasonInfo()
+    req.idReason = idReason
     return this.administratorClient.deleteReason(req).pipe(
       map((reply: Response) => {
-        return reply;
-      })
-    )
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  getListShift( ){
-    let req:MasterRequest=new MasterRequest();    
-    return this.warehouseClient.getListShift(req).pipe(
-      map((reply: ShiftResponse) => {
-        console.log(reply)
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      })
-    )
-  }
-
-  newInsertShift(date:any,nameShift:any,createPerson:any,arrOption:any){
-    let req:InsertShiftRequest=new InsertShiftRequest();   
-    req.date=date
-    req.nameShift=nameShift
-    req.createPerson=createPerson
-    req.data=[]
-    
-    arrOption.forEach((item:any)=>{
-      let s:ShiftDetailInfo=new ShiftDetailInfo()
-      s.idParcel=item.idParcel
-      s.idProduct=item.idProduct
-      s.idTypeBill=item.idTypeBill
-      s.idTypePacket=item.idTypePacket
-      s.idTypeProduct=item.idTypeProduct
-      s.idWareHouse=item.idWareHouse
-      s.optionName=item.optionName
-      if(item.__KEY__) s.idShift=0
-      req.data?.push(s)
-    })
-    console.log(req.data)
-    return this.warehouseClient.newInsertShift(req).pipe(
-      map((reply: Response) => {
         return reply
-      })
+      }),
     )
   }
 
-  newUpdateShift(idShift:any,arrOption:any){
-    let req:InsertShiftRequest=new InsertShiftRequest();   
-    req.idShift=idShift
-    req.data=[]
-    
-    arrOption.forEach((item:any)=>{
-      let s:ShiftDetailInfo=new ShiftDetailInfo()
-      s.idParcel=item.idParcel
-      s.idProduct=item.idProduct
-      s.idTypeBill=item.idTypeBill
-      s.idTypePacket=item.idTypePacket
-      s.idTypeProduct=item.idTypeProduct
-      s.idWareHouse=item.idWareHouse
-      s.optionName=item.optionName
-      if(item.__KEY__) s.idShift=0
-      req.data?.push(s)
-    })
-    console.log(req.data)
-    return this.warehouseClient.newUpdateShift(req).pipe(
-      map((reply: Response) => {
+  getListMasterData() {
+    let request: MasterDataInfo= new MasterDataInfo()
+    return this.administratorClient.getListMaster(request).pipe(
+      map((reply) => {
+        return reply.response.state == ResponseState.SUCCESS ? reply.data : []
+      }
+      ));
+  }
+  insertListMasterData(name:any,code:any, type:any, cate:any){
+    let req:MasterDataInfo = new MasterDataInfo()
+    req.objectName = name;
+    req.objectCode = code;
+    req.objectType = type
+    req.objectCate = cate
+    console.log('rq',req);
+    return this.administratorClient.insertMaster(req).pipe(
+      map((reply) => {
         return reply
-      })
-    )
+      }
+      ));
+  }
+  updateListMasterData(id:number, name:any, type:any,cate:any){
+    console.log(name,type);
+    let req:MasterDataInfo = new MasterDataInfo()
+    req.objectId= id;
+    req.objectName = name;
+    req.objectCate = cate;
+    req.objectType =type
+    console.log('rq',req);
+    return this.administratorClient.updateMaster(req).pipe(
+      map((reply) => {
+        return reply
+      }
+      ));
   }
 
-  deleteShift(idShift:any){
-    let req:ShiftInfo=new ShiftInfo();   
-    req.idShift=idShift
+  deleteListMasterData(id:number,type:any){
+    let req:MasterDataInfo = new MasterDataInfo()
+    req.objectId= id;
+    req.objectType= type;
+    return this.administratorClient.setDeletedMaster(req).pipe(
+      map((reply) => {
+        return reply
+      }
+      ));
+  }
+
+  // getListShift() {
+  //   let req: MasterRequest = new MasterRequest()
+  //   return this.warehouseClient.getListShiftByDate(req).pipe(
+  //     map((reply: ShiftResponse) => {
+  //       if (reply.response?.state == ResponseState.SUCCESS) {
+  //         console.log('shift', reply.data)
+  //         return reply.data
+  //       } else return []
+  //     }),
+  //   )
+  // }
+
+  newInsertShift(
+    date: string,
+    nameShift: string,
+    createPerson: number,
+    arrOption: ShiftDetailInfo[],
+  ) {
+    let req: InsertShiftRequest = new InsertShiftRequest()
+    req.date = date
+    req.nameShift = nameShift
+    req.createdPerson = createPerson
+    req.data = arrOption
+    console.log(req)
+    return this.warehouseClient.newInsertShift(req)
+  }
+
+  newUpdateShift(idShift: any, arrOption: ShiftDetailInfo[]) {
+    let req: InsertShiftRequest = new InsertShiftRequest()
+    req.idShift = idShift
+    req.data = arrOption
+    console.log(req)
+    return this.warehouseClient.newUpdateShift(req)
+  }
+
+  deleteShift(idShift: any) {
+    let req: ShiftInfo = new ShiftInfo()
+    req.idShift = idShift
     return this.warehouseClient.deleteShift(req).pipe(
       map((reply: Response) => {
         return reply
-      })
+      }),
     )
   }
-  // updateTypeBill( idTypeBill:any,codeTypeBill:any,nameTypeBill:any){
-  //   let req:TypeBillInfo=new TypeBillInfo();    
-  //   req.idTypeBill=idTypeBill
-  //   req.codeTypeBill=codeTypeBill
-  //   req.nameTypeBill=nameTypeBill
-  //   return this.administratorClient.updateTypeBill(req).pipe(
-  //     map((reply: Response) => {
-  //       return reply;
-  //     })
-  //   )
-  // }
-  // deleteTypeBill( idTypeBill:any){
-  //   let req:TypeBillInfo=new TypeBillInfo();    
-  //   req.idTypeBill=idTypeBill
-  //   return this.administratorClient.deleteTypeBill(req).pipe(
-  //     map((reply: Response) => {
-  //       return reply;
-  //     })
-  //   )
-  // }
 
-  getListShiftDetail( idShift:any){
-    let req:MasterRequest=new MasterRequest();    
-    req.idShift=idShift
+  getListShiftDetail(fromDate: string, toDate: string) {
+    let req: MasterRequest = new MasterRequest()
+    req.fromDate = fromDate
+    req.toDate = toDate
+    req.userName = this.authService.getUser().user
+    console.log(req)
     return this.warehouseClient.getListShiftDetail(req).pipe(
       map((reply: ShiftDetailResponse) => {
-        console.log(reply)
         if (reply.response?.state == ResponseState.SUCCESS) {
           return reply.data
         } else return []
-      })
+      }),
     )
   }
-
-
-
-
-
-  getListParcel( ){
-    let req:MasterRequest=new MasterRequest();    
-    return this.warehouseClient.getListParcel(req).pipe(
-      map((reply: ParcelResponse) => {
-        console.log(reply)
-        if (reply.response?.state == ResponseState.SUCCESS) {
-          return reply.data
-        } else return []
-      })
-    )
-  }
-
-
 
 }
+

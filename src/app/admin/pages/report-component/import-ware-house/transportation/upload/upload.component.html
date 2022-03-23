@@ -1,0 +1,112 @@
+<div class="row py-3 px-4">
+  <div class="col-md-6">
+    <div class="row mb-4">
+        <div class="col-6 pe-4">    
+             <span>Từ ngày</span>
+            <dx-date-box type="date" id="selected-date-time" 
+              (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
+            </dx-date-box>
+        </div>
+        <!-- <div class="col-6 pe-4">    
+            <span>Đến ngày</span>
+            <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
+               displayFormat="dd/MM/yyyy">
+            </dx-date-box>
+        </div> -->
+    </div>
+</div>
+    <div class="row">
+      <hr>
+      <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
+      <div class="col-3 pe-4">
+        <span > Ca</span>
+        <select class="custom-select" >
+          <option value= '0' selected>Tất cả</option>
+          <option value="1">Ca 1</option>
+          <option value="2">Ca 2</option>
+          <option value="3">Ca 3</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span > Sản phẩm</span>
+        <select class="custom-select">
+          <option value="0" selected>Tất cả</option>
+        
+
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span >Nơi dỡ</span>
+        <select class="custom-select" >
+          <option selected>Chọn</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+
+    </div>
+    <div class="body-table">
+          
+        <table class=" w-100  ">
+          <thead class="table-head" >
+            <tr>
+              <th rowspan="2" style="width: 50px;" >STT</th>
+              <th rowspan="2">Thiết bị/chỉ tiêu</th>
+              <th rowspan="2">Sản phẩm</th>
+             
+              <th colspan="2">SL ca</th>
+              <th colspan="2">SL ngày</th>
+              <th colspan="2">LK tuần</th>
+              <th colspan="2">LK tháng</th>
+            </tr>
+            <tr>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+              <th>Bao</th>
+              <th>Tấn</th>
+            </tr>
+        
+          </thead>
+          <tbody *ngFor="let item of dataUploadConvert ">
+            <tr [ngStyle]="{'background-color':item.product == undefined ? 'silver' : '' }">
+              <td></td>
+              <td>{{item.warehouseUpload}}</td>
+              <td>{{item.product}}</td>
+              <td>{{item.amount}}</td>
+              <td>{{item.amount}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+        </tbody>
+          <!-- <tbody>
+            <tr style="font-weight: bold;background-color:silver" >
+              <td   colspan="3">Tổng cộng</td>
+              <td></td>
+              <td>0</td>
+              <td></td>
+              <td>1295</td>
+              <td></td>
+              <td>8290</td>
+              <td></td>
+              <td>21989</td>
+           
+            </tr>
+          </tbody> -->
+        </table>
+         
+      </div>
+
+
+
+    </div>
+ 

@@ -1,0 +1,145 @@
+.wrapper {
+  background-color: #F8F8F9;
+}
+.content {
+  background-color:#FFFFFF;
+  padding: 24px 28px 28px 28px;
+  height: calc(var(--contentHeight) - 20px);
+}
+.select-label{
+  margin-bottom: 0;
+  margin-top: 12px;
+}
+.content-list {
+  margin-top: 32px;
+}
+.shift-option {
+  padding: 8px;
+}
+
+/* detail option */
+.detail-shift-option {
+  margin-top: 16px;
+}
+.detail-title {
+  position: relative;
+  font-size: 22px;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-bottom: 1px solid #CACACA;
+}
+.detail-title.shift-title {
+  padding: 0;
+  margin: 0 12px;
+}
+.detail-title:after {
+  content: '';
+  border-bottom: 1px solid #CACACA;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.option-shift-info {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+.option-num {
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  text-transform: capitalize;
+}
+.shift-info {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000;
+}
+.shift-info-common {
+  background-color: #EEF1F9;
+  padding: 8px;
+}
+.shift-label {
+  font-weight: 400;
+  font-size: 13px;
+  color: #4E4E4E;
+}
+.shift-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+}
+.machine-qty {
+  margin-top: 16px;
+}
+.machine-label {
+  font-weight: 400;
+  font-size: 15px;
+  color: #4E4E4E;
+}
+.btn-update {
+  margin-left: auto;
+}
+
+/* toast custom */
+::ng-deep .toast-container .ngx-toastr {
+  background-image: unset;
+  padding: 32px 0;
+  max-width: 100%;
+  box-shadow: 0 0 3px #cfcece;
+}
+
+::ng-deep .toast-container .ngx-toastr:hover {
+  box-shadow: 0 0 12px rgb(0 0 0 / 10%);
+}
+::ng-deep .ngx-toastr .toast-message {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+::ng-deep .ngx-toastr .toast-close-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* toast success */
+::ng-deep .ngx-toastr.toast-success .toast-close-button {
+  color: #1c6b4d;
+}
+::ng-deep .toast-container .ngx-toastr.toast-success {
+  background-color: #d5f0e6;
+  color: #1c6b4d;
+}
+
+/* toast  error */
+::ng-deep .ngx-toastr.toast-error .toast-close-button {
+  color: #dc3545;
+}
+::ng-deep .toast-container .ngx-toastr.toast-error {
+  background-color: #e5d4d6;
+  color: #dc3545;
+}
+
+/* popup  */
+::ng-deep #popUpAddPackaging .dx-button-mode-contained {
+  color: #525252;
+}
+::ng-deep #popUpAddPackaging .dx-button-mode-contained[aria-label="Xác nhận"] {
+  background-color: #3459e6;
+  color: #fff;
+}
+
+@media screen  and (max-width: 37.5rem){
+  .detail-title,
+  .detail-title.shift-title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .btn-update {
+    width: 100%;
+  }
+
+}

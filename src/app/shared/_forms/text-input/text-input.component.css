@@ -1,0 +1,11 @@
+.form-group {
+  position: relative;
+}
+.invalid-feedback {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+}
+.form-control:focus {
+  box-shadow: none;
+}

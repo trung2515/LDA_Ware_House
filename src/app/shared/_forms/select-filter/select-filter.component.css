@@ -1,0 +1,21 @@
+.danger {
+  color: #da292e;
+  font-size: 14px;
+  font-family: 'Roboto';
+}
+.ng-select.custom {
+  border:0px;
+  min-height: 0px;
+  height: 46px;
+  border-radius: 0;
+}
+.ng-select.custom .ng-select-container  {
+  min-height: 0px;
+  border-radius: 0;
+}
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  height: 46px;
+}
+::ng-deep .ng-select.ng-select-single .ng-select-container:hover {
+  border-color: #3459E6;
+}

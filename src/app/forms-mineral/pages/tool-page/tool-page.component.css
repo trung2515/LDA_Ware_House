@@ -1,0 +1,238 @@
+
+
+
+.progressbar {
+  width: 50%;
+  counter-reset: step;
+  /* padding: 0; */
+}
+
+.progressbar li {
+  float: left;
+  list-style: none;
+  position: relative;
+  text-align: center;
+  width: calc(100% / 3);
+}
+.progressbar li:before {
+  background: #bebebe;
+  border-radius: 50%;
+  color: #fff;
+  content: counter(step);
+  counter-increment: step;
+  display: block;
+  font-weight: 700;
+  height: 30px;
+  line-height: 27px;
+  margin: 0 auto 10px;
+  text-align: center;
+  width: 30px;
+}
+.progressbar li:after {
+  background: #F1F2F3;
+  content: '';
+  height: 3px;
+  left: -50%;
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  z-index: -1;
+}
+.progressbar li.active:after,
+.progressbar li.complete:after {
+  background: #3459E6;
+}
+
+.progressbar li.active:before,
+.progressbar li.complete:before {
+  background: #3459E6;
+  border-color: #3459E6;
+  color: #fff;
+}
+
+.progressbar li.active {
+  color: #3459E6;
+  font-weight: 700;
+}
+.progressbar li:first-child:after {
+  content: none;
+}
+
+.progressbar li.complete {
+  color: #333;
+  font-weight: 700;
+}
+
+
+.btn-back{
+  width: 295px;
+  height: 45px;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  border: solid #495057 1px;
+}
+.btn-next{
+  width: 295px;
+  height: 45px;
+  border-radius: 3px;
+  border: #3459E6;
+  background-color: #3459E6;
+  color: white;
+}
+.card-pdfview{
+  background-color: #E5E5E5;
+  padding: 32px 146px;
+}
+.title-header-left{
+font-style: normal;
+font-weight: normal;
+font-size: 23px;
+line-height: 34px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.045em;
+}
+.title-header-right{
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.045em;
+}
+.fs-4_5{
+  font-size: 18px;
+}
+.table-bordered th {
+  font-weight: bold !important;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  padding: 5px;
+}
+.icon-remove{
+  position: relative;
+  top: -30px;
+  right: -40px;
+}
+.poiter{
+  cursor: pointer;
+}
+
+#contentToConvert {
+  width: 1190px;
+  height: 1684px;
+  background: #fff;
+}
+.labelOption{
+  font-weight: 700;
+}
+.addSurrogate{
+  color: #3459E6;
+  cursor: pointer
+}
+.footer{
+  background-color: white;
+  height: 100px;
+  width: 100%;
+}
+.card-minutes{
+  border: 1px solid #CBD3EE;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 100%;
+}
+.card-minutes:hover{
+  background-color: #CBD3EE;
+}
+
+.btn-back{
+  width: 295px;
+  height: 45px;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  border: solid #495057 1px;
+}
+.btn-next{
+  width: 295px;
+  height: 45px;
+  border-radius: 3px;
+  border: #3459E6;
+  background-color: #3459E6;
+  color: white;
+}
+.card-pdfview{
+  background-color: #E5E5E5;
+  padding: 32px 146px;
+}
+.title-header-left{
+font-style: normal;
+font-weight: normal;
+font-size: 23px;
+line-height: 34px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.045em;
+}
+.title-header-right{
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.045em;
+}
+.fs-4_5{
+  font-size: 18px;
+}
+.table-bordered th {
+  font-weight: bold !important;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  padding: 5px;
+}
+.icon-remove{
+  position: relative;
+  top: -30px;
+  right: -40px;
+}
+.poiter{
+  cursor: pointer;
+}
+
+#contentToConvert {
+  width: 1190px;
+  height: 1684px;
+  background: #fff;
+}
+.labelOption{
+  font-weight: 700;
+}
+.addSurrogate{
+  color: #3459E6;
+  cursor: pointer
+}
+.footer{
+  background-color: white;
+  height: 100px;
+  width: 100%;
+}
+input{
+  box-shadow: none!important;
+}
+.name-minute{
+  font-family: 'roboto';
+  color: #1a1a1a;
+}
+.fw-700{
+  font-weight: 700;
+}
