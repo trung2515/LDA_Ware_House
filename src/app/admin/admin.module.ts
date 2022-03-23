@@ -61,6 +61,8 @@ import { ErrorReportComponent } from './pages/report-component/error-report/erro
 import { ReportLotComponent } from './pages/report-component/report-lot/report-lot.component';
 import { ReportOrderComponent } from './pages/report-component/report-order/report-order.component';
 import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component';
+import { ConfigUserComponent } from './pages/config-user/config-user.component';
+
 
 @NgModule({
   declarations: [
@@ -114,7 +116,10 @@ import { ReportTransferComponent } from './pages/report-component/report-transfe
     ErrorReportComponent,
     ReportLotComponent,
     ReportOrderComponent,
-    ReportTransferComponent
+    ReportTransferComponent,
+    ConfigUserComponent,
+
+
   ],
   imports: [
     CommonModule,

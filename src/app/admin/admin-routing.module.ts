@@ -39,6 +39,8 @@ import { ErrorReportComponent } from './pages/report-component/error-report/erro
 import { ReportLotComponent } from './pages/report-component/report-lot/report-lot.component'
 import { ReportOrderComponent } from './pages/report-component/report-order/report-order.component'
 import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component'
+import { ConfigUserComponent } from './pages/config-user/config-user.component'
+
 ReasonComponent
 JobComponent
 BillComponent
@@ -76,9 +78,20 @@ const routes: Routes = [
           { path: 'minutes', component: MinutesComponent },
           { path: 'line', component:  LineComponent},
           { path: '**', pathMatch: 'full', redirectTo: 'product-category' },
+      
         ],
+        
       },
+   
     ],
+  },
+  {
+    path: 'config-user',
+    data: {
+      breadcrumb: 'Cấu hình tài khoản'
+    },
+    component: ConfigUserComponent,
+ 
   },
   {
     path: 'work-management',

@@ -12,6 +12,7 @@ import { ShippingUnitModule } from './shipping-unit/shipping-unit.module';
 import { OrderModule } from './order/order.module';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     ShippingUnitModule,
     LoginModule,
     OrderModule,
-    HttpClientModule
+    HttpClientModule,
+   
     // GrpcCoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],

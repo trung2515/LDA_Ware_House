@@ -61,11 +61,11 @@ export class NavbarComponent implements OnInit {
         parentId: -1,
       },
       {
-        link: '/admin/configuration',
+        link: '/admin',
         menuId: 8,
         name: 'Cấu hình',
         isParent: true,
-        parentId: -1,
+        parentId: 0,
       },
       
       {
@@ -88,6 +88,20 @@ export class NavbarComponent implements OnInit {
         name: 'Báo cáo tồn kho',
         isParent: false,
         parentId: 2,
+      },
+      {
+        link: '/admin/configuration',
+        menuId: 12,
+        name: 'Cấu hình danh mục',
+        isParent: false,
+        parentId: 8,
+      },
+      {
+        link: '/admin/config-user',
+        menuId: 13,
+        name: 'Cấu hình tài khoản',
+        isParent: false,
+        parentId: 8,
       },
     ]
 

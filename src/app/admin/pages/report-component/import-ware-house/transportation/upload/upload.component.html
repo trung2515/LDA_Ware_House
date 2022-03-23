@@ -73,16 +73,15 @@
             </tr>
         
           </thead>
-          <tbody *ngFor="let arr of dataUploadFinal">
-            <tr  *ngFor="let item of arr| keyvalue"  [ngStyle]="{'background-color':item.type === 'header' ? 'silver' : '' }">
-              <td ></td>
-              <td>{{item | json}}</td>
-              <!-- <td>{{item.value[1].product}}</td>
-              <td>{{item.value[1].amountShift1}}</td>
-              <td>{{item.value[1].amountShift1}}</td>
-              <td>{{item.value[1].amountShift2}}</td>
-              <td>{{item.value[1].amountShift2}}</td> -->
-            
+          <tbody *ngFor="let item of dataUploadConvert ">
+            <tr [ngStyle]="{'background-color':item.product == undefined ? 'silver' : '' }">
+              <td></td>
+              <td>{{item.warehouseUpload}}</td>
+              <td>{{item.product}}</td>
+              <td>{{item.amount}}</td>
+              <td>{{item.amount}}</td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>

@@ -17,8 +17,10 @@ export class ReportInventoryComponent implements OnInit {
   getdata(){
     this.apiService.get('http://office.stvg.vn:51008/api/WareHouseLDA/thongtinkho').subscribe(
       (data:any) => {
-        let item:any ={}
+       
         this.dataIventory = data.data
+        console.log('inventory',this.dataIventory);
+        
       }
       )
   }

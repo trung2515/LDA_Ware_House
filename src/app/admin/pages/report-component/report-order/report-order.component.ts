@@ -14,6 +14,8 @@ export class ReportOrderComponent implements OnInit {
     this.getData()
   }
   dataOrder:any
+  pUser:number =1
+  pArea:number =1
   getData(){
     this.apiService.get('http://office.stvg.vn:51008/api/WareHouseLDA/trangthaidonhang').subscribe(
       (data:any) => this.dataOrder =data.data

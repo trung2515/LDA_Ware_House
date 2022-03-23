@@ -15,10 +15,15 @@ export class ImportWareHouseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListProduct()
+    this.getListProductType()
+    this.getListPackging()
+
   }
 
 
   listProduct: any = []
+  listProductType: any = []
+  listPackging: any = []
   startDate: any
   endDate: any
   dateFilter: any = {}
@@ -26,7 +31,8 @@ export class ImportWareHouseComponent implements OnInit {
   dataImportCV: any = []
   dataImportConvert: any = []
   arrConvert: any = []
-  objFilter:any = {}
+  arrForFilter: any = []
+  objFilter: any = {}
   totalAmountNDM: number = 0
   totalMassNDM: number = 0
   totalAmountNDL: number = 0
@@ -35,6 +41,10 @@ export class ImportWareHouseComponent implements OnInit {
   totalMassNDC: number = 0
   totalAllAmount: number = 0
   totalAllMass: number = 0
+  isShift: any = 0
+  isProduct: any = 0
+  isProductType: any = 0
+  isPackging: any = 0
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
@@ -54,10 +64,22 @@ export class ImportWareHouseComponent implements OnInit {
   getListProduct() {
     this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
       (data: any) => this.listProduct = data.data
-
     )
   }
+  getListProductType() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachloaisanpham').subscribe(
+      (data: any) => {
+        this.listProductType = data.data
+        this.listProductType.sort((a: any, b: any) => a.code - b.code)
+        console.log(this.listProductType)
+      })
+  }
+  getListPackging() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachloaibao').subscribe(
+      (data: any) => this.listPackging = data.data)
+  }
   getData() {
+    this.dataImportConvert = []
     let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.endDate}`
     let url = 'http://office.stvg.vn:51008/api/WareHouseLDA/thongtinnhapkho?' + uri
     console.log(url);
@@ -78,13 +100,14 @@ export class ImportWareHouseComponent implements OnInit {
             item.form = sub.name
             item.amount = Number(sub.soluong)
             item.mass = item.amount
-            item.nameGroup = item.product + ' loại ' + item.typeProduct
+            item.nameGroup = item.product + ' bao ' + item.packging + ' loại ' + item.typeProduct
             item.nameKTTC = ''
             this.dataImport.push(item)
           }
         }
         console.log('data', this.dataImport);
         this.arrConvert = this.dataImport
+        this.arrForFilter = this.dataImport
         this.convertDataImport()
       }
     )
@@ -117,29 +140,52 @@ export class ImportWareHouseComponent implements OnInit {
       pri[cur['nameGroup']][0].typeProduct = cur.typeProduct
       return pri
     }, {});
+    // this.dataImportConvert = Object.values(this.dataImportConvert)
     console.log('dataConvert', this.dataImportConvert)
     this.sumAmount()
   }
 
-  sumAmount(){
-    for(var i = 0 ; i < this.arrConvert.length ; i++){
+  sumAmount() {
+    this.totalAmountNDM = 0
+    this.totalMassNDM = 0
+    this.totalAmountNDL = 0
+    this.totalMassNDL = 0
+    this.totalAmountNDC = 0
+    this.totalMassNDC = 0
+    this.totalAllAmount = 0
+    this.totalAllMass = 0
+    for (var i = 0; i < this.arrConvert.length; i++) {
       this.totalAmountNDM += this.arrConvert[i].form == 'NDM' ? this.arrConvert[i].amount : 0
       this.totalMassNDM += this.arrConvert[i].form == 'NDM' ? this.arrConvert[i].mass : 0
       this.totalAmountNDL += this.arrConvert[i].form == 'NDL' ? this.arrConvert[i].amount : 0
       this.totalMassNDL += this.arrConvert[i].form == 'NDL' ? this.arrConvert[i].mass : 0
       this.totalAmountNDC += this.arrConvert[i].form == 'NDC' ? this.arrConvert[i].amount : 0
       this.totalMassNDC += this.arrConvert[i].form == 'NDC' ? this.arrConvert[i].mass : 0
-      this.totalAllAmount += this.arrConvert[i].amount 
-      this.totalAllMass +=this.arrConvert[i].mass 
+      this.totalAllAmount += this.arrConvert[i].amount
+      this.totalAllMass += this.arrConvert[i].mass
     }
- 
-  }
-  isShift:any = 0
-  isProduct:any = 0
-  // isShift:any = 0
-filterShift(){
 
-}
+  }
+
+  // isShift:any = 0
+  filterData() {
+
+
+    console.log(this.isShift);
+    console.log(this.isProduct);
+    console.log(this.isProductType);
+    console.log(this.isPackging);
+    this.arrConvert = this.arrForFilter.filter((element: any) =>
+      (this.isShift != 0 ? element.shift == this.isShift : element.shift == element.shift)
+      && (this.isProduct != 0 ? element.product == this.isProduct : element.product == element.product)
+      && (this.isProductType != 0 ? element.typeProduct == this.isProductType : element.typeProduct == element.typeProduct)
+      && (this.isPackging != 0 ? element.packging == this.isPackging : element.packging == element.packging)
+    )
+
+    console.log('result', this.arrConvert);
+    this.convertDataImport()
+
+  }
 
 
 }
