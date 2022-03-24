@@ -26,11 +26,11 @@ export class NavbarComponent implements OnInit {
         parentId: 0,
       },
       {
-        link: '/admin/report/transportation-report',
+        link: '/admin/report',
         menuId: 3,
         name: 'Báo cáo vận chuyển',
         isParent: true,
-        parentId: -1,
+        parentId: 0,
       },
       {
         link:'/admin/report/lot-report',
@@ -102,6 +102,37 @@ export class NavbarComponent implements OnInit {
         name: 'Cấu hình tài khoản',
         isParent: false,
         parentId: 8,
+      },
+          
+      {
+        link: '/admin/report/import-report-v2',
+        menuId: 14,
+        name: 'Báo cáo nhập kho v2',
+        isParent: false,
+        parentId: 2,
+      },
+          
+      {
+        link: '/admin/report/export-report-v2',
+        menuId: 15,
+        name: 'Báo cáo xuất kho v2',
+        isParent: false,
+        parentId: 2,
+      },
+          
+      {
+        link: '/admin/report/transportation-report',
+        menuId: 16,
+        name: 'Báo vận chuyển',
+        isParent: false,
+        parentId: 3,
+      },
+      {
+        link: '/admin/report/transport-report-v2',
+        menuId: 17,
+        name: 'Báo vận chuyển v2',
+        isParent: false,
+        parentId: 3,
       },
     ]
 

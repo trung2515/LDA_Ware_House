@@ -5,24 +5,20 @@
         <div class="row">
           <hr>
           <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
-   
-          <div class="col-3 pe-4">
-            <span > Sản phẩm</span>
-            <select class="custom-select" >
-              <option value="0" selected>Tất cả</option>
-              <option ></option>
-            </select>
-          </div>
           <div class="col-3 pe-4">
             <span > Kho</span>
-            <select class="custom-select" >
+            <select class="custom-select"[(ngModel)]="isWareHouse" (change)="filterData()" >
               <option value="0" selected>Tất cả</option>
-              <option ></option>
+              <option *ngFor="let item of listWareHouse" value="{{item.name}}">{{item.name}}</option>
             </select>
           </div>
-    
-
- 
+          <div class="col-3 pe-4">
+            <span > Sản phẩm</span>
+             <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
+              <option value="0" selected>Tất cả</option>
+              <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
+            </select>
+          </div>
         </div>
           
         <div class="body-table">
@@ -45,20 +41,14 @@
               </tr>
           
             </thead>
-            <tbody  *ngFor="let item of dataIventory;let i = index">
-                    <tr style="background-color: silver;">
-                        <td>{{i+1}}</td>
-                        <td>{{item.name}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr *ngFor="let child of item.items;">
-                      <td ></td>
-                      <td ></td>
-                      <td>{{child.product }}</td>
-                      <td>{{child.number}}</td>
-                      <td>{{child.number}}</td>
+            <tbody  *ngFor="let arr of dataInventoryConvert|keyvalue">
+                    <tr *ngFor="let item of dataInventoryConvert[arr.key];let i = index" [ngStyle]="{'background-color':item.product == undefined ? 'silver' : '' }">
+                      <td >{{i+1}}</td>
+                      <td >{{item.wareHouseGroup}}</td>
+                      <td >{{item.product}}</td>
+                      <td >{{item.amount}}</td>
+                      <td >{{item.amount}}</td>
+                    
                     
                     </tr>
                    

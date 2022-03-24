@@ -24,9 +24,9 @@ export class UploadComponent implements OnInit {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
     console.log(this.dateFilter);
-   
+    if (this.dateFilter['endDate']) {
       this.getData()
-    
+    }
   }
   selectEndDate(e: any) {
     this.endDate = new Date(e.value)
@@ -37,10 +37,11 @@ export class UploadComponent implements OnInit {
     }
   }
   getData() {
+
     this.dataUpload = []
-    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.startDate}`
+    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.endDate}`
     let url = 'http://office.stvg.vn:51008/api/WareHouseLDA/thongtinvanchuyen?' + uri
-    console.log(url);
+    // console.log(url);
     this.apiService.get(url).subscribe(
       (data: any) => {
         let arr = data.data
@@ -60,7 +61,7 @@ export class UploadComponent implements OnInit {
             this.dataUpload.push(item)
           } 
         }
-        console.log('data', this.dataUpload);
+        // console.log('data', this.dataUpload);
         this.arrConvert = this.dataUpload
         this.convertDataImport()
       }
@@ -102,7 +103,7 @@ groupByWarehouse(){
     }
   } 
   this.dataUploadConvert = arr
-  console.log('dataUploadConvert', this.dataUploadConvert);
+  // console.log('dataUploadConvert', this.dataUploadConvert);
   
 }
 }

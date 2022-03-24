@@ -1,0 +1,130 @@
+<div >
+    <h4 class="py-3">Báo cáo chi tiết nhập kho:</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row mb-4">
+                <div class="col-6  pe-4">    
+                     <span>Từ ngày</span>
+                    <dx-date-box type="date" id="selected-date-time" 
+                      (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
+                    </dx-date-box>
+                </div>
+                <div class="col-6  pe-4">    
+                    <span>Đến ngày</span>
+                    <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
+                       displayFormat="dd/MM/yyyy">
+                    </dx-date-box>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <hr>
+          <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
+          <div class="col-3  pe-4 mb-3">
+            <span > Ca</span>
+            <select class="custom-select"[(ngModel)]="isShift" (change)="filterData()"  >
+              <option value= '0' selected>Tất cả</option>
+              <option value = '1'>Ca 1</option>
+              <option value="2">Ca 2</option>
+              <option value="3">Ca 3</option>
+            </select>
+          </div>
+          <div class="col-3  pe-4 mb-3">
+            <span > Sản phẩm</span>
+            <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
+              <option value="0" selected>Tất cả</option>
+              <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="col-3  pe-4 mb-3">
+            <span > Loại sản phẩm</span>
+            <select class="custom-select"[(ngModel)]="isProductType" (change)="filterData()" >
+              <option value="0" selected>Tất cả</option>
+              <option *ngFor="let item of listProductType" value="{{item.code}}">{{item.name}}</option>
+            </select>
+          </div>
+          
+          <div class="col-3  pe-4 mb-3">
+            <span >Loại bao</span>
+            <select class="custom-select"[(ngModel)]="isPackging" (change)="filterData()" >
+              <option value="0" selected>Tất cả</option>
+              <option *ngFor="let item of listPackging" value="{{item.name}}">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="col-3  pe-4 mb-3">
+            <span >Nhân viên</span>
+            <select class="custom-select"[(ngModel)]="isUser" (change)="filterData()" >
+              <option value="0" selected>Tất cả</option>
+              <option *ngFor="let item of listUser" value="{{item.user}}">{{item.user}}</option>
+            </select>
+          </div>
+        </div>
+          
+        <div class="body-table">
+          
+          <table class=" w-100  ">
+            <thead class="table-head" >
+              <tr>
+                <th rowspan="2" style="width: 50px;" >STT</th>
+                <th rowspan="2">Sản phẩm</th>
+                <th rowspan="2">Loại bao</th>
+                <th rowspan="2">Loại SP</th>
+                <th rowspan="2">Nhân viên</th>
+                <th rowspan="2">Tên KTTC</th>
+                <th colspan="2">Nhập đóng mới</th>
+                <th colspan="2">Nhập đóng lại</th>
+                <th colspan="2">Nhập điều chuyển</th>
+                <th colspan="2">Tổng cộng</th>
+              </tr>
+              <tr>
+                <th>Bao</th>
+                <th>Tấn</th>
+                <th>Bao</th>
+                <th>Tấn</th>
+                <th>Bao</th>
+                <th>Tấn</th>
+                <th>Bao</th>
+                <th>Tấn</th>
+              </tr>
+          
+            </thead>
+            <tbody *ngFor="let arr of dataImportConvert | keyvalue;;let i = index">
+           
+                    <tr  *ngFor="let item of dataImportConvert[arr.key]">
+                      <td >{{i+1}}</td>
+                      <td>{{item.product}}</td>
+                      <td>{{item.packging}}</td>
+                      <td>{{item.typeProduct}}</td>
+                      <td>{{item.user}}</td>
+                      <td>{{item.nameKTTC}}</td>
+                      <td>{{item.amountNDM}}</td>
+                      <td>{{item.massNDM}}</td>
+                      <td>{{item.amountNDL}}</td>
+                      <td>{{item.massNDL}}</td>
+                      <td>{{item.amountNDC}}</td>
+                      <td>{{item.massNDC}}</td>
+                      <td>{{item.totalAmount}}</td>
+                      <td>{{item.totalMass}}</td>
+                    </tr>
+            </tbody>
+            <tbody>
+              <tr style="font-weight: bold;">
+                <td  colspan="6">Tổng cộng</td>
+                <td >{{totalAmountNDM}}</td>
+                <td >{{totalMassNDM}}</td>
+                <td >{{totalAmountNDL}}</td>
+                <td >{{totalMassNDL}}</td>
+                <td >{{totalAmountNDC}}</td>
+                <td >{{totalMassNDC}}</td>
+                <td >{{totalAllAmount}}</td>
+                <td >{{totalAllMass}}</td>
+              </tr>
+            </tbody>
+          </table>
+           
+        </div>
+
+    </div>
+
+    
+</div>

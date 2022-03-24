@@ -40,6 +40,10 @@ import { ReportLotComponent } from './pages/report-component/report-lot/report-l
 import { ReportOrderComponent } from './pages/report-component/report-order/report-order.component'
 import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component'
 import { ConfigUserComponent } from './pages/config-user/config-user.component'
+import { ImportReportAdminComponent } from './pages/report-forAdmin-component/import-report-admin/import-report-admin.component'
+import { ExportReportAdminComponent } from './pages/report-forAdmin-component/export-report-admin/export-report-admin.component'
+
+import { TransportReportV2Component } from './pages/report-forAdmin-component/transport-report-v2/transport-report-v2.component'
 
 ReasonComponent
 JobComponent
@@ -225,6 +229,27 @@ const routes: Routes = [
         },
         component:ReportTransferComponent ,
       },
+      {
+        path: 'import-report-v2',
+        data: {
+          breadcrumb: 'Báo cáo nhập kho v2',
+        },
+        component: ImportReportAdminComponent,
+      }, 
+      {
+        path: 'export-report-v2',
+        data: {
+          breadcrumb: 'Báo cáo xuất kho v2',
+        },
+        component: ExportReportAdminComponent,
+      }, 
+      {
+        path: 'transport-report-v2',
+        data: {
+          breadcrumb: 'Báo cáo vận chuyển v2',
+        },
+        component: TransportReportV2Component,
+      }, 
     ],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },

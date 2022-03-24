@@ -63,6 +63,13 @@ import { ReportOrderComponent } from './pages/report-component/report-order/repo
 import { ReportTransferComponent } from './pages/report-component/report-transfer/report-transfer.component';
 import { ConfigUserComponent } from './pages/config-user/config-user.component';
 
+import { ImportReportAdminComponent } from './pages/report-forAdmin-component/import-report-admin/import-report-admin.component';
+import { ExportReportAdminComponent } from './pages/report-forAdmin-component/export-report-admin/export-report-admin.component';
+
+import { TransportReportV2Component } from './pages/report-forAdmin-component/transport-report-v2/transport-report-v2.component';
+import { UnloadUnloadComponent } from './pages/report-forAdmin-component/transport-report-v2/unload-unload/unload-unload.component';
+import { UploadV2Component } from './pages/report-forAdmin-component/transport-report-v2/upload-v2/upload-v2.component';
+// import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -118,7 +125,15 @@ import { ConfigUserComponent } from './pages/config-user/config-user.component';
     ReportOrderComponent,
     ReportTransferComponent,
     ConfigUserComponent,
+    ImportReportAdminComponent,
+    ExportReportAdminComponent,
 
+    TransportReportV2Component,
+
+    UnloadUnloadComponent,
+
+    UploadV2Component,
+    
 
   ],
   imports: [
@@ -127,6 +142,7 @@ import { ConfigUserComponent } from './pages/config-user/config-user.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    // NgxPaginationModule
   ],
   providers: [ShiftService],
 })

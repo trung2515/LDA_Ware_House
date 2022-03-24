@@ -14,6 +14,8 @@ export class ReportLotComponent implements OnInit {
     this.getdata()
   }
   dataLot:any =[]
+  pUser:number =1
+  pArea:number =1
   getdata(){
     this.apiService.get('http://office.stvg.vn:51008/api/WareHouseLDA/thongtinlo').subscribe(
       (data:any) => {

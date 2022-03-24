@@ -3,28 +3,30 @@ import { NewReportService } from 'src/app/core/services/report-service.service';
 import Utils from 'src/app/_lib/utils';
 
 @Component({
-  selector: 'app-unload',
-  templateUrl: './unload.component.html',
-  styleUrls: ['./unload.component.css']
+  selector: 'app-upload-v2',
+  templateUrl: './upload-v2.component.html',
+  styleUrls: ['./upload-v2.component.css']
 })
-export class UnloadComponent implements OnInit {
+export class UploadV2Component implements OnInit {
   constructor(private apiService : NewReportService) { }
 
   ngOnInit(): void {
+    this.getListUser()
   }
   startDate: any
   endDate: any
+  listUser:any = []
   dateFilter: any = {}
   dataUpload:any =[]
   arrConvert:any =[]
-  dataUnloadConvert:any = []
+  dataUploadConvert:any = []
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
     console.log(this.dateFilter);
-    if (this.dateFilter['endDate']) {
+   
       this.getData()
-    }
+    
   }
   selectEndDate(e: any) {
     this.endDate = new Date(e.value)
@@ -34,10 +36,17 @@ export class UnloadComponent implements OnInit {
       this.getData()
     }
   }
+  getListUser(){
+    this.apiService.get('http://office.stvg.vn:51008/api/User/getlistuser').subscribe(
+      (data:any) =>{ this.listUser = data
+      console.log(this.listUser);}
+       
+    )
+  }
   getData() {
     this.dataUpload = []
-    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.endDate}`
-    let url = 'http://office.stvg.vn:51008/api/WareHouseLDA/thongtinvanchuyen?' + uri
+    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.startDate}`
+    let url = 'http://office.stvg.vn:51008/api/WareHouseLDA/thongtinvanchuyenv2?' + uri
     console.log(url);
     this.apiService.get(url).subscribe(
       (data: any) => {
@@ -52,9 +61,10 @@ export class UnloadComponent implements OnInit {
             item.shift = arr[i].ca
             item.date = arr[i].ngay
             item.product = sub.sanpham
+            item.user = sub.user
             item.amount = Number(sub.soluong)
-            item.wareHouseUnload = sub.khodo == ''? 'NaN':sub.khodo
-            item.unitUnload = sub.donvido == ''? 'chưa cập nhật':sub.donvido
+            item.warehouseUpload = sub.khoboc == ''? 'NaN':sub.khoboc
+            item.unitUpload = sub.donviboc == ''? 'chưa cập nhật':sub.donviboc
             this.dataUpload.push(item)
           } 
         }
@@ -69,9 +79,9 @@ export class UnloadComponent implements OnInit {
   dataTemp:any =[]
   convertDataImport() {
    let tempArr:any = this.arrConvert.reduce((pri: any, cur: any) => {
-      !pri[cur['unitUnload']] ? pri[cur['unitUnload']] = [{wareHouseUnload: cur['unitUnload'] ,amount:0}] : '';
-      pri[cur['unitUnload']][0].amount += cur.amount
-      pri[cur.unitUnload].push(cur);
+      !pri[cur['unitUpload']] ? pri[cur['unitUpload']] = [{warehouseUpload: cur['unitUpload'] ,amount:0}] : '';
+      pri[cur['unitUpload']][0].amount += cur.amount
+      pri[cur.unitUpload].push(cur);
       return pri
     }, []);
     this.entries = Object.values(tempArr)
@@ -87,8 +97,8 @@ groupByWarehouse(){
     temp = this.entries[i]
     let a
     a = temp.reduce((pri: any, cur: any) => {
-      !pri[cur['wareHouseUnload']] ? pri[cur['wareHouseUnload']] = [{wareHouseUnload: cur['wareHouseUnload'] ,product: cur['product'],amount:0}] : '';
-      pri[cur['wareHouseUnload']][0].amount += cur.amount
+      !pri[cur['warehouseUpload']] ? pri[cur['warehouseUpload']] = [{warehouseUpload: cur['warehouseUpload'] ,product: cur['product'],amount:0}] : '';
+      pri[cur['warehouseUpload']][0].amount += cur.amount
       return pri
     }, []);
   item.push(Object.values(a))
@@ -99,8 +109,8 @@ groupByWarehouse(){
       arr.push(item[i][k][0])
     }
   } 
-  this.dataUnloadConvert = arr
-  console.log('dataUnloadConvert', this.dataUnloadConvert);
+  this.dataUploadConvert = arr
+  console.log('dataUploadConvert', this.dataUploadConvert);
   
 }
 
