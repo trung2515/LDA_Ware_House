@@ -11,13 +11,21 @@ export class UnloadComponent implements OnInit {
   constructor(private apiService : NewReportService) { }
 
   ngOnInit(): void {
+    this.getListProduct()
+    this.getListWareHouse()
   }
   startDate: any
   endDate: any
   dateFilter: any = {}
   dataUpload:any =[]
+  listProduct:any =[]
+  listWareHouse:any =[]
   arrConvert:any =[]
   dataUnloadConvert:any = []
+  arrForFilter:any = []
+  isShift:any = 0
+  isProduct:any = 0
+  iswareHouseUpload:any = 0
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
@@ -33,6 +41,16 @@ export class UnloadComponent implements OnInit {
     if (this.dateFilter['startDate']) {
       this.getData()
     }
+  }
+  getListProduct() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
+      (data: any) => this.listProduct = data.data
+    )
+  }
+  getListWareHouse() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachkho').subscribe(
+      (data: any) => this.listWareHouse = data.data
+    )
   }
   getData() {
     this.dataUpload = []
@@ -60,14 +78,15 @@ export class UnloadComponent implements OnInit {
         }
         console.log('data', this.dataUpload);
         this.arrConvert = this.dataUpload
-        this.convertDataImport()
+        this.arrForFilter = this.dataUpload
+        this.converData()
       }
     )
   }
   entries:any
   dataUploadFinal:any = []
   dataTemp:any =[]
-  convertDataImport() {
+  converData() {
    let tempArr:any = this.arrConvert.reduce((pri: any, cur: any) => {
       !pri[cur['unitUnload']] ? pri[cur['unitUnload']] = [{wareHouseUnload: cur['unitUnload'] ,amount:0}] : '';
       pri[cur['unitUnload']][0].amount += cur.amount
@@ -102,6 +121,21 @@ groupByWarehouse(){
   this.dataUnloadConvert = arr
   console.log('dataUnloadConvert', this.dataUnloadConvert);
   
+}
+filterData() {
+  console.log(this.isShift);
+  console.log(this.isProduct);
+  console.log(this.iswareHouseUpload);
+
+  this.arrConvert = this.arrForFilter.filter((element: any) =>
+    (this.isShift != 0 ? element.shift == this.isShift : element.shift == element.shift)
+    && (this.isProduct != 0 ? element.product == this.isProduct : element.product == element.product)
+
+    && (this.iswareHouseUpload != 0 ? element.wareHouseUpload == this.iswareHouseUpload : element.wareHouseUpload == element.wareHouseUpload)
+  )
+  console.log('result', this.arrConvert);
+  this.converData()
+
 }
 
 }

@@ -169,8 +169,6 @@ export class ImportWareHouseComponent implements OnInit {
 
   // isShift:any = 0
   filterData() {
-
-
     console.log(this.isShift);
     console.log(this.isProduct);
     console.log(this.isProductType);
@@ -181,11 +179,9 @@ export class ImportWareHouseComponent implements OnInit {
       && (this.isProductType != 0 ? element.typeProduct == this.isProductType : element.typeProduct == element.typeProduct)
       && (this.isPackging != 0 ? element.packging == this.isPackging : element.packging == element.packging)
     )
-
     console.log('result', this.arrConvert);
     this.convertDataImport()
 
   }
-
 
 }

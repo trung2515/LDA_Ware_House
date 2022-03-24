@@ -13,13 +13,21 @@ export class UploadComponent implements OnInit {
   constructor(private apiService : NewReportService) { }
 
   ngOnInit(): void {
+    this.getListProduct()
+    this.getListWareHouse()
   }
   startDate: any
   endDate: any
   dateFilter: any = {}
+  listProduct:any =[]
+  listWareHouse:any =[]
   dataUpload:any =[]
   arrConvert:any =[]
   dataUploadConvert:any = []
+  arrForFilter:any = []
+  isShift:any = 0
+  isProduct:any = 0
+  iswareHouseUpload:any = 0
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
@@ -35,6 +43,16 @@ export class UploadComponent implements OnInit {
     if (this.dateFilter['startDate']) {
       this.getData()
     }
+  }
+  getListProduct() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
+      (data: any) => this.listProduct = data.data
+    )
+  }
+  getListWareHouse() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachkho').subscribe(
+      (data: any) => this.listWareHouse = data.data
+    )
   }
   getData() {
 
@@ -56,12 +74,13 @@ export class UploadComponent implements OnInit {
             item.date = arr[i].ngay
             item.product = sub.sanpham
             item.amount = Number(sub.soluong)
-            item.warehouseUpload = sub.khoboc == ''? 'NaN':sub.khoboc
+            item.wareHouseUpload = sub.khoboc == ''? 'NaN':sub.khoboc
             item.unitUpload = sub.donviboc == ''? 'chưa cập nhật':sub.donviboc
             this.dataUpload.push(item)
           } 
         }
         // console.log('data', this.dataUpload);
+        this.arrForFilter = this.dataUpload
         this.arrConvert = this.dataUpload
         this.convertDataImport()
       }
@@ -72,7 +91,7 @@ export class UploadComponent implements OnInit {
   dataTemp:any =[]
   convertDataImport() {
    let tempArr:any = this.arrConvert.reduce((pri: any, cur: any) => {
-      !pri[cur['unitUpload']] ? pri[cur['unitUpload']] = [{warehouseUpload: cur['unitUpload'] ,amount:0}] : '';
+      !pri[cur['unitUpload']] ? pri[cur['unitUpload']] = [{wareHouseUpload: cur['unitUpload'] ,amount:0}] : '';
       pri[cur['unitUpload']][0].amount += cur.amount
       pri[cur.unitUpload].push(cur);
       return pri
@@ -90,8 +109,8 @@ groupByWarehouse(){
     temp = this.entries[i]
     let a
     a = temp.reduce((pri: any, cur: any) => {
-      !pri[cur['warehouseUpload']] ? pri[cur['warehouseUpload']] = [{warehouseUpload: cur['warehouseUpload'] ,product: cur['product'],amount:0}] : '';
-      pri[cur['warehouseUpload']][0].amount += cur.amount
+      !pri[cur['wareHouseUpload']] ? pri[cur['wareHouseUpload']] = [{wareHouseUpload: cur['wareHouseUpload'] ,product: cur['product'],amount:0}] : '';
+      pri[cur['wareHouseUpload']][0].amount += cur.amount
       return pri
     }, []);
   item.push(Object.values(a))
@@ -106,4 +125,23 @@ groupByWarehouse(){
   // console.log('dataUploadConvert', this.dataUploadConvert);
   
 }
+filterData() {
+  console.log(this.isShift);
+  console.log(this.isProduct);
+  console.log(this.iswareHouseUpload);
+
+  this.arrConvert = this.arrForFilter.filter((element: any) =>
+    (this.isShift != 0 ? element.shift == this.isShift : element.shift == element.shift)
+    && (this.isProduct != 0 ? element.product == this.isProduct : element.product == element.product)
+
+    && (this.iswareHouseUpload != 0 ? element.wareHouseUpload == this.iswareHouseUpload : element.wareHouseUpload == element.wareHouseUpload)
+  )
+  console.log('result', this.arrConvert);
+  this.convertDataImport()
+
+}
+
+
+
+
 }

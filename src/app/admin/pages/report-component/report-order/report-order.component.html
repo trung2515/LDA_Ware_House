@@ -9,24 +9,21 @@
    
           <div class="col-3 pe-4">
             <span >Mã đơn hàng</span>
-            <select class="custom-select" >
-              <option value="0" selected>Tất cả</option>
-              <option ></option>
-            </select>
+            <input type="text" class="form-control" [(ngModel)]="isCodeOrder" (keyup)="filterData()">
           </div>
    
           <div class="col-3 pe-4">
             <span > Sản phẩm</span>
-            <select class="custom-select" >
+            <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
               <option value="0" selected>Tất cả</option>
-              <option ></option>
+              <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
             </select>
           </div>
           <div class="col-3 pe-4">
-            <span > loại sản phẩm</span>
-            <select class="custom-select" >
+            <span > Loại sản phẩm</span>
+            <select class="custom-select"[(ngModel)]="isProductType" (change)="filterData()" >
               <option value="0" selected>Tất cả</option>
-              <option ></option>
+              <option *ngFor="let item of listProductType" value="{{item.name}}">{{item.name}}</option>
             </select>
           </div>
 
@@ -59,17 +56,17 @@
               </tr>
           
             </thead>
-            <tbody  *ngFor="let item of dataOrder;let i = index">
+            <tbody  *ngFor="let item of dataOrder;let i = index " >
                     <tr >
                         <td>{{i+1}}</td>
                         <td>{{item.code}}</td>
                         <td>{{item.sanpham}}</td>
                         <td>{{item.loaisanpham}}</td>
-                        <td>{{item.loaibao}}</td>
-                        <td>{{item.loaibao}}</td>
+                        <td>{{item.loaibao}}</td>                    
                         <td>{{item.kho}}</td>
                         <td>{{item.khachhang}}</td>
                         <td>{{item.loaikhachhang}}</td>
+                        <td>{{item.dathang}}</td>
                         <td>{{item.soluong}}</td>
                         <td>{{item.khoiluong}}</td>
                         <td>{{item.trangthai}}</td>

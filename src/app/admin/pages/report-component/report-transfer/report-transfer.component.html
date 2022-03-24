@@ -24,22 +24,20 @@
    
           <div class="col-3 pe-4">
             <span > Ca</span>
-            <select class="custom-select" >
-              <option value="0" selected>Tất cả</option>
-              <option ></option>
+            <select class="custom-select"[(ngModel)]="isShift" (change)="filterData()"  >
+              <option value= '0' selected>Tất cả</option>
+              <option value = '1'>Ca 1</option>
+              <option value="2">Ca 2</option>
+              <option value="3">Ca 3</option>
             </select>
           </div>
           <div class="col-3 pe-4">
             <span > Sản phẩm</span>
-            <select class="custom-select" >
+            <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
               <option value="0" selected>Tất cả</option>
-              <option ></option>
+              <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
             </select>
           </div>
-     
-    
-
- 
         </div>
           
         <div class="body-table">

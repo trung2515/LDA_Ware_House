@@ -65,7 +65,7 @@ import { ConfigUserComponent } from './pages/config-user/config-user.component';
 
 import { ImportReportAdminComponent } from './pages/report-forAdmin-component/import-report-admin/import-report-admin.component';
 import { ExportReportAdminComponent } from './pages/report-forAdmin-component/export-report-admin/export-report-admin.component';
-
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TransportReportV2Component } from './pages/report-forAdmin-component/transport-report-v2/transport-report-v2.component';
 import { UnloadUnloadComponent } from './pages/report-forAdmin-component/transport-report-v2/unload-unload/unload-unload.component';
 import { UploadV2Component } from './pages/report-forAdmin-component/transport-report-v2/upload-v2/upload-v2.component';
@@ -142,6 +142,7 @@ import { UploadV2Component } from './pages/report-forAdmin-component/transport-r
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    // Ng2SearchPipeModule
     // NgxPaginationModule
   ],
   providers: [ShiftService],
