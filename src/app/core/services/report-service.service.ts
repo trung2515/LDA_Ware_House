@@ -12,22 +12,24 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewReportService {
 
-  constructor(public http: HttpClient, private toast : ToastrService) { 
+  constructor(public http: HttpClient, private toast : ToastrService) {    
     
   }
-  headers = new HttpHeaders({
-    "Content-Type": "application/json",
-    "token": "1234567890" 
-  });
-  options ={
-    headers:this.headers,
-   
+  ngOnInit(): void {
   } 
 
+  getHeader(){
+    return {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "token": JSON.parse(localStorage.getItem("token") )
+      }),
+    } 
+  }
 
   post(url:string,data:any){
-    let params = JSON.stringify(data)
-      return this.http.post(url,JSON.stringify(data),this.options ) .pipe(
+ 
+      return this.http.post(url,JSON.stringify(data),this.getHeader() ) .pipe(
         catchError((e) => {
           if (e.status === 400) {
             this.toast.error("Thất bại");
@@ -39,7 +41,7 @@ export class NewReportService {
 
   
   get(url:string) {
-      return this.http.get(url,this.options)
+      return this.http.get(url,this.getHeader())
   }
   put(uri:string,param:any) {
       let url = uri+ '/' + param['id']

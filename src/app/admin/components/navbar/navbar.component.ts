@@ -1,14 +1,16 @@
+import { Router } from '@angular/router';
 import { Component, OnChanges, OnInit, SimpleChange } from '@angular/core'
-import { AuthService } from 'src/app/core/services/auth.service'
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor( private router:Router) { }
   parentMenuSelectId: number = 0
-  username: string = ''
+  username: string 
+
   ngOnInit(): void {
     this.menus = [
       {
@@ -138,7 +140,10 @@ export class NavbarComponent implements OnInit {
 
     this.parentMenu = this.menus.filter((m) => m.isParent == true)
 
-    this.username = this.authService.getUser().name
+    this.username = JSON.parse(localStorage.getItem('user'))
+    // console.log('token',localStorage.getItem('token'));
+    
+    
 
 
   }
@@ -152,8 +157,10 @@ export class NavbarComponent implements OnInit {
     this.parentMenuSelectId = menuId
   }
 
-  logOut() {
-    this.authService.logOut()
+
+  signOut(){
+    localStorage.clear()
+    this.router.navigateByUrl('/login');
   }
 
   menus: Menu[] = []
