@@ -7,46 +7,45 @@
                 (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
               </dx-date-box>
           </div>
-          <!-- <div class="col-6 pe-4">    
+          <div class="col-6 pe-4">    
               <span>Đến ngày</span>
               <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
                  displayFormat="dd/MM/yyyy">
               </dx-date-box>
-          </div> -->
+          </div>
       </div>
   </div>
       <div class="row">
         <hr>
         <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
-        <div class="col-3 pe-4 mb-3">
+        <div class="col-3 pe-4">
           <span > Ca</span>
-          <select class="custom-select" >
+          <select class="custom-select"[(ngModel)]="isShift" (change)="filterData()"  >
             <option value= '0' selected>Tất cả</option>
-            <option value="1">Ca 1</option>
+            <option value = '1'>Ca 1</option>
             <option value="2">Ca 2</option>
             <option value="3">Ca 3</option>
           </select>
         </div>
-        <div class="col-3 pe-4 mb-3">
+        <div class="col-3 pe-4">
           <span > Sản phẩm</span>
-          <select class="custom-select">
+          <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
             <option value="0" selected>Tất cả</option>
-          
-  
+            <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
           </select>
         </div>
-        <div class="col-3 pe-4 mb-3">
+        <div class="col-3 pe-4">
           <span >Nơi dỡ</span>
-          <select class="custom-select" >
-            <option selected>Tất cả</option>
-       
+          <select class="custom-select"[(ngModel)]="iswareHouseUpload" (change)="filterData()" >
+            <option value="0" selected>Tất cả</option>
+            <option *ngFor="let item of listWareHouse" value="{{item.name}}">{{item.name}}</option>
           </select>
         </div>
-        <div class="col-3 pe-4 mb-3">
+        <div class="col-3 pe-4">
           <span >Nhân viên</span>
-          <select class="custom-select" >
-            <option selected>Tất cả</option>
-       
+          <select class="custom-select"[(ngModel)]="isUser" (change)="filterData()" >
+            <option value="0" selected>Tất cả</option>
+            <option *ngFor="let item of listUser" value="{{item.user}}">{{item.user}}</option>
           </select>
         </div>
   
@@ -81,7 +80,7 @@
             <tbody *ngFor="let item of dataUploadConvert ">
               <tr [ngStyle]="{'background-color':item.product == undefined ? 'silver' : '' }">
                 <td></td>
-                <td>{{item.warehouseUpload}}</td>
+                <td>{{item.wareHouseUpload}}</td>
                 <td>{{item.product}}</td>
                 <td>{{item.user}}</td>
                 <td>{{item.amount}}</td>

@@ -55,7 +55,7 @@ import { TransportationComponent } from './pages/report-component/import-ware-ho
 import { UploadComponent } from './pages/report-component/import-ware-house/transportation/upload/upload.component';
 import { UnloadComponent } from './pages/report-component/import-ware-house/transportation/unload/unload.component';
 import { UnloadUploadByDeviceComponent } from './pages/report-component/import-ware-house/transportation/unload-upload-by-device/unload-upload-by-device.component';
-import { SelectDateReportComponent } from './pages/report-component/select-date-report/select-date-report.component';
+
 import { ReportInventoryComponent } from './pages/report-component/report-inventory/report-inventory.component';
 import { ErrorReportComponent } from './pages/report-component/error-report/error-report.component';
 import { ReportLotComponent } from './pages/report-component/report-lot/report-lot.component';
@@ -118,7 +118,6 @@ import { UploadV2Component } from './pages/report-forAdmin-component/transport-r
     UploadComponent,
     UnloadComponent,
     UnloadUploadByDeviceComponent,
-    SelectDateReportComponent,
     ReportInventoryComponent,
     ErrorReportComponent,
     ReportLotComponent,

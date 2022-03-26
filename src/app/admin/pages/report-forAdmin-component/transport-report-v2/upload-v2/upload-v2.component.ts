@@ -12,21 +12,31 @@ export class UploadV2Component implements OnInit {
 
   ngOnInit(): void {
     this.getListUser()
+    this.getListProduct()
+    this.getListUser()
+    this.getListWareHouse()
   }
   startDate: any
   endDate: any
   listUser:any = []
+  listProduct:any = []
+  listWareHouse:any = []
   dateFilter: any = {}
   dataUpload:any =[]
+  arrForFilter:any =[]
   arrConvert:any =[]
   dataUploadConvert:any = []
+  isShift:any = 0
+  isProduct:any = 0 
+  iswareHouseUpload:any = 0
+  isUser:any = 0 
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
     console.log(this.dateFilter);
-   
+    if (this.dateFilter['endDate']) {
       this.getData()
-    
+    }
   }
   selectEndDate(e: any) {
     this.endDate = new Date(e.value)
@@ -36,16 +46,25 @@ export class UploadV2Component implements OnInit {
       this.getData()
     }
   }
+  getListProduct() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
+      (data: any) => this.listProduct = data.data
+    )
+  }
+  getListWareHouse() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachkho').subscribe(
+      (data: any) => this.listWareHouse = data.data
+    )
+  }
   getListUser(){
     this.apiService.get('http://office.stvg.vn:51008/api/User/getlistuser').subscribe(
       (data:any) =>{ this.listUser = data
-      console.log(this.listUser);}
-       
+      console.log(this.listUser);}  
     )
   }
   getData() {
     this.dataUpload = []
-    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.startDate}`
+    let uri = `begin=${this.dateFilter.startDate}&end=${this.dateFilter.endDate}`
     let url = 'http://office.stvg.vn:51008/api/WareHouseLDA/thongtinvanchuyenv2?' + uri
     console.log(url);
     this.apiService.get(url).subscribe(
@@ -63,13 +82,15 @@ export class UploadV2Component implements OnInit {
             item.product = sub.sanpham
             item.user = sub.user
             item.amount = Number(sub.soluong)
-            item.warehouseUpload = sub.khoboc == ''? 'NaN':sub.khoboc
+            item.wareHouseUpload = sub.khoboc == ''? 'NaN':sub.khoboc
             item.unitUpload = sub.donviboc == ''? 'chưa cập nhật':sub.donviboc
+            item.nameGroupUser = item.wareHouseUpload+' '+item.user 
             this.dataUpload.push(item)
           } 
         }
         console.log('data', this.dataUpload);
         this.arrConvert = this.dataUpload
+        this.arrForFilter = this.dataUpload
         this.convertDataImport()
       }
     )
@@ -79,7 +100,7 @@ export class UploadV2Component implements OnInit {
   dataTemp:any =[]
   convertDataImport() {
    let tempArr:any = this.arrConvert.reduce((pri: any, cur: any) => {
-      !pri[cur['unitUpload']] ? pri[cur['unitUpload']] = [{warehouseUpload: cur['unitUpload'] ,amount:0}] : '';
+      !pri[cur['unitUpload']] ? pri[cur['unitUpload']] = [{wareHouseUpload: cur['unitUpload'] ,amount:0}] : '';
       pri[cur['unitUpload']][0].amount += cur.amount
       pri[cur.unitUpload].push(cur);
       return pri
@@ -89,7 +110,7 @@ export class UploadV2Component implements OnInit {
 }
 
 groupByWarehouse(){
-
+  console.log('entries',this.entries);
   let item:any = []
   let arr:any =[]
   for(var i = 0 ; i< this.entries.length ; i++){
@@ -97,12 +118,14 @@ groupByWarehouse(){
     temp = this.entries[i]
     let a
     a = temp.reduce((pri: any, cur: any) => {
-      !pri[cur['warehouseUpload']] ? pri[cur['warehouseUpload']] = [{warehouseUpload: cur['warehouseUpload'] ,product: cur['product'],amount:0}] : '';
-      pri[cur['warehouseUpload']][0].amount += cur.amount
+      !pri[cur['nameGroupUser']] ? pri[cur['nameGroupUser']] = [{wareHouseUpload: cur['wareHouseUpload'] ,product: cur['product'],amount:0 , user:cur['user']}] : '';
+      pri[cur['nameGroupUser']][0].amount += cur.amount
+      pri[cur.nameGroupUser].push(cur);
       return pri
     }, []);
   item.push(Object.values(a))
-  }
+}
+console.log('item',item);
   for(var i = 0;i<item.length;i++){
     for(var k = 0 ; k < item[i].length;k++){
       
@@ -112,6 +135,22 @@ groupByWarehouse(){
   this.dataUploadConvert = arr
   console.log('dataUploadConvert', this.dataUploadConvert);
   
+}
+filterData() {
+  console.log(this.isShift);
+  console.log(this.isProduct);
+  console.log(this.iswareHouseUpload);
+
+  this.arrConvert = this.arrForFilter.filter((element: any) =>
+    (this.isShift != 0 ? element.shift == this.isShift : element.shift == element.shift)
+    && (this.isProduct != 0 ? element.product == this.isProduct : element.product == element.product)
+
+    && (this.iswareHouseUpload != 0 ? element.wareHouseUpload == this.iswareHouseUpload : element.wareHouseUpload == element.wareHouseUpload)
+    && (this.isUser != 0 ? element.user == this.isUser : element.user == element.user)
+  )
+  console.log('result', this.arrConvert);
+  this.convertDataImport()
+
 }
 
 }
