@@ -12,16 +12,33 @@ export class UnloadUploadByDeviceComponent implements OnInit {
   constructor(private apiService:NewReportService) { }
 
   ngOnInit(): void {
+    this.getListProduct()
+    this.getListProductType()
+    this.getListPackging()
+    this.getListWareHouse()
+    this.getListTask()
   }
   startDate: any
   endDate: any
   isShift:any = 0
   dateFilter: any = {}
+  listProduct:any =[]
+  listPackging:any =[]
+  listWareHouse:any =[]
+  listTask:any =[]
+  listProductType:any =[]
   dataTransport:any =[]
+  arrForFilter:any =[]
   arrConvert:any =[]
   dataTransportConvert:any = []
   totalAmount:any = 0
   amountShift:any = 0
+  isProduct:any = 0
+  isPackging:any = 0
+  isProductType:any = 0
+  isWareHouseUpload:any = 0
+  isWareHouseUnload:any = 0
+  isTask:any = 0
   selectStarDate(e: any) {
     this.startDate = new Date(e.value)
     this.dateFilter['startDate'] = Utils.formatDateReport(this.startDate)
@@ -43,6 +60,33 @@ export class UnloadUploadByDeviceComponent implements OnInit {
           this.getData()
         }
   }
+  getListProduct() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachsanpham').subscribe(
+      (data: any) => this.listProduct = data.data
+    )
+  }
+  getListPackging() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachloaibao').subscribe(
+      (data: any) => this.listPackging = data.data)
+  }
+  getListWareHouse() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachkho').subscribe(
+      (data: any) => this.listWareHouse = data.data
+    )
+  }
+  getListTask() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachcongviec').subscribe(
+      (data: any) => this.listTask = data.data
+    )
+  }
+  getListProductType() {
+    this.apiService.get('http://office.stvg.vn:51008/api/InfoLDA/danhsachloaisanpham').subscribe(
+      (data: any) => {
+        this.listProductType = data.data
+        this.listProductType.sort((a: any, b: any) => a.code - b.code)
+        console.log(this.listProductType)
+      })
+    } 
   getData() {
     this.totalAmount = 0
     this.dataTransport = []
@@ -77,6 +121,7 @@ export class UnloadUploadByDeviceComponent implements OnInit {
         }
         console.log('data', this.dataTransport);
         this.arrConvert = this.dataTransport
+        this.arrForFilter = this.dataTransport
         this.convertData()
         
       }
@@ -100,6 +145,25 @@ export class UnloadUploadByDeviceComponent implements OnInit {
    
  }
 
+ filterData() {
+  console.log(this.isShift);
+  console.log(this.isProduct);
+  // console.log(this.iswareHouseUpload);
 
+  this.dataTransportConvert = this.arrForFilter.filter((element: any) =>
+    (this.isShift != 0 ? element.shift == this.isShift : element.shift == element.shift)
+    && (this.isProduct != 0 ? element.product == this.isProduct : element.product == element.product)
+    && (this.isProductType != 0 ? element.productType == this.isProductType : element.productType == element.productType)
+    && (this.isPackging != 0 ? element.packging == this.isPackging : element.packging == element.packging)
+    && (this.isWareHouseUpload != 0 ? element.wareHouseUpload == this.isWareHouseUpload : element.wareHouseUpload == element.wareHouseUpload)
+    && (this.isWareHouseUnload != 0 ? element.wareHouseUnload == this.isWareHouseUnload : element.wareHouseUnload == element.wareHouseUnload)
+    && (this.isTask != 0 ? element.task == this.isTask : element.task == element.task)
+
+    // && (this.iswareHouseUpload != 0 ? element.wareHouseUpload == this.iswareHouseUpload : element.wareHouseUpload == element.wareHouseUpload)
+  )
+  console.log('result', this.arrConvert);
+
+
+}
 
 }

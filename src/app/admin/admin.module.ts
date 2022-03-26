@@ -69,6 +69,8 @@ import { ExportReportAdminComponent } from './pages/report-forAdmin-component/ex
 import { TransportReportV2Component } from './pages/report-forAdmin-component/transport-report-v2/transport-report-v2.component';
 import { UnloadUnloadComponent } from './pages/report-forAdmin-component/transport-report-v2/unload-unload/unload-unload.component';
 import { UploadV2Component } from './pages/report-forAdmin-component/transport-report-v2/upload-v2/upload-v2.component';
+import { UnloadV2Component } from './pages/report-forAdmin-component/transport-report-v2/unload-v2/unload-v2.component';
+
 // import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
@@ -132,6 +134,9 @@ import { UploadV2Component } from './pages/report-forAdmin-component/transport-r
     UnloadUnloadComponent,
 
     UploadV2Component,
+
+    UnloadV2Component,
+
     
 
   ],

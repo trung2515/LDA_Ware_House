@@ -24,59 +24,50 @@
       <hr>
       <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
  
-      <div class="col-3 pe-4">
+      <div class="col-3 pe-4 mb-2">
         <span > Sản phẩm</span>
-        <select class="custom-select">
+        <select class="custom-select"[(ngModel)]="isProduct" (change)="filterData()" >
           <option value="0" selected>Tất cả</option>
-        
-
+          <option *ngFor="let item of listProduct" value="{{item.name}}">{{item.name}}</option>
         </select>
       </div>
-      <div class="col-3 pe-4">
-        <span >Loại bao</span>
-        <select class="custom-select" >
-          <option selected>Tất cả</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+      <div class="col-3 pe-4 mb-2">
+        <span > Loại sản phẩm</span>
+        <select class="custom-select"[(ngModel)]="isProductType" (change)="filterData()" >
+          <option value="0" selected>Tất cả</option>
+          <option *ngFor="let item of listProductType" value="{{item.name}}">{{item.name}}</option>
         </select>
       </div>
-      <div class="col-3 pe-4">
+      <div class="col-3 pe-4 mb-2">
+        <span > Loại bao</span>
+        <select class="custom-select"[(ngModel)]="isPackging" (change)="filterData()" >
+          <option value="0" selected>Tất cả</option>
+          <option *ngFor="let item of listPackging" value="{{item.name}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="col-3 pe-4 mb-2">
         <span >Công việc</span>
-        <select class="custom-select" >
-          <option selected>Tất cả</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="custom-select"[(ngModel)]="isTask" (change)="filterData()" >
+          <option value="0" selected>Tất cả</option>
+          <option *ngFor="let item of listTask" value="{{item.name}}">{{item.name}}</option>
         </select>
       </div>
-      <div class="col-3 pe-4">
-        <span >Nơi bốc</span>
-        <select class="custom-select" >
-          <option selected>Tất cả</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+      <div class="col-3 pe-4 mb-2">
+        <span >Nơi bốc </span>
+        <select class="custom-select"[(ngModel)]="isWareHouseUpload" (change)="filterData()" >
+          <option value="0" selected>Tất cả</option>
+          <option *ngFor="let item of listWareHouse" value="{{item.name}}">{{item.name}}</option>
         </select>
       </div>
-      <div class="col-3 pe-4">
-        <span >Nơi dỡ</span>
-        <select class="custom-select" >
-          <option selected>Tất cả</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+      <div class="col-3 pe-4 mb-2">
+        <span > Nơi dỡ</span>
+        <select class="custom-select"[(ngModel)]="isWareHouseUnload" (change)="filterData()" >
+          <option value="0" selected>Tất cả</option>
+          <option *ngFor="let item of listWareHouse" value="{{item.name}}">{{item.name}}</option>
         </select>
       </div>
-      <div class="col-3 pe-4">
-        <span >TB bốc</span>
-        <select class="custom-select" >
-          <option selected>Tất cả</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
+
+     
 
 
     </div>

@@ -1,19 +1,20 @@
 <div class="row py-3 px-4">
     <div class="col-md-6">
-      <div class="row mb-4">
-          <div class="col-6 pe-4">    
-               <span>Từ ngày</span>
-              <dx-date-box type="date" id="selected-date-time" 
-                (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
-              </dx-date-box>
-          </div>
-          <div class="col-6 pe-4">    
-              <span>Đến ngày</span>
-              <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
-                 displayFormat="dd/MM/yyyy">
-              </dx-date-box>
-          </div>
-      </div>
+      
+        <div class="row mb-4">
+            <div class="col-6 pe-4">    
+                 <span>Từ ngày</span>
+                <dx-date-box type="date" id="selected-date-time" 
+                  (onValueChanged)="selectStarDate($event)" displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+            <div class="col-6 pe-4">    
+                <span>Đến ngày</span>
+                <dx-date-box type="date" id="selected-date-time"  (onValueChanged)="selectEndDate($event)"
+                   displayFormat="dd/MM/yyyy">
+                </dx-date-box>
+            </div>
+        </div>
   </div>
       <div class="row">
         <hr>
@@ -36,18 +37,19 @@
         </div>
         <div class="col-3 pe-4">
           <span >Nơi dỡ</span>
-          <select class="custom-select"[(ngModel)]="iswareHouseUpload" (change)="filterData()" >
+          <select class="custom-select"[(ngModel)]="iswareHouseUnload" (change)="filterData()" >
             <option value="0" selected>Tất cả</option>
             <option *ngFor="let item of listWareHouse" value="{{item.name}}">{{item.name}}</option>
           </select>
         </div>
         <div class="col-3 pe-4">
-            <span >Nhân viên</span>
-            <select class="custom-select"[(ngModel)]="isUser" (change)="filterData()" >
-              <option value="0" selected>Tất cả</option>
-              <option *ngFor="let item of listUser" value="{{item.user}}">{{item.user}}</option>
-            </select>
-          </div>
+          <span >Nhân viên</span>
+          <select class="custom-select"[(ngModel)]="isUser" (change)="filterData()" >
+            <option value="0" selected>Tất cả</option>
+            <option *ngFor="let item of listUser" value="{{item.user}}">{{item.user}}</option>
+          </select>
+        </div>
+  
   
       </div>
       <div class="body-table">
@@ -58,7 +60,7 @@
                 <th rowspan="2" style="width: 50px;" >STT</th>
                 <th rowspan="2">Thiết bị/chỉ tiêu</th>
                 <th rowspan="2">Sản phẩm</th>
-               
+                <th rowspan="2">Nhân viên</th>
                 <th colspan="2">SL ca</th>
                 <th colspan="2">SL ngày</th>
                 <th colspan="2">LK tuần</th>
@@ -81,6 +83,7 @@
                 <td></td>
                 <td>{{item.wareHouseUnload}}</td>
                 <td>{{item.product}}</td>
+                <td>{{item.user}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.amount}}</td>
                 <td></td>
