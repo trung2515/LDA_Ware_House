@@ -44,9 +44,7 @@ export class FilterBarDashboardComponent implements OnInit {
     title: 'Sản phẩm',
     data: [
       { id: 1, name: 'product_name', value: 'Alumin 1 tấn', checked: true },
-      { id: 2, name: 'product_name', value: 'Alumin 50kg', checked: false },
       { id: 3, name: 'product_name', value: 'Hydrat 1 tấn', checked: false },
-      { id: 4, name: 'product_name', value: 'Hydrat 50kg', checked: false },
     ],
   }
   threeYearNearestList: RadioModel = {

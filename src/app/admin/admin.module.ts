@@ -70,8 +70,8 @@ import { TransportReportV2Component } from './pages/report-forAdmin-component/tr
 import { UnloadUnloadComponent } from './pages/report-forAdmin-component/transport-report-v2/unload-unload/unload-unload.component';
 import { UploadV2Component } from './pages/report-forAdmin-component/transport-report-v2/upload-v2/upload-v2.component';
 import { UnloadV2Component } from './pages/report-forAdmin-component/transport-report-v2/unload-v2/unload-v2.component';
-
-// import {NgxPaginationModule} from 'ngx-pagination';
+import { DxPieChartModule } from 'devextreme-angular';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -146,8 +146,9 @@ import { UnloadV2Component } from './pages/report-forAdmin-component/transport-r
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    DxPieChartModule,
     // Ng2SearchPipeModule
-    // NgxPaginationModule
+    NgxPaginationModule
   ],
   providers: [ShiftService],
 })

@@ -1,15 +1,4 @@
-<div class="product-select mb-2">
-  <div class="form-title">
-    <span>{{ productRadio.title }}</span>
-  </div>
-  <div class="form-group-wrap">
-    <div *ngFor="let product of productRadio.data" class="form-group">
-      <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
-        (click)="onRadioChange($event)" class="form-radio" />
-      <label [for]="product.id">{{ product.value }}</label>
-    </div>
-  </div>
-</div>
+
 <!-- 3 years nearest -->
 <div class="product-select mb-2">
   <div class="form-title">
@@ -50,26 +39,4 @@
     </dxo-scale>
   </dx-range-selector>
 </div>
-<!-- inventory of month -->
-<p class="inventory-month-title">
-  Tồn kho theo tháng
-</p>
-<div class="product-select inventory-month">
-  <table id="table-inventory-month">
-    <tr>
-      <th>Sản phẩm</th>
-      <th>Loại</th>
-      <th>Số lượng tồn</th>
 
-    </tr>
-    <tr *ngFor="let inventoryM of inventoryMonths">
-      <td>{{inventoryM.name}}</td>
-      <td>{{inventoryM.type}}</td>
-      <td class="text-right">{{inventoryM.total}}</td>
-    </tr>
-    <tr class="field-total">
-      <td colspan="2">Tổng cộng: </td>
-      <td>{{inventorySum}}</td>
-    </tr>
-  </table>
-</div>

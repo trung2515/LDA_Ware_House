@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // host: 'http://192.168.1.243:8001',
-  host: 'https://lda.stvg.vn:50002',
+  host: 'http://office.stvg.vn:51008/api',
   hostTra: 'http://office.stvg.vn:51008/api'
 
   // host: 'https://office.stvg.vn:59066',

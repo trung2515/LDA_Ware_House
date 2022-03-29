@@ -1,15 +1,8 @@
-import { DashboardService } from './dashboard.service';
+
 import { Component, OnInit } from '@angular/core';
-import {
-  Product,
-  FilterControllerModel,
-  paramChangeModel,
-  TransportationEquipment,
-  TransportModel,
-} from './models';
-import { ReportService } from 'src/app/core/services/report.service';
+
 import Utils from 'src/app/_lib/utils';
-import { TransportInfo } from 'src/app/core/models/model.pb';
+import { NewReportService } from 'src/app/core/services/report-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,380 +10,198 @@ import { TransportInfo } from 'src/app/core/models/model.pb';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  tabInfo: any[] = [];
-
-  product_select: string = 'Alumin 1 Tấn'
-  // bar chart
-  dataSource: Product[] = [];
-  dataSourceN: Product[] = [];
-  dataSourceX: Product[] = [];
-
-  dataSource_transportation: any[] = [];
-  dataSource_transportationXTT: any[] = [];
-  transportationEquipments: TransportationEquipment[] = [
-    { name: 'Palang', fieldCode: 'palang' },
-    { name: 'Cẩu tiến tuấn', fieldCode: 'cautientuan' },
-    { name: 'Xe nâng vườn tre', fieldCode: 'vtre' }
-  ];
-
-  configCommon = {
-    borderTooltip: {
-      color: '#CBD3EE',
-      dashStyle: 'solid',
-      visible: true,
-      width: 1
-    },
-    color: '#3459E6',
-    fontLegend: {
-      color: '#000000',
-      family: 'Roboto',
-      opacity: 1,
-      size: 16,
-      weight: 400
-    },
-    fontTitle: {
-      color: '#000000',
-      family: 'Roboto',
-      opacity: 1,
-      size: 15,
-      weight: 400
-    },
-    product_name: 'Alumin 1 tấn'
-  };
-
-  configChartDB: any = {
-    ...this.configCommon,
-    color: '#3459E6',
-    chartLegend: 'Thống kê sản lượng đóng bao',
-    dataField: 'packaging_qty',
-    argumentField: 'date'
-  };
-  configChartTT: any = {
-    ...this.configCommon,
-    color: '#00A560',
-    chartLegend: 'Thống kê sản lượng tiêu thụ',
-    dataField: 'packaging_qty',
-    argumentField: 'date'
-  };
-
-  configLineChartDB: any = {
-    ...this.configCommon,
-    color: '#3459E6',
-    chartLegend: 'Thống kê vận chuyển lưu kho',
-    dataField: 'value',
-    argumentField: 'day',
-    title: "Thống kê vận chuyển lưu kho",
-    series: this.transportationEquipments
-  };
-  configLineChartTT: any = {
-    ...this.configCommon,
-    color: '#00A560',
-    chartLegend: 'Thống kê vận chuyển tiêu thụ',
-    dataField: 'value',
-    argumentField: 'day',
-    title: "Thống kê vận chuyển tiêu thụ",
-    series: this.transportationEquipments
-  };
-
-  filterController: FilterControllerModel = {
-    product_name: 'Alumin 1 tấn',
-    year: String(new Date().getFullYear()),
-    month: String(new Date().getMonth() + 1),
-    dayAround: {
-      startDate: 1,
-      endDate: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        0
-      ).getDate()
-    }
-  };
-
-  constructor(
-    private dashboardService: DashboardService,
-    private reportService: ReportService
-  ) {
-    // this.dataSource_transportation = dashboardService.getDataForLine()
-    // this.typeMachines = dashboardService.getTypeMachines()
-  }
+  constructor(private apiService:NewReportService){}
   ngOnInit(): void {
-    this.getData();
+    // this.getDataInportExport()
+    // this.getDataInportExportByProduct()
 
-    this.tabInfo = [
-      {
-        id: 1,
-        tabName: 'Thống kê sản lượng đóng bao - tiêu thụ'
-      },
-      {
-        id: 2,
-        tabName: 'Thống kê vận chuyển'
-      }
-    ];
-    this.nhapKho = [
-      {
-      date: 'ngày 2/9',
-      AO1T: 850,
-      AH1T: 757,
-     }, 
-      {
-      date: 'ngày 3/9',
-      AO1T: 951,
-      AH1T: 569,
-     }, 
-      {
-      date: 'ngày 4/9',
-      AO1T: 567,
-      AH1T: 786,
-     }, 
-      {
-      date: 'ngày 5/9',
-      AO1T: 423,
-      AH1T: 897,
-     }, 
-      {
-      date: 'ngày 6/9',
-      AO1T: 842,
-      AH1T: 652,
-     }, 
-      {
-      date: 'ngày 7/9',
-      AO1T: 757,
-      AH1T: 712,
-     }, 
-      {
-      date: 'ngày 8/9',
-      AO1T: 569,
-      AH1T: 759,
-     }, 
-    ];
+  }
+  now:Date = new Date
+  pinnerToggle:boolean = false
+  dataInportExport:any =[]
+  dataInportExportByProduct:any =[]
+  dataXTT:any = []
+  dataXTTAlumin:any = []
+  dataXTTHydrat:any = []
+  dataSX:any = []
+  dataSXAlumin:any = []
+  dataSXHydrat:any = []
+  dataTotalXTT:any = []
+  dataTotalSX:any = []
+  dataCauTienTuanAlumin:any = []
+  dataCauTienTuanHydrat:any = []
+  dataXeNangPXNAlumin:any = []
+  dataXeNangPXNHydrat:any = []
+  dataFilter:any ={
+    startDate:Utils.formatDateReport(new Date(this.now.getDate())),
+    year: this.now.getFullYear(),
+    month: this.now.getMonth()
+  }
+  filterController:any
+  onRadioFilterChange(e:any){
+    e.name == 'month'? this.dataFilter.month = e.value :this.dataFilter.year = e.value
+    console.log('value filter',this.dataFilter); 
+  }
+  onFilterChange(e:any){
+    this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[0])) 
+    this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[1])) 
+    console.log('value filter',this.dataFilter); 
+    this.getData()
+  }
+  getData(){
     
-    this.xuatKho= [
-      {
-      date: 'ngày 2/9',
-      AO1T: 745,
-      AH1T: 656,
-     }, 
-      {
-      date: 'ngày 3/9',
-      AO1T: 631,
-      AH1T: 152,
-     }, 
-      {
-      date: 'ngày 4/9',
-      AO1T: 415,
-      AH1T: 336,
-     }, 
-      {
-      date: 'ngày 5/9',
-      AO1T: 132,
-      AH1T: 476,
-     }, 
-      {
-      date: 'ngày 6/9',
-      AO1T: 451,
-      AH1T: 454,
-     }, 
-      {
-      date: 'ngày 7/9',
-      AO1T: 231,
-      AH1T: 545,
-     }, 
-      {
-      date: 'ngày 8/9',
-      AO1T: 421,
-      AH1T: 242,
-     }, 
-    ];
-    this.calTonKho()
-  }
-  nhapKho:any
-  xuatKho:any
-  getStartDate() {
-    const startDate = new Date(
-      parseInt(this.filterController.year),
-      parseInt(this.filterController.month) - 1,
-      this.filterController.dayAround.startDate
-    );
-    return Utils.formatDate(startDate);
-  }
-
-  getEndDate() {
-    const endDate = new Date(
-      parseInt(this.filterController.year),
-      parseInt(this.filterController.month) - 1,
-      this.filterController.dayAround.endDate
-    );
-    return Utils.formatDate(endDate);
-  }
-
-  getData() {
-    setTimeout(() => {
-      console.log(this.product_select)
-      this.reportService
-        .reportInOut(this.getStartDate(), this.getEndDate())
-        .subscribe(data => {
-          let productArr: Product[] = [];
-          productArr = data.filter(d => d.nameProduct.trim().toLowerCase() == this.product_select.toLowerCase()).map(d => new Product(d));
-          // console.log(data.filter(d => d.codeIn.includes('VCLK')));
-          //   for (var i = 0; i < productArr.length; i++) {
-          // this.dataSource = productArr;
-          console.log(this.dataSource)
-          for (var i = 0; i < productArr.length; i++) {
-            let product: Product = productArr[i];
-            // console.log(product);
-            if (this.dataSource.filter(d => d.name == product.name && d.date == product.date).length == 0)
-              this.dataSource.push(product);
-
-          }
-          for (var i = 0; i < this.dataSource.length; i++) {
-            this.dataSource[i].packaging_qty = 0;
-            productArr.forEach(
-              p => {
-                if (p.name == this.dataSource[i].name && p.date == this.dataSource[i].date && p.code_type_bill == this.dataSource[i].code_type_bill) {
-                  console.log('sum' + p.inventory_qty);
-                  this.dataSource[i].packaging_qty += p.inventory_qty || 0
-                }
-              }
-            );
-          }
-          this.dataSourceN = this.dataSource.filter(d => d.code_type_bill == 'N')
-          this.dataSourceX = this.dataSource.filter(d => d.code_type_bill == 'X')
-          console.log(this.dataSource)
-        });
-      this.reportService
-        .reportTransport(this.getStartDate(), this.getEndDate())
-        .subscribe(
-          data => {
-            this.dataSource_transportation = [];
-            this.dataSource_transportationXTT = [];
-            let lstTransport: TransportModel[] = data.filter(d => d.nameProduct.toLowerCase() == this.product_select.toLowerCase()).map(d => new TransportModel(d));
-            let lstMaster: TransportModel[] = []
-            for (var i = 0; i < lstTransport.length; i++) {
-              if (lstMaster.filter(d =>
-                d.fieldCode == lstTransport[i].fieldCode
-                && lstTransport[i].fieldCode != ''
-                && lstTransport[i].date == d.date).length == 0) {
-                let total = lstTransport.filter(l => l.fieldCode == lstTransport[i].fieldCode
-                  && l.date == lstTransport[i].date && l.fieldCode != ''
-                ).reduce((sum, current) => sum + current.value, 0)
-                let data: TransportModel = lstTransport[i];
-                data.value = total;
-                if (data.fieldCode != '') {
-                  lstMaster.push(data);
-                }
-              }
-            }
-            console.log('master', lstMaster);
-            for (var i = 0; i < lstMaster.length; i++) {
-              lstMaster[i].value = 0;
-              lstTransport.forEach(l => {
-                if (l.fieldCode == lstMaster[i].fieldCode && l.date == lstMaster[i].date)
-                  lstMaster[i].value += l.value
-              })
-              if (this.dataSource_transportation.filter(d => lstMaster[i].date == d.day).length == 0 && lstMaster[i].type != 'XTT') {
-                let rs: any = {};
-                rs.day = lstMaster[i].date;
-                let totalPalang = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('palang') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                let totalCau = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('cau') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                let totalXeNang = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('xe') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                rs.palang = totalPalang
-                rs.cautientuan = totalCau
-                rs.vtre = totalXeNang
-                this.dataSource_transportation.push(rs)
-              }
-              if (this.dataSource_transportationXTT.filter(d => lstMaster[i].date == d.day && lstMaster[i].type == 'XTT').length == 0) {
-                let rs: any = {};
-                rs.day = lstMaster[i].date;
-                let totalPalang = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('palang') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                let totalCau = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('cau') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                let totalXeNang = lstMaster.filter(l => l.fieldCode.toLowerCase().includes('xe') && lstMaster[i].date == l.date).reduce((sum, current) => sum + current.value, 0);
-                rs.palang = totalPalang
-                rs.cautientuan = totalCau
-                rs.vtre = totalXeNang
-                this.dataSource_transportationXTT.push(rs)
-              }
-            }
-            console.log(this.transportationEquipments)
-            console.log(this.dataSource_transportation)
-          }
-        )
-    }, 100)
-
-  }
-
-
-  onFilterChange(changeValue: any) {
-    this.filterController = {
-      ...this.filterController,
-      dayAround: {
-        startDate: changeValue[0],
-        endDate: changeValue[1]
+    this.pinnerToggle = true
+    let param:any = `begin=${this.dataFilter.startDate}&end=${this.dataFilter.endDate}`
+    console.log(param);
+        // ---- xuất tiêu thụ ------ 
+        this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuattieuthu?${param}`).subscribe(
+      (data:any) => {
+        let arr:any = []
+        this.dataXTT = []
+        arr = data.data
+        arr.forEach((element:any) => {
+          let item:any = {}
+          item.date = element.ngay.substring(0,2)
+          item.value = element.data
+          this.dataXTT.push(item)
+          this.pinnerToggle = false
+        })
+        console.log('XTT',this.dataXTT);
       }
-    };
-    console.log(this.filterController);
+      )
+      // ---- xuất tiêu thụ theo sp ------ 
+      this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuattieuthutheosanpham?${param}`).subscribe(
+        (data:any) => {
+          this.dataXTTAlumin = []
+          this.dataXTTHydrat = []
+          let arrAlumin:any = []
+          let arrHydrat:any = []
+          let sumAlumin:number = 0
+          let sumHydrat:number = 0
+          arrAlumin = data.data[0].items
+          arrHydrat = data.data[1].items
+          
+          arrAlumin.forEach((element:any) => {
+            let item:any = {}
+            item.date = element.ngay.substring(0,2)
+            item.value = element.data
+            sumAlumin += item.value 
+            this.dataXTTAlumin.push(item)
+          })
+          arrHydrat.forEach((element:any) => {
+            let item:any = {}
+            item.date = element.ngay.substring(0,2)
+            item.value = element.data
+            sumHydrat += item.value 
+          this.dataXTTHydrat.push(item)
+        })
+        this.dataTotalXTT = [
+          {product:'Alumin',amount:sumAlumin},
+          {product:'Hydrat',amount:sumHydrat}
+        ] 
+        console.log('XTT Alumin',this.dataXTTAlumin);
+        console.log('XTT Hydrat',this.dataXTTHydrat);
+      }
+      )
+      // ----sản  xuất ------ 
+      this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatsanxuat?${param}`).subscribe(
+        (data:any) => {
+          let arr = data.data  
+          this.dataSX = []
+          arr.forEach((element:any) => {
+            let item:any = {}
+            item.date = element.ngay.substring(0,2)
+            item.value = element.data
+            this.dataSX.push(item)
+          })
 
-    // this.getData();
-  }
-  onRadioFilterChange({ value, name }: paramChangeModel) {
-    switch (name) {
-      case 'year':
-        this.filterController = {
-          ...this.filterController,
-          dayAround: {
-            startDate: 1,
-            endDate: 25
-          },
-          year: value
-        };
-        break;
-      case 'month':
-        this.filterController = {
-          ...this.filterController,
-          month: value
-        };
-
-        break;
-      default:
-        this.configChartDB = {
-          ...this.configChartDB,
-          product_name: value
-        };
-        this.configChartTT = {
-          ...this.configChartTT,
-          product_name: value
-        };
-        this.configLineChartDB = {
-          ...this.configLineChartDB,
-          product_name: value
-        };
-        this.configChartTT = {
-          ...this.configChartTT,
-          product_name: value
-        };
-        this.product_select = value;
-        break;
+        }
+        )
+      // -------------- sản xuất theo sp -----------------
+      this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatsanxuattheosanpham?${param}`).subscribe(
+        (data:any) => {
+          this.dataSXAlumin = []
+          this.dataSXHydrat = []
+          let arrAlumin:any = []
+          let arrHydrat:any = []
+          arrAlumin = data.data[0].items
+          arrHydrat = data.data[1].items
+          let sumAlumin:number = 0
+          let sumHydrat:number = 0
+          arrAlumin.forEach((element:any) => {
+            let item:any = {}
+            item.date = element.ngay.substring(0,2)
+            item.value = element.data
+            sumAlumin += item.value 
+            this.dataSXAlumin.push(item)
+          })
+          arrHydrat.forEach((element:any) => {
+            let item:any = {}
+            item.date = element.ngay.substring(0,2)
+            item.value = element.data
+            sumHydrat += item.value 
+            this.dataSXHydrat.push(item)
+          })
+          this.dataTotalSX = [
+            {product:'Alumin',amount:sumAlumin},
+            {product:'Hydrat',amount:sumHydrat}
+          ]
+          console.log('SX Alumin',this.dataSXAlumin);
+          console.log('SX Hydrat',this.dataSXHydrat);
+        }
+        )
+         // ----vận chuyển ------ 
+      this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatvanchuyentheosanpham?${param}`).subscribe(
+        (data:any) => {
+          let arr = data.data  
+       
+          let arrAlumin = data.data[0].items
+          let arrHydrat = data.data[1].items
+          arrAlumin.forEach((element:any) => {
+            if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu'){
+              this.dataCauTienTuanAlumin = element.items
+            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng'){
+              this.dataXeNangPXNAlumin = element.items
+            }else{}
+            console.log('dataVc',this.dataCauTienTuanAlumin,this.dataXeNangPXNAlumin);
+            })
+            arrHydrat.forEach((element:any) => {
+            if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu'){
+              this.dataCauTienTuanHydrat = element.items
+            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng'){
+              this.dataXeNangPXNHydrat = element.items
+            }else{}
+      
+            })
+         
+      })
     }
-    this.getData();
-  }
-
-  tonKho:any 
-calTonKho(){
-  console.log('avc');
-  let itemTonKho:any = []
-  for(var i = 0 ; i<7;i++){
-    let item:any = {}
-    item.date = this.xuatKho[i].date
-    item.AO1T = this.nhapKho[i].AO1T - this.xuatKho[i].AO1T
-    item.AH1T = this.nhapKho[i].AH1T - this.xuatKho[i].AH1T
-    itemTonKho.push(item)
-  }
-  console.log('itk',itemTonKho);
-  this.tonKho = itemTonKho
-  console.log('tk',this.tonKho);
+      
+      emptyData(){
+        // this.dataXTT = []
+        // this.dataXTTAlumin = []
+        // this.dataXTTHydrat = []
+        // this.dataSX = []
+        // this.dataSXAlumin = []
+        // this.dataSXHydrat = []
+      }
+      // getDataInportExport(){
+        //   this.apiService.get('http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatnhap').subscribe(
+          //     (data:any) => {
+            //       this.dataInportExport = data
+            //       console.log('tk xuất nhập',this.dataInportExport);
+            
+            //     }
+            //   )
+            // }
+            // getDataInportExportByProduct(){
+              //   this.apiService.get('http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatnhaptheosanpham').subscribe(
+                //     (data:any) => {
+                  //       this.dataInportExportByProduct = data
+  //       console.log('tk xuất nhập sp',this.dataInportExportByProduct);
+        
+  //     }
+  //   )
+  // }
   
-}
-
-}
-interface LooseObject {
-  [key: string]: any
 }
