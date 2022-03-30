@@ -1,12 +1,14 @@
 <div class="row">
 
   <div class="col-2 ">
-    <app-filter-bar-dashboard [filterControl]="filterController" (onFilterChanges)="onFilterChange($event)"
+    <app-dashboard-filter></app-dashboard-filter>  
+    <app-filter-bar-dashboard class="d-none" [filterControl]="filterController" (onFilterChanges)="onFilterChange($event)"
       (onRadioChanges)="onRadioFilterChange($event)">
     </app-filter-bar-dashboard>
   </div>
   <div class="col-10">
     <div class="card-chart  mb-4">
+ 
       <span class="fw-bold">Thống kê xuất tiêu thụ</span>
       <div>
         <dx-chart id="chart" [dataSource]="dataXTT" palette="Soft Blue">

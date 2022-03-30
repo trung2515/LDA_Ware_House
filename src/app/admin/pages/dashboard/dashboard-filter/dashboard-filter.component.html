@@ -1,0 +1,54 @@
+<div class="card " >
+   <div class="text-center fw-bold border-bottom p-4 bg-card-hearder">
+       Chọn năm
+   </div>
+    <div class="card-body">
+        <div class="form-check" *ngFor="let item of threeYearNearest">
+            <input class="form-check-input" type="radio"  [name]="item.name"  [value]="item.check"  id="{{item.value}}" [checked]="item.check" >
+            <label class="form-check-label" for="{{item.value}}">
+               {{item.value}}
+            </label>
+        </div>
+    </div>
+</div>
+<div class="card mt-3" >
+   <div class="text-center fw-bold border-bottom p-4 bg-card-hearder">
+       Chọn tháng 
+   </div>
+    <div class="card-body">
+        <div class="form-check" >
+            <div class="row" >
+                <div class="col-3 py-2 px-3"  *ngFor="let item of listMonth">
+                    <input class="form-check-input" type="radio" [name]="item.name"  id="{{item.month}}" [checked]="item.check" (change)="onSelectMonth(item)">
+                    <label class="form-check-label" for="{{item.month}}">
+                       {{item.month}}
+                    </label>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="card mt-3" >
+   <div class="text-center fw-bold border-bottom p-4 bg-card-hearder">
+       Chọn ngày 
+   </div>
+    <div class="card-body py-4">
+        <dx-range-selector
+        id="range-selector"
+        (onOptionChanged)="selectDay($event)"
+      >
+        <dxo-margin [top]="50"></dxo-margin>
+        <dxo-scale
+          [startValue]="rangeDate[0]"
+          [endValue]="rangeDate[1]"
+          [minorTickInterval]="1"
+          [tickInterval]="3"
+        >
+      
+        </dxo-scale>
+    
+      </dx-range-selector>
+ 
+    </div>
+</div>

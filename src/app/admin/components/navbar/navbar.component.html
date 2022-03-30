@@ -17,13 +17,21 @@
           [routerLink]="menu.link" routerLinkActive="active">
           {{ menu.name }}
         </a>
-        <ul *ngIf=" menu.parentId==0" class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <ul *ngIf=" menu.parentId==0 && menu.menuId != 8 " class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li *ngFor="let child of getChildMenu(menu.menuId)">
             <a class="dropdown-item childMenu" [routerLink]="child.link" routerLinkActive="active">
               {{ child.name }}
             </a>
           </li>
         </ul>
+        <ul *ngIf=" username == 'admin' && menu.menuId == 8 " class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li *ngFor="let child of getChildMenu(menu.menuId)">
+            <a class="dropdown-item childMenu" [routerLink]="child.link" routerLinkActive="active">
+              {{ child.name }}
+            </a>
+          </li>
+        </ul>
+
       </li>
     </ul>
     <div class="nav-item dropdown">

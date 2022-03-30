@@ -12,7 +12,7 @@ import {
   InventoryFLMonthModel,
   Product,
 } from '../../models'
-import { ReportService } from 'src/app/core/services/report.service'
+
 
 class RadioItemModel {
   id: string | number
@@ -70,7 +70,7 @@ export class FilterBarDashboardComponent implements OnInit {
     },
   }
 
-  constructor(private reportService: ReportService) { }
+  constructor() { }
 
   ngOnInit(): void {
     ; (this.threeYearNearestList = {
@@ -82,38 +82,24 @@ export class FilterBarDashboardComponent implements OnInit {
         data: this.getMonthsOfYear(),
       })
     this.getDatesOfMonths(this.currentMonth, this.currentYear)
-    this.reportService.reportWarehouse().subscribe((d) => {
-      d.filter(d => d.nameProduct != '').forEach(d => {
-        if (this.inventoryMonths.filter(i => i.name == d.nameProduct
-          && i.type == d.idTypeProduct).length == 0) {
-          let inv = new InventoryFLMonthModel(d);
-          this.inventoryMonths.push(inv)
-        }
-        this.inventorySum += parseInt(d.quantity)
-        if (this.inventoryMonths.filter(i => i.name == d.nameProduct
-          && i.type == d.idTypeProduct).length > 0) {
-          console.log('update total' + d.nameProduct + ' ' + d.quantity);
-          for (var i = 0; i < this.inventoryMonths.length; i++) {
-            if (this.inventoryMonths[i].name == d.nameProduct && this.inventoryMonths[i].type == d.idTypeProduct)
-              this.inventoryMonths[i].total += parseInt(d.quantity)
-          }
-        }
-      })
-    })
+
   }
   ngOnChanges(change: SimpleChanges): void {
   }
 
   onOptionChanged(e: any) {
     this.onFilterChanges.emit(e.value)
+  
+    console.log('evDay');
   }
-  onRadioChange(e: any) {
-
-    const param: paramChangeModel = {
+  onRadioChanged(e: any) {
+    let param: paramChangeModel = {
       value: e.target.value,
       name: e.target.name,
     }
     this.onRadioChanges.emit(param)
+    console.log('evMonth');
+    
   }
   // getTotalInventoryFlMonth(month: number): number {
   //   return this.products.reduce((sum, item) => {

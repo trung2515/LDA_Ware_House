@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-
 import Utils from 'src/app/_lib/utils';
 import { NewReportService } from 'src/app/core/services/report-service.service';
 
@@ -12,10 +11,10 @@ import { NewReportService } from 'src/app/core/services/report-service.service';
 export class DashboardComponent implements OnInit {
   constructor(private apiService:NewReportService){}
   ngOnInit(): void {
-    this.getData({
-      startDate:Utils.formatDateReport(new Date(this.now.getFullYear(),(this.now.getMonth()),1)),
-      endDate:Utils.formatDateReport(this.now)
-    })
+    // this.getData({
+    //   startDate:Utils.formatDateReport(new Date(this.now.getFullYear(),(this.now.getMonth()),1)),
+    //   endDate:Utils.formatDateReport(this.now)
+    // })
     
 
   }
@@ -41,26 +40,32 @@ export class DashboardComponent implements OnInit {
   dataSXHydrat:any = []
   dataTotalXTT:any = []
   dataTotalSX:any = []
-
+  tempStartDate:any
+  tempEndDate:any
 
   dataFilter:any ={
-    startDate:Utils.formatDateReport(new Date(this.now.getDate())),
+
     year: this.now.getFullYear(),
     month: this.now.getMonth()
   }
   filterController:any
   onRadioFilterChange(e:any){
-    e.name == 'month'? this.dataFilter.month = e.value :this.dataFilter.year = e.value
-    console.log('value filter',this.dataFilter); 
+    
+    // e.name == 'month'? this.dataFilter.month = e.value :this.dataFilter.year = e.value
+    // console.log('value filter 2 ',this.dataFilter); 
+    
+    // this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,this.tempEndDate)) 
+    // this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month, this.tempEndDate )) 
+    console.log('value filter 3',e); 
+
   }
   onFilterChange(e:any){
-    this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[0])) 
-    this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[1])) 
-    console.log('value filter',this.dataFilter); 
-    this.getData(this.dataFilter)
+    // this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[0])) 
+    // this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[1])) 
+    console.log('value filter 1',e); 
+    // this.getData(this.dataFilter)
   }
   getData(data:any){
-    
     this.pinnerToggle = true
     let param:any = `begin=${data.startDate}&end=${data.endDate}`
     console.log(param);

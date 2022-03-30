@@ -7,7 +7,7 @@
   <div class="form-group-wrap">
     <div *ngFor="let product of threeYearNearestList.data" class="form-group">
       <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
-        (click)="onRadioChange($event)" class="form-radio" />
+        (click)="onRadioChanged($event)" class="form-radio" />
       <label [for]="product.id">{{ product.value }}</label>
     </div>
   </div>
@@ -20,7 +20,7 @@
   <div class="form-group-wrap">
     <div *ngFor="let product of monthList.data" class="form-group">
       <input type="radio" [value]="product.value" [name]="product.name" [checked]="product.checked" [id]="product.id"
-        class="form-radio" (click)="onRadioChange($event)" (input)="selectMonth($event)" />
+        class="form-radio" (click)="onRadioChanged($event)" (input)="selectMonth($event)" />
       <label [for]="product.id">{{ product.value }}</label>
     </div>
   </div>

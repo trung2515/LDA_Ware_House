@@ -6,6 +6,8 @@ import {
   DevExtremeModule,
   DxPopupModule,
   DxSelectBoxModule,
+  DxRangeSliderModule,
+  DxPieChartModule
 } from 'devextreme-angular'
 import { AdminRoutingModule } from './admin-routing.module'
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
@@ -34,8 +36,6 @@ import { ConsignmentManagementComponent } from './pages/consignment-management/c
 import { HeaderReportComponent } from './components/header-report/header-report.component'
 import { SharedModule } from '../shared/shared.module'
 import { CoreModule } from '../core/core.module'
-import { BarCharComponent } from './pages/dashboard/components/bar-char/bar-char.component'
-import { LineCharComponent } from './pages/dashboard/components/line-char/line-char.component'
 import { CardComponent } from './pages/dashboard/component/card.component'
 import { BreadcrumbComponent } from './layouts/breadcrumb/breadcrumb.component'
 import { FilterBarDashboardComponent } from './pages/dashboard/components/filter-bar-dashboard/filter-bar-dashboard.component'
@@ -70,8 +70,9 @@ import { TransportReportV2Component } from './pages/report-forAdmin-component/tr
 import { UnloadUnloadComponent } from './pages/report-forAdmin-component/transport-report-v2/unload-unload/unload-unload.component';
 import { UploadV2Component } from './pages/report-forAdmin-component/transport-report-v2/upload-v2/upload-v2.component';
 import { UnloadV2Component } from './pages/report-forAdmin-component/transport-report-v2/unload-v2/unload-v2.component';
-import { DxPieChartModule } from 'devextreme-angular';
-import {NgxPaginationModule} from 'ngx-pagination';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+import DashboardFilterComponent from './pages/dashboard/dashboard-filter/dashboard-filter.component';
 
 @NgModule({
   declarations: [
@@ -101,8 +102,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ConsignmentManagementComponent,
     HeaderReportComponent,
     FilterBarDashboardComponent,
-    BarCharComponent,
-    LineCharComponent,
     BreadcrumbComponent,
     MenuConfirmComponent,
     WareHouseInventoryComponent,
@@ -116,7 +115,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ImportWareHouseComponent,
     ExportWareHouseComponent,
     TransportationComponent,
-
     UploadComponent,
     UnloadComponent,
     UnloadUploadByDeviceComponent,
@@ -128,17 +126,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ConfigUserComponent,
     ImportReportAdminComponent,
     ExportReportAdminComponent,
-
     TransportReportV2Component,
-
     UnloadUnloadComponent,
-
     UploadV2Component,
-
     UnloadV2Component,
-
-    
-
+    DashboardFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -147,6 +139,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ReactiveFormsModule,
     SharedModule,
     DxPieChartModule,
+    DxRangeSliderModule,
     // Ng2SearchPipeModule
     NgxPaginationModule
   ],

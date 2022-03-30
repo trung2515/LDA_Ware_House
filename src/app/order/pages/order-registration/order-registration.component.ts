@@ -33,7 +33,7 @@ import { MainService } from 'src/app/mainservice.service';
 export class OrderRegistrationComponent implements OnInit {
   isSuccessLoading: boolean = false;
   title: string = 'Đăng ký phiếu đơn hàng';
-  registerForm!: FormGroup;
+  registerForm: FormGroup = new FormGroup ({})
   isAddingSuccessful: boolean = false;
   order_Code: string = '';
   product_options: any;
