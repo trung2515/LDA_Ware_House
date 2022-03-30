@@ -12,8 +12,11 @@ import { NewReportService } from 'src/app/core/services/report-service.service';
 export class DashboardComponent implements OnInit {
   constructor(private apiService:NewReportService){}
   ngOnInit(): void {
-    // this.getDataInportExport()
-    // this.getDataInportExportByProduct()
+    this.getData({
+      startDate:Utils.formatDateReport(new Date(this.now.getFullYear(),(this.now.getMonth()),1)),
+      endDate:Utils.formatDateReport(this.now)
+    })
+    
 
   }
   now:Date = new Date
@@ -21,6 +24,16 @@ export class DashboardComponent implements OnInit {
   dataInportExport:any =[]
   dataInportExportByProduct:any =[]
   dataXTT:any = []
+  dataXTTAluminTT:any = []
+  dataXTTAluminPXN:any = []
+  dataXTTHydratTT:any = []
+  dataXTTHydratPXN:any = []
+
+  dataVCLKAluminTT:any = []
+  dataVCLKAluminPXN:any = []
+  dataVCLKHydratTT:any = []
+  dataVCLKHydratPXN:any = []
+
   dataXTTAlumin:any = []
   dataXTTHydrat:any = []
   dataSX:any = []
@@ -28,10 +41,8 @@ export class DashboardComponent implements OnInit {
   dataSXHydrat:any = []
   dataTotalXTT:any = []
   dataTotalSX:any = []
-  dataCauTienTuanAlumin:any = []
-  dataCauTienTuanHydrat:any = []
-  dataXeNangPXNAlumin:any = []
-  dataXeNangPXNHydrat:any = []
+
+
   dataFilter:any ={
     startDate:Utils.formatDateReport(new Date(this.now.getDate())),
     year: this.now.getFullYear(),
@@ -46,12 +57,12 @@ export class DashboardComponent implements OnInit {
     this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[0])) 
     this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[1])) 
     console.log('value filter',this.dataFilter); 
-    this.getData()
+    this.getData(this.dataFilter)
   }
-  getData(){
+  getData(data:any){
     
     this.pinnerToggle = true
-    let param:any = `begin=${this.dataFilter.startDate}&end=${this.dataFilter.endDate}`
+    let param:any = `begin=${data.startDate}&end=${data.endDate}`
     console.log(param);
         // ---- xuất tiêu thụ ------ 
         this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuattieuthu?${param}`).subscribe(
@@ -158,19 +169,22 @@ export class DashboardComponent implements OnInit {
           let arrAlumin = data.data[0].items
           let arrHydrat = data.data[1].items
           arrAlumin.forEach((element:any) => {
-            if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu'){
-              this.dataCauTienTuanAlumin = element.items
-            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng'){
-              this.dataXeNangPXNAlumin = element.items
-            }else{}
-            console.log('dataVc',this.dataCauTienTuanAlumin,this.dataXeNangPXNAlumin);
+            if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu' && element.congviec == 'Vận chuyển lưu kho'){
+              this.dataVCLKAluminTT = element.items
+            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Vận chuyển lưu kho'){
+              this.dataVCLKAluminPXN = element.items
+            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Xuất tiêu thụ'){
+              this.dataXTTAluminPXN = element.items}
+
+  
             })
             arrHydrat.forEach((element:any) => {
-            if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu'){
-              this.dataCauTienTuanHydrat = element.items
-            }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng'){
-              this.dataXeNangPXNHydrat = element.items
-            }else{}
+              if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu' && element.congviec == 'Vận chuyển lưu kho'){
+                this.dataVCLKHydratTT = element.items
+              }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Vận chuyển lưu kho'){
+                this.dataVCLKHydratPXN = element.items
+              }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Xuất tiêu thụ'){
+                this.dataXTTHydratPXN = element.items}
       
             })
          
