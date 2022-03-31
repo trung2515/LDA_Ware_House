@@ -4,7 +4,7 @@
    </div>
     <div class="card-body">
         <div class="form-check" *ngFor="let item of threeYearNearest">
-            <input class="form-check-input" type="radio"  [name]="item.name"  [value]="item.check"  id="{{item.value}}" [checked]="item.check" >
+            <input class="form-check-input" type="radio"  [name]="item.name"  [value]="item.check"  id="{{item.value}}" [checked]="item.check" (click)="onSelectYear(item)">
             <label class="form-check-label" for="{{item.value}}">
                {{item.value}}
             </label>
@@ -19,7 +19,7 @@
         <div class="form-check" >
             <div class="row" >
                 <div class="col-3 py-2 px-3"  *ngFor="let item of listMonth">
-                    <input class="form-check-input" type="radio" [name]="item.name"  id="{{item.month}}" [checked]="item.check" (change)="onSelectMonth(item)">
+                    <input class="form-check-input" type="radio" [name]="item.name"  id="{{item.month}}" [checked]="item.check" (click)="onSelectMonth(item)">
                     <label class="form-check-label" for="{{item.month}}">
                        {{item.month}}
                     </label>
@@ -44,6 +44,7 @@
           [endValue]="rangeDate[1]"
           [minorTickInterval]="1"
           [tickInterval]="3"
+          
         >
       
         </dxo-scale>

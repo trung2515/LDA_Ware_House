@@ -1,0 +1,65 @@
+.wrapper {
+    padding-top: 25px;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+  }
+  .filter-bar {
+    position: flex;
+    flex-direction: column;
+    /* overflow-y: auto; */
+    /* height: 80vh; */
+    width: 300px;
+    background-color: #fff;
+  }
+  .content {
+    position: relative;
+    flex: 1;
+  }
+  .chart-container {
+    padding: 10px;
+  }
+  .card-chart{
+    padding: 10px;
+    background-color:#F8F8F8 ;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  }
+  .spinner-center{
+    width:100vh;
+    height:100vh;
+    position: fixed;
+    top:0;
+    right: 0;
+  }
+  
+  .filter-bar{
+      position: fixed;
+      top: 108px;
+      left: 0;
+      width: 16%;
+    
+  }
+  .char-page{
+      width: 84%;
+      padding: 0 20px;
+      
+  }
+  .pinner-body{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    background-color: black;
+    opacity: 0.3;
+    z-index: 20;
+   
+  }
+  .pinner-content{
+    position: fixed;
+    top: calc(50% - 150px);
+    left: calc(50% - 100px);
+    z-index: 30;
+    opacity: 1;
+  }
+  

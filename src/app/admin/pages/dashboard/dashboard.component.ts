@@ -11,12 +11,11 @@ import { NewReportService } from 'src/app/core/services/report-service.service';
 export class DashboardComponent implements OnInit {
   constructor(private apiService:NewReportService){}
   ngOnInit(): void {
-    // this.getData({
-    //   startDate:Utils.formatDateReport(new Date(this.now.getFullYear(),(this.now.getMonth()),1)),
-    //   endDate:Utils.formatDateReport(this.now)
-    // })
+    this.getData({
+      startDate:Utils.formatDateReport(new Date(this.now.getFullYear(),(this.now.getMonth()),1)),
+      endDate:Utils.formatDateReport(this.now)
+    })
     
-
   }
   now:Date = new Date
   pinnerToggle:boolean = false
@@ -195,7 +194,10 @@ export class DashboardComponent implements OnInit {
          
       })
     }
-      
+    onChangeFilter(e:any){
+      let dataFilter = e
+      this.getData(dataFilter)
+    }
       emptyData(){
         // this.dataXTT = []
         // this.dataXTTAlumin = []

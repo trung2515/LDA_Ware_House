@@ -73,6 +73,8 @@ import { UnloadV2Component } from './pages/report-forAdmin-component/transport-r
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import DashboardFilterComponent from './pages/dashboard/dashboard-filter/dashboard-filter.component';
+import { DashboardInpExpComponent } from './pages/dashboard/dashboard-inp-exp/dashboard-inp-exp.component';
+import { DashboardTransportComponent } from './pages/dashboard/dashboard-transport/dashboard-transport.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +133,8 @@ import DashboardFilterComponent from './pages/dashboard/dashboard-filter/dashboa
     UploadV2Component,
     UnloadV2Component,
     DashboardFilterComponent,
+    DashboardInpExpComponent,
+    DashboardTransportComponent,
   ],
   imports: [
     CommonModule,

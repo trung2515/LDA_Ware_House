@@ -14,11 +14,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.menus = [
       {
-        link: '/admin/dashboard',
+        link: '/admin',
         menuId: 1,
         name: 'Thống kê',
         isParent: true,
-        parentId: -1,
+        parentId: 0,
       },
       {
         link: '/admin/report',
@@ -135,6 +135,20 @@ export class NavbarComponent implements OnInit {
         name: 'Báo vận chuyển v2',
         isParent: false,
         parentId: 3,
+      },
+      {
+        link: '/admin/dashboard/dashboard-import-export',
+        menuId: 18,
+        name: 'Thống kê xuất nhập',
+        isParent: false,
+        parentId: 1,
+      },
+      {
+        link: '/admin/dashboard/dashboard-transport',
+        menuId: 19,
+        name: 'Thống kê vận chuyển',
+        isParent: false,
+        parentId: 1,
       },
     ]
 

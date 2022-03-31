@@ -1,7 +1,7 @@
 <div class="row">
 
   <div class="col-2 ">
-    <app-dashboard-filter></app-dashboard-filter>  
+    <app-dashboard-filter (changeParam)="onChangeFilter($event)"></app-dashboard-filter>  
     <app-filter-bar-dashboard class="d-none" [filterControl]="filterController" (onFilterChanges)="onFilterChange($event)"
       (onRadioChanges)="onRadioFilterChange($event)">
     </app-filter-bar-dashboard>

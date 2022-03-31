@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top p-0 bg-primary" style=" height: 64px;">
+<nav class="navbar navbar-expand-lg fixed-top p-0 bg-primary d-none d-md-flex" style=" height: 64px;">
   <!-- <a class="navbar-brand" href="#">
     Navbar</a> -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -17,20 +17,14 @@
           [routerLink]="menu.link" routerLinkActive="active">
           {{ menu.name }}
         </a>
-        <ul *ngIf=" menu.parentId==0 && menu.menuId != 8 " class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <ul *ngIf=" menu.parentId==0" class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li *ngFor="let child of getChildMenu(menu.menuId)">
             <a class="dropdown-item childMenu" [routerLink]="child.link" routerLinkActive="active">
               {{ child.name }}
             </a>
           </li>
         </ul>
-        <ul *ngIf=" username == 'admin' && menu.menuId == 8 " class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li *ngFor="let child of getChildMenu(menu.menuId)">
-            <a class="dropdown-item childMenu" [routerLink]="child.link" routerLinkActive="active">
-              {{ child.name }}
-            </a>
-          </li>
-        </ul>
+  
 
       </li>
     </ul>
@@ -46,3 +40,55 @@
     </div>
   </div>
 </nav>
+
+<div class="d-inline d-md-none">
+
+  
+<div class="collapse" id="navbarToggleExternalContent">
+ 
+  <div class="bg-primary p-4">
+    <div class="container-fluid d-flex collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li *ngFor="let menu of parentMenu" class="nav-item dropdown">
+          <a *ngIf="menu.parentId == -1" class="nav-link" [routerLink]="menu.link" aria-haspopup="true"
+            aria-expanded="false" routerLinkActive="active">
+            {{ menu.name }}
+          </a>
+          <a *ngIf="menu.parentId == -0" style=" pointer-events: none;" class="nav-link dropdown-toggle"
+            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            [routerLink]="menu.link" routerLinkActive="active">
+            {{ menu.name }}
+          </a>
+          <ul *ngIf=" menu.parentId==0" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li *ngFor="let child of getChildMenu(menu.menuId)">
+              <a class="dropdown-item childMenu" [routerLink]="child.link" routerLinkActive="active">
+                {{ child.name }}
+              </a>
+            </li>
+          </ul>
+    
+  
+        </li>
+      </ul>
+      <div class="nav-item dropdown">
+        <div class="nav-link dropdown-toggle" data-toggle="dropdown">
+          {{username}}
+        </div>
+        <div class="dropdown-menu dropdown-menu-right" style="padding-right: 8px; padding-left: 8px;">
+          <a class="dropdown-item nav-link childMenu" [routerLinkActive]="'active'" (click)="signOut()">
+            Đăng xuất
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-primary bg-primary">
+  <div class="container-fluid">
+    <button class=" btn btn-white bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-primary p-1"><i class="fa-solid fa-bars-staggered"></i></span>
+    </button>
+  </div>
+</nav>
+
+</div>

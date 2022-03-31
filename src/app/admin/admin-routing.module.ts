@@ -44,6 +44,8 @@ import { ImportReportAdminComponent } from './pages/report-forAdmin-component/im
 import { ExportReportAdminComponent } from './pages/report-forAdmin-component/export-report-admin/export-report-admin.component'
 
 import { TransportReportV2Component } from './pages/report-forAdmin-component/transport-report-v2/transport-report-v2.component'
+import { DashboardInpExpComponent } from './pages/dashboard/dashboard-inp-exp/dashboard-inp-exp.component'
+import { DashboardTransportComponent } from './pages/dashboard/dashboard-transport/dashboard-transport.component'
 
 
 ReasonComponent
@@ -57,7 +59,10 @@ const routes: Routes = [
       breadcrumb: 'Thống kê',
     },
     component: AdminLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: '',   data: { breadcrumb: 'Thống kê xuất nhập'},component: DashboardInpExpComponent },
+      { path: 'dashboard-transport', data: { breadcrumb: 'Thống kê vận chuyển'}, component: DashboardTransportComponent },
+      ],
   },
   {
     path: 'configuration',
