@@ -1,204 +1,138 @@
 <div class="row">
-
-    <div class="filter-bar" >
-        <app-dashboard-filter (changeParam)="onChangeFilter($event)"></app-dashboard-filter>  
-  
-      </div>
-      <div style="width: 16%;"></div>
-      <div class="char-page">
-      <div class="card-chart mb-4 ">
-        <div>
-          <span class="fw-bold">Thống kê vận chuyển lưu kho Alumin 1 tấn cẩu Tiến Tuấn</span>
-          <dx-chart palette="Soft Blue" [dataSource]="dataVCLKAluminTT">
-            <dxi-series valueField="data" name="tấn" >
-              <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-              </dxo-label>
-            </dxi-series>
-            <dxo-common-series-settings #seriesSettings argumentField="ngay">
-            </dxo-common-series-settings>
-            <dxo-margin [bottom]="20"></dxo-margin>
-            <dxo-common-axis-settings>
-              <dxo-grid [visible]="true"></dxo-grid>
-            </dxo-common-axis-settings>
-            <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-            </dxo-legend>
-            <dxo-argument-axis [allowDecimals]="false" [axisDivisionFactor]="50">
-              <dxo-label>
-                <dxo-format type="decimal"></dxo-format>
-              </dxo-label>
-            </dxo-argument-axis>
-            <dxo-export [enabled]="true"></dxo-export>
-            <dxo-tooltip [enabled]="true"></dxo-tooltip>
-          </dx-chart>
-          <div class="text-center">
-            <span class="fw-bold">Biểu đồ vận chuyển lưu kho Alumin 1 Tấn cẩu Tiến Tuấn </span>
-          </div>
-        </div>
-  
-      </div>
-  
-      <div class="card-chart my-4 ">
-        <div>
-          <span class="fw-bold">Thống kê vận chuyển lưu kho Alumin 1 tấn pa lăng PXN</span>
-          <dx-chart palette="Soft Blue" [dataSource]="dataVCLKAluminPXN">
-            <dxi-series valueField="data" name="tấn" >
-              <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-              </dxo-label>
-            </dxi-series>
-            <dxo-common-series-settings #seriesSettings argumentField="ngay">
-            </dxo-common-series-settings>
-            <dxo-margin [bottom]="20"></dxo-margin>
-            <dxo-common-axis-settings>
-              <dxo-grid [visible]="true"></dxo-grid>
-            </dxo-common-axis-settings>
-            <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-            </dxo-legend>
-            <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="50">
-            </dxo-argument-axis>
-            <dxo-export [enabled]="true"></dxo-export>
-            <dxo-tooltip [enabled]="true"></dxo-tooltip>
-          </dx-chart>
-          <div class="text-center">
-            <span class="fw-bold">Biểu đồ vận chuyển lưu kho Alumin 1 tấn pa lăng PXN </span>
-          </div>
-        </div>
-  
-      </div>
-      <div class="card-chart my-4 ">
-        <div>
-          <span class="fw-bold">Thống kê xuất tiêu thụ Alumin 1 tấn pa lăng PXN</span>
-          <dx-chart palette="Soft Blue" [dataSource]="dataXTTAluminPXN">
-            <dxi-series valueField="data" name="tấn" >
-              <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-              </dxo-label>
-            </dxi-series>
-            <dxo-common-series-settings #seriesSettings argumentField="ngay">
-            </dxo-common-series-settings>
-            <dxo-margin [bottom]="20"></dxo-margin>
-            <dxo-common-axis-settings>
-              <dxo-grid [visible]="true"></dxo-grid>
-            </dxo-common-axis-settings>
-            <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-            </dxo-legend>
-            <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="50">
-            </dxo-argument-axis>
-            <dxo-export [enabled]="true"></dxo-export>
-            <dxo-tooltip [enabled]="true"></dxo-tooltip>
-          </dx-chart>
-          <div class="text-center">
-            <span class="fw-bold">Biểu đồ xuất tiêu thụ Alumin 1 tấn pa lăng PXN </span>
-          </div>
-        </div>
-  
-      </div>
-  
-  
-      <div class="card-chart my-4 ">
-        <span class="fw-bold">Thống kê vận chuyển lưu kho Hydrat 1 tấn cẩu Tiến Tuấn</span>
-        <dx-chart palette="violet" [dataSource]="dataVCLKHydratTT">
-          <dxi-series valueField="data" name="tấn" color="#6278d7">
-            <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-            </dxo-label>
-          </dxi-series>
-          <dxo-common-series-settings #seriesSettings argumentField="ngay">
-          </dxo-common-series-settings>
-          <dxo-margin [bottom]="20"></dxo-margin>
-          <dxo-common-axis-settings>
-            <dxo-grid [visible]="true"></dxo-grid>
-          </dxo-common-axis-settings>
-          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-          </dxo-legend>
-          <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="50">
-          </dxo-argument-axis>
-          <dxo-export [enabled]="true"></dxo-export>
-          <dxo-tooltip [enabled]="true"></dxo-tooltip>
-        </dx-chart>
-        <div class="text-center">
-          <span class="fw-bold">Biểu đồ vận chuyển lưu kho Hydrat 1 tấn cẩu Tiến Tuấn </span>
-        </div>
-  
-      </div>
-      <div class="card-chart my-4 ">
-        <span class="fw-bold">Thống kê vận chuyển lưu Hydrat 1 tấn pa lăng PXN</span>
-        <dx-chart palette="violet" [dataSource]="dataVCLKHydratPXN">
-          <dxi-series valueField="data" name="tấn" color="#6278d7">
-            <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-            </dxo-label>
-          </dxi-series>
-          <dxo-common-series-settings #seriesSettings argumentField="ngay">
-          </dxo-common-series-settings>
-          <dxo-margin [bottom]="20"></dxo-margin>
-          <dxo-common-axis-settings>
-            <dxo-grid [visible]="true"></dxo-grid>
-          </dxo-common-axis-settings>
-          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-          </dxo-legend>
-          <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="50">
-          </dxo-argument-axis>
-          <dxo-export [enabled]="true"></dxo-export>
-          <dxo-tooltip [enabled]="true"></dxo-tooltip>
-        </dx-chart>
-        <div class="text-center">
-          <span class="fw-bold">Biểu đồ vận vận chuyển lưu Hydrat 1 tấn pa lăng PXN </span>
-        </div>
-  
-      </div>
-      <div class="card-chart my-4 ">
-        <span class="fw-bold">Thống kê xuất tiêu thụ Hydrat 1 tấn pa lăng PXN</span>
-        <dx-chart palette="violet" [dataSource]="dataXTTHydratPXN">
-          <dxi-series valueField="data" name="tấn" color="#6278d7">
-            <dxo-label [visible]="true" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-              }" backgroundColor="none">
-            </dxo-label>
-          </dxi-series>
-          <dxo-common-series-settings #seriesSettings argumentField="ngay">
-          </dxo-common-series-settings>
-          <dxo-margin [bottom]="20"></dxo-margin>
-          <dxo-common-axis-settings>
-            <dxo-grid [visible]="true"></dxo-grid>
-          </dxo-common-axis-settings>
-          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
-          </dxo-legend>
-          <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="50">
-          </dxo-argument-axis>
-          <dxo-export [enabled]="true"></dxo-export>
-          <dxo-tooltip [enabled]="true"></dxo-tooltip>
-        </dx-chart>
-        <div class="text-center">
-          <span class="fw-bold">Biểu đồ xuất tiêu thụ Hydrat 1 tấn pa lăng PXN </span>
-        </div>
-  
-      </div>
-  
-    </div>
+  <div class="filter-bar">
+    <app-dashboard-filter (changeParam)="onChangeFilter($event)"></app-dashboard-filter>
   </div>
-  
+  <div class="d-none d-md-block" style="width:16%">
+
+  </div>
+
+  <div class="char-page">
+
+    <div class="card-chart mb-4 " style="overflow-y: scroll;">
+      <span class="fw-bold">Thống kê vận chuyển lưu kho cẩu Tiến Tuấn</span>
+      <div style="min-width:1000px; ">
+        <div>
+          <span class="fw-bold" style="color: #7AB8EB;">Tổng cộng : {{totalVCLKTienTuan}} tấn</span>
+        </div>
+        <dx-chart palette="Soft Blue" [dataSource]="sumVCLKTienTuan">
+          <dxi-series valueField="value" name="tấn">
+            <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+              }" backgroundColor="none">
+            </dxo-label>
+          </dxi-series>
+          <dxo-common-series-settings #seriesSettings argumentField="date">
+          </dxo-common-series-settings>
+          <dxo-margin [bottom]="20"></dxo-margin>
+          <dxo-common-axis-settings>
+            <dxo-grid [visible]="true"></dxo-grid>
+          </dxo-common-axis-settings>
+          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
+          </dxo-legend>
+          <dxo-argument-axis [allowDecimals]="false" [axisDivisionFactor]="50">
+            <dxo-label>
+              <dxo-format type="decimal"></dxo-format>
+            </dxo-label>
+          </dxo-argument-axis>
+          <dxo-export [enabled]="true"></dxo-export>
+          <dxo-tooltip [enabled]="true"></dxo-tooltip>
+        </dx-chart>
+      </div>
+      <div class="text-center">
+        <span class="fw-bold">Biểu đồ vận chuyển lưu kho cẩu Tiến Tuấn </span>
+      </div>
+    </div>
+
+
+    <div class="card-chart my-4 " style="overflow-y: scroll;">
+      <span class="fw-bold">Thống kê vận chuyển lưu kho pa lăng PXN</span>
+      <div style="min-width:1000px; ">
+        <div>
+          <span class="fw-bold" style="color: #6278d7;">Tổng cộng : {{totalVCLKPhanXuongNung}} tấn</span>
+        </div>
+        <dx-chart palette="Soft Blue" [dataSource]="sumVCLKPhanXuongNung">
+          <dxi-series valueField="value" name="tấn" color="#6278d7">
+            <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+              }" backgroundColor="none">
+            </dxo-label>
+          </dxi-series>
+          <dxo-common-series-settings #seriesSettings argumentField="date">
+          </dxo-common-series-settings>
+          <dxo-margin [bottom]="20"></dxo-margin>
+          <dxo-common-axis-settings>
+            <dxo-grid [visible]="true"></dxo-grid>
+          </dxo-common-axis-settings>
+          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
+          </dxo-legend>
+          <dxo-argument-axis [allowDecimals]="false" [axisDivisionFactor]="50">
+            <dxo-label>
+              <dxo-format type="decimal"></dxo-format>
+            </dxo-label>
+          </dxo-argument-axis>
+          <dxo-export [enabled]="true"></dxo-export>
+          <dxo-tooltip [enabled]="true"></dxo-tooltip>
+        </dx-chart>
+      </div>
+      <div class="text-center">
+        <span class="fw-bold">Biểu đồ vận chuyển lưu kho pa lăng PXN </span>
+      </div>
+    </div>
+
+
+
+    <div class="card-chart my-4 " style="overflow-y: scroll;">
+      <span class="fw-bold">Thống kê xuất tiêu thụ pa lăng PXN</span>
+      <div style="min-width:1000px; ">
+        <div>
+          <span class="fw-bold" style="color: #6278d7;">Tổng cộng : {{totalXTTPhanXuongNung}} tấn</span>
+        </div>
+        <dx-chart palette="Soft Blue" [dataSource]="sumXTTPhanXuongNung">
+          <dxi-series valueField="value" name="tấn" color="#6278d7">
+            <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+              }" backgroundColor="none">
+            </dxo-label>
+          </dxi-series>
+          <dxo-common-series-settings #seriesSettings argumentField="date">
+          </dxo-common-series-settings>
+          <dxo-margin [bottom]="20"></dxo-margin>
+          <dxo-common-axis-settings>
+            <dxo-grid [visible]="true"></dxo-grid>
+          </dxo-common-axis-settings>
+          <dxo-legend verticalAlignment="top" horizontalAlignment="right">
+          </dxo-legend>
+          <dxo-argument-axis [allowDecimals]="false" [axisDivisionFactor]="50">
+            <dxo-label>
+              <dxo-format type="decimal"></dxo-format>
+            </dxo-label>
+          </dxo-argument-axis>
+          <dxo-export [enabled]="true"></dxo-export>
+          <dxo-tooltip [enabled]="true"></dxo-tooltip>
+        </dx-chart>
+      </div>
+      <div class="text-center">
+        <span class="fw-bold">Biểu đồ xuất tiêu thụ pa lăng PXN </span>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
 <!-- -------------------------- pinner ------------------------------------  -->
 <div *ngIf="pinnerToggle">
-    <div  class="pinner-body"> 
-    </div>
-    <div  class="pinner-content">
-            <div class="d-flex flex-column">
-                <div class="spinner-border text-primary" style="width: 200px ; height: 200px;" role="status">
-                </div>
-                <span class="text-center text-primary fw-bold">Đang tải dữ liệu</span>
-            </div>
+  <div class="pinner-body">
+  </div>
+  <div class="pinner-content">
+    <div class="d-flex flex-column">
+      <div class="spinner-border text-primary" style="width: 200px ; height: 200px;" role="status">
+      </div>
+      <span class="text-center text-primary fw-bold">Đang tải dữ liệu</span>
     </div>
   </div>
+</div>

@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
         console.log('data',data);
         this.localStorage.set('user',data.user)
         this.localStorage.set('token', data.key)
-        console.log('tk',localStorage.getItem('token'));
+      
         this.toastr.success('Đăng nhập thành công')
         this.router.navigateByUrl('/admin')
         if(data.user.includes('vanchuyen')){

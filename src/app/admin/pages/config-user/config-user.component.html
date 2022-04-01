@@ -29,9 +29,9 @@
           <tr *ngFor="let item of listUser;let i = index">
               <td>{{i+1}}</td>
               <td>{{item.user}}</td>
-              <td>{{item.username}}</td>
+              <td>{{item.userName}}</td>
               <td>{{item.password}}</td>
-              <td>{{item.type}}</td>
+              <td>{{item.typeName}}</td>
               <td style='width: 150px;text-align: center;'>
                 <img (click)="getInforUser(item);popEdit = true" src="assets/svg/edit.svg" alt="" class='mr-3 icon-update-table'>  <!-- btn  edit  -->
                 <img (click)="getInforUser(item);showPopDel()" src="/assets/svg/delete.svg" alt="" class='icon-update-table'> <!-- btn  delete  -->

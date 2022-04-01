@@ -62,7 +62,12 @@
     z-index: 30;
     opacity: 1;
   }
- rect {
-    width: 100px !important
+  @media screen and (max-width: 512px) {
+    .filter-bar {
+      position: initial;
+      width: auto;
+      display: flex;
+      justify-content:center ;
+    }
   }
   

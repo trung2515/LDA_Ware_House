@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from 'rxjs';
 import { NewReportService } from 'src/app/core/services/report-service.service';
 import Utils from 'src/app/_lib/utils';
 
@@ -20,80 +21,112 @@ export class DashboardTransportComponent implements OnInit {
   now:Date = new Date
   pinnerToggle:boolean = false
   dataXTT:any = []
-  dataXTTAluminTT:any = []
-  dataXTTAluminPXN:any = []
-  dataXTTHydratTT:any = []
-  dataXTTHydratPXN:any = []
 
-  dataVCLKAluminTT:any = []
-  dataVCLKAluminPXN:any = []
-  dataVCLKHydratTT:any = []
-  dataVCLKHydratPXN:any = []
+
+
+
 
   dataXTTAlumin:any = []
   dataXTTHydrat:any = []
   dataTotalXTT:any = []
   dataTotalSX:any = []
-  tempStartDate:any
-  tempEndDate:any
 
-  dataFilter:any ={
+  sumVCLKTienTuan:any=[]
+  sumVCLKPhanXuongNung:any=[]
+  sumXTTPhanXuongNung:any=[]
+  
+  totalVCLKTienTuan: number = 0
+  totalVCLKPhanXuongNung: number = 0
+  totalXTTPhanXuongNung: number = 0
 
-    year: this.now.getFullYear(),
-    month: this.now.getMonth()
-  }
-  filterController:any
-  onRadioFilterChange(e:any){
-    
-    // e.name == 'month'? this.dataFilter.month = e.value :this.dataFilter.year = e.value
-    // console.log('value filter 2 ',this.dataFilter); 
-    
-    // this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,this.tempEndDate)) 
-    // this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month, this.tempEndDate )) 
-    console.log('value filter 3',e); 
 
-  }
-  onFilterChange(e:any){
-    // this.dataFilter.startDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[0])) 
-    // this.dataFilter.endDate = Utils.formatDateReport(new Date (this.dataFilter.year,this.dataFilter.month,e[1])) 
-    console.log('value filter 1',e); 
-    // this.getData(this.dataFilter)
-  }
   getData(data:any){
     this.pinnerToggle = true
     let param:any = `begin=${data.startDate}&end=${data.endDate}`
     console.log(param);
-     
+    
          // ----vận chuyển ------ 
       this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuatvanchuyentheosanpham?${param}`).subscribe(
         (data:any) => {
           let arrAlumin = data.data[0].items
           let arrHydrat = data.data[1].items
+          this.sumVCLKTienTuan = []
+          this.sumVCLKPhanXuongNung = []
+          this.sumXTTPhanXuongNung = []
+          this.totalVCLKTienTuan = 0
+          this.totalVCLKPhanXuongNung = 0
+          this.totalXTTPhanXuongNung = 0
+          let dataXTTAluminTT:any = []
+          let dataXTTAluminPXN:any = []
+          let dataXTTHydratTT:any = []
+          let dataXTTHydratPXN:any = []
+          let dataVCLKAluminPXN:any = []
+          let dataVCLKAluminTT:any = []
+          
+          let dataVCLKHydratTT:any = []
+          let dataVCLKHydratPXN:any = []
           arrAlumin.forEach((element:any) => {
             if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu' && element.congviec == 'Vận chuyển lưu kho'){
-              this.dataVCLKAluminTT = element.items
+              dataVCLKAluminTT = element.items
             }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Vận chuyển lưu kho'){
-              this.dataVCLKAluminPXN = element.items
+              dataVCLKAluminPXN = element.items
             }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Xuất tiêu thụ'){
-              this.dataXTTAluminPXN = element.items}
-
-  
+              dataXTTAluminPXN = element.items}
             })
             arrHydrat.forEach((element:any) => {
               if(element.donvi == 'Tiến Tuấn' && element.thietbi == 'Cẩu' && element.congviec == 'Vận chuyển lưu kho'){
-                this.dataVCLKHydratTT = element.items
+                dataVCLKHydratTT = element.items
               }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Vận chuyển lưu kho'){
-                this.dataVCLKHydratPXN = element.items
+              dataVCLKHydratPXN = element.items
               }else if(element.donvi == 'Phân Xưởng Nung Hydrat' && element.thietbi == 'Pa lăng' && element.congviec == 'Xuất tiêu thụ'){
-                this.dataXTTHydratPXN = element.items}
+               dataXTTHydratPXN = element.items}
       
             })
+            
+            for(var i = 0 ; i< dataVCLKAluminTT.length ; i++){
+              let item:any={}
+              item.date = dataVCLKAluminTT[i].ngay.substring(0,2)
+              item.value = dataVCLKAluminTT[i].data + dataVCLKHydratTT[i].data
+              this.totalVCLKTienTuan += item.value
+              this.sumVCLKTienTuan.push(item)
+            }
+            for(var i = 0 ; i< dataVCLKAluminPXN.length ; i++){
+              let item:any={}
+              item.date = dataVCLKAluminPXN[i].ngay.substring(0,2)
+              item.value = dataVCLKAluminPXN[i].data + dataVCLKHydratPXN[i].data
+              this.totalVCLKPhanXuongNung += item.value
+              this.sumVCLKPhanXuongNung.push(item)
+            }
+             for(var i = 0 ; i< dataXTTAluminPXN.length ; i++){
+              let item:any={}
+              item.date = dataXTTAluminPXN[i].ngay.substring(0,2)
+              item.value = dataXTTAluminPXN[i].data + dataXTTHydratPXN[i].data
+              this.totalXTTPhanXuongNung += item.value
+              this.sumXTTPhanXuongNung.push(item)
+            }
+            let indexStartVCLKTienTuan =this.sumVCLKTienTuan.findIndex((e:any) => e.value >0)
+            let indexEndVCLKTienTuan =(this.sumVCLKTienTuan.length - this.sumVCLKTienTuan.reverse().findIndex((e:any) => e.value >0))
+            this.sumVCLKTienTuan.reverse()
+            this.sumVCLKTienTuan = indexEndVCLKTienTuan == -1 ?  this.sumVCLKTienTuan.slice(indexStartVCLKTienTuan,this.sumVCLKTienTuan.length) : this.sumVCLKTienTuan.slice(indexStartVCLKTienTuan,indexEndVCLKTienTuan)
+            
+            let indexStartVCLKPhanXuongNung =this.sumVCLKPhanXuongNung.findIndex((e:any) => e.value >0)
+            let indexEndVCLKPhanXuongNung = (this.sumVCLKPhanXuongNung.length - this.sumVCLKPhanXuongNung.reverse().findIndex((e:any) => e.value >0))
+            this.sumVCLKPhanXuongNung.reverse()
+            this.sumVCLKPhanXuongNung = indexEndVCLKPhanXuongNung == -1 ?  this.sumVCLKPhanXuongNung.slice(indexStartVCLKPhanXuongNung,this.sumVCLKPhanXuongNung.length) : this.sumVCLKPhanXuongNung.slice(indexStartVCLKPhanXuongNung,indexEndVCLKPhanXuongNung)
+           
+            let indexStartXTTKPhanXuongNung =this.sumXTTPhanXuongNung.findIndex((e:any) => e.value >0)
+            let indexEndXTTPhanXuongNung =  (this.sumXTTPhanXuongNung.length - this.sumXTTPhanXuongNung.reverse().findIndex((e:any) => e.value >0))
+            this.sumXTTPhanXuongNung.reverse()
+            this.sumXTTPhanXuongNung = indexEndVCLKPhanXuongNung == -1 ?  this.sumXTTPhanXuongNung.slice(indexStartXTTKPhanXuongNung,this.sumXTTPhanXuongNung.length) : this.sumXTTPhanXuongNung.slice(indexStartXTTKPhanXuongNung,indexEndXTTPhanXuongNung)
             this.pinnerToggle = false
+            
+            
       })
     }
     onChangeFilter(e:any){
-      let dataFilter = e
-      this.getData(dataFilter)
+     
+        this.getData(e)
+       
     }
   
 

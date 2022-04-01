@@ -62,4 +62,11 @@
     z-index: 30;
     opacity: 1;
   }
-  
+  @media screen and (max-width: 512px) {
+    .filter-bar {
+      position: initial;
+      width: auto;
+      display: flex;
+      justify-content:center ;
+    }
+  }

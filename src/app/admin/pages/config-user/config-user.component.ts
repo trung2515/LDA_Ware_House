@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  ToastrService } from 'ngx-toastr';
 import { NewReportService } from 'src/app/core/services/report-service.service';
 import { MainService } from 'src/app/mainservice.service';
+import { UserList } from './Zmodel';
 
 @Component({
   selector: 'app-config-user',
@@ -24,7 +25,7 @@ export class ConfigUserComponent implements OnInit {
   inforUser:any ={}
   getData(){
     this.apiService.get('http://office.stvg.vn:51008/api/User/getlistuser').subscribe(
-      (data:any) =>{ this.listUser = data
+      (data:any) =>{ this.listUser = data.map((m:any) => new UserList(m))
       console.log(this.listUser);}
        
     )

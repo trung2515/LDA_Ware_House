@@ -21,8 +21,8 @@ export default class DashboardFilterComponent implements OnInit {
   now:Date = new Date()
   currentYear = this.now.getFullYear() 
   currentMonth = this.now.getMonth()
-  currenDayStart = 1
-  currenDayEnd = this.now.getDate()
+  currenDayStart = 0
+  currenDayEnd = 0
   threeYearNearest:any = [{ id:1, value:this.currentYear ,check:true,name:'nam'},{ id:2, value:this.currentYear-1,check:false,name:'nam'},{ id:3, value:this.currentYear-2,check:false,name:'nam'}]
   listMonth:any = []
   rangeDate:any =[]
@@ -33,10 +33,10 @@ export default class DashboardFilterComponent implements OnInit {
   convertDAteFilter(){
     this.paramFilter.startDate = Utils.formatDateReport(new Date(this.currentYear,this.currentMonth,this.currenDayStart)),
     this.paramFilter.endDate =Utils.formatDateReport(new Date(this.currentYear,this.currentMonth,this.currenDayEnd))
+  
   }
   selectDay(e:any){
     if(Array.isArray(e.value) == false){   
-     
       this.currenDayStart = this.tempStartDay
       this.currenDayEnd = this.tempEndtDay < this.rangeDate[1] ?  this.tempEndtDay : this.rangeDate[1] 
     }else{
@@ -46,21 +46,21 @@ export default class DashboardFilterComponent implements OnInit {
       this.tempEndtDay =e.value[1]
     }
     this.convertDAteFilter()
-    // console.log('paramFilterD',this.paramFilter);  
     this.changeParam.emit(this.paramFilter)
   }
   onSelectMonth(item:any){
-    this.getDatesOfMonths(this.currentMonth,this.currentYear)
-    this.currentMonth = item.month-1
+    this.currentMonth = item.month -1
+    this.getDatesOfMonths(this.currentMonth+1,this.currentYear)
     this.convertDAteFilter()
-    // console.log('paramFilterM',this.paramFilter);
-    this.changeParam.emit(this.paramFilter)
+    if(this.currenDayStart != 0 && this.currenDayEnd != 0){
+
+      this.changeParam.emit(this.paramFilter)
+    }
   }
   onSelectYear(item:any){
     this.currentYear = item.value
     this.convertDAteFilter()
-    // console.log('paramFilterY',this.paramFilter);
-    this.changeParam.emit(this.paramFilter)
+
   }
   getMonthOfYear(){
     for(var i = 0; i<12 ; i++){
@@ -78,7 +78,7 @@ export default class DashboardFilterComponent implements OnInit {
     if (month && year) {
       this.rangeDate[0] = new Date(year, month, 1).getDate()
       this.rangeDate[1] = new Date(year, month, 0).getDate()
-      // console.log('range', this.rangeDate );
+      console.log('range', this.rangeDate );
       
     }
   }
