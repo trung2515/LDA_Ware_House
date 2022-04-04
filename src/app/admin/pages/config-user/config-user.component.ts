@@ -21,11 +21,13 @@ export class ConfigUserComponent implements OnInit {
   popEdit:boolean =false
   popDel:boolean =false
   newUser:any ={}
- 
+  pUser:number =1
+  p:number = 1
   inforUser:any ={}
   getData(){
     this.apiService.get('http://office.stvg.vn:51008/api/User/getlistuser').subscribe(
       (data:any) =>{ this.listUser = data.map((m:any) => new UserList(m))
+      this.listUser = this.listUser.sort((a:any,b:any) => { return a.type - b.type})
       console.log(this.listUser);}
        
     )

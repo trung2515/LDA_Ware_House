@@ -78,7 +78,7 @@ export default class DashboardFilterComponent implements OnInit {
     if (month && year) {
       this.rangeDate[0] = new Date(year, month, 1).getDate()
       this.rangeDate[1] = new Date(year, month, 0).getDate()
-      console.log('range', this.rangeDate );
+      // console.log('range', this.rangeDate );
       
     }
   }

@@ -8,13 +8,13 @@
 
   <div class="char-page">
 
-    <div class="card-chart mb-4 " style="overflow-y: scroll;">
+    <div class="card-chart mb-4 mt-md-0 mt-4" style="overflow-y: scroll;">
       <span class="fw-bold">Thống kê vận chuyển lưu kho cẩu Tiến Tuấn</span>
       <div style="min-width:1000px; ">
         <div>
-          <span class="fw-bold" style="color: #7AB8EB;">Tổng cộng : {{totalVCLKTienTuan}} tấn</span>
+          <span class="fw-bold" style="color: #87CEFA;">Tổng cộng : {{totalVCLKTienTuan}} tấn</span>
         </div>
-        <dx-chart palette="Soft Blue" [dataSource]="sumVCLKTienTuan">
+        <dx-chart [palette]="['#87CEFA']" [dataSource]="sumVCLKTienTuan">
           <dxi-series valueField="value" name="tấn">
             <dxo-label [visible]="true" [format]="{
                 type: 'fixedPoint',
@@ -49,10 +49,10 @@
       <span class="fw-bold">Thống kê vận chuyển lưu kho pa lăng PXN</span>
       <div style="min-width:1000px; ">
         <div>
-          <span class="fw-bold" style="color: #6278d7;">Tổng cộng : {{totalVCLKPhanXuongNung}} tấn</span>
+          <span class="fw-bold" style="color: #87CEFA;">Tổng cộng : {{totalVCLKPhanXuongNung}} tấn</span>
         </div>
         <dx-chart palette="Soft Blue" [dataSource]="sumVCLKPhanXuongNung">
-          <dxi-series valueField="value" name="tấn" color="#6278d7">
+          <dxi-series valueField="value" name="tấn" color="#87CEFA">
             <dxo-label [visible]="true" [format]="{
                 type: 'fixedPoint',
                 precision: '0'
@@ -87,10 +87,10 @@
       <span class="fw-bold">Thống kê xuất tiêu thụ pa lăng PXN</span>
       <div style="min-width:1000px; ">
         <div>
-          <span class="fw-bold" style="color: #6278d7;">Tổng cộng : {{totalXTTPhanXuongNung}} tấn</span>
+          <span class="fw-bold" style="color: #32CD32;">Tổng cộng : {{totalXTTPhanXuongNung}} tấn</span>
         </div>
         <dx-chart palette="Soft Blue" [dataSource]="sumXTTPhanXuongNung">
-          <dxi-series valueField="value" name="tấn" color="#6278d7">
+          <dxi-series valueField="value" name="tấn" color="#32CD32">
             <dxo-label [visible]="true" [format]="{
                 type: 'fixedPoint',
                 precision: '0'

@@ -1,75 +1,72 @@
-<div >
-    <h4 class="py-3">Báo cáo chi tiết lô hàng:</h4>
+<div>
+  <h4 class="py-3">Báo cáo chi tiết lô hàng:</h4>
+  <div class="row">
+
     <div class="row">
+      <hr>
+      <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
 
-        <div class="row">
-          <hr>
-          <span class="fw-bold mb-3">Báo cáo chi tiết theo:</span>
-   
-          <div class="col-3 pe-4">
-            <span > Sản phẩm</span>
-            <select class="custom-select" >
-              <option value="0" selected>Tất cả</option>
-              <option ></option>
-            </select>
-          </div>
-          <div class="col-3 pe-4">
-            <span > Lô</span>
-            <select class="custom-select" >
-              <option value="0" selected>Tất cả</option>
-              <option ></option>
-            </select>
-          </div>
-    
+      <div class="col-3 pe-4">
+        <span> Sản phẩm</span>
+        <select class="custom-select">
+          <option value="0" selected>Tất cả</option>
+          <option></option>
+        </select>
+      </div>
+      <div class="col-3 pe-4">
+        <span> Lô</span>
+        <select class="custom-select">
+          <option value="0" selected>Tất cả</option>
+          <option></option>
+        </select>
+      </div>
 
- 
-        </div>
-          
-        <div class="body-table">
-          
-          <table class=" w-100  ">
-            <thead class="table-head" >
-              <tr>
-                <th rowspan="2" style="width: 50px;" >STT</th>
-                <th rowspan="2">Lô</th>
-      
-                <th rowspan="2">Sản phẩm</th>
-              
-                <th colspan="2">Số lượng</th>
-     
-             
-              </tr>
-              <tr>
-                <th>Bao</th>
-                <th>Tấn</th>
-              </tr>
-          
-            </thead>
-            <tbody  *ngFor="let item of dataLot| paginate : { id: 'pUser' , itemsPerPage: 20,currentPage: pUser};let i = index">
-                    <tr >
-                        <td>{{i+1}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.type}}</td>
-                        <td>{{item.number}}</td>
-                        <td>{{item.number}}</td>
-                       
-                    </tr>
-                 
-                   
-            </tbody>
-          
-          </table>
-              <div class="d-flex py-3">
-            <pagination-controls class="ms-auto"
-                  id="pUser"
-                  previousLabel=""
-                  nextLabel=""
-                  (pageChange)="pUser = $event">
-            </pagination-controls>
-          </div>
-        </div>
+
 
     </div>
 
-    
+    <div class="body-table">
+
+      <table class=" w-100  ">
+        <thead class="table-head">
+          <tr>
+            <th rowspan="2" style="width: 50px;">STT</th>
+            <th rowspan="2">Lô</th>
+
+            <th rowspan="2">Sản phẩm</th>
+
+            <th colspan="2">Số lượng</th>
+
+
+          </tr>
+          <tr>
+            <th>Bao</th>
+            <th>Tấn</th>
+          </tr>
+
+        </thead>
+        <tbody
+          *ngFor="let item of dataLot| paginate : { id: 'pUser' , itemsPerPage: 20,currentPage: pUser};let i = index">
+          <tr>
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.number}}</td>
+            <td>{{item.number}}</td>
+
+          </tr>
+
+
+        </tbody>
+
+      </table>
+      <div class="d-flex py-3">
+        <pagination-controls class="ms-auto" id="pUser" previousLabel="" nextLabel="" (pageChange)="pUser = $event">
+        </pagination-controls>
+      </div>
+    </div>
+
+  </div>
+
+
 </div>

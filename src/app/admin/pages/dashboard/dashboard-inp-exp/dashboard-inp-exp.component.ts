@@ -43,6 +43,8 @@ export class DashboardInpExpComponent implements OnInit {
     this.pinnerToggle = true
 
     let param:any = `begin=${data.startDate}&end=${data.endDate}`
+    console.log('param',param);
+    
 
       // ---- xuất tiêu thụ theo sp ------ 
       this.apiService.get(`http://office.stvg.vn:51008/api/WareHouseLDA/thongkexuattieuthutheosanpham?${param}`).subscribe(
@@ -66,7 +68,7 @@ export class DashboardInpExpComponent implements OnInit {
           arrAluminSlice.forEach((element:any) => {
             let item:any = {}
             item.date = element.ngay.substring(0,2)
-            item.value = element.data
+             item.value = (element.data/1000)
             this.sumAluminXTT += item.value 
             this.dataXTTAlumin.push(item)
           })
@@ -75,7 +77,7 @@ export class DashboardInpExpComponent implements OnInit {
           arrHydratSlice.forEach((element:any) => {
             let item:any = {}
             item.date = element.ngay.substring(0,2)
-            item.value = element.data
+             item.value = element.data
             this.sumHydratXTT += item.value 
           this.dataXTTHydrat.push(item)
         })
@@ -83,8 +85,8 @@ export class DashboardInpExpComponent implements OnInit {
           {product:'Alumin 1 tấn',amount:this.sumAluminXTT},
           {product:'Hydrat 1 tấn',amount:this.sumHydratXTT}
         ] 
-        console.log('XTT Alumin ',this.dataXTTAlumin);
-        console.log('XTT Hydrat ',this.dataXTTHydrat);
+        console.log('XTT Alumin ',this.dataXTTAlumin.toFixed(3));
+        console.log('XTT Hydrat ',this.dataXTTHydrat.toFixed(3));
       }
       )
 
@@ -110,15 +112,15 @@ export class DashboardInpExpComponent implements OnInit {
           arrAluminSlice.forEach((element:any) => {
             let item:any = {}
             item.date = element.ngay.substring(0,2)
-            item.value = element.data
-            this.sumAluminSX += item.value 
+             item.value = (element.data/1000)
+            this.sumAluminSX += (item.value)
             this.dataSXAlumin.push(item)
           })
           arrHydratSlice.forEach((element:any) => {
             let item:any = {}
             item.date = element.ngay.substring(0,2)
-            item.value = element.data
-            this.sumHydratSX += item.value 
+             item.value = (element.data/1000)
+             this.sumHydratSX += (item.value)
             this.dataSXHydrat.push(item)
           })
           this.dataTotalSX = [

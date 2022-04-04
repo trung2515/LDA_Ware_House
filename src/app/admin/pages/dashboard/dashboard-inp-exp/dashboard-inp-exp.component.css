@@ -69,5 +69,8 @@
       display: flex;
       justify-content:center ;
     }
+    .char-page{
+      width: 100%;
+    }
   }
   
