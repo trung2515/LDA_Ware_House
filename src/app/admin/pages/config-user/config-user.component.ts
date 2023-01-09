@@ -15,6 +15,7 @@ export class ConfigUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData()
+    this.getImg()
   }
   listUser:any = []
   popAdd:boolean =false
@@ -75,5 +76,12 @@ export class ConfigUserComponent implements OnInit {
     this.newUser={}
     this.inforUser={}
   }
-
+  getImg(){
+    this.apiService.get('https://office.stvg.vn:50302/StvgFile/image?code=746573747c363337383531393732373639313034303833').subscribe(
+      (data:any) => {
+        console.log(data);
+        
+      }
+    )
+  }
 }

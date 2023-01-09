@@ -12,6 +12,7 @@ export class ReportLotComponent implements OnInit {
 
   ngOnInit(): void {
     this.getdata()
+    
   }
   dataLot:any =[]
   pUser:number =1
@@ -25,5 +26,13 @@ export class ReportLotComponent implements OnInit {
         
       }
       )
+  }
+  getImg(){
+    this.apiService.get('https://office.stvg.vn:50302/StvgFile/image?code=746573747c363337383531393732373639313034303833').subscribe(
+      (data:any) => {
+        console.log(data);
+        
+      }
+    )
   }
 }
